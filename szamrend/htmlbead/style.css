@@ -1,0 +1,108 @@
+html 
+{
+    font-family: Own;
+    height: 100%;
+}
+
+body 
+{
+    background: white;
+    margin: 0;
+}
+
+#racetrack
+{
+	max-width: 80%;
+	height: auto;
+}
+
+#maintitle 
+{
+    margin-top: 5px;
+    margin-bottom: 5px;
+    color: white;
+    font-size: 4vw;
+	margin: 0;
+}
+
+#navBar 
+{
+    position: relative;
+    background-color: black;
+    margin: 0;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    box-shadow:rgb(0, 0, 0) 0px 3px 20px;
+    z-index:100;
+}
+
+#contentPage 
+{
+    background-color: rgb(70, 75, 80);
+    width: 60%;
+    position: relative;
+    margin: auto;
+    padding: 30px;
+    text-align: center;
+    color: rgb(255, 255, 255);
+}
+
+#footer 
+{
+    background-color: black;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 20px;
+    color: white;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 15px;
+}
+
+a 
+{
+    text-decoration: none;
+    color: lightseagreen;
+}
+
+table.race {
+  border: 3px solid #000000;
+  background-color: #EEEEEE;
+  width: 100%;
+  text-align: center;
+  border-collapse: collapse;
+  color: black;
+}
+table.race td, table.race th {
+  border: 1px solid #AAAAAA;
+  padding: 3px 4px;
+}
+table.race tbody td {
+  font-size: 13px;
+}
+table.race thead {
+  background: #000000;
+  background: -moz-linear-gradient(top, #404040 0%, #191919 66%, #000000 100%);
+  background: -webkit-linear-gradient(top, #404040 0%, #191919 66%, #000000 100%);
+  background: linear-gradient(to bottom, #404040 0%, #191919 66%, #000000 100%);
+}
+table.race thead th {
+  font-size: 15px;
+  font-weight: bold;
+  color: #FFFFFF;
+  text-align: center;
+}
+table.race tfoot td {
+  font-size: 14px;
+}
+table.race tfoot .links {
+  text-align: right;
+}
+table.race tfoot .links a{
+  display: inline-block;
+  background: #1C6EA4;
+  color: #FFFFFF;
+  padding: 2px 8px;
+  border-radius: 5px;
+}

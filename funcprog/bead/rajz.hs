@@ -1,0 +1,1 @@
+union[fill (rect 16 4) (red) <|> fill (move (circle 1.5) (-5,-2)) (gray) <|> fill (move (circle 1.5) (5,-2)) (gray) <|> fill (move (rect 6 3) (0,3.5)) (blue)]
