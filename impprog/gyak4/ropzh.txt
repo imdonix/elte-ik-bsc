@@ -1,0 +1,17 @@
+Mit ír ki a képernyõre a következõ C kód?
+
+
+#include <stdio.h>
+
+
+int main()
+{
+    int idx;
+    for (idx = 1; idx < 10; idx = idx + 2)
+    {
+        printf("%i\n", idx);
+    }
+    printf("idx = %i\n", idx);
+    return 0;
+}
+

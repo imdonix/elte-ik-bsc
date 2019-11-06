@@ -1,0 +1,23 @@
+1. Mi a végeredmény típusa C-ben?
+
+1/2 + 10.0/3
+
+(A) int
+(B) long int
+(C) float
+(D) double
+
+megoldás: D
+
+2. Melyik deklarációnak felel meg a következõ?
+
+elõjeles hosszú egészt (long int) visszaadó függvény, amely egy sztringet,
+egy karaktert és egy elõjel nélküli egész számot fogad paraméterként
+
+(A) long long foo(char str[], int i1, int i2) {}
+(B) unsigned long int foo(char str[], char ch, unsigned int i) {}
+(C) long int foo(char str[], char ch, unsigned int i) {}
+(D) void foo(string str, char ch, unsigned u) {}
+
+megoldás: C
+

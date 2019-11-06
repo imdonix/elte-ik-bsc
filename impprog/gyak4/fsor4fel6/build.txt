@@ -1,0 +1,41 @@
+
+1.
+a fel6 program két fordítási egységbõl áll: fel6.c és func.c
+fordítási egység: olyan forrásfájl, amely önállóan lefordítható
+a forrásfájl ilyen szervezésének több elõnye is lehet:
+- a forráskód strukturáltabb, átláthatóbb
+- valamilyen okból nem akarjuk az összes forrásfájlt újrafordítani egyszerre
+(pl túl nagy a kódbázis)
+- a fordítási egység lefordított binárisa (.o fájl) a továbbiakban a
+forráskód megléte nélkül is szerkeszthetõ (linkelhetõ)
+
+
+2.
+a fel6 program build-elése egyetlen gcc hívással:
+
+gcc fel6.c func.c -o fel6.out
+
+ilyenkor a fel6.c és func.c állományokból külön-külön keletkezik egy lefordított
+tárgykód (ez a folyamatrész a fordítás (compiling)), majd a linker összeszerkeszti
+ezt a 2 fájlt egyetlen futtatható programmá (linking)
+(a folyamat közben keletkezõ temporális fájlokat nem látjuk a könyvtárban:
+a gcc vagy törli õket, vagy máshol hozza létre)
+
+a gcc program a megfelelõ paraméterekkel meghívja a fordítót (cc1) és a linkert (ld)
+
+
+3.
+a fel6 program fordítási egységeinek fordítása külön-külön:
+
+a gcc -c kapcsolójával el lehet érni, hogy a gcc ne linkelje, hanem csak fordítsa
+az inputfájlokat
+
+gcc fel6.c -o fel6.o -c
+gcc func.c -o func.o -c
+
+így kapunk fel6.o és func.o binárisokat, amelyek még nem futtatható programok
+(az ilyen fájloknak általában .o kiterjesztést szoktak adni)
+
+gcc fel6.o func.o -o fel6.out
+
+a fel6.out fájl már futtatható bináris
