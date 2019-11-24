@@ -1,17 +1,26 @@
 
 
 #include <stdio.h>
-#include <math.h>
+
+
+int length(char str[])
+{
+    /*int i; // for ciklussal
+    for (i = 0; str[i] != '\0'; i++)
+    {
+    }
+    return i;*/
+    int i = 0; // while ciklussal
+    while (str[i] != '\0')
+    {
+        i++;
+    }
+    return i;
+}
 
 
 int main()
 {
-    float a, b;
-    printf("Írjon be egy alapot: ");
-    scanf("%f", &a);
-    printf("Írjon be egy kitevõt: ");
-    scanf("%f", &b);
-    printf("Eredmény: %f\n", pow(a, b));
-    return 0;
+    printf("%i\n", length("test"));
 }
 
