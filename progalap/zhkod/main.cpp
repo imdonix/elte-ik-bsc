@@ -29,7 +29,7 @@ int main()
 
     //A feladat
     int i = 1;
-    while( i <= N && szavazatok[i] != i)
+    while( i <= N && !(szavazatok[i] == i))
         i = i + 1;
     bool VanNemSzavazo = i<=N;
 
