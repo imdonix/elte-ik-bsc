@@ -1,0 +1,83 @@
+Tesztkérdések
+
+
+1. Mi található meg az aktivációs rekordon? Melyik állítás igaz az alábbiak közül?
+
+[helyes] Egy függvényben létrehozott lokális változók találhatóak meg az aktivációs rekordon.
+A megvásárolt fordítóprogramunk aktivációs kódja van az aktivációs rekordon.
+Azokat a memóriacímeket tároljuk az aktivációs rekordon, amiket még fel kell szabadítanunk
+a free függvénnyel.
+A beimportált moduljaink vannak az aktivációs rekordon.
+
+2. Mit ad vissza a következő C függvény?
+
+int f() {
+  int i = 3;
+  return (i,i,i,++i,i,i++);
+}
+
+[helyes] 4
+5
+3
+(3,3,3,4,3,4) rendezett n-est (tuple)
+
+3. Mi p és q típusa a következő deklaráció esetén?
+
+int* p, q;
+
+p int*, q int*
+p int, q int*
+[helyes] p int*, q int
+p int, q int
+
+4. Adott a következő struktúra-definíció:
+
+struct Point {
+ int x, y;
+};
+
+Melyik deklaráció a helyes az alábbiak közül?
+
+[helyes] struct Point p;
+Point p;
+typedef Point p;
+Point.x p;
+A deklaráció szintaktikailag hibás.
+
+5. Az alábbiak közül melyik helyes módja a következő struktúrából létrehozott
+változó inicializációjának?
+
+typedef struct Date
+{
+    int year;
+    int month;
+    int day;
+} Date;
+
+[helyes] Date today = { 2019, 12, 4 };
+[helyes] Date yesterday = { .month = 12, .day = 3 };
+[helyes] Date randomDate;
+
+6. Az alább felsorolt kifejezések közül melyik balérték?
+
+&n
+[helyes] *p
+j++
+-n
+
+7. Az alább felsorolt kifejezések közül melyik (kizárólag) jobbérték?
+
+[helyes] &n
+*p
+m
+v[i]
+
+8. Az alábbi kifejezések közül melyik foglal helyesen egy 10 elemű egész
+tömb számára elegendő memóriát az int* v változó által mutatott területre?
+
+v = malloc(10);
+v = malloc(10)*sizeof(int);
+for (int i = 0; i < 10; ++i) { v = malloc(sizeof(int)); }
+[helyes] v = malloc(10*sizeof(int));
+
+

@@ -1,0 +1,101 @@
+Imperatív programozás 2. mintazh
+
+
+Tesztkérdések
+
+1. Adott egy prog nevű program az alábbi main függvénnyel:
+
+int main(int argc) {
+  printf("%d\n", argc);
+  return 0;
+}
+
+Mit ír ki a program, ha így hívjuk: ./prog a b c 
+
+[mo: 4]
+
+2. Az alábbiak közül mely inicializációja helyes egy karakterlánc változónak?
+
+[helyes] char str[] = "Hello";
+[helyes] char str[] = {'H', 'e', 'l', 'l', 'o', '\0'};
+[helyes] char str[] = {"Hello"};
+[helyes] const char* str = "Hello";
+
+3. Mit ír ki az alábbi program?
+
+char name[] = "Joe";
+if (name == "Joe") {
+  printf ("This is Joe.\n");
+} else {
+  printf("This is someone else.\n");
+}
+
+This is Joe.
+[helyes] This is someone else.
+A program működése nem definiált, a megadott szövegek közül bármelyiket kiírhatja.
+A name == "Joe" összehasonlítás fordítási hibát okoz.
+
+4. Mi az alábbi karakterlánc-összehasonlítás eredménye:
+strcmp("Jancsi","Julcsa")
+
+[helyes] Negatív szám.
+Nulla.
+Pozitív szám.
+Nem meghatározott, bármi lehet.
+
+5. Melyik állítás igaz az alábbiak közül, ha adott az alábbi karakterlánc-deklaráció:
+
+char s[] = "Hello";
+
+sizeof(s) == strlen(s)
+[helyes] sizeof(s) > strlen(s)
+sizeof(s) < strlen(s)
+
+6. Melyik függvényhívás fordul le warning-ok nélkül az alábbiak közül, ha a függvény a
+következőképpen van elődeklarálva:
+
+void hello();
+
+[helyes] Mindegyik.
+hello();
+hello("string");
+hello(1);
+
+7. Melyik alprogrammal szabadítjuk fel a dinamikusan, malloc függvény segítségével
+allokált memóriát?
+
+delete
+Dispose
+[helyes] free
+C-ben a szemétgyűjtő mechanizmusra (garbage collector) bízzuk a dinamikus memória felszabadítását.
+
+8. Mi a header guard, hogyan használjuk?
+
+
+Programozási feladat
+
+Készítsen egy programot, amely egy 50 elemszámú egész számokat tartalmazó tömböt a számok paritása
+szerint szétválogatja két másik tömbbe. Arról nincs információnk, hogy hány páros és páratlan szám
+lehetséges, előfordulhat, hogy csupa páros, vagy csupa páratlan bemenetünk van, így az eredmény
+tömb legyen ezekre az esetekre is megfelelő méretű!
+
+A tömböket a main-ben hozza létre statikus méretű tömbként, és töltse fel tetszőleges adatokkal.
+A szétválogatás után a páros és a páratlan tömb elemeit jól láthatóan elkülönítve a standard
+kimenetre írja.
+
+Jobb jegyért
+
+Az algoritmus implementációja legyen paraméterezhető: a szétválogatás csak a bemenő tömb első k
+elemére hajtódjon végre, de azokra helyesen. A main-ben létrehozott tömb továbbra is 50 méretű marad!
+
+Tegye lehetővé, hogy a bemenet tömb elemeit (a darabszám még mindig 50) a felhasználó a standard
+inputról adja meg!
+
+A programot bontsa több fordítási egységre: az algoritmus implementációja (a szétválogatás),
+a beolvasás-kiírás műveletei, valamint a main külön-külön fordítási egységbe kerüljön. A programhoz
+tartozzon megfelelően elkészített fejlécállomány is!
+
+A tömbök létrehozását és felszabadítását végezze el a dinamikus memóriakezelés fejezeteiben
+tanultak alkalmazásával. Az eredeti, szétválogatandó tömb mérete futási időben legyen ismert,
+a felhasználótól megkérdezett érték.
+
