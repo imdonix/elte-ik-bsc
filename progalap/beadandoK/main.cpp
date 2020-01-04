@@ -7,45 +7,84 @@
     Egy napon az a leghűvösebb település, amelyre azon a napon a legkisebb hőmérsékletet jósolják.
     Készíts programot, amely azokat a napokat, amelyeken a leghűvösebb településen a lehető legnagyobb az előre jelzett hőmérséklet!
 */
-#include <iostream> //Standart Input/Output
-#include <string> //String összefűzés
 
-//#define BIRO
+#include <iostream> //Standart Input/Output
+#include <sstream> //Stringstream a kiírások miatt
+
+#define BIRO
 
 using namespace std;
 
-void readOne(int *num, string text, int min, int max);
-void ReadAllAndSelectMax(int *tempetures, int N, int M);
-int getMaximum(int tempetures[], int length);
-void sortOut(int tempetures[], int M, int hotcolds[], int *db, int max);
-void writeOut(int hotcolds[], int M);
+typedef short int SInt;
+
+const SInt MAX = 1000;
+
+void readOne(SInt *num, string text, int min, int max);
+void GetColdestDays(SInt tempetures[][MAX], SInt N, SInt M, SInt colds[]);
+int GetMax(SInt colds[], SInt M);
+void SortOutByValue(SInt colds[], SInt M, SInt hotcolds[], SInt *db, SInt max);
 
 int main()
 {
     ios_base::sync_with_stdio(false);
 
-    int N,M;
+    SInt N,M;
     readOne(&N, "Add meg a telepulesek szamat: ", 1, 1000);
     readOne(&M, "Add meg a napok szamat: ", 1, 1000);
 
-    int tempetures[M];
-    int hotcolds[M];
-    int db = 0;
+    SInt tempetures[N+1][MAX];
+    SInt colds[M+1];
+    SInt hotcolds[M+1];
+    SInt db;
 
-    ReadAllAndSelectMax(tempetures, N,M);
-    sortOut(tempetures, M, hotcolds, &db, getMaximum(tempetures, M));
-    writeOut(hotcolds, db);
+    //beolvasás
+    for(int x=1;x<=N;++x)
+        for(int y=1;y<=M;++y)
+        {
+            #ifdef BIRO
+                readOne(&tempetures[x][y], "", -50, 50);
+            #else
+                string str;
+                stringstream ss;
+                ss.str("");
+                ss << "Add meg a(z) "; ss << x;
+                ss << ". napot a(z) "; ss << y;
+                ss << ". telepulesen mert adatot: ";
+                getline(ss, str);
+                readOne(&tempetures[x][y], str, -50, 50);
+            #endif
+        }
+
+    //feldolgozás
+    GetColdestDays(tempetures, N, M, colds);
+    SortOutByValue(colds, M, hotcolds, &db, GetMax(colds, M));
+
+
+    //kiírása
+    #ifdef BIRO
+        cout << db;
+        for(int x=1;x<=db;++x)
+            cout << " " << hotcolds[x];
+    #else
+        cout << db;
+        cout << " db napon a leghuvosebb telepulesen a leheto legnagyobb az elore jelzett homerseklet" << endl << "Ezen a napok sorszamai: ";
+        for(int x=1;x<=db;++x)
+            cout << " " << hotcolds[x] << ".";
+    #endif
 
     return 0;
 }
 
-void readOne(int *num, string text, int min, int max)
+//alprogramok
+
+void readOne(SInt *num, string text, int min, int max)
 {
     #ifdef BIRO
         cin >> *num;
     #else
         cout << text;
-        while(!(cin >> *num) || *num > max || *num < min){
+        while(!(cin >> *num) || *num > max || *num < min)
+        {
             cin.clear();
             cin.ignore(1000, '\n');
             cout << "Hibasan adta meg az adatot, kerem probalja ujra: ";
@@ -53,49 +92,30 @@ void readOne(int *num, string text, int min, int max)
     #endif
 }
 
-void ReadAllAndSelectMax(int *tempetures, int N, int M)
+void GetColdestDays(SInt tempetures[][MAX], SInt N, SInt M, SInt colds[])
 {
-    int temp;
-    for(int x=0;x<N;++x)
-        for(int y=0;y<M;++y)
-        {
-            #ifdef BIRO
-                readOne(&temp, "", -50, 50);
-            #else
-                readOne(&temp, "Add meg a(z) " + to_string(x+1) + ". napot a(z) " + to_string(y+1) + ". telepulesen mert adatot: ", -50, 50);
-            #endif
+    for(int y=1;y<=M;++y)
+        colds[y] = tempetures[1][y];
 
-            if(tempetures[y]>temp || x==0)
-                tempetures[y] = temp;
-        }
+    for(int x=2;x<=N;++x)
+        for(int y=1;y<=M;++y)
+            if(tempetures[x][y] < colds[y])
+                colds[y] = tempetures[x][y];
 }
 
-int getMaximum(int tempetures[], int length)
+int GetMax(SInt colds[], SInt M)
 {
-    int max = tempetures[0];
-    for(int x=1;x<length;++x)
-        if(tempetures[x] > max)
-            max = tempetures[x];
+    SInt max = colds[1];
+    for(int x=2;x<=M;++x)
+        if(colds[x] > max)
+            max = colds[x];
     return max;
 }
 
-void sortOut(int tempetures[], int M, int hotcolds[], int *db, int max)
+void SortOutByValue(SInt colds[], SInt M, SInt hotcolds[], SInt *db, SInt max)
 {
-    for(int x=0;x<M;x++)
-        if(tempetures[x] == max)
-            hotcolds[(*db)++] = x;
-}
-
-void writeOut(int hotcolds[], int M)
-{
-    #ifdef BIRO
-        cout << M;
-        for(int x=0;x<M;++x)
-            cout << " " << (hotcolds[x]+1);
-    #else
-        cout << M;
-        cout << " napon a leghuvosebb telepulesen a leheto legnagyobb az elore jelzett homerseklet, ezek a napok: " << endl;
-        for(int x=0;x<M;++x)
-            cout << " " << (hotcolds[x]+1) ;
-    #endif
+    *db = 0;
+    for(int x=1;x<=M;++x)
+        if(colds[x] == max)
+            hotcolds[++(*db)] = x;
 }
