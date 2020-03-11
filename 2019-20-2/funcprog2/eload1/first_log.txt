@@ -1,0 +1,169 @@
+toth_m@pc3-19:~$ cd Asztal/fp2/
+toth_m@pc3-19:~/Asztal/fp2$ erl
+Erlang/OTP 21 [erts-10.2.4] [source] [64-bit] [smp:4:4] [ds:4:4:10] [async-threads:1]
+
+Eshell V10.2.4  (abort with ^G)
+1> c(first).
+{ok,first}
+2> c(first).
+./first.beam: Module name 'firtst' does not match file name 'first'
+error
+3> c(first).
+{ok,first}
+4> 1+2.
+3
+5> 1
+5> .
+1
+6> 1
+6> + 2.
+3
+7> 1+alma.
+** exception error: an error occurred when evaluating an arithmetic expression
+     in operator  +/2
+        called as 1 + alma
+8> 
+BREAK: (a)bort (c)ontinue (p)roc info (i)nfo (l)oaded
+       (v)ersion (k)ill (D)b-tables (d)istribution
+c
+
+8> 
+BREAK: (a)bort (c)ontinue (p)roc info (i)nfo (l)oaded
+       (v)ersion (k)ill (D)b-tables (d)istribution
+^Ctoth_m@pc3-19:~/Asztal/fp2$ erl
+Erlang/OTP 21 [erts-10.2.4] [source] [64-bit] [smp:4:4] [ds:4:4:10] [async-threads:1]
+
+Eshell V10.2.4  (abort with ^G)
+1> q().
+ok
+2> toth_m@pc3-19:~/Asztal/fp2$ erl
+Erlang/OTP 21 [erts-10.2.4] [source] [64-bit] [smp:4:4] [ds:4:4:10] [async-threads:1]
+
+Eshell V10.2.4  (abort with ^G)
+1> 
+BREAK: (a)bort (c)ontinue (p)roc info (i)nfo (l)oaded
+       (v)ersion (k)ill (D)b-tables (d)istribution
+^Ctoth_m@pc3-19:~/Asztal/fp2$ cd ..
+toth_m@pc3-19:~/Asztal$ cd ..
+toth_m@pc3-19:~$ 
+toth_m@pc3-19:~$ erl
+Erlang/OTP 21 [erts-10.2.4] [source] [64-bit] [smp:4:4] [ds:4:4:10] [async-threads:1]
+
+Eshell V10.2.4  (abort with ^G)
+1> pwd().
+/afs/inf.elte.hu/user/t/to/toth_m
+ok
+2> cd("./Asztal/fp2").
+/afs/inf.elte.hu/user/t/to/toth_m/Asztal/fp2
+ok
+3> pwd().
+/afs/inf.elte.hu/user/t/to/toth_m/Asztal/fp2
+ok
+4> c(first).
+{ok,first}
+5> cd("./Asztal/fp2") == ok.
+/afs/inf.elte.hu/user/t/to/toth_m/Asztal/fp2
+true
+6> c(first).                
+first.erl:3: Warning: function zero/0 is unused
+first.erl:5: Warning: function add/2 is unused
+{ok,first}
+7> c(first).
+first.erl:3: Warning: function zero/0 is unused
+first.erl:5: Warning: function add/1 is unused
+first.erl:7: Warning: function add/2 is unused
+{ok,first}
+8> first:zero().
+** exception error: undefined function first:zero/0
+9> c(first).    
+first.erl:8: Warning: function add/2 is unused
+{ok,first}
+10> c(first). 
+{ok,first}
+11> c(first).
+{ok,first}
+12> first:atom(alma).
+ok
+13> first:atom(korte).
+** exception error: no function clause matching first:atom(korte) (first.erl, line 4)
+14> alma == korte.
+false
+15> c(first).         
+first.erl:5: Warning: variable 'Alma' is unused
+{ok,first}
+16> first:atom(alma).ű
+* 1: illegal character
+16> first:atom(alma). 
+ok
+17> first:atom(korte).
+nok
+18> 2#101.
+5
+19> a.
+a
+20> "alma".
+"alma"
+21> $a.
+97
+22> "alma" == [$a, $l, $m, $a].
+true
+23> "alma" == [a, l, m, a].    
+false
+24> $l.                        
+108
+25> $m.
+109
+26> "alma" == [97, 108, 109, 9].
+false
+27> "alma" == [97, 108, 109, 97].
+true
+28> List = [1,2,3].
+[1,2,3]
+29> [12 | List].
+[12,1,2,3]
+30> [12,23,4,5,6, alma | List].
+[12,23,4,5,6,alma,1,2,3]
+31> [12,23,4,5,6, alma | 12].   
+[12,23,4,5,6,alma|12]
+32> S = 12.
+12
+33> [12,23,4,5,6, alma | S]. 
+[12,23,4,5,6,alma|12]
+34>  [97, 108, 109, 97].         
+"alma"
+35>  [97, 108, 109, 97,0].
+[97,108,109,97,0]
+36> [0 | v(35)]           
+36> .
+[0,97,108,109,97,0]
+37> v(35).
+[97,108,109,97,0]
+38> X = v(35).
+[97,108,109,97,0]
+39> f(X).
+ok
+40> X.
+* 1: variable 'X' is unbound
+41> X = 1.
+1
+42> X.    
+1
+43> [{alma, 1}, {korte, 2}].
+[{alma,1},{korte,2}]
+44> [{alma, 1}, {korte, 2}, {szilva, 4}].
+[{alma,1},{korte,2},{szilva,4}]
+45> #{alma => 1, korte => 2, szilva => 4}.
+#{alma => 1,korte => 2,szilva => 4}
+46> Map = v(45).
+#{alma => 1,korte => 2,szilva => 4}
+47> Map.
+#{alma => 1,korte => 2,szilva => 4}
+48> Map#{korte => 13}.
+#{alma => 1,korte => 13,szilva => 4}
+49> Map.
+#{alma => 1,korte => 2,szilva => 4}
+50> #{korte := Val} = Map. 
+#{alma => 1,korte => 2,szilva => 4}
+51> Val.
+2
+52> 
