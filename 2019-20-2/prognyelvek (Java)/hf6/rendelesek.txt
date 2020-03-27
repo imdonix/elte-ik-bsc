@@ -1,0 +1,4 @@
+32:cheese
+16:cheese,corn,mushroom,salami,tomato
+5:cheese,corn,mushroom,salami,tomato,fish,mushroom,beef,cheese
+120:ilyennincs
