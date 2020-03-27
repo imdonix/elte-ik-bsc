@@ -1,0 +1,133 @@
+Last login: Thu Mar 26 19:32:42 on ttys002
+melindatoth@melindas-mbp ~ % cd Desktop/fp2
+melindatoth@melindas-mbp fp2 % ls
+first.erl		slide_01 (1).pdf	slide_06.pdf
+first_log.txt		slide_02 (1).pdf	slide_07.pdf
+second.beam		slide_03.pdf		third.beam
+second.erl		slide_04.pdf		third.erl
+second_log.txt		slide_05.pdf		third_log.txt
+melindatoth@melindas-mbp fp2 % erl
+Erlang/OTP 22 [erts-10.6.1] [source] [64-bit] [smp:4:4] [ds:4:4:10] [async-threads:1] [hipe] [dtrace]
+
+Hello Melinda
+Eshell V10.6.1  (abort with ^G)
+1> c(fourth).
+fourth.erl:19: variable 'F' is unbound
+fourth.erl:2: Warning: export_all flag enabled - all functions will be exported
+fourth.erl:10: Warning: variable 'Fun' is unused
+fourth.erl:16: Warning: variable 'Sum' is unused
+error
+2> c(fourth).
+fourth.erl:2: Warning: export_all flag enabled - all functions will be exported
+fourth.erl:10: Warning: variable 'Fun' is unused
+{ok,fourth}
+3> fourth:call_lambda2(12).
+78
+4> fourth:call_lambda(12). 
+78
+5> fourth:sum(12).        
+78
+6> E = 12.
+12
+7> E = 13.
+** exception error: no match of right hand side value 13
+8> 12 = 13.
+** exception error: no match of right hand side value 13
+9> c(fourth).              
+fourth.erl:2: Warning: export_all flag enabled - all functions will be exported
+fourth.erl:9: Warning: variable 'H' is unused
+fourth.erl:11: Warning: variable 'E' is unused
+fourth.erl:21: Warning: variable 'Fun' is unused
+{ok,fourth}
+10> c(fourth).
+fourth.erl:2: Warning: export_all flag enabled - all functions will be exported
+fourth.erl:21: Warning: variable 'Fun' is unused
+{ok,fourth}
+11> c(fourth).
+fourth.erl:2: Warning: export_all flag enabled - all functions will be exported
+{ok,fourth}
+12> c(fourth).
+fourth.erl:2: Warning: export_all flag enabled - all functions will be exported
+{ok,fourth}
+13> fourth:freq("abgfds").
+[1,1,1,1,1,1]
+14> c(fourth).            
+fourth.erl:2: Warning: export_all flag enabled - all functions will be exported
+{ok,fourth}
+15> fourth:freq("abgfds").
+[{97,1},{98,1},{103,1},{102,1},{100,1},{115,1}]
+16> $a.
+97
+17> fourth:freq("alma").  
+[{97,2},{108,1},{109,1},{97,1}]
+18> c(fourth).            
+fourth.erl:22: syntax error before: 'end'
+fourth.erl:15: function freq3/2 undefined
+fourth.erl:2: Warning: export_all flag enabled - all functions will be exported
+error
+19> c(fourth).
+fourth.erl:18: illegal guard expression
+fourth.erl:2: Warning: export_all flag enabled - all functions will be exported
+error
+20> c(fourth).
+fourth.erl:2: Warning: export_all flag enabled - all functions will be exported
+{ok,fourth}
+21> fourth:freq3("alma").
+** exception error: no function clause matching fourth:freq3([],"mla") (fourth.erl, line 24)
+     in function  fourth:freq3/2 (fourth.erl, line 27)
+     in call from fourth:freq3/2 (fourth.erl, line 27)
+22> c(fourth).           
+fourth.erl:2: Warning: export_all flag enabled - all functions will be exported
+{ok,fourth}
+23> fourth:freq3("alma").
+[{97,2},{108,1},{109,1}]
+24> #{$a => 12, $b => 13}.
+#{97 => 12,98 => 13}
+25> Map = #{$a => 12, $b => 13}.
+#{97 => 12,98 => 13}
+26> #{$a : = Value} = Map.
+* 1: syntax error before: '='
+26> #{$a := Value} = Map. 
+#{97 => 12,98 => 13}
+27> Value.
+12
+28> Map#{$a => Value + 1}.
+#{97 => 13,98 => 13}
+29> c(fourth).                  
+fourth.erl:2: Warning: export_all flag enabled - all functions will be exported
+{ok,fourth}
+30> fourth:freq4("alma").       
+** exception error: undefined function fourth:freq4/1
+31> fourth:freq4("alma", #{}).
+#{97 => 2,108 => 1,109 => 1}
+32> maps:to_list(Map).
+[{97,12},{98,13}]
+33> c(fourth).                
+fourth.erl:2: Warning: export_all flag enabled - all functions will be exported
+{ok,fourth}
+34> fourth:freq4("alma", #{}).
+[{97,2},{108,1},{109,1}]
+35> c(fourth).                
+fourth.erl:2: Warning: export_all flag enabled - all functions will be exported
+{ok,fourth}
+36> fourth:freq4("alma", #{}).
+#{97 => 2,108 => 1,109 => 1}
+37> lists:
+all/2          any/2          append/1       append/2       concat/1       
+delete/2       droplast/1     dropwhile/2    duplicate/2    filter/2       
+filtermap/2    flatlength/1   flatmap/2      flatten/1      flatten/2      
+foldl/3        foldr/3        foreach/2      join/2         keydelete/3    
+keyfind/3      keymap/3       keymember/3    keymerge/3     keyreplace/4   
+keysearch/3    keysort/2      keystore/4     keytake/3      last/1         
+map/2          mapfoldl/3     mapfoldr/3     max/1          member/2       
+merge/1        merge/2        merge/3        merge3/3       min/1          
+module_info/0  module_info/1  nth/2          nthtail/2      partition/2    
+prefix/2       reverse/1      reverse/2      rkeymerge/3    rmerge/2       
+rmerge/3       rmerge3/3      rukeymerge/3   rumerge/2      rumerge/3      
+rumerge3/3     search/2       seq/2          seq/3          sort/1         
+sort/2         split/2        splitwith/2    sublist/2      sublist/3      
+subtract/2     suffix/2       sum/1          takewhile/2    ukeymerge/3    
+ukeysort/2     umerge/1       umerge/2       umerge/3       umerge3/3      
+unzip/1        unzip3/1       usort/1        usort/2        zf/2           
+zip/2          zip3/3         zipwith/3      zipwith3/4     
+37>       
