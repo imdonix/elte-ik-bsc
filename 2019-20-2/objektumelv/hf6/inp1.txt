@@ -1,4 +1,13 @@
-1 Csirke 10:15 5 20
-2 Sajt 10:15 20 4
-3 Pulyka 10:15 50 10
-4 Retek 10:15 6 30
+1 Rántott_szelet 15:00 3 1890
+5 Rántott_szelet 15:08 2 1890
+3 Rántott_szelet 15:08 5 1890
+2 Rántott_szelet 16:28 1 1890
+8 Rántott_szelet 17:08 8 1890
+5 Falusi_pacal_pörkölt 04:50 5 2490
+2 Falusi_pacal_pörkölt 06:30 8 2490
+7 Falusi_pacal_pörkölt 12:00 7 2490
+2 Falusi_pacal_pörkölt 14:23 1 2490
+5 Falusi_pacal_pörkölt 16:45 6 2490
+7 Meggyleves 14:07 3 790
+2 Meggyleves 14:43 1 790
+5 Meggyleves 16:15 2 790
