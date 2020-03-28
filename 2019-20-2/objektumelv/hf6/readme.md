@@ -1,0 +1,3 @@
+# Kötelező házi feladat
+- Egy étteremben a pincérek által felvett rendeléseket egy szöveges állományban tartják nyilván az ételek neve, azon belül a rendelések
+időpontja szerint rendezett formában. Feltehetjük, hogy a fájl nem üres. Egy rendelés az asztal sorszámából, a rendelt étel nevéből (sztring), a rendelés időpontjából (sztring), rendelt adagok számából (természetes szám), egy adag árából (természetes szám) áll. Melyik étel hozta az étteremnek a legtöbb bevételt (összesített darab*egységár)? 
