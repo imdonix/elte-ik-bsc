@@ -1,0 +1,6 @@
+IMIBA Tiszato0610 catfish 51 carp 52
+IMIBA Kiliti0512 carp 55  carp 53
+IMIBA Szeged0807 catfish 53 carp 48 catfish 96
+JANIBA Kiliti0512 carp 45 catfish 53 catfish 96
+JANIBA Szeged0807 carp 45 castfish 53 castfish 96
+ZOLIBA Szeged0807 catfish 92

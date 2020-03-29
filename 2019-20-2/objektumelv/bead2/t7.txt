@@ -1,0 +1,5 @@
+JANIBA Kiliti0512 carp 45 catfish 53 catfish 96
+JANIBA Szeged0820 catfish 45 catfish 53 catfish 96
+JANIBA Gesztes0906 carp 45 catfish 53 catfish 96
+KARIBA Kiliti0512 carp 45 catfish 53 catfish 96
+KARIBA Szeged0820 carp 45 catfish 53 catfish 96
