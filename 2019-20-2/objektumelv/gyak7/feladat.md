@@ -1,0 +1,2 @@
+# Feladat
+- Egy szekvenciális inputfájlban vadászok adott napi vadászatain elejtett zsákmányait (fajtanév és súly párok formájában) vadászok szerint rendezetten tároljuk. Igaz-e, hogy minden vadász valamelyik vadászatán lőtt medvét?
