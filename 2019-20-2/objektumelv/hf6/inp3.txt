@@ -2,3 +2,4 @@
 1 Csirke 10:16 5 20
 1 Csirke 10:17 5 20
 1 Csirke 10:18 5 20
+1 Steak 10:85 1 50

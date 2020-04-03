@@ -1,6 +1,7 @@
 // 6. kisbeadandó
 // Magyar Tamás
-// 2020-03-28
+// 2020-04-03
+// v2
 
 #include "enor.h"
 
@@ -15,7 +16,13 @@ Enor::Enor(const string &str)
 void Enor::next()
 {
     _end = (abnorm==_sx);
-    if (!_end) read();       
+    if (!_end)
+    {
+        _cur.name = _dx.name;
+        _cur.income = 0;
+        for(;norm==_sx&&_dx.name==_cur.name;read())
+            _cur.income+=f(_dx);
+    } 
 }
 
 void Enor::read()
@@ -24,3 +31,5 @@ void Enor::read()
     if (_x.fail()) _sx = abnorm;
     else _sx= norm;
 }
+
+int Enor::f(Order o){ return o.db*o.price; }

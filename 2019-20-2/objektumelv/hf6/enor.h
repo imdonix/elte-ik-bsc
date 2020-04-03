@@ -1,6 +1,7 @@
 // 6. kisbeadandó
 // Magyar Tamás
-// 2020-03-28
+// 2020-04-03
+// v2
 
 #pragma once
 
@@ -15,6 +16,12 @@ struct Order
     int price;
 };
 
+struct BestOrder
+{
+    std::string name;
+    int income;
+};
+
 enum Status { abnorm, norm };
 
 class Enor
@@ -24,12 +31,14 @@ class Enor
         Enor(const std::string &str);
         void first() { read(); next(); }
         void next();
-        Order current() const { return _dx; }
+        BestOrder current() const { return _cur; }
         bool end() const { return _end; }
     private:
+        int f(Order o);
         std::ifstream _x;
         Order _dx;
         Status _sx;
+        BestOrder _cur;
         bool _end;
         void read();
 };

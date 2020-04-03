@@ -1,6 +1,7 @@
 // 6. kisbeadandó
 // Magyar Tamás
-// 2020-03-28
+// 2020-04-03
+// v2
 
 #include <iostream>
 
@@ -17,14 +18,12 @@ int main()
     //Maximum keresés
 
     t.first();
-    Order elem = t.current();
-    int max = f(t.current());
+    string elem = t.current().name;
+    int max = t.current().income;
     for(t.next();!t.end();t.next())
-        if(f(t.current()) > max)
-            max = f(t.current()), elem = t.current();
+        if(t.current().income > max)
+            max = t.current().income, elem = t.current().name;
 
-    cout << "A legtobbet bevetelt hozo rendeles: " << elem << " osszesen ennyibe kerult: " << max;
+    cout << "A legtobbet bevetelt hozo eltel: " << elem << " osszesen ennyi hozamot termelt: " << max;
     return 0;
 }
-
-int f(Order o){ return o.db*o.price; }
