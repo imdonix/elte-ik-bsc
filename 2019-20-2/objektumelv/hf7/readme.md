@@ -3,7 +3,7 @@
 
 ```
 pizza_teszta liszt 400 g
-pizza_teszta viz 2.5 dl
+pizza_teszta viz 2 dl
 pizza_teszta eleszto 1 csomag
 pizza_teszta so 1 csipet
 palacsinta liszt 250 g
