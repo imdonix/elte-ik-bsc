@@ -8,11 +8,11 @@ Enor::Enor(const std::string &str)
 
 void Enor::next()
 {
-    if ( !(_end = (abnorm==_sx)) ){
+    if ( !(_end = (abnorm==_sx)) )
+    {
         _current.name = _dx.name;
         _current.db = 0;
-        for(; norm==_sx && _dx.name==_current.name; read())
-            _current.db++;
+        for(; norm==_sx && _dx.name==_current.name; read()) _current.db++;
     }
 }
 

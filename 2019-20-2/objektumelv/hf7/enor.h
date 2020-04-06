@@ -5,11 +5,17 @@
 
 enum Status { abnorm, norm };
 
-struct Recipe {
+struct Recipe 
+{
     std::string name;
     std::string ingredient;
     int amount;
     std::string amount_type;
+};
+
+struct RecipeLength 
+{
+    std::string name;
     int db;
 };
 
@@ -20,13 +26,13 @@ class Enor
         Enor(const std::string &str);
         void first() { read(); next(); }
         void next();
-        Recipe current() const { return _current; }
+        RecipeLength current() const { return _current; }
         bool end() const { return _end; }
     private:
         std::ifstream _x;
         Recipe _dx;
         Status _sx;
-        Recipe _current;
+        RecipeLength _current;
         bool _end;
 
         void read();
