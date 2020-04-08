@@ -10,4 +10,10 @@
 algoritmust/programot, amely az első listában létrehozza a feladatában szereplő halmazművelet
 elvégzése utáni eredményt, miközben a második lista elemeit vagy felszabadítja, vagy átfűzi. Az
 algoritmus műveletigénye O(n+m), ahol n az első lista hossza és m a másodiké.
-- Metszet L1 listával
+### Metszet L1 listával
+- Dokumentáció (feladat leírása, nem annyira komoly specifikálása, stuktogram a megoldó algoritmusról)
+- Tesztelési terv: A program tudjon bemenetként egy fájlból olvasni (és kézzel is
+lehessen tesztelni). Készítsetek hozzá olyan bemeneti fájlokat, amelyek lefedik az
+összes kritikus esetet. Mutassátok be így, hogy programotok ezeket hogy kezeli. Ezen
+fájlokat kérem jól rendszerezni majd a beadni kívánt mappában.
+(jók,rosszak,kritikusak) Több példa is legyen!
