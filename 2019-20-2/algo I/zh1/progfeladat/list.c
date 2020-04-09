@@ -1,3 +1,9 @@
+// Algo ZH1 
+// Feladat: Két L1 lista metszete, az első listába képezve.
+// Készítette: Magyar Tamás
+// Dátum: 2020.04.09.
+// Fordító: gcc 7.2.0 Target: x86_64-w64-mingw32
+
 #include <stdlib.h>
 #include "list.h"
 
@@ -38,23 +44,6 @@ E1* out_next(E1* p)
     return q;
 }
 
-//Task
-void interselect(E1* L, E1* M)
-{
-    
-    for(E1* p=L;p->next!=NULL;)
-    {
-        char c=0;
-        for(E1* q=M->next;q!=NULL&&!c; q=q->next)
-            if(p->next->key == q->key) c++;
-
-        if(!c)
-            delete(out_next(p));
-        else
-            p=p->next;
-    }
-}
-
 //Check is the lists are contain the same keys
 int eqv(E1* L, E1* M)
 {
@@ -66,4 +55,20 @@ int eqv(E1* L, E1* M)
             temp++;
     temp+= p!=NULL||q!=NULL; // check length
     return !temp;
+}
+
+//Task
+void interselect(E1* L, E1* M)
+{
+    E1* p=L;
+    E1* q=M;
+    while(p->next!=NULL&&q->next!=NULL)
+        if(p->next->key==q->next->key)
+            delete(out_next(q)), p=p->next;
+        else if(p->next->key>q->next->key)
+            delete(out_next(q));
+        else
+            delete(out_next(p));
+    while(p->next!=NULL) delete(out_next(p));
+    while(q->next!=NULL) delete(out_next(q));
 }

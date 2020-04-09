@@ -1,5 +1,13 @@
+// Algo ZH1 
+// Feladat: Két L1 lista metszete, az első listába képezve.
+// Készítette: Magyar Tamás
+// Dátum: 2020.04.09.
+// Fordító: gcc 7.2.0 Target: x86_64-w64-mingw32
+
 #ifndef LIST_GUARD
 #define LIST_GUARD
+
+#define INP_LENGTH 256
 
 typedef struct E1 
 {
@@ -19,6 +27,6 @@ extern int eqv(E1* L, E1* M);
 //List IO
 extern void printList(E1* L);
 extern int readListsFromFile(char* src, E1** dest, int* length);
-extern E1* parseLine(char* line);
+extern E1* parse(char* line);
 
 #endif
