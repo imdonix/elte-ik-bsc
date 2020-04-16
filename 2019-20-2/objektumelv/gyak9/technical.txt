@@ -1,0 +1,4 @@
+hdmi-kabel 1599
+eger 2999
+billentyuzet 2599
+monitor 35999
