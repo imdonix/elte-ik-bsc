@@ -1,8 +1,19 @@
+#include "register.h"
+#include "car.h"
+
 void Register::pay(Car* car, int slotind)
 {
-    int to_pay = _station->get_slot(slotind)->get_display * _station->get_price();
+    Slot* slot = _station->get_slot(slotind);
+    int filled = slot->get_display();
+    int to_pay = filled * _station->get_price();
     if(car->get_balance() >= to_pay)
+    {
           car->detract(to_pay);
+          car->fill(filled);
+          slot->clear();
+    }
     else
          throw NotEnoughMoney;
 }
+
+Register::Register(Station* stat){ _station = stat;}

@@ -1,9 +1,10 @@
 class Slot
 {
     private:
-        int display;
+        int _display;
     public:
-        Slot(){};
-        int get_display() { return display;};
-        void fill(int amount){ display+=amount; }
+        Slot() : _display(0) {};
+        int get_display() { return _display;}
+        void clear() {_display = 0;}
+        void fill(int amount) { _display+=amount; }
 };

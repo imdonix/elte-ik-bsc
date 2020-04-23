@@ -1,3 +1,6 @@
+#include "Car.h"
+#include <iostream>
+
 void Car::fillup(Station* station, int slotind, int regind, int amount)
 {
     Slot* slot = station->get_slot(slotind);
@@ -5,5 +8,3 @@ void Car::fillup(Station* station, int slotind, int regind, int amount)
     slot->fill(amount);
     reg->pay(this, slotind);
 }
-
-void Car::detract(int amount) { balance-=amount; }

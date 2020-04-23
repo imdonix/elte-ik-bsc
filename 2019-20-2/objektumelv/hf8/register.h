@@ -1,5 +1,7 @@
 #pragma once
-#include "car.h"
+
+class Car;
+class Station;
 
 class Register
 {
@@ -7,7 +9,7 @@ class Register
         Station* _station;
     public:
         enum RegisterExeptions{NotEnoughMoney};
-
-        Register(Station* stat){ _station = stat;}
+        
+        Register(Station* stat);
         void pay(Car* car, int slotind);
 };
