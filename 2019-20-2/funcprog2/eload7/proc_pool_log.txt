@@ -1,0 +1,155 @@
+Last login: Wed Apr 22 22:59:37 on ttys002
+melindatoth@melindas-mbp ~ % cd Desktop/fp2
+melindatoth@melindas-mbp fp2 % erl
+Erlang/OTP 22 [erts-10.6.1] [source] [64-bit] [smp:4:4] [ds:4:4:10] [async-threads:1] [hipe] [dtrace]
+
+Hello Melinda
+Eshell V10.6.1  (abort with ^G)
+1> l(pool).
+{module,pool}
+2> pool:
+attach/1               do_spawn/4             get_node/0             
+get_nodes/0            get_nodes_and_load/0   handle_call/3          
+handle_cast/2          handle_info/2          init/1                 
+module_info/0          module_info/1          pspawn/3               
+pspawn_link/3          start/1                start/2                
+statistic_collector/0  stop/0                 terminate/2            
+
+2> erlang:system_info(logical_processors).
+4
+3> c(proc_pool).
+proc_pool.erl:12: function dispatcher/0 undefined
+proc_pool.erl:13: function collector/0 undefined
+proc_pool.erl:2: Warning: export_all flag enabled - all functions will be exported
+proc_pool.erl:11: Warning: variable 'L' is unused
+error
+4> c(proc_pool).
+proc_pool.erl:21: syntax error before: '->'
+proc_pool.erl:13: function collector/1 undefined
+proc_pool.erl:2: Warning: export_all flag enabled - all functions will be exported
+error
+5> c(proc_pool).
+proc_pool.erl:2: Warning: export_all flag enabled - all functions will be exported
+{ok,proc_pool}
+6> pro
+proc_lib     proc_pool    proplists    
+6> CollPid = proc_pool:run(fun(X) -> X + 1 end, [2,3,4,5,6,7,8,9,10]).
+<0.96.0>
+7> CollPid ! {give_me, self()}.
+{give_me,<0.78.0>}
+8> flush().
+Shell got [11,10,9,8,7,6,5,4,3]
+ok
+9> f(CollPid).                                                        
+ok
+10> CollPid = proc_pool:run(fun dnc:fibs/1, [36,35,12,13,38]).         
+<0.110.0>
+11> CollPid ! {give_me, self()}.                              
+{give_me,<0.78.0>}
+12> flush().                                                  
+Shell got [63245986,24157817,14930352,377,233]
+ok
+13> observer:start().
+ok
+14> [pid(0,X,0) || X <- lists:seq(96, 117)].
+[<0.96.0>,<0.97.0>,<0.98.0>,<0.99.0>,<0.100.0>,<0.101.0>,
+ <0.102.0>,<0.103.0>,<0.104.0>,<0.105.0>,<0.106.0>,<0.107.0>,
+ <0.108.0>,<0.109.0>,<0.110.0>,<0.111.0>,<0.112.0>,<0.113.0>,
+ <0.114.0>,<0.115.0>,<0.116.0>,<0.117.0>]
+15> [exit(pid(0,X,0), kill) || X <- lists:seq(96, 117)].
+[true,true,true,true,true,true,true,true,true,true,true,
+ true,true,true,true,true,true,true,true,true,true,true]
+16> c(proc_pool).                                                      
+proc_pool.erl:2: Warning: export_all flag enabled - all functions will be exported
+{ok,proc_pool}
+17> f(CollPid).                                               
+ok
+18> CollPid = proc_pool:run(fun dnc:fibs/1, [36,35,12,13,38]).
+Worker terminated: <0.19988.0>
+Worker terminated: <0.19986.0>
+Worker terminated: <0.19987.0>
+Worker terminated: <0.19983.0>
+Worker terminated: <0.19984.0>
+<0.19980.0>
+Worker terminated: <0.19982.0>
+Worker terminated: <0.19981.0>
+Worker terminated: <0.19985.0>
+19> CollPid ! {give_me, self()}.                              
+{give_me,<0.78.0>}
+20> flush().                                                  
+Shell got [63245986,24157817,14930352,377,233]
+ok
+21> c(proc_pool_stop).                                        
+proc_pool_stop.erl:2: Warning: export_all flag enabled - all functions will be exported
+{ok,proc_pool_stop}
+22> c(proc_pool_stop).
+proc_pool_stop.erl:2: Warning: export_all flag enabled - all functions will be exported
+proc_pool_stop.erl:38: Warning: this clause cannot match because a previous clause at line 32 always matches
+{ok,proc_pool_stop}
+23> c(proc_pool_stop).
+proc_pool_stop.erl:2: Warning: export_all flag enabled - all functions will be exported
+{ok,proc_pool_stop}
+24> f(CollPid).                                               
+ok
+25> CollPid = proc_pool_stop:run(fun dnc:fibs/1, [36,35,12,13,38]).
+<0.30581.0>
+Worker terminated: <0.30587.0>
+Worker terminated: <0.30588.0>
+Worker terminated: <0.30589.0>
+Worker terminated: <0.30584.0>
+Worker terminated: <0.30585.0>
+Worker terminated: <0.30583.0>
+Worker terminated: <0.30582.0>
+Dispatcher terminated. 
+Worker terminated: <0.30586.0>
+26> CollPid ! {give_me, self()}.                                   
+{give_me,<0.78.0>}
+27> flush().
+Shell got [63245986,24157817,14930352,377,233]
+ok
+28> CollPid ! {stop, self()}.   
+Collector terminated. Results: [63245986,24157817,14930352,377,233]
+{stop,<0.78.0>}
+29> flush().                 
+Shell got [63245986,24157817,14930352,377,233]
+ok
+30> c(proc_pool_stop).                                             
+proc_pool_stop.erl:23: function collector/1 undefined
+proc_pool_stop.erl:29: function collector/1 undefined
+proc_pool_stop.erl:2: Warning: export_all flag enabled - all functions will be exported
+error
+31> c(proc_pool_stop).
+proc_pool_stop.erl:2: Warning: export_all flag enabled - all functions will be exported
+{ok,proc_pool_stop}
+32> f(CollPid).                                                    
+ok
+33> CollPid = proc_pool_stop:run(fun dnc:fibs/1, [36,35,12,13,38, 45]).
+Worker terminated: <0.6526.1>
+Worker terminated: <0.6527.1>
+Worker terminated: <0.6522.1>
+Worker terminated: <0.6523.1>
+<0.6519.1>
+Worker terminated: <0.6521.1>
+Worker terminated: <0.6520.1>
+Worker terminated: <0.6524.1>
+34> CollPid ! {stop, self()}.                                          
+{stop,<0.78.0>}
+35> flush().                                                           
+Shell got {not_ready,[63245986,24157817,14930352,377,233]}
+ok
+Dispatcher terminated. 
+Worker terminated: <0.6525.1>
+36> CollPid ! {stop, self()}.                                          
+Collector terminated. Results: [1836311903,63245986,24157817,14930352,377,233]
+{stop,<0.78.0>}
+37> proc_pool:start().       
+** exception error: undefined function proc_pool:start/0
+38> {Disp, Coll} =  proc_pool:start().
+** exception error: undefined function proc_pool:start/0
+39> Disp ! {fun dnc:fib/1, [3,4,5,5,66]}.
+* 1: variable 'Disp' is unbound
+40> Coll ! {give_me, self()}.
+* 1: variable 'Coll' is unbound
+41> Disp ! {fun(X) -> X +1 end, [3,4,5,5,66]}.
+* 1: variable 'Disp' is unbound
+42> 

@@ -1,0 +1,221 @@
+
+melindatoth@melindas-mbp fp2 % erl
+Erlang/OTP 22 [erts-10.6.1] [source] [64-bit] [smp:4:4] [ds:4:4:10] [async-threads:1] [hipe] [dtrace]
+
+Hello Melinda
+Eshell V10.6.1  (abort with ^G)
+1> 
+1> c(dnc).
+dnc.erl:2: Warning: export_all flag enabled - all functions will be exported
+{ok,dnc}
+2> dnc:fibs(12).
+233
+3> dnc:fib_par(12).
+233
+4> timer:tc(dnc, fibs, [12]).
+{8,233}
+5> timer:tc(dnc, fib_par, [12]).
+{53,233}
+6> timer:tc(dnc, fibs, [12]).   
+{8,233}
+7> timer:tc(dnc, fibs, [12]).
+{8,233}
+8> timer:tc(dnc, fibs, [12]).
+{8,233}
+9> timer:tc(dnc, fib_par, [12]).
+{19,233}
+10> timer:tc(dnc, fib_par, [12]).
+{18,233}
+11> timer:tc(dnc, fib_par, [12]).
+{33,233}
+12> timer:tc(dnc, fib_par, [12]).
+{41,233}
+13> timer:tc(dnc, fibs, [3§]).   
+* 1: syntax error before: '§'
+13> timer:tc(dnc, fibs, [30]).
+{36908,1346269}
+14> timer:tc(dnc, fib_par, [30]).
+{27930,1346269}
+15> timer:tc(dnc, fib_par, [30]).
+{30163,1346269}
+16> timer:tc(dnc, fib_par, [30]).
+{37935,1346269}
+17> timer:tc(dnc, fib_par, [38]).
+{1080632,63245986}
+18> timer:tc(dnc, fibs, [38]).   
+{1625005,63245986}
+19> timer:tc(dnc, fib_par, [38]).
+{1088867,63245986}
+20> timer:tc(dnc, fib_par, [38]).
+{1110935,63245986}
+21> timer:tc(dnc, fib_par, [38]).
+{1099278,63245986}
+22> timer:tc(dnc, fibs, [30]).   
+{37096,1346269}
+23> timer:tc(dnc, fibs, [38]).
+{1599814,63245986}
+24> timer:tc(dnc, fibs, [38]).
+{1625557,63245986}
+25> timer:tc(dnc, fibs, [35]).
+{398172,14930352}
+26> timer:tc(dnc, fib_par, [35]).
+{264639,14930352}
+27> timer:tc(dnc, fib_par, [35]).
+{264239,14930352}
+28> timer:tc(dnc, fib_par, [35]).
+{292860,14930352}
+29> timer:tc(dnc, fibs, [35]).   
+{391860,14930352}
+30> timer:tc(dnc, fibs, [35]).
+{388768,14930352}
+31> timer:tc(dnc, fibs, [33]).
+{158642,5702887}
+32> timer:tc(dnc, fibs, [33]).
+{159723,5702887}
+33> 
+33> timer:tc(dnc, fibs, [33]).
+{160190,5702887}
+34> timer:tc(dnc, fib_par, [33]).
+{111798,5702887}
+35> timer:tc(dnc, fib_par, [33]).
+{101071,5702887}
+36> timer:tc(dnc, fib_par, [33]).
+{96518,5702887}
+37> timer:tc(dnc, fib_par, [31]).
+{41681,2178309}
+38> timer:tc(dnc, fib_par, [31]).
+{45135,2178309}
+39> timer:tc(dnc, fibs, [31]).   
+{60955,2178309}
+40> timer:tc(dnc, fibs, [31]).
+{56626,2178309}
+41> timer:tc(dnc, fibs, [31]).
+{59624,2178309}
+42> c(dnc).                      
+dnc.erl:2: Warning: export_all flag enabled - all functions will be exported
+{ok,dnc}
+43> timer:tc(dnc, fibs, [12]).
+{9,233}
+44> timer:tc(dnc, fib_par, [12]).
+{8,233}
+45> c(dnc).                      
+dnc.erl:2: Warning: export_all flag enabled - all functions will be exported
+{ok,dnc}
+46> timer:tc(dnc, fib_par1, [12]).
+{8,233}
+47> timer:tc(dnc, fib_par1, [35]).
+{214789,14930352}
+48> timer:tc(dnc, fib_par, [35]). 
+{285607,14930352}
+49> timer:tc(dnc, fib_par1, [42]).
+{6031403,433494437}
+50> timer:tc(dnc, fib_par1, [50]).
+{329624596,20365011074}
+51> c(ring).
+ring.erl:8: variable 'Next' is unbound
+ring.erl:3: Warning: export_all flag enabled - all functions will be exported
+error
+52> c(ring).
+ring.erl:3: Warning: export_all flag enabled - all functions will be exported
+{ok,ring}
+53> c(ring).
+ring.erl:3: Warning: export_all flag enabled - all functions will be exported
+{ok,ring}
+54> ring:jobb_run(10).
+vege
+55> c(ring).          
+ring.erl:3: Warning: export_all flag enabled - all functions will be exported
+{ok,ring}
+56> ring:jobb_run(10).
+Megkaptam
+Megkaptam
+Megkaptam
+Megkaptam
+Megkaptam
+Megkaptam
+Megkaptam
+Megkaptam
+Megkaptam
+Megkaptam
+vege
+57> c(ring).          
+ring.erl:3: Warning: export_all flag enabled - all functions will be exported
+{ok,ring}
+58> ring:jobb_run(10000).
+vege
+59> timer:tc(ring, jobb_run, [10000]).
+{73204,vege}
+60> timer:tc(ring, jobb_run, [100000]).
+{782734,vege}
+61> timer:tc(ring, jobb_run, [1000000]).
+=ERROR REPORT==== 17-Apr-2020::09:31:31.690752 ===
+Too many processes
+
+
+** exception error: a system limit has been reached
+     in function  spawn/3
+        called as spawn(erlang,apply,[#Fun<ring.1.95107153>,[]])
+     in call from spawn/1 
+     in call from ring:'-jobb_run/1-lc$^0/1-0-'/1 (ring.erl, line 6)
+     in call from ring:'-jobb_run/1-lc$^0/1-0-'/1 (ring.erl, line 6)
+     in call from ring:jobb_run/1 (ring.erl, line 6)
+     in call from timer:tc/3 (timer.erl, line 197)
+*** ERROR: Shell process terminated! ***
+=ERROR REPORT==== 17-Apr-2020::09:31:31.710113 ===
+Too many processes
+
+Eshell V10.6.1  (abort with ^G)
+*** ERROR: Shell process terminated! ***
+=ERROR REPORT==== 17-Apr-2020::09:31:33.128994 ===
+Too many processes
+
+
+=ERROR REPORT==== 17-Apr-2020::09:31:33.129007 ===
+Error in process <0.64.2952> with exit value:
+{system_limit,[{erlang,spawn_link,
+                       [erlang,apply,[#Fun<shell.1.110365917>,[]]],
+                       []},
+               {erlang,spawn_link,1,[]},
+               {shell,get_command,5,[{file,"shell.erl"},{line,300}]},
+               {shell,server_loop,7,[{file,"shell.erl"},{line,230}]}]}
+
+... és ebből nagyon sok volt...
+
+
+BREAK: (a)bort (c)ontinue (p)roc info (i)nfo (l)oaded
+       (v)ersion (k)ill (D)b-tables (d)istribution
+^C%                                                                                   melindatoth@melindas-mbp fp2 % erl
+Erlang/OTP 22 [erts-10.6.1] [source] [64-bit] [smp:4:4] [ds:4:4:10] [async-threads:1] [hipe] [dtrace]
+
+Hello Melinda
+Eshell V10.6.1  (abort with ^G)
+1> erlang:system_info(process_limit).
+262144
+2> 
+BREAK: (a)bort (c)ontinue (p)roc info (i)nfo (l)oaded
+       (v)ersion (k)ill (D)b-tables (d)istribution
+^C%                                                                                   melindatoth@melindas-mbp fp2 % erl +P 100000000
+Erlang/OTP 22 [erts-10.6.1] [source] [64-bit] [smp:4:4] [ds:4:4:10] [async-threads:1] [hipe] [dtrace]
+
+Hello Melinda
+Eshell V10.6.1  (abort with ^G)
+1> erlang:system_info(process_limit).
+134217727
+2> timer:tc(ring, jobb_run, [1000000]).
+{12146873,vege}
+3> timer:tc(ring, jobb_run, [100000]). 
+{748937,vege}
+4> timer:tc(ring, jobb_run, [1000000]).
+{7082914,vege}
+5> timer:tc(ring, jobb_run, [10000000]).
+{210443075,vege}
+6> c(ring).
+ring.erl:3: Warning: export_all flag enabled - all functions will be exported
+{ok,ring}
+7> timer:tc(ring, run, [10]).           
+{64,vege}
+8> timer:tc(ring, run, [100000]).
+{640986,vege}
+9> timer:tc(ring, run, [1000000]).
+{7766910,vege}
+10> 

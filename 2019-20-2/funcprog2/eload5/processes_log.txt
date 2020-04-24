@@ -1,0 +1,400 @@
+Last login: Thu Apr  2 14:38:56 on ttys000
+melindatoth@melindas-mbp ~ % cd Desktop/fp2
+melindatoth@melindas-mbp fp2 % ls
+first.erl		second.erl		slide_05.pdf
+first_log.txt		second_log.txt		slide_06.pdf
+fourth.beam		slide_01 (1).pdf	slide_07.pdf
+fourth.erl		slide_02 (1).pdf	third.beam
+fourth_log.txt		slide_03.pdf		third.erl
+second.beam		slide_04.pdf		third_log.txt
+melindatoth@melindas-mbp fp2 % erl
+Erlang/OTP 22 [erts-10.6.1] [source] [64-bit] [smp:4:4] [ds:4:4:10] [async-threads:1] [hipe] [dtrace]
+
+Hello Melinda
+Eshell V10.6.1  (abort with ^G)
+1> 1+2.
+3
+2> self().
+<0.78.0>
+3> Pid = <0.78.0>.
+<0.78.0>
+4> pid(0,78,0).
+<0.78.0>
+5> processes().
+[<0.0.0>,<0.1.0>,<0.2.0>,<0.3.0>,<0.4.0>,<0.5.0>,<0.6.0>,
+ <0.9.0>,<0.41.0>,<0.43.0>,<0.45.0>,<0.46.0>,<0.48.0>,
+ <0.49.0>,<0.51.0>,<0.52.0>,<0.53.0>,<0.54.0>,<0.55.0>,
+ <0.56.0>,<0.57.0>,<0.58.0>,<0.59.0>,<0.60.0>,<0.61.0>,
+ <0.62.0>,<0.63.0>,<0.64.0>,<0.65.0>|...]
+6> erlang:display(processes()).
+[<0.0.0>,<0.1.0>,<0.2.0>,<0.3.0>,<0.4.0>,<0.5.0>,<0.6.0>,<0.9.0>,<0.41.0>,<0.43.0>,<0.45.0>,<0.46.0>,<0.48.0>,<0.49.0>,<0.51.0>,<0.52.0>,<0.53.0>,<0.54.0>,<0.55.0>,<0.56.0>,<0.57.0>,<0.58.0>,<0.59.0>,<0.60.0>,<0.61.0>,<0.62.0>,<0.63.0>,<0.64.0>,<0.65.0>,<0.66.0>,<0.67.0>,<0.68.0>,<0.69.0>,<0.70.0>,<0.72.0>,<0.73.0>,<0.77.0>,<0.78.0>]
+true
+7> 1/0.
+** exception error: an error occurred when evaluating an arithmetic expression
+     in operator  '/'/2
+        called as 1 / 0
+8> 
+application                          application_controller               
+application_master                   atomics                              
+beam_lib                             binary                               
+c                                    code                                 
+code_server                          counters                             
+dict                                 edlin                                
+edlin_expand                         epp                                  
+erl_abstract_code                    erl_anno                             
+erl_distribution                     erl_error                            
+erl_eval                             erl_init                             
+erl_internal                         erl_lint                             
+erl_parse                            erl_prim_loader                      
+erl_scan                             erl_signal_handler                   
+erl_tracer                           erlang                               
+error_handler                        error_logger                         
+erts_code_purger                     erts_dirty_process_signal_handler    
+erts_internal                        erts_literal_area_collector          
+ets                                  file                                 
+file_io_server                       file_server                          
+filename                             gb_sets                              
+gb_trees                             gen                                  
+gen_event                            gen_server                           
+global                               global_group                         
+group                                group_history                        
+heart                                hipe_unified_loader                  
+inet                                 inet_config                          
+inet_db                              inet_parse                           
+inet_udp                             init                                 
+io                                   io_lib                               
+io_lib_format                        io_lib_pretty                        
+kernel                               kernel_config                        
+kernel_refc                          lists                                
+logger                               logger_backend                       
+logger_config                        logger_filters                       
+logger_formatter                     logger_h_common                      
+logger_handler_watcher               logger_olp                           
+logger_proxy                         logger_server                        
+logger_simple_h                      logger_std_h                         
+logger_sup                           maps                                 
+net_kernel                           orddict                              
+ordsets                              os                                   
+otp_internal                         persistent_term                      
+prim_buffer                          prim_eval                             
+prim_file                            prim_inet                            
+prim_net                             prim_zip                             
+proc_lib                             proplists                            
+queue                                ram_file                             
+raw_file_io                          raw_file_io_raw                      
+rpc                                  sets                                 
+shell                                shell_default                        
+socket                               standard_error                       
+string                               supervisor                           
+supervisor_bridge                    timer                                
+unicode                              unicode_util                         
+user_drv                             user_sup                             
+zlib                                 
+8> 1/0.
+** exception error: an error occurred when evaluating an arithmetic expression
+     in operator  '/'/2
+        called as 1 / 0
+9> self().
+<0.88.0>
+10> 1/0.
+** exception error: an error occurred when evaluating an arithmetic expression
+     in operator  '/'/2
+        called as 1 / 0
+11> self().
+<0.91.0>
+12> spawn(fun() -> 1 + 2 end).
+<0.94.0>
+13> erlang:display(processes()).
+[<0.0.0>,<0.1.0>,<0.2.0>,<0.3.0>,<0.4.0>,<0.5.0>,<0.6.0>,<0.9.0>,<0.41.0>,<0.43.0>,<0.45.0>,<0.46.0>,<0.48.0>,<0.49.0>,<0.51.0>,<0.52.0>,<0.53.0>,<0.54.0>,<0.55.0>,<0.56.0>,<0.57.0>,<0.58.0>,<0.59.0>,<0.60.0>,<0.61.0>,<0.62.0>,<0.63.0>,<0.64.0>,<0.65.0>,<0.66.0>,<0.67.0>,<0.68.0>,<0.69.0>,<0.70.0>,<0.72.0>,<0.73.0>,<0.77.0>,<0.91.0>]
+true
+14> 1+2.
+3
+15> io:format("Regi pid: ~p\n, Kiertekelo: ~p ~n", [Pid, self()]).
+Regi pid: <0.78.0>
+, Kiertekelo: <0.91.0> 
+ok
+16> self().
+<0.91.0>
+17> io:format("Regi pid: ~p,\nKiertekelo: ~p ~n", [Pid, self()]). 
+Regi pid: <0.78.0>,
+Kiertekelo: <0.91.0> 
+ok
+18> spawn(fun() -> io:format("Ertek: ~p\n", [1 + 2]) end).        
+Ertek: 3
+<0.101.0>
+19> erlang:display(processes()).                                  
+[<0.0.0>,<0.1.0>,<0.2.0>,<0.3.0>,<0.4.0>,<0.5.0>,<0.6.0>,<0.9.0>,<0.41.0>,<0.43.0>,<0.45.0>,<0.46.0>,<0.48.0>,<0.49.0>,<0.51.0>,<0.52.0>,<0.53.0>,<0.54.0>,<0.55.0>,<0.56.0>,<0.57.0>,<0.58.0>,<0.59.0>,<0.60.0>,<0.61.0>,<0.62.0>,<0.63.0>,<0.64.0>,<0.65.0>,<0.66.0>,<0.67.0>,<0.68.0>,<0.69.0>,<0.70.0>,<0.72.0>,<0.73.0>,<0.77.0>,<0.91.0>]
+true
+20> spawn(lists, max, [[1,2,3,4,5,566]]).
+<0.104.0>
+21> lists:max([1,2,3,4,5,566]).
+566
+22> is_atom(alma).             
+true
+23> is_integer(alma).
+false
+24> erlang:is_integer(alma).
+false
+25> spawn(erlang, is_integer, [alma]).
+<0.110.0>
+26> spawn(fun() -> io:format("Ertek: ~p\n", [1 + 2]) end).  
+Ertek: 3
+<0.112.0>
+27> Mod = lists.
+lists
+28> Fun = nth.
+nth
+29> Args = [2, [3,4,5,6]].
+[2,[3,4,5,6]]
+30> spawn(Mod, Fun, Args).
+<0.117.0>
+31> MyPid = self().
+<0.91.0>
+32> MyPid ! alma.
+alma
+33> send(MyPid, alma).
+** exception error: undefined shell command send/2
+34> erlang:send(MyPid, alma).
+alma
+35> flush().
+ok
+36> self().
+<0.121.0>
+37> MyPid.
+<0.91.0>
+38> <0.3345.0> ! ok.
+ok
+39> MyPid2 = self().         
+<0.121.0>
+40> MyPid2 ! alma.           
+alma
+41> erlang:send(MyPid2, alma).
+alma
+42> flush().
+Shell got alma
+Shell got alma
+ok
+43> pwd().
+/Users/melindatoth/Desktop/fp2
+ok
+44> spawn(fun() -> 1 + 2 end).                                    
+<0.133.0>
+45> spawn(fun() -> MyPid2 ! 1 + 2 end).
+<0.135.0>
+46> flush().
+Shell got 3
+ok
+47> c(processes).
+processes.erl:10: Warning: export_all flag enabled - all functions will be exported
+{ok,processes}
+48> processes:fib(12).
+233
+49> processes:fib(35).
+14930352
+50> processes:fib(36).
+24157817
+51> processes:fib(37).
+39088169
+52> processes:fib(38).
+63245986
+53> processes:fib(39).
+102334155
+54> proc
+proc_lib     processes    
+54> processes:map(fun processes:fib/1, [39,3,2,35,37,8,39,37,39]).
+[102334155,3,2,14930352,39088169,34,102334155,39088169,
+ 102334155]
+55> c(processes).                                                 
+processes.erl:23: syntax error before: '||'
+processes.erl:10: Warning: export_all flag enabled - all functions will be exported
+error
+56> c(processes).
+processes.erl:10: Warning: export_all flag enabled - all functions will be exported
+{ok,processes}
+57> processes:map(fun processes:fib/1, [39,3,2,35,37,8,39,37,39]).
+[102334155,3,2,14930352,39088169,34,102334155,39088169,
+ 102334155]
+58> processes:parmap(fun processes:fib/1, [39,3,2,35,37,8,39,37,39]).
+[<0.160.0>,<0.161.0>,<0.162.0>,<0.163.0>,<0.164.0>,
+ <0.165.0>,<0.166.0>,<0.167.0>,<0.168.0>]
+59> erlang:display(processes()).                                     
+[<0.0.0>,<0.1.0>,<0.2.0>,<0.3.0>,<0.4.0>,<0.5.0>,<0.6.0>,<0.9.0>,<0.41.0>,<0.43.0>,<0.45.0>,<0.46.0>,<0.48.0>,<0.49.0>,<0.51.0>,<0.52.0>,<0.53.0>,<0.54.0>,<0.55.0>,<0.56.0>,<0.57.0>,<0.58.0>,<0.59.0>,<0.60.0>,<0.61.0>,<0.62.0>,<0.63.0>,<0.64.0>,<0.65.0>,<0.66.0>,<0.67.0>,<0.68.0>,<0.69.0>,<0.70.0>,<0.72.0>,<0.73.0>,<0.77.0>,<0.121.0>]
+true
+60> processes:parmap(fun processes:fib/1, [39,3,2,35,37,8,39,37,39]).
+[<0.171.0>,<0.172.0>,<0.173.0>,<0.174.0>,<0.175.0>,
+ <0.176.0>,<0.177.0>,<0.178.0>,<0.179.0>]
+61> erlang:display(processes()).                                     
+[<0.0.0>,<0.1.0>,<0.2.0>,<0.3.0>,<0.4.0>,<0.5.0>,<0.6.0>,<0.9.0>,<0.41.0>,<0.43.0>,<0.45.0>,<0.46.0>,<0.48.0>,<0.49.0>,<0.51.0>,<0.52.0>,<0.53.0>,<0.54.0>,<0.55.0>,<0.56.0>,<0.57.0>,<0.58.0>,<0.59.0>,<0.60.0>,<0.61.0>,<0.62.0>,<0.63.0>,<0.64.0>,<0.65.0>,<0.66.0>,<0.67.0>,<0.68.0>,<0.69.0>,<0.70.0>,<0.72.0>,<0.73.0>,<0.77.0>,<0.121.0>,<0.171.0>,<0.175.0>,<0.177.0>,<0.178.0>,<0.179.0>]
+true
+62> erlang:display(processes()).
+[<0.0.0>,<0.1.0>,<0.2.0>,<0.3.0>,<0.4.0>,<0.5.0>,<0.6.0>,<0.9.0>,<0.41.0>,<0.43.0>,<0.45.0>,<0.46.0>,<0.48.0>,<0.49.0>,<0.51.0>,<0.52.0>,<0.53.0>,<0.54.0>,<0.55.0>,<0.56.0>,<0.57.0>,<0.58.0>,<0.59.0>,<0.60.0>,<0.61.0>,<0.62.0>,<0.63.0>,<0.64.0>,<0.65.0>,<0.66.0>,<0.67.0>,<0.68.0>,<0.69.0>,<0.70.0>,<0.72.0>,<0.73.0>,<0.77.0>,<0.121.0>]
+true
+63> c(processes).                                                    
+processes.erl:10: Warning: export_all flag enabled - all functions will be exported
+{ok,processes}
+64> processes:parmap(fun processes:fib/1, [39,3,2,35,37,8,39,37,39]).
+[<0.188.0>,<0.189.0>,<0.190.0>,<0.191.0>,<0.192.0>,
+ <0.193.0>,<0.194.0>,<0.195.0>,<0.196.0>]
+65> flush().
+ok
+66> flush().
+ok
+67> flush().
+ok
+68> spawn(fun() -> io:format("Self: ~p\n", [self()]) end).           
+Self: <0.201.0>
+<0.201.0>
+69> self().
+<0.121.0>
+70> spawn(io, format, ["Self> ~p\n", [self()]]).          
+Self> <0.121.0>
+<0.204.0>
+71> c(processes).                                                    
+processes.erl:10: Warning: export_all flag enabled - all functions will be exported
+{ok,processes}
+72> processes:parmap(fun processes:fib/1, [39,3,2,35,37,8,39,37,39]).
+[<0.211.0>,<0.212.0>,<0.213.0>,<0.214.0>,<0.215.0>,
+ <0.216.0>,<0.217.0>,<0.218.0>,<0.219.0>]
+73> flush().
+Shell got 3
+Shell got 2
+Shell got 34
+Shell got 14930352
+Shell got 39088169
+ok
+74> flush().                                                         
+Shell got 39088169
+Shell got 102334155
+Shell got 102334155
+Shell got 102334155
+ok
+75> c(processes).                                                    
+processes.erl:10: Warning: export_all flag enabled - all functions will be exported
+processes.erl:28: Warning: variable 'E' is unused
+{ok,processes}
+76> processes:parmap(fun processes:fib/1, [39,3,2,35,37,8,39,37,39]).
+Erkezett: 3
+Erkezett: 2
+Erkezett: 34
+Erkezett: 14930352
+Erkezett: 39088169
+Erkezett: 39088169
+Erkezett: 102334155
+Erkezett: 102334155
+Erkezett: 102334155
+[ok,ok,ok,ok,ok,ok,ok,ok,ok]
+77> c(processes).                                                    
+processes.erl:10: Warning: export_all flag enabled - all functions will be exported
+processes.erl:29: Warning: variable 'E' is unused
+{ok,processes}
+78> processes:parmap(fun processes:fib/1, [39,3,2,35,37,8,39,37,39]).
+Erkezett: 3
+Erkezett: 2
+Erkezett: 34
+Erkezett: 14930352
+Erkezett: 39088169
+Erkezett: 39088169
+Erkezett: 102334155
+Erkezett: 102334155
+Erkezett: 102334155
+[3,2,34,14930352,39088169,39088169,102334155,102334155,
+ 102334155]
+79> c(processes).                                                    
+processes.erl:10: Warning: export_all flag enabled - all functions will be exported
+processes.erl:38: Warning: variable 'E' is unused
+{ok,processes}
+80> c(processes).
+processes.erl:10: Warning: export_all flag enabled - all functions will be exported
+{ok,processes}
+81> processes:parmap(fun processes:fib/1, [39,3,2,35,37,8,39,37,39]).
+[3,2,34,14930352,39088169,39088169,102334155,102334155,
+ 102334155]
+82> processes:map(fun processes:fib/1, [39,3,2,35,37,8,39,37,39]).   
+[102334155,3,2,14930352,39088169,34,102334155,39088169,
+ 102334155]
+83> c(processes).                                                    
+processes.erl:30: function parmap/2 already defined
+processes.erl:10: Warning: export_all flag enabled - all functions will be exported
+error
+84> c(processes).
+processes.erl:10: Warning: export_all flag enabled - all functions will be exported
+{ok,processes}
+85> processes:parmap_ord(fun processes:fib/1, [39,3,2,35,37,8,39,37,39]).
+[102334155,3,2,14930352,39088169,34,102334155,39088169,
+ 102334155]
+86> timer:tc(processes, map, [fun processes:fib/1, [39,3,2,35,37,8,39,37,39]]).
+{10203321,
+ [102334155,3,2,14930352,39088169,34,102334155,39088169,
+  102334155]}
+87> timer:tc(erlang, length, [[]]).
+{1,0}
+88> timer:tc(processes, parmap, [fun processes:fib/1, [39,3,2,35,37,8,39,37,39]]).
+{5784715,
+ [3,2,34,14930352,39088169,39088169,102334155,102334155,
+  102334155]}
+89> timer:tc(processes, parmap_ord, [fun processes:fib/1, [39,3,2,35,37,8,39,37,39]]). 
+{5599863,
+ [102334155,3,2,14930352,39088169,34,102334155,39088169,
+  102334155]}
+90> timer:tc(processes, parmap, [fun processes:fib/1, [39,3,2,35,37,8,39,37,39]]).    {5591404,
+ [3,2,34,14930352,39088169,39088169,102334155,102334155,
+  102334155]}
+91> observer:start().
+ok
+92> timer:tc(processes, parmap, [fun processes:fib/1, [39,3,2,35,37,8,39,37,39]]).
+{7165591,
+ [3,2,34,14930352,39088169,39088169,102334155,102334155,
+  102334155]}
+93> timer:tc(processes, map, [fun processes:fib/1, [39,3,2,35,37,8,39,37,39]]).       {11315565,
+ [102334155,3,2,14930352,39088169,34,102334155,39088169,
+  102334155]}
+94> timer:tc(processes, parmap, [fun processes:fib/1, [39,3,2,35,37,8,39,37,39]]).
+{6931034,
+ [3,2,34,14930352,39088169,39088169,102334155,102334155,
+  102334155]}
+95> self() ! ok.
+ok
+96> self() ! 3. 
+3
+97> self() ! 2.
+2
+98> receive A -> A end.
+ok
+99> receive A -> A end.
+
+BREAK: (a)bort (c)ontinue (p)roc info (i)nfo (l)oaded
+       (v)ersion (k)ill (D)b-tables (d)istribution
+^C%                                                                                   melindatoth@melindas-mbp fp2 % erl
+Erlang/OTP 22 [erts-10.6.1] [source] [64-bit] [smp:4:4] [ds:4:4:10] [async-threads:1] [hipe] [dtrace]
+
+Hello Melinda
+Eshell V10.6.1  (abort with ^G)
+1> self() ! ok.
+ok
+2> self() ! 2. 
+2
+3> self() ! 3.
+3
+4> receive A -> A end.
+ok
+5> A.
+ok
+6> receive B -> B end.
+2
+7> self() ! ok.       
+ok
+8> receive A -> A end.
+ok
+9> self() ! alma.     
+alma
+10> self() ! korte.
+korte
+11> self() ! [korte].
+[korte]
+12> receive [H | T] -> H end.
+korte
+13> flush().
+Shell got 3
+Shell got alma
+Shell got korte
+ok
