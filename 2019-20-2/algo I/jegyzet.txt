@@ -4,7 +4,7 @@
 
 	GY
 - Gyakorlatok konzultációk szerűek, MS Teamsen megy. 
-- Minden órához tartozik egy quiz, amit legalább 70% kell teljesíteni.
+- Minden órához tartozik egy quiz, amit legalább 70% kell teljesíteni. Ha nincs hiányzás.
 
 1. ZH 
 	- Beadandó egy pogram megírása, listákkal kell megoldani egy adott feladatot.
