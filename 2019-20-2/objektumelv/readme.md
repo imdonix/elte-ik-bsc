@@ -1,4 +1,4 @@
-# Objektum elvű programozás gyakorlat
+# Objektum elvű programozás gyakorlat|előadás
 
 ## Követelmények
   - (2 papíros és) 2 géptermi zárthelyi (1-1 javítási lehetőség)
@@ -11,3 +11,10 @@
   - Szorgalmi feladatok: minden héten, 0.1 jegyet javítanak
   - Végső jegy: 4 ZH és a beadandók összesített jegyének átlaga + szorgalmi feladatok
   
+
+  ## Távoktatás megváltozott követelményei
+  ### Négy jegyet képzünk a félév során:
+ - a három nagy beadandóból (átlaguk egészre kerekítve),
+ - az első négy házi feladat programjaiból (átlaguk egészre kerekítve),
+ - a hat házi feladat programterveiből (átlaguk egészre kerekítve),
+ - a géptermi zárthelyiből (várható időpontja: jún. 12. 16:00).
