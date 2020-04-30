@@ -1,0 +1,14 @@
+Az alábbi feladatok megoldásához több olyan osztályt kell használni, 
+amelyek egy közös ősosztályból származnak és felüldefiniálják az ősosztály virtuális metódusait. 
+Ezen osztályok objektumait egy gyűjteménybe kell elhelyezni, majd ezt a gyűjteményt kell bejárni, 
+a benne levő objektumok megfelelő metódusait meghívni. Ez a bejárás a futásidejű polimorfizmusra támaszkodik.  
+
+Használjon legalább két tervezési mintát is.
+
+A gyűjtemények bejárását továbbra is a tanult programozási tételek alapján végezze.
+
+
+notes:
+[N]
+[H/M/K] [name] [hp]
+[j/a/r]<M>
