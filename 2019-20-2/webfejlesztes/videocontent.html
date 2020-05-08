@@ -1,0 +1,68 @@
+<!doctype html>
+
+<html lang="hu">
+<head>
+  <meta charset="utf-8">
+  <title>Főoldal - BérAutó</title>
+  <meta name="description" content="Autóbérlés egyszerűen, gyorsan!">
+  <meta name="author" content="Magyar Tamás">
+  <link rel="shortcut icon" href="favicon.ico" />
+
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" media="print" href="print.css" />
+  <link rel="stylesheet" href="bootstrap.min.css">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <a class="navbar-brand" href="#">
+            <img id="icon" src="favicon.ico" alt="Autó" >Bér<span class="font-weight-bold" style="color: #61BD6D;">Autó</span>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbar">
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+              <li class="nav-item">
+                <a class="nav-link" href="index.html">Főoldal</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="cars.html">Autók</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="opinion.html">Vélemények</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="about.html">Rólunk</a>
+              </li>
+            </ul>
+          </div>
+    </nav>
+
+    <div id="content">
+      <br>
+      <div class="wrapper container">
+          <h1>A videó tartalma</h1>
+          <p>A videóban egy városban megjelenik egy új Toyota Corolla hibrid autó ahogyan egy középkorú férfi azt
+              vezetni, később a város kikötőjében mutatja be az autó erőségeit és funkcióit, szó van arról hogy ez
+              a világon legtöbbet eladott hibrid autó, a videó végén megjelenik a Toyota logó.
+          </p>
+          <br>
+      </div>
+  </div>
+
+    <footer class="page-footer font-small blue pt-4">
+        <div class="footer-copyright text-center py-3">
+            Magyar Tamás © 2020 Copyright
+            <br>
+            <input class="btn btn-primary mb-2" type="button" onclick="big()" id="nagyitas" value="Betűméretváltás">
+        </div>
+    </footer>
+
+    <script>
+			function big(){document.getElementsByTagName("body")[0].classList.toggle("bigword");}
+  </script>
+      <script src="https://code.jquery.com/jquery-2.1.3.js"></script>
+      <script src="bootstrap.min.js"></script>
+</body>
+</html>

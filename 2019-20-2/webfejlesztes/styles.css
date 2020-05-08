@@ -1,0 +1,24 @@
+#icon
+{
+    width: 32px;
+}
+
+#content
+{
+   background-image: url("img/background.jpg");
+   color: white;
+}
+
+.mysmall
+{
+    width: 300px;
+}
+
+.bigword
+{
+    font-size: 2em;
+}
+
+a { color: gold !important; }
+a:hover { color: goldenrod !important; }
+a:visited { color: yellowgreen !important; }

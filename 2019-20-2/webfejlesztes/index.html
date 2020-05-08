@@ -1,0 +1,102 @@
+<!doctype html>
+
+<html lang="hu">
+<head>
+  <meta charset="utf-8">
+  <title>Főoldal - BérAutó</title>
+  <meta name="description" content="Autóbérlés egyszerűen, gyorsan!">
+  <meta name="author" content="Magyar Tamás">
+  <link rel="shortcut icon" href="favicon.ico" />
+
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" media="print" href="print.css" />
+  <link rel="stylesheet" href="bootstrap.min.css">
+
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <a class="navbar-brand" href="index.html">
+            <img id="icon" src="favicon.ico" alt="Autó" >Bér<span class="font-weight-bold" style="color: #61BD6D;">Autó</span>
+        </a>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+              <li class="nav-item active">
+                <a class="nav-link" href="#">Főoldal</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link " href="cars.html">Autók</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="opinion.html">Vélemények</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="about.html">Rólunk</a>
+              </li>
+            </ul>
+          </div>
+    </nav>
+
+    <div id="content">
+      <br>
+      <div class="wrapper container">
+
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <aside>
+                <h1>Bérelj autót akár már ma!</h1>
+                </aside>
+            </div>
+        </div>
+
+        <hr>
+
+          <div class="row justify-content-md-center">
+              <div class="col-md-8 text-center">
+                  <div class="embed-responsive embed-responsive-16by9">
+                    <figure>
+                      <video width="320" height="240" autoplay muted poster="/img/golf.jpg">
+                        <source src="video.mp4" type="video/mp4">
+                      </video>
+                      <br><br>
+                      <figcaption>Bemutató videó az új Toyota Corolláról</figcaption>
+                    </figure>
+                  </div>
+                  További leírás <b><a href="videocontent.html">itt</a></b>
+                  <br>
+              </div>
+          </div>
+        <hr>
+
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <article>
+                  <h3>A cégről</h3>
+                  Több mint <b>900</b> céggel együttműködve <b>160</b> országban mi megtaláljuk Önnek a megfelelő autót a kiválasztott helyszínen, <i><b>méghozzá kiváló áron.</b></i>
+                </article>
+            </div>
+        </div>
+
+    </div>
+  </div>
+
+    <footer class="page-footer font-small blue pt-4">
+        <div class="footer-copyright text-center py-3">
+            Magyar Tamás © 2020 Copyright
+            <br>
+            <input class="btn btn-primary mb-2" type="button" onclick="big()" id="nagyitas" value="Betűméretváltás">
+        </div>
+    </footer>
+
+    <script>
+			function big(){document.getElementsByTagName("body")[0].classList.toggle("bigword");}
+    </script>
+    <script src="https://code.jquery.com/jquery-2.1.3.js"></script>
+    <script src="bootstrap.min.js"></script>
+</body>
+</html>
