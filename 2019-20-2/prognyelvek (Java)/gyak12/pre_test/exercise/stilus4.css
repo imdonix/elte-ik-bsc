@@ -1,0 +1,60 @@
+<style type="text/css">
+pre > code
+{
+    all: unset;
+}
+
+code
+{
+    color: blue;
+    font-size: 14px;
+    white-space: pre;
+    border-radius: 3px;
+    font-family: Monaco, Menlo, Consolas, "Courier New", monospace;
+    padding: 2px 4px;
+
+    display: inline-block;
+
+    background-image: radial-gradient(ellipse farthest-corner at 50% 50%, #e4e4e4, #ffffff);
+}
+
+
+pre
+{
+  	margin-left: 3em;
+  	padding: 0.5em;
+
+  	border: 0.1em green solid !important;
+
+    display: inline-block;
+}
+
+table {
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 24px;
+    border-spacing: 0;
+    border-bottom: 2px solid black;
+    border-top: 2px solid black;
+    width: auto !important;
+}
+
+table th {
+    padding: 3px 10px;
+    background-color: white;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: 1px solid black;
+}
+
+table td {
+    padding: 3px 10px;
+    border-top: none;
+    border-left: none;
+    border-bottom: none;
+    border-right: none;
+}
+
+</style>
+

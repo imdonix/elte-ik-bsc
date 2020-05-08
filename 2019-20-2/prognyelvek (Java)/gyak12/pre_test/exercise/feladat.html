@@ -1,0 +1,131 @@
+<h1 id="programozási-nyelvek-bsc-18-java-2019202-elővizsga">Programozási nyelvek (BSc, 18) Java 2019/20/2 elővizsga</h1>
+<p>Az alábbi feladatleírásban azon nyelvi elemek (osztályok, metódusok stb.) leírása szerepel, amelyeknek kötelező megjelennie a megoldásban.</p>
+<p>Megengedett a megnevezetteken kívül további metódusok, adattagok felvétele, ha szükséges; ezek legyenek rejtettek. Ha a feladatleírásban meg van adva egy nyelvi elem neve, kötelező azt használni, különben szabadon választható. Szabad választás esetén is betartandóak a Java nyelv konvenciói. A megadottakon kívül egyetlen osztály se tartalmazzon más publikus metódust vagy adattagot, illetve egyik csomag se tartalmazzon más osztályokat. A program ne írjon ki semmit, amire a feladat nem ad utasítást. Ha bármilyen kérdés, észrevétel felmerül, azt a felügyelőknek kell jelezni, <em>NEM</em> a diáktársaknak!</p>
+<p>A megoldás értékelése:</p>
+<p>Az elméleti és programozási feladatra 20-20 pont szerezhető. A gyakorlati jegy a következőképpen kerül meghatározásra: 20 ponttól 2-es, 25 ponttól 3-as, 30 ponttól 4-es, 35 ponttól 5-ös.</p>
+<p>Használható segédanyagok:</p>
+<ul>
+<li>A Canvas-ben, a Fájlok oldalon, pre_test/ könyvtár alatt található base.zip, amely tartalmazza
+<ul>
+<li>az alapfeladathoz a kiindulási fájlt</li>
+<li>a JUnit tesztelő <code>jar</code> fájljait</li>
+</ul></li>
+<li><a href="https://bead.inf.elte.hu/files/java">Java dokumentáció</a></li>
+<li>Legfeljebb egy üres lap és toll.</li>
+</ul>
+<h1 id="a-feladat-összefoglaló-leírása">A feladat összefoglaló leírása</h1>
+<p>Egy számonkérésre különböző tankönyvek különböző oldalaiból kell felkészülni. Az elkészítendő program feladata ezeknek az oldalaknak a kezelése.</p>
+<h1 id="a-feladat-részletes-ismertetése">A feladat részletes ismertetése</h1>
+<h2 id="alapfeladat-9-pont">Alapfeladat (9 pont)</h2>
+<p>A letölthető <code>study.planner.StudyPlanner</code> osztály kódja helytelen, ebben a feladatrészben ezt kell javítani, valamint a leírtaknak megfelelően bővíteni is.</p>
+<ul>
+<li>A javítások csak olyan mértékben módosítsák a kódot, amennyire ez feltétlenül szükséges.</li>
+<li>A fájlban <code>6</code> sorban <code>7</code> darab hiba van.
+<ul>
+<li>Az alábbiak elvégzendőek, nem számítanak bele a <code>7</code> hibába:
+<ul>
+<li>Az adattag felvételével járó módosítások.</li>
+<li>A fájl legelejének megfelelő kitöltése.</li>
+<li>A fájlt a megfelelő könyvtárba kell helyezni.</li>
+</ul></li>
+</ul></li>
+</ul>
+<p>Az osztálynak legyen egy félnyilvános <code>bookToPages</code> adattagja, amely hozzárendeli egy-egy tankönyv nevéhez (ami egy szöveg) azoknak az oldalaknak a halmazát, amelyeket abból a tankönyvből meg kell tanulni.</p>
+<p>Az osztályban egy metódus szerepel, <code>readPagesFromText</code>, amelynek a következő az elvárt működése.</p>
+<ul>
+<li>Bemenetként egy <code>Scanner</code> paramétert kap, ennek az alábbiakban leírt szöveges tartalma van. A metódus feladata a szöveget kiolvasni és feldolgozni.
+<ul>
+<li><p>Például a szöveges bemenet lehet a következő:</p>
+<pre><code>4
+10 20 Programozasi Nyelvek Java
+150 190 Analizis
+20 130 Analizis
+55 78 Programozasi Nyelvek Java</code></pre></li>
+<li>Az első sor egyetlen számot tartalmaz (<code>lineCount</code>), amely megadja, hogy hány sor következik.</li>
+<li>A többi sor szóközzel elválasztva tartalmazza a könyvekből feladott rész kezdő és záró oldalszámát, és a könyv nevét.
+<ul>
+<li>Feltehető, hogy a bemenet megfelelő szerkezetű, és a könyvek nevei csak a latin ábécé kis- és nagybetűit tartalmazzák a szóközökön kívül.</li>
+<li>Különböző sorok jelölhetnek ki részeket ugyanabban a könyvben.</li>
+<li>A feladott rész zárt intervallum: az első és az utolsó oldal is fel van adva.</li>
+</ul></li>
+<li>A példában tehát a <code>Programozasi Nyelvek Java</code> könyv <code>10</code>, <code>11</code>, <code>...</code>, <code>20</code>, <code>55</code>, <code>56</code>, <code>...</code>, <code>78</code> oldalai vannak feladva, az <code>Analizis</code> könyvből pedig a <code>20</code>, <code>21</code>, <code>...</code>, <code>130</code>, <code>150</code>, <code>151</code>, <code>...</code>, <code>190</code> oldalak.</li>
+</ul></li>
+<li>A <code>readPagesFromText</code> metódus kiolvassa <code>lineCount</code> értékét, majd feldolgozza a következő <code>lineCount</code> sort.
+<ul>
+<li>Azt a sort, amelyik nem pontosan három részre bomlik a szóközök mentén, figyelmen kívül kell hagyni.</li>
+<li>Egyébként feltételezhető, hogy minden adat helyes, nem kell további ellenőrzéseket végezni.</li>
+</ul></li>
+<li>A megnevezett könyvhöz tartozó feladott oldalak halmazába kell betenni a sorban megadott zárt intervallum mindegyik számát.
+<ul>
+<li>Ha a halmaz még nem létezik, mert még nem szerepelt ilyen könyv, létre kell hozni.</li>
+<li>Ha a halmaz már tartalmazza az intervallum valamelyik értékét, akkor váltódjon ki egy <code>StudyException</code> úgy, ahogy le van írva a kódban.
+<ul>
+<li>Ez a kivételfajta legyen ugyanebben a csomagban. A konstruktora vegyen át egy magyarázó szöveget, és a bázisosztály szöveges konstruktorát hívja meg.</li>
+<li>A kivétel kiváltásával a <code>Scanner</code> feldolgozása megszakad, ezzel most nem törődünk.</li>
+</ul></li>
+</ul></li>
+<li>A <code>Scanner</code> objektumot nem kell bezárni.</li>
+</ul>
+<p>Készüljenek el továbbá a következő lekérdező metódusok:</p>
+<ul>
+<li><code>getBookCount()</code>: a betöltött könyvek száma</li>
+<li><code>pageCountOf(&quot;Analizis&quot;)</code>: a megadott nevű könyvből feladott összes oldal száma, a példában szereplő <code>Analizis</code> könyvre <code>152</code>
+<ul>
+<li>ha a megadott nevű könyv nem létezik, váltódjon ki <code>StudyException</code> ilyen üzenettel: <code>&quot;Book Analizis is unknown&quot;</code></li>
+</ul></li>
+</ul>
+<p>Az osztályhoz készüljön JUnit alapú tesztelő a <code>study.planner.test.StudyPlannerTest</code> osztályban. A tesztelő mindegyik esete hívja meg a <code>readPagesFromText</code> metódust úgy, hogy előkészít neki egy <code>Scanner</code> objektumot; a <code>Scanner</code> kapjon szöveges paramétert az alábbi leírások szerint. A tesztelő vizsgálja a következő eseteket (a sor elején a tesztelő metódusok nevei állnak):</p>
+<ul>
+<li><code>noLines</code>: <code>0</code> darab könyv szerepel, ha a <code>Scanner</code> olyan szöveget kap, amelyben <code>lineCount</code> értéke <code>0</code></li>
+<li><code>exampleBookCount</code>: a fenti példára a könyvek száma <code>2</code></li>
+<li><code>examplePageCount_Analizis</code>, <code>examplePageCount_Java</code>: a fenti példa könyveinek hosszát ellenőrzik (<code>152</code> és <code>35</code>)</li>
+<li><code>missingBook</code>: ha a <code>MissingBook</code> hosszát kérjük le, akkor <code>StudyException</code> váltódik ki</li>
+</ul>
+<p>Emlékeztető:</p>
+<ul>
+<li>az <code>org.junit.Assert</code> osztályt (és/vagy annak műveleteit, pl. <code>assertEquals</code>) kell importálni, valamint a <code>org.junit.Test</code> annotációt</li>
+<li>a JUnit futtatása, ha a tesztesetek osztálya a névtelen csomagba tartozó <code>SimpleTest</code> (Windows rendszeren <code>;</code> az elválasztó):</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode .bash"><code class="sourceCode bash"><span class="ex">javac</span> -cp .:junit-4.12.jar:hamcrest-core-1.3.jar SimpleTest.java
+<span class="ex">java</span> -cp .:junit-4.12.jar:hamcrest-core-1.3.jar org.junit.runner.JUnitCore SimpleTest</code></pre></div>
+<h2 id="bővítés-öröklődés-5-pont">Bővítés: öröklődés (5 pont)</h2>
+<p>Készüljön el az alábbi két művelet is a <code>StudyPlanner</code> osztályba:</p>
+<ul>
+<li><code>isStudied(&quot;Analizis&quot;, 160)</code>: megadja, hogy az <code>Analizis</code> könyvből fel van-e adva a megadott oldal (a példában igen)</li>
+<li><code>isStudied(&quot;Analizis&quot;, 140, 200)</code>: megadja, hogy az <code>Analizis</code> könyvből a megadott (zárt) intervallum bármelyik oldala fel van-e adva
+<ul>
+<li>A megadott paraméterekkel a válasz <code>true</code>, mert pl. a <code>150</code>. oldal fel van adva.</li>
+<li>Például <code>isStudied(&quot;Analizis&quot;, 141, 149)</code> hamisat ad vissza.</li>
+</ul></li>
+</ul>
+<p>A <code>StudyPlanner</code> osztály leszármazottja legyen a <code>study.planner.StrictStudyPlanner</code> osztály, amely működjön úgy, mint a bázisosztálya, azonban mindegyik oldal legyen feladva a legkisebb és a legnagyobb feladott oldalszám között.</p>
+<ul>
+<li>Az eltárolt adatokon nem kell módosítani, hanem meg kell találni az alsó és a felső határt.
+<ul>
+<li>Tipp: a legkisebb indexű szakaszt úgy könnyű megtalálni, ha a <code>Set</code>-ből egy <code>TreeSet</code>-et készítünk, majd arra meghívjuk a <code>ceiling(Integer.MIN_VALUE)</code> műveletet; a legnagyobb értékhez <code>floor(Integer.MAX_VALUE)</code> használható.</li>
+</ul></li>
+<li>A megörökölt metódusok (<code>pageCountOf</code> és a két <code>isStudied</code>) működjenek eszerint.</li>
+<li>Példa: <code>StrictStudyPlanner</code> objektumba töltve a fenti példa adatait, <code>isStudied(&quot;Analizis&quot;, 141, 149)</code> igazat ad, mert a <code>20</code>. és <code>190</code>. oldal között mindegyik fel van adva.</li>
+</ul>
+<p>A tesztelő ellenőrizze egy-egy tesztesettel, hogy a <code>pageCountOf</code> és a két <code>isStudied</code> különbözőképpen működik <code>StudyPlanner</code> és <code>StrictStudyPlanner</code> használatával.</p>
+<h2 id="bővítés-egyenlőség-4-pont">Bővítés: egyenlőség (4 pont)</h2>
+<p>A <code>StudyPlanner</code> osztályra legyen értelmezett az egyenlőségvizsgálat.</p>
+<p>Akkor tekintsünk két példányt egyenlőnek, ha ugyanazokban a könyvekben ugyanazok az oldalak vannak feladva.</p>
+<ul>
+<li>Az egyenlőségvizsgálat mellett azt a másik metódust is meg kell (értelemszerűen) valósítani, ami szerződéses viszonyban áll vele.</li>
+<li>Mindkét művelet implementálása során kihasználható, hogy a könyvtári típusokra definiálták ezeket a műveleteket.</li>
+</ul>
+<p>Egy <code>studyDifferently</code> teszteset tesztelje, hogy két különböző módon betöltött <code>StudyPlanner</code> lehet egyenlő egymással. A fenti példa és az alábbi egyenlőek:</p>
+<pre><code>~~~
+6
+67 78 Programozasi Nyelvek Java
+10 20 Programozasi Nyelvek Java
+150 190 Analizis
+20 123 Analizis
+55 66 Programozasi Nyelvek Java
+124 130 Analizis
+~~~</code></pre>
+<h2 id="bővítés-összehasonlíthatóság-2-pont">Bővítés: összehasonlíthatóság (2 pont)</h2>
+<p>Két <code>StudyPlanner</code> legyen egymással összehasonlítható a következő módon.</p>
+<p>Az a <code>StudyPlanner</code> nagyobb, amelyben több oldalt kell megtanuni.</p>
+<p>Írjon a három esetre egy-egy unit test-et.</p>

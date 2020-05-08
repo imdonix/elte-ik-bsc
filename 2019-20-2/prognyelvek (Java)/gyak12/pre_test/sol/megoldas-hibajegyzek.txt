@@ -1,0 +1,14 @@
+hibák
+    - new Map<>()
+        - interfész nem példányosítható
+    - readPagesFromText(sc)
+        - throws TransportationException hiányzik
+        - paraméter típusa hiányzik
+    - for (int i = lineCount; i < 0; i++) {
+        - from..to fordítva
+    - joinTexts: retVal.append(split[i]);
+        - helyesen: retVal.append(" " + split[i]);
+    - joinTexts: return retVal;
+        - helyesen: return retVal.toString();
+    - if (split.length > 3)
+        - helyesen: if (split.length < 3)
