@@ -1,0 +1,37 @@
+CREATE TABLE [dbo].[Bejelento] (
+    [Id]            NUMERIC(2) NOT NULL,
+    [Nev]    VARCHAR (255) NOT NULL,
+    [Beosztas]      VARCHAR (200)   NOT NULL,
+    [Email]         VARCHAR (40) NOT NULL,
+    CONSTRAINT BEJELENTO_PRIMARY_KEY PRIMARY KEY (Id)
+);
+
+CREATE TABLE [dbo].[BekuldottTicketek] (
+    [Id]         NUMERIC(2) NOT NULL,
+    [BejelentoId]   NUMERIC(2) NOT NULL,
+    [Datum]        DATETIME NOT NULL,
+    [Statusz]      INT      NOT NULL,
+    [Uzenet]    VARCHAR (200) NOT NULL,
+    CONSTRAINT BEKULDOTT_TICKET_PRIMARY_KEY PRIMARY KEY (Id),
+    CONSTRAINT [FK_BekuldottTicketek_ToDolgozo] FOREIGN KEY ([BejelentoId]) REFERENCES [dbo].[Bejelento] ([Id])
+);
+
+INSERT INTO [dbo].[Bejelento] (Id,Nev,Beosztas,Email) Values (1,'Gipsz Jakab', 'CEO', 'jakab.gipsz@evosoft.com')
+INSERT INTO [dbo].[Bejelento] (Id,Nev,Beosztas,Email) Values (2,'Kiss János', 'Fejleszto', 'janos.kiss@evosoft.com')
+INSERT INTO [dbo].[Bejelento] (Id,Nev,Beosztas,Email) Values (3,'Szabó Amanda', 'Tesztelo', 'amanda.szabo@evosoft.com')
+INSERT INTO [dbo].[Bejelento] (Id,Nev,Beosztas,Email) Values (4,'Erdei Manó', 'Fejleszto', 'mano.erdei@evosoft.com')
+INSERT INTO [dbo].[Bejelento] (Id,Nev,Beosztas,Email) Values (5,'Kovács János', 'Tesztelo', 'janos.kovacs@evosoft.com')
+INSERT INTO [dbo].[Bejelento] (Id,Nev,Beosztas,Email) Values (6,'Pintér Béla', 'Scrum Master', 'bela.pinter@evosoft.com')
+INSERT INTO [dbo].[Bejelento] (Id,Nev,Beosztas,Email) Values (7,'Horváth Tamás', 'Tesztelo', 'tamas.horvath@evosoft.com')
+INSERT INTO [dbo].[Bejelento] (Id,Nev,Beosztas,Email) Values (8,'Tamás Árpád', 'Fejleszto', 'arpad.tamas@evosoft.com')
+
+INSERT INTO [dbo].[BekuldottTicketek] Values(1,6,'2019-11-28',1,'Sziasztok! A mai napon új kolléga érkezett (Balogh Elza), kérlek, aktiváljátok a felhasználói fiókják, illetve hozzatok létre neki egy email fiókot.')
+INSERT INTO [dbo].[BekuldottTicketek] Values(2,1,'2019-10-25',3,'Szia Pista! A nyomtatóm elromlott, legyetek kedvesek mielobb lecserélni, fontos lenne.')
+INSERT INTO [dbo].[BekuldottTicketek] Values(3,2,'2019-11-28',2,'Hello! Szeretnék egy új fejhallgatót igényelni, az elozo recseg.')
+INSERT INTO [dbo].[BekuldottTicketek] Values(4,8,'2019-11-08',1,'Szia! Küldjetek nekem kulcsot a ReSharper-hez. Köszi')
+INSERT INTO [dbo].[BekuldottTicketek] Values(5,6,'2019-12-01',3,'Sziasztok! Egy plusz monitorra lenne szükségem. Kérlek, hozzatok nekem egyet. Köszönöm szépen!')
+INSERT INTO [dbo].[BekuldottTicketek] Values(6,7,'2020-04-16',1,'Halihó! Nem tölt a dokkolóm. Meg tudnátok nézni valamikor?')
+INSERT INTO [dbo].[BekuldottTicketek] Values(7,5,'2020-05-01',2,'Szia! Lejárt az elofizetésem PluralSight-ra, meg tudnátok hosszabbítani nekem?')
+INSERT INTO [dbo].[BekuldottTicketek] Values(8,3,'2020-05-05',1,'Kedves Anna! Elég ramaty állapotban van a székem. Szeretnék újat igényelni. Ezt is ti intézitek?')
+INSERT INTO [dbo].[BekuldottTicketek] Values(9,4,'2020-04-21',2,'Szia! Betöröttt a céges mobilom kijelzoje. Légyszi, küldjétek el javíttatni, illetve erre az idore szeretnék másik készüléket kérni. Köszönöm!')
+INSERT INTO [dbo].[BekuldottTicketek] Values(10,6,'2020-04-19',3,'Kedves IT! Hétfon a 201-es irodából a 315-ös irodába költözöm, szeretném a segítségeteket kérni ennek a gyors lebonyolításához.')
