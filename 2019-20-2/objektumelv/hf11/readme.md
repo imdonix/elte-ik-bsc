@@ -1,0 +1,2 @@
+# Feladat
+Egy felhasználó által megadott intervallumból gyűjtse ki a hárommal osztható számokat egy vektorba, a vektor elemeit írassa ki egy fájlba, végül a vektor páros elemeit összegezze és írja bele az eredményt ugyanabba a fájlba. A kimeneti fájlt tartalmazza a projekt!
