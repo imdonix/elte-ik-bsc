@@ -1,0 +1,10 @@
+Aladar OEP 1pzh 2 1gzh 2 2pzh 4 2gzh 5 bead 5
+Aladar Algo 1zh 3 2zh 5 3zh 2
+Irma OEP 1pzh 2 1gzh 3 2pzh 4 2gzh 5 bead 4
+Irma Algo 1zh 3 2zh 3
+Jolan OEP 1pzh 2 1gzh 3 2pzh 4 2gzh 5 bead 5
+Jolan Algo 1zh 3 2zh 3
+Karcsi OEP 1pzh 2 1gzh 3 2pzh 4 2gzh 5 bead 5
+Karcsi EVA1 bead1 5 bead2 5 bead3 4 ZH 5
+Lajos OEP 1pzh 2 1gzh 3 2pzh 4 2gzh 5 bead 5
+Lajos Algo 1zh 3 2zh 3
