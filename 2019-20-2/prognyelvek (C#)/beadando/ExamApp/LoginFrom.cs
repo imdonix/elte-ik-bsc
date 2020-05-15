@@ -86,7 +86,7 @@ namespace ExamApp
             else
             {
                 LoginButton.Enabled = true;
-                WriteError(webResponse.ToString());
+                WriteError("Hibás neptun kódot vagy jelszót adtál meg!");
             }
         }
 

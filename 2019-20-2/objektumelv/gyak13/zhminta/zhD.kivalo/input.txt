@@ -1,0 +1,40 @@
+Aladar1 PPKE magasugras 21 futas100 25
+Aladar2 PPKE magasugras 22 futas100 26
+Aladar3 PPKE magasugras 23 futas100 27
+Aladar4 PPKE magasugras 24 futas100 28
+Aladar5 PPKE magasugras 25 futas100 29
+Aladar6 PPKE magasugras 26 futas100 30
+Aladar7 PPKE magasugras 27 futas100 31
+Aladar8 PPKE magasugras 28 futas100 32
+Aladar9 PPKE magasugras 29 futas100 33
+Aladar10 PPKE magasugras 30 futas100 34
+Aladar11 PPKE magasugras 31 futas100 35
+Aladar12 PPKE magasugras 32 futas100 36
+Aladar13 PPKE futas200 1 tavolugras 1
+Aladar14 PPKE futas200 2 tavolugras 2
+Aladar15 PPKE futas200 3 tavolugras 3
+Aladar16 PPKE futas200 4 tavolugras 4
+Aladar17
+Bela1 OE magasugras 1 futas100 2
+Bela2 OE magasugras 2 futas100 3
+Bela3 OE magasugras 3 futas100 4
+Bela4 OE magasugras 4 futas100 5
+Bela5 OE magasugras 5 futas100 6
+Bela6 OE magasugras 6 futas100 7
+Bela7 OE magasugras 7 futas100 8
+Bela8 OE magasugras 8 futas100 9
+Bela9 OE magasugras 9 futas100 10
+Bela10 OE futas100 11
+Peter1 ELTE magasugras 10 futas100 12
+Peter2 ELTE magasugras 11 futas100 13
+Peter3 ELTE magasugras 12 futas100 14
+Peter4 ELTE magasugras 13 futas100 15
+Peter5 ELTE magasugras 14 futas100 16
+Peter6 ELTE magasugras 15 futas100 17
+Peter7 ELTE magasugras 16 futas100 18
+Peter8 ELTE magasugras 17 futas100 19
+Peter9 ELTE magasugras 18 futas100 20
+Peter10 ELTE magasugras 19 futas100 21
+Peter11 ELTE futas100 22
+Peter12 ELTE futas100 23
+Daniel BME magasugras 20 futas100 24

@@ -1,0 +1,5 @@
+Aladar PPKE magasugras 21 futas100 22
+Bela OE magasugras 2 futas100 1
+Peter ELTE magasugras 10 futas100 2
+Peter2 ELTE futas100 2
+Daniel BME magasugras 1 futas100 24

@@ -1,0 +1,116 @@
+# depslib dependency file v1.0
+1498143222 source:c:\users\grego\documents\oktat\oaf\programok\garagegate\controller.cpp
+	"controller.h"
+	<iostream>
+	"engine.h"
+	"sensor.h"
+
+1498066299 c:\users\grego\documents\oktat\oaf\programok\garagegate\controller.h
+	"gate.h"
+
+1498119038 c:\users\grego\documents\oktat\oaf\programok\garagegate\gate.h
+
+1498134800 c:\users\grego\documents\oktat\oaf\programok\garagegate\engine.h
+	<thread>
+	<atomic>
+	"threadsafequeue.h"
+	"event.h"
+	"gate.h"
+
+1498122188 c:\users\grego\documents\oktat\oaf\programok\garagegate\threadsafequeue.h
+	<queue>
+	<mutex>
+	<condition_variable>
+	<atomic>
+
+1498119724 c:\users\grego\documents\oktat\oaf\programok\garagegate\event.h
+
+1498134084 c:\users\grego\documents\oktat\oaf\programok\garagegate\sensor.h
+	<thread>
+	<atomic>
+	"threadsafequeue.h"
+	"event.h"
+	"gate.h"
+
+1498065328 source:c:\users\grego\documents\oktat\oaf\programok\garagegate\gate.cpp
+	"gate.h"
+	"engine.h"
+	"sensor.h"
+	"controller.h"
+
+1498122318 source:c:\users\grego\documents\oktat\oaf\programok\garagegate\main.cpp
+	<iostream>
+	"gate.h"
+	"controller.h"
+
+1498143222 source:c:\users\grego\documents\oktat\oaf\programok\garagegate\sensor.cpp
+	"sensor.h"
+	"engine.h"
+	<random>
+	<ctime>
+	<mutex>
+	<condition_variable>
+	<chrono>
+
+1498143222 source:c:\users\grego\documents\oktat\oaf\programok\garagegate\engine.cpp
+	"engine.h"
+	"sensor.h"
+	<sstream>
+	<iostream>
+	<mutex>
+	<condition_variable>
+	<chrono>
+
+1498065330 source:c:\users\gt\documents\oktatás\oaf\programok\garagegate\gate.cpp
+	"gate.h"
+	"engine.h"
+	"sensor.h"
+	"controller.h"
+
+1498119040 c:\users\gt\documents\oktatás\oaf\programok\garagegate\gate.h
+
+1498134798 c:\users\gt\documents\oktatás\oaf\programok\garagegate\engine.h
+	<thread>
+	<atomic>
+	"threadsafequeue.h"
+	"event.h"
+	"gate.h"
+
+1498122190 c:\users\gt\documents\oktatás\oaf\programok\garagegate\threadsafequeue.h
+	<queue>
+	<mutex>
+	<condition_variable>
+	<atomic>
+
+1498119726 c:\users\gt\documents\oktatás\oaf\programok\garagegate\event.h
+
+1498134083 c:\users\gt\documents\oktatás\oaf\programok\garagegate\sensor.h
+	<thread>
+	<atomic>
+	"threadsafequeue.h"
+	"event.h"
+	"gate.h"
+
+1498066300 c:\users\gt\documents\oktatás\oaf\programok\garagegate\controller.h
+	"gate.h"
+
+1498122320 source:c:\users\gt\documents\oktatás\oaf\programok\garagegate\main.cpp
+	<iostream>
+	"gate.h"
+	"controller.h"
+
+1498128850 source:c:\users\gt\documents\oktatás\oaf\programok\garagegate\controller.cpp
+	"controller.h"
+	<iostream>
+	"engine.h"
+	"sensor.h"
+
+1498134658 source:c:\users\gt\documents\oktatás\oaf\programok\garagegate\engine.cpp
+	"engine.h"
+	"sensor.h"
+	<sstream>
+	<iostream>
+	<mutex>
+	<condition_variable>
+	<chrono>
+

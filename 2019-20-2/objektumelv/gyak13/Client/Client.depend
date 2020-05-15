@@ -1,0 +1,58 @@
+# depslib dependency file v1.0
+1509175119 source:c:\users\grego\documents\oktat\oop\eloadasok\programok\client\main.cpp
+	<iostream>
+	"system.h"
+
+1509182141 c:\users\grego\documents\oktat\oop\eloadasok\programok\client\system.h
+	<mutex>
+	<vector>
+	<condition_variable>
+	<atomic>
+	"server.h"
+
+1509179879 c:\users\grego\documents\oktat\oop\eloadasok\programok\client\server.h
+	<atomic>
+
+1509182141 source:c:\users\grego\documents\oktat\oop\eloadasok\programok\client\system.cpp
+	"system.h"
+	"client.h"
+
+1509172883 c:\users\grego\documents\oktat\oop\eloadasok\programok\client\client.h
+	"system.h"
+	<atomic>
+	<thread>
+	<mutex>
+	<condition_variable>
+	<sstream>
+	<iostream>
+
+1509182537 source:c:\users\grego\documents\oktat\oop\eloadasok\programok\client\client.cpp
+	"client.h"
+
+1509171520 source:c:\users\tibi\documents\oktat\oep\eloadasok\programok\11.viselkedés\client\main.cpp
+	<iostream>
+	"system.h"
+
+1531380892 c:\users\tibi\documents\oktat\oep\eloadasok\programok\11.viselkedés\client\system.h
+	<mutex>
+	<vector>
+	<condition_variable>
+	<atomic>
+
+1509176280 c:\users\tibi\documents\oktat\oep\eloadasok\programok\11.viselkedés\client\server.h
+	<atomic>
+
+1531381023 source:c:\users\tibi\documents\oktat\oep\eloadasok\programok\11.viselkedés\client\system.cpp
+	"server.h"
+	"client.h"
+
+1531380955 c:\users\tibi\documents\oktat\oep\eloadasok\programok\11.viselkedés\client\client.h
+	"system.h"
+	<thread>
+	<sstream>
+	<iostream>
+
+1531380992 source:c:\users\tibi\documents\oktat\oep\eloadasok\programok\11.viselkedés\client\client.cpp
+	"client.h"
+	"server.h"
+

@@ -1,0 +1,115 @@
+# depslib dependency file v1.0
+1497470382 source:c:\users\grego\documents\oktat\oaf\programok\labor\main.cpp
+	<iostream>
+	"system.h"
+
+1500748881 c:\users\grego\documents\oktat\oaf\programok\labor\crew.h
+	<iostream>
+	<thread>
+	<chrono>
+	<mutex>
+	<condition_variable>
+	<sstream>
+	"system.h"
+
+1497431099 c:\users\grego\documents\oktat\oaf\programok\labor\system.h
+	<vector>
+	<mutex>
+	<condition_variable>
+	<thread>
+	"labor.h"
+
+1497370481 c:\users\grego\documents\oktat\oaf\programok\labor\lab.h
+	<atomic>
+
+1497472508 source:c:\users\grego\documents\oktat\oaf\programok\labor\system.cpp
+	"system.h"
+	"crew.h"
+	"student.h"
+
+1497363007 source:c:\users\grego\documents\oktat\oaf\programok\labor\lab.cpp
+	"lab.h"
+
+1500748881 c:\users\grego\documents\oktat\oaf\programok\labor\student.h
+	<iostream>
+	<thread>
+	<chrono>
+	<sstream>
+
+1500753863 c:\users\grego\documents\oktat\oaf\programok\labor\labor.h
+	<atomic>
+	<iostream>
+	<sstream>
+
+1509113467 source:c:\users\grego\documents\oktat\oop\eloadasok\programok\labor\labor\main.cpp
+	<iostream>
+	"system.h"
+
+1497427499 c:\users\grego\documents\oktat\oop\eloadasok\programok\labor\labor\system.h
+	<vector>
+	<mutex>
+	<condition_variable>
+	<thread>
+	"labor.h"
+
+1500750263 c:\users\grego\documents\oktat\oop\eloadasok\programok\labor\labor\labor.h
+	<atomic>
+	<iostream>
+	<sstream>
+
+1509113467 source:c:\users\grego\documents\oktat\oop\eloadasok\programok\labor\labor\system.cpp
+	"system.h"
+	"crew.h"
+	"student.h"
+
+1512162250 c:\users\grego\documents\oktat\oop\eloadasok\programok\labor\labor\crew.h
+	<iostream>
+	<thread>
+	<chrono>
+	<mutex>
+	<condition_variable>
+	<sstream>
+	"system.h"
+
+1512162250 c:\users\grego\documents\oktat\oop\eloadasok\programok\labor\labor\student.h
+	<iostream>
+	<thread>
+	<chrono>
+	<sstream>
+
+1525358724 source:c:\users\grego\documents\oktat\oep\eloadasok\programok\11.viselkedés\labor\labor\main.cpp
+	<iostream>
+	"system.h"
+
+1525352443 c:\users\grego\documents\oktat\oep\eloadasok\programok\11.viselkedés\labor\labor\system.h
+	<vector>
+	<mutex>
+	<condition_variable>
+	<thread>
+	"labor.h"
+
+1525437268 c:\users\grego\documents\oktat\oep\eloadasok\programok\11.viselkedés\labor\labor\labor.h
+	<atomic>
+	<iostream>
+	<sstream>
+
+1509117068 source:c:\users\grego\documents\oktat\oep\eloadasok\programok\11.viselkedés\labor\labor\system.cpp
+	"system.h"
+	"crew.h"
+	"student.h"
+
+1525438265 c:\users\grego\documents\oktat\oep\eloadasok\programok\11.viselkedés\labor\labor\crew.h
+	<iostream>
+	<thread>
+	<chrono>
+	<mutex>
+	<condition_variable>
+	<sstream>
+	"system.h"
+
+1525352443 c:\users\grego\documents\oktat\oep\eloadasok\programok\11.viselkedés\labor\labor\student.h
+	<iostream>
+	<thread>
+	<chrono>
+	<sstream>
+
