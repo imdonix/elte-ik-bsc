@@ -1,0 +1,16 @@
+Snytax:
+	- [1, 2, 3 | [4, 5]] == [1, 2, 3, 4 ,5].
+	- [X || X <- [1,2], X rem 2 =:= 0] == [2,4].
+	-
+		right_age(X) when X >= 16, X =< 104 ->
+		true;
+		right_age(_) ->
+		false.
+
+BIFs (Build-in functions):
+	- hd([1,2,3]) == 1.
+	- tl([1,2,3]) == [2,3].
+	- length([1,2,3]) == 3.
+Modules:
+	- -module(name).
+	- -export([add/2]).
