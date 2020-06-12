@@ -1,0 +1,6 @@
+v1 nodock1_0err 0 LOG 1 LOG 2 LOG 4 LOG
+v2 nodock1_0err 0 LOG 1 LOG 2 LOG 5 LOG
+v3 nodock2_6err 0 ERROR 2 ERROR 3 ERROR
+v4 nodock2_6err 0 ERROR 2 ERROR 3 ERROR
+v3 nodock3_2err 0 ERROR
+v4 nodock3_2err 0 ERROR

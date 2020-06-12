@@ -1,0 +1,4 @@
+slow1 test_2_1 0 LOG 1 LOG 2 LOG 3 DOCK 4 LOG
+slow2 test_2_1 0 LOG 1 LOG 2 LOG 4 DOCK 5 LOG
+fast test_2_2 0 ERROR 1 DOCK 2 ERROR 3 ERROR
+slow3 test_2_2 0 LOG 1 LOG 2 LOG 5 DOCK 6 LOG
