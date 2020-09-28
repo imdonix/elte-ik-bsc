@@ -1,0 +1,18 @@
+table
+{
+    border: 1px solid black;
+}
+
+
+th
+{
+    border: 1px solid black;
+    width: 12%;
+}
+
+.midle
+{
+    position: relative;
+    left: 50%;
+    top: 50%;
+}
