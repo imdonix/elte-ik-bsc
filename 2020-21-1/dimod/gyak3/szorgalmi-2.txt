@@ -1,0 +1,17 @@
+# Mgayar Tamás - RNYR2F
+# Írjon függvényt, amely egy adott N-hez megkonstruálja a legalább N hosszú, csupa összetett számokat tartalmazó intervallumot!
+
+def oszetett(x):
+    for i in range(2, x):
+        if x % i == 0:
+            return true
+    return false
+
+def mind(n):
+    resoult = set([])
+    for x in range(10**(n-1), 10**n):
+        if oszetett(x):
+            resoult.add(x)
+    return resoult
+
+mind(2)
