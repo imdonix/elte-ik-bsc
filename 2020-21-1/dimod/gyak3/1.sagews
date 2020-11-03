@@ -134,12 +134,3 @@ Is_Injective([[1,2], [3,5], [5,0]])
 # Az alábbi diszkrét matematikai fogalmak köszönhetnek vissza az első zárthelyiben egy-egy programozási feladatban:
 # halmaz, halmazrendszer, reláció, értelmezési tartomány, értékkészlet, leszűkítés, elem/halmaz képe,
 # elem/halmaz inverz képe, reflexív, szimmetrikus, tranzitív, antiszimmetrikus, ekvivalenciaosztály, függvény, injektív, szürjektív.
-
-
-
-
-
-
-
-
-
