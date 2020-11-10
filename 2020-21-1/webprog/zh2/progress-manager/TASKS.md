@@ -1,0 +1,8 @@
+4. feladat: Haladásnapló (4. task: Progress manager)
+    - [x] b. (1 pont)
+    - [x] c. (1 pont)
+    - [x] d. (1,5 pont)
+    - [x] e. (1 pont)
+    - [x] f. (1 pont)
+    - [x] g. (1 pont)
+    - [x] h. (1,5 pont)

@@ -1,0 +1,8 @@
+1. feladat: Haiku szerkesztő (1. task: Haiku editor)
+    - [x] b. (1 pont)
+    - [x] c. (1 pont)
+    - [x] d. (1 pont)
+    - [x] e. (1 pont)
+    - [x] f. (1,5 pont)
+    - [x] g. (1,5 pont)
+    - [x] h. (1 pont)
