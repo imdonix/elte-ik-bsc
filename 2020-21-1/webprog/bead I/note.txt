@@ -1,0 +1,5 @@
+Open panel: name, rules, playercount (1-10 def 1), gamemode, custom
+- playercount (1-10 default 1) for each name
+- gamemode: practice | ranked (no custon, 1 palyer only)
+- Custom settings: Tip = no | Show = no | +3 = auto
+- Start

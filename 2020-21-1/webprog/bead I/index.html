@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SET - RNYR2F</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="menupanel">
+    <h1>SET - Card game</h1>
+    <h4>RNYR2F</h4>
+    <header><h3><a href="rules.pdf">Szabályok</a></h3></header>
+    
+    <div>
+        <h3>Player count: </h3>
+        <input type="number" value="1" max="10" min="1" name="playercount" id="playercount">
+    </div>
+
+    <div>
+        <h3>Player names: </h3>
+        <ol id="playernames">
+        </ol>
+    </div>
+
+    <div>
+        <h3>Gamemode: </h3>
+
+        <input type="radio" id="ranked" name="gamemode" value="ranked" checked>
+        <label for="ranked">Ranked</label>
+        <br>
+        <input type="radio" id="practice" name="gamemode" value="practice">
+        <label for="practice">Practice</label>
+    </div>
+
+    <div id="custompanel">
+        <h3>Custom: </h3>
+
+        <input type="checkbox" id="check" name="check" value="check">
+        <label for="check">Show 'Tip' button</label>
+        <br>
+        <input type="checkbox" id="show" name="show" value="show">
+        <label for="show">Show 'Show Set' button</label>
+        <br>
+        <input type="checkbox" id="plus" name="plus" value="plus">
+        <label for="plus">3+ auto</label>
+    </div>
+
+    <div style="border: 0">
+        <button id="start">Start</button>
+    </div>
+
+
+</div>
+
+<div class="hidden" id="gamepanel">
+    <canvas id="game" width="800" height="400" style="border:1px solid"></canvas>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
