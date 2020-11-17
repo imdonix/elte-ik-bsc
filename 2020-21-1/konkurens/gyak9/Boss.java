@@ -7,7 +7,7 @@ public class Boss extends Entity
 
 	
 	@Override
-	public int getDmgMultiplier() { return 1;}
+	public int getDmgMultiplier() { return -1;}
 
 
 	@Override

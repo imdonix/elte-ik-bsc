@@ -53,14 +53,17 @@ public abstract class Entity implements Runnable
 			Entity target = getTarget();
 			int dmg = ConcurrentRandom.nextInt(dmgMin, dmgMax) * getDmgMultiplier();
 			
-			int now = target.hp.addAndGet(dmg);
-			if(now > maxhp)
-				target.hp.set(maxhp);
-			else if(now <= 0)
-				if(target instanceof Hero)
-					fight.getAllies().remove(target);
+			synchronized (fight)
+			{
+				int now = target.hp.addAndGet(dmg);
+				if(now > maxhp)
+					target.hp.set(maxhp);
+				else if(now <= 0)
+					if(target instanceof Hero)
+						fight.getAllies().remove(target);
 			
-			System.out.println( target.name +  " | taken " + dmg + " | now: " + now + " hp");
+				System.out.println( target.name +  " | taken " + dmg + " | now: " + now + " hp");
+			}
 			
 			cooldown();
 		}
