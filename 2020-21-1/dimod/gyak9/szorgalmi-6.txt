@@ -1,0 +1,14 @@
+def f(n):
+    if n % 2 == 0:
+        return n / 2
+    else:
+        return 3 * n + 1
+
+def count_f(n):
+    c = 0
+    while n != 1:
+        n = f(n)
+        c+=1
+    return c
+
+count_f(7)

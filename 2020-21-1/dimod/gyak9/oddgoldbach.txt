@@ -1,0 +1,8 @@
+def Odd_Goldbach(n):
+    if n <= 5 or n % 2 == 0:
+        raise ValueError
+    for i in prime_range(n):
+        for j in prime_range(n):
+            a = n - i - j
+            if is_prime(a):
+                return [i, j, a]
