@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" height="360" width="235">
+  <metadata xmlns:set="https://github.com/hildjj/set-game">
+    <set:num>3</set:num>
+    <set:fill>Solid</set:fill>
+    <set:color>purple</set:color>
+    <set:shape>Squiggle</set:shape>
+  </metadata>
+  <defs>
+    <path class="setcolor setline" id="shape" d="m 33,180 c 6,-13 11,-23 26,-28 15,-5 31,-1 58,7 23,7 36,0 43,-3 7,-4 17,-9 30,-9 13,0 18,21 12,33 -5,11 -14,23 -26,28 -12,5 -32,1 -59,-7 -17,-5 -29,-3 -42,3 -9,4 -18,10 -30,9 -13,0 -19,-18 -12,-33 z"></path>
+    <style type="text/css">
+      .setcolor {
+        stroke: purple;
+        fill: purple;
+      }
+      .setline {
+        stroke-width: 4;
+        stroke-linejoin: round;
+      }
+    </style>
+  </defs>
+  <rect x="5" y="5" height="350" width="225" rx="10" ry="10" fill="white" stroke="grey" stroke-width="2"></rect>
+  <use y="-100" xlink:href="#shape"></use>
+  <use xlink:href="#shape"></use>
+  <use y="100" xlink:href="#shape"></use>
+</svg>

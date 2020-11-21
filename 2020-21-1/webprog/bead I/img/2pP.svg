@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" height="360" width="235">
+  <metadata xmlns:set="https://github.com/hildjj/set-game">
+    <set:num>2</set:num>
+    <set:fill>Solid</set:fill>
+    <set:color>purple</set:color>
+    <set:shape>Pill</set:shape>
+  </metadata>
+  <defs>
+    <rect class="setcolor setline" id="shape" x="30" y="145" width="175" height="70" rx="35"></rect>
+    <style type="text/css">
+      .setcolor {
+        stroke: purple;
+        fill: purple;
+      }
+      .setline {
+        stroke-width: 4;
+        stroke-linejoin: round;
+      }
+    </style>
+  </defs>
+  <rect x="5" y="5" height="350" width="225" rx="10" ry="10" fill="white" stroke="grey" stroke-width="2"></rect>
+  <use y="-50" xlink:href="#shape"></use>
+  <use y="50" xlink:href="#shape"></use>
+</svg>
