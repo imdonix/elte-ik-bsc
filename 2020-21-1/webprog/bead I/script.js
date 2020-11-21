@@ -4,6 +4,7 @@ const game = document.querySelector('#game')
 const custompanel = document.querySelector('#custompanel')
 
 const playercount = document.querySelector('#playercount')
+const playercountLabel = document.querySelector('#playercountLabel')
 const playernamelist = document.querySelector('#playernames')
 const ranked = document.querySelector('#ranked')
 const practice = document.querySelector('#practice')
@@ -12,9 +13,17 @@ const showbuttonS = document.querySelector('#show')
 const plusS = document.querySelector('#plus')
 const start = document.querySelector('#start')
 
-//Globals for menu
+const gameTable = document.querySelector('#gameTable')
+const gamePlayerList = document.querySelector('gamePlayerList')
+
+//Menu
 const nameList = new Array()
-//
+
+//Game
+let deck;
+let table;
+let selected;
+let aiTip;
 
 
 //Menu logic
@@ -41,6 +50,7 @@ function generatePlayerList()
         input.name =  "name";
         input.maxLength = 10;
         input.id = `name${i}`;
+        input.value = `Player${i+1}`;
         let listelem = document.createElement('li');
         listelem.appendChild(input)
         return listelem;
@@ -56,12 +66,39 @@ function generatePlayerList()
 
 function showPlayerNames(n)
 {
+    playercountLabel.innerHTML = n.toString()
     for(let i = 0; i<10; i++)
         nameList[i].classList.toggle('hidden', !(i < n))  
 }
 
 
 //Game logic
+
+function startGame()
+{
+    gamep.classList.toggle('hidden', false);
+    menu.classList.toggle('hidden', true);
+
+    createGame();
+    draw(12);
+}
+
+function draw(n)
+{
+    while(n-- > 0)
+        table.push(deck.pop());
+    render();
+}
+
+function createGame()
+{
+    deck = generatePack()
+    table = new Array()
+    selected = new Array()
+    aiTip = new Array()
+    shuffleArray(deck)
+    console.log(deck)
+}
 
 function generatePack()
 {
@@ -79,6 +116,42 @@ function shuffleArray(array)
     {
         const j = Math.floor(Math.random() * (i + 1));
         [array[i], array[j]] = [array[j], array[i]];
+    }
+}
+
+function cardToSrc(card)
+{
+    const color = ['r', 'p', 'g']
+    const type =  ['S', 'D', 'P']
+    return `${card[0]+1}${color[card[1]]}${type[card[2]]}.svg`
+}
+
+function render()
+{
+    let rows = table.length / 4;
+    gameTable.innerHTML = '';
+
+    for(let i = 0; i < rows; i++)
+    {
+        let row = document.createElement('div')
+        row.classList.add('row')
+        for(let j = 0; j < 4 && (4*i)+j < table.length; j++)
+        {
+            let col = document.createElement('div')
+            let img = document.createElement('img')
+
+            col.classList.add('col-sm')
+
+            img.src = `./img/${cardToSrc(table[(4*i)+j])}`
+            img.width = 117
+            img.height = 180           
+            img.classList.toggle('selected', selected.includes((4*i)+j))
+            img.classList.toggle('tip', aiTip.includes((4*i)+j))
+
+            col.appendChild(img)
+            row.appendChild(col)
+        }
+        gameTable.appendChild(row)
     }
 }
 

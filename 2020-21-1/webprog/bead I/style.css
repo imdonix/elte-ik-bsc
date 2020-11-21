@@ -3,16 +3,20 @@ div
     margin: 0 auto;
     text-align: center;
     padding: 10px;
-    border-bottom: solid 1px black;
-}
-
-button
-{
-    width: 150px;
-    height: 35px;
-}
+}       
 
 .hidden
 {
     visibility: hidden;
 }
+
+.tip
+{
+    border: green 2px double;
+}
+
+.selected
+{
+    border: dotted 2px black;
+}
+
