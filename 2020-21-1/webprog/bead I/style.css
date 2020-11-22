@@ -12,11 +12,11 @@ div
 
 .tip
 {
-    border: green 2px double;
+    border: green 4px solid;
 }
 
 .selected
 {
-    border: dotted 2px black;
+    border: dotted 6px black;
 }
 

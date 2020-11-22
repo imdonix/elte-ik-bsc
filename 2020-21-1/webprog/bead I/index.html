@@ -46,10 +46,10 @@
                     <label for="show">Show 'Show Set' button</label>
                     <br>
                     <input type="checkbox" id="plus" name="plus" value="plus">
-                    <label for="plus">3+ auto</label>
+                    <label for="plus">3+ manual</label>
                 </div>
                 <hr>
-                <header><h3><a href="rules.pdf">Szabályok</a></h3></header>
+                <header><h3><a id="rulesLink" href="#">Szabályok</a></h3></header>
                 <hr>
             </div>
             <div class="col-sm">
@@ -75,9 +75,51 @@
                 </div>
             </div>
             <div class="col-sm-4">
+                <h1>SET</h1>
+                <hr>
+                <h3 id="gameStatus">Status</h3>
+                <hr>
                 <ul class="list-group" id="gamePlayerList">
                     <li class="list-group-item">Cras justo odio</li>
                 </ul>
+                <hr>
+                <button id="gameShowSet" type="button" class="btn btn-dark">Set?</button>
+                <button id="gameIsSet" type="button" class="btn btn-info">Tip</button>
+                <button id="gameplusthree" type="button" class="btn btn-primary">+3 Card</button>
+                <br>
+                <button id="gameRestart" type="button" class="btn btn-primary hidden" onClick="window.location.reload();">Restart</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="hidden fixed-top" id="rules">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-8">
+                <h1> JÁTÉKSZABÁLY </h1>
+                <p>  
+                A játék célja hogy 3 kártyából álló SET-eket
+                találjunk meg az asztalra lehelyezett 12 kártyából.
+                Minden kártyának 4 tulajdonsága van, amik a következők:
+
+                <ul class="list-group">
+                    <li class="list-group-item"><b>FORMA</b>: ovális, hullámos, rombusz</li>
+                    <li class="list-group-item"><b>SZÍN</b>: piros, zöld, lila</li>
+                    <li class="list-group-item"><b>SZÁM:</b>  1, 2 vagy 3 forma</li>
+                </ul>
+                <hr>
+                Egy SET 3 kártyából áll, amiben minden jellemzőt külön
+                megvizsgálva, azoknak vagy azonosnak vagy minden
+                kártyán különbözőnek kell lennie. Ennek a szabálynak
+                MINDEN tulajdonság esetében meg kell felelnie a
+                kiválasztott három lapnak. Más szavakkal: a forma vagy
+                azononos mindhárom kártyán, vagy mindegyiken más; a
+                szín vagy azonos mindhárom kártyán, vagy mindegyiken
+                különböző, stb... A könnyebb megértésért a példák között jó
+                és hibás SET-eket is bemutatunk.
+                </p>
+                <button id="back" type="button" class="btn btn-primary">Back</button>
             </div>
         </div>
     </div>
