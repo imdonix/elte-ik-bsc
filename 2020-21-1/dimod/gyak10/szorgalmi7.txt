@@ -1,0 +1,6 @@
+def lnko(x,y):
+    if x > y:
+        x, y = y, x
+    while y%x != 0:
+        x,y = y%x, x
+    return x
