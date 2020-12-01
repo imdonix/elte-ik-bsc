@@ -1,0 +1,74 @@
+{
+    "5fc0ed3757ac3": {
+        "targykod": "IP-18cWEBPROGEG",
+        "targynev": "Webprogramoz\u00e1s",
+        "oktato": "Horv\u00e1th Gy\u0151z\u0151",
+        "kredit": 0,
+        "jegy": "3",
+        "id": "5fc0ed3757ac3"
+    },
+    "5fc0efc7333f8": {
+        "targykod": "IP-18cPROGTEG",
+        "targynev": "Programoz\u00e1si technol\u00f3gia",
+        "oktato": "Szendrei Rudolf",
+        "kredit": 5,
+        "jegy": "1",
+        "id": "5fc0efc7333f8"
+    },
+    "5fc0f07b89d7a": {
+        "targykod": "IP-18AA2E",
+        "targynev": "Algoritmusok \u00e9s adatszerkezetek II Ea",
+        "oktato": "\u00c1sv\u00e1nyi Tibor dr.",
+        "kredit": 2,
+        "jegy": "1",
+        "id": "5fc0f07b89d7a"
+    },
+    "5fc0f0dc990c5": {
+        "targykod": "IP-18AA2E",
+        "targynev": "Algoritmusok \u00e9s adatszerkezetek II Gy",
+        "oktato": "Nagy S\u00e1ra",
+        "kredit": 3,
+        "jegy": "5",
+        "id": "5fc0f0dc990c5"
+    },
+    "5fc0f1413fce4": {
+        "targykod": "IP-18cAN2E",
+        "targynev": "Anal\u00edzis II Ea (F)",
+        "oktato": "Szili L\u00e1szl\u00f3",
+        "kredit": 2,
+        "jegy": 1,
+        "id": "5fc0f1413fce4"
+    },
+    "5fc0f177a32fc": {
+        "targykod": "IP-18cAN2G",
+        "targynev": "Anal\u00edzis II Gy (F)",
+        "oktato": "Szili L\u00e1szl\u00f3",
+        "kredit": 3,
+        "jegy": 3,
+        "id": "5fc0f177a32fc"
+    },
+    "5fc0f1cc1d1ba": {
+        "targykod": "IP-18cDMAG",
+        "targynev": "Diszkr\u00e9t modellek alkalmaz\u00e1sai",
+        "oktato": "Nagy G\u00e1bor dr.",
+        "kredit": 3,
+        "jegy": "5",
+        "id": "5fc0f1cc1d1ba"
+    },
+    "5fc0f2622df15": {
+        "targykod": "IP-18KVISZGE",
+        "targynev": "Sz\u00e1m\u00edt\u00f3g\u00e9pes grafika Ea",
+        "oktato": "B\u00e1n R\u00f3bert",
+        "kredit": 2,
+        "jegy": "3",
+        "id": "5fc0f2622df15"
+    },
+    "5fc0f27b0e719": {
+        "targykod": "IP-18KVISZGE",
+        "targynev": "Sz\u00e1m\u00edt\u00f3g\u00e9pes grafika Gy",
+        "oktato": "Szab\u00f3 D\u00e1vid",
+        "kredit": 3,
+        "jegy": 5,
+        "id": "5fc0f27b0e719"
+    }
+}
