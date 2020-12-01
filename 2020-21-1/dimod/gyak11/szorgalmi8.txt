@@ -1,0 +1,11 @@
+import random
+
+def p(n, v='x'):
+    var(v)
+    s = [-1,0,1]
+    res = []
+    for i in range(n):
+        res.append(random.choice(s))
+    return CC[v](res)
+
+plot(p(5)(x), x, -100, 100)
