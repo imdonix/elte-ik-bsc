@@ -1,0 +1,53 @@
+{
+    "5fbc4bdd6cf33": {
+        "neptun": "GJK123",
+        "first_name": "Gipsz",
+        "last_name": "Jakab",
+        "birth_date": {
+            "year": "2020",
+            "month": "7",
+            "day": "9"
+        },
+        "address": {
+            "country": "HU",
+            "postal": 5000,
+            "city": "Szolnok",
+            "near": "Hossz\u00fa utca 42."
+        },
+        "id": "5fbc4bdd6cf33"
+    },
+    "5fbc4c514e0ed": {
+        "neptun": "A12345",
+        "first_name": "Hajd\u00fa",
+        "last_name": "Anna",
+        "birth_date": {
+            "year": "2001",
+            "month": "11",
+            "day": "15"
+        },
+        "address": {
+            "country": "HU",
+            "postal": 4026,
+            "city": "Debrecen",
+            "near": "N\u00e9vtelen utca 3."
+        },
+        "id": "5fbc4c514e0ed"
+    },
+    "5fbc4cad28f60": {
+        "neptun": "ZZZZZX",
+        "first_name": "Gipsz",
+        "last_name": "Doktor",
+        "birth_date": {
+            "year": "1967",
+            "month": "3",
+            "day": "19"
+        },
+        "address": {
+            "country": "HU",
+            "postal": 1223,
+            "city": "Budapest",
+            "near": "Nagyt\u00e9t\u00e9nyi \u00fat 162-164."
+        },
+        "id": "5fbc4cad28f60"
+    }
+}
