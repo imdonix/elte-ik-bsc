@@ -1,0 +1,84 @@
+{
+    "5fd0f2ce44ace": {
+        "date": {
+            "date": "2020-12-10 16:56:00.000000",
+            "timezone_type": 3,
+            "timezone": "UTC"
+        },
+        "max": "12",
+        "users": [
+            "5fcfcd98bdd69"
+        ],
+        "id": "5fd0f2ce44ace"
+    },
+    "5fd0f2d71c702": {
+        "date": {
+            "date": "2020-12-29 16:52:00.000000",
+            "timezone_type": 3,
+            "timezone": "UTC"
+        },
+        "max": "11",
+        "users": [],
+        "id": "5fd0f2d71c702"
+    },
+    "5fd0f2e36db07": {
+        "date": {
+            "date": "2020-12-29 20:53:00.000000",
+            "timezone_type": 3,
+            "timezone": "UTC"
+        },
+        "max": "6",
+        "users": [],
+        "id": "5fd0f2e36db07"
+    },
+    "5fd0f2ef1fa79": {
+        "date": {
+            "date": "2021-01-12 16:58:00.000000",
+            "timezone_type": 3,
+            "timezone": "UTC"
+        },
+        "max": "1",
+        "users": [],
+        "id": "5fd0f2ef1fa79"
+    },
+    "5fd0f2f956170": {
+        "date": {
+            "date": "2021-01-26 21:53:00.000000",
+            "timezone_type": 3,
+            "timezone": "UTC"
+        },
+        "max": "1",
+        "users": [],
+        "id": "5fd0f2f956170"
+    },
+    "5fd0f30b9fdec": {
+        "date": {
+            "date": "2021-03-23 20:55:00.000000",
+            "timezone_type": 3,
+            "timezone": "UTC"
+        },
+        "max": "4",
+        "users": [],
+        "id": "5fd0f30b9fdec"
+    },
+    "5fd0f3197cae4": {
+        "date": {
+            "date": "2021-02-22 16:57:00.000000",
+            "timezone_type": 3,
+            "timezone": "UTC"
+        },
+        "max": "12",
+        "users": [],
+        "id": "5fd0f3197cae4"
+    },
+    "5fd0f5b8ae620": {
+        "date": {
+            "date": "2020-12-22 17:09:00.000000",
+            "timezone_type": 3,
+            "timezone": "UTC"
+        },
+        "max": "4",
+        "users": [],
+        "id": "5fd0f5b8ae620"
+    }
+}

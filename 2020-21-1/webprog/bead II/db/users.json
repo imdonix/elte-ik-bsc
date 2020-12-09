@@ -1,0 +1,47 @@
+{
+    "5fcfcd98bdd69": {
+        "name": "Lakatos Bicigli",
+        "taj": "123456789",
+        "address": "Sosel\u00e9tezett utca 69.",
+        "password": "$2y$10$W2JgOJujezWGTZGzrFxgg.giyQFnAm3NUhYhiKrUwupAaBS57COFK",
+        "email": "lakatos@nemlopott.ma",
+        "id": "5fcfcd98bdd69",
+        "admin": false
+    },
+    "5fcfd07dd3319": {
+        "name": "Magyar Bal\u00e1zs",
+        "taj": "123456788",
+        "address": "Erkel Ferenc utca 4.",
+        "password": "$2y$10$JNM0DAQcfp6mtkaK0GimHuL4aY.1Ukoox\/UxA\/YhGFMmAiFw\/gfLy",
+        "email": "test@test.com",
+        "id": "5fcfd07dd3319",
+        "admin": false
+    },
+    "5fcfd439a6b1e": {
+        "name": "Admin",
+        "taj": "000000000",
+        "address": "Budapest",
+        "password": "$2y$10$tyViapA5w2OyRkWQ7OTar.dJburJDqkBXJLBkSu64PjPva71m9\/nu",
+        "email": "admin@nemkovid.hu",
+        "admin": true,
+        "id": "5fcfd439a6b1e"
+    },
+    "5fcfd5a904c99": {
+        "name": "S\u00e1rga S\u00e9ma",
+        "taj": "123456788",
+        "address": "Mars t\u00e9r 14.",
+        "password": "$2y$10$bhQEdymvimC.dUKY8q8AX.jNk7kyvy3eH1xxKcwWwf4wLtggd\/ZEu",
+        "email": "asd@asd.com",
+        "admin": false,
+        "id": "5fcfd5a904c99"
+    },
+    "5fd0ee6e4ce7d": {
+        "name": "Test Elek",
+        "taj": "987654321",
+        "address": "Eleklak 1.",
+        "password": "$2y$10$nuM9aSkONsK4bLb2s0Yjgug4Slo.CA45qAIsPg7OFy3vVq48\/sYW.",
+        "email": "test2@test.com",
+        "admin": false,
+        "id": "5fd0ee6e4ce7d"
+    }
+}
