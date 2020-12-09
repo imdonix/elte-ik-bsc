@@ -1,0 +1,14 @@
+{
+    "5fcee306a7980": {
+        "username": "test1",
+        "password": "$2y$10$PuoxWYroYs5t1U0rmCJtlekEs2oYPE5XsXN.hiAjZO\/dPeW.5NNi6",
+        "isAdmin": false,
+        "id": "5fcee306a7980"
+    },
+    "5fcee3216105a": {
+        "username": "admin",
+        "password": "$2y$10$Awxun4S64A66CfEoJPCEE.Xqf3gduBHxvicqznMu6zBL.CMqFB.tO",
+        "isAdmin": true,
+        "id": "5fcee3216105a"
+    }
+}
