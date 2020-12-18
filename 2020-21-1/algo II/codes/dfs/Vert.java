@@ -20,7 +20,14 @@ public class Vert
 	
     public boolean greater(Vert v)
     {
-    	return Integer.parseInt(id) > Integer.parseInt(v.id);
+    	try 
+    	{
+    		return Integer.parseInt(id) > Integer.parseInt(v.id);
+    	}
+        catch (NumberFormatException nfe) 
+        {
+        	return id.compareTo(v.id) < 0;
+        }    		
     }
 	
 	@Override
