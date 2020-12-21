@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" 
+    rel="stylesheet" 
+    integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" 
+    crossorigin="anonymous">
+    <title>Seged</title>
+</head>
+<body>
+
+
+    <div class="container">
+        <div class="row justify-content-md-center text-center">
+            <h1>Polinom maradékosztás</h1>
+        </div>
+        <div class="row justify-content-md-center text-center">
+          <div class="col col-lg-8">
+            <label for="input" class="form-label">Input</label>
+            <input type="text" id="input" class="form-control" aria-describedby="inputHelp">
+            <div id="inputHelp" class="form-text mb-3">
+              pl: (1 2) = 4x^1 + 2
+            </div>
+            <label for="divider" class="form-label">Divider</label>
+            <input type="text" id="divider" class="form-control" aria-describedby="dividerHelp">
+            <div id="dividerHelp" class="form-text mb-3">
+              pl: (1 -1) = 4x^1 - 1
+            </div>
+            <button id="go" type="submit" class="btn btn-primary w-100">Go</button>
+          </div>
+        </div>
+        <hr>
+        <div class="row justify-content-md-center text-center">
+            <div class="col col-lg-8">
+                <p id="output"></p>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="container">
+        <div class="row justify-content-md-center text-center">
+            <h1>Horner-táblázat</h1>
+        </div>
+        <div class="row justify-content-md-center text-center">
+            <div class="col col-lg-8">
+              <label for="horner" class="form-label">Polinom</label>
+              <input type="text" id="horner" class="form-control" aria-describedby="hornerHelp">
+              <div id="hornerHelp" class="form-text mb-3">
+                pl: (1 2) = 4x^1 + 2
+              </div>
+              <label for="values" class="form-label">f(x)</label>
+              <input type="text" id="values" class="form-control" aria-describedby="valuesHelp">
+              <div id="valuesHelp" class="form-text mb-3">
+                pl: (1 2) = f(1) f(2)
+              </div>
+            </div>
+            <button id="do" type="submit" class="btn btn-primary w-100">Go</button>
+        </div>
+    </div>
+    <hr>
+    <div class="row justify-content-md-center text-center">
+        <div class="col col-lg-8">
+            <table class="table" id=table>
+            </table>
+        </div>
+    </div>
+    
+    <script src="scrip.js"></script>
+</body>
+</html>

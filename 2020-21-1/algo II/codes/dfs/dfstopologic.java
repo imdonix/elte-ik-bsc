@@ -5,7 +5,7 @@ public class dfstopologic
 	
 	public static void main(String[] args)
 	{
-		DiGraph graph = new DiGraph(args, true);
+		DiGraph graph = new DiGraph(args);
 		graph.show();	
 		
 		System.out.println("----");
