@@ -1,12 +1,10 @@
-# Eloadas I
+# I
 
 - `Adatbázis`: olyan adatok együttese, amelyet egy adatbázis-kezelő rendszer (DBMS: Database Management System) kezel.
 
-## `TODO`
+# II
 
-#  Eloadas II
-
-## Bevezető
+## SQL Bevezető
 
 - `SELECT`, `FROM`, `WHERE`
 - `AS` `(SELECT ár * 144 AS ásBanban)`
@@ -34,7 +32,7 @@
     - Théta:
         - R JOIN S ON 
 
-## Haladó
+## SQL Haladó
 - Join
     - `LEFT JOIN`
     - `RIGHT JOIN`
