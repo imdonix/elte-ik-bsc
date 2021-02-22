@@ -48,3 +48,55 @@
 - Csoportosítás
     - `GROUP BY`
     - `HAVING` csoport szintű szűrés
+
+## SQL Haladó II
+
+- Data modification (Módosítás)
+    - `INSERT`
+    - `DEFAULT`
+    - `DELETE`
+        - A törlés két lépésben hajtódik végre először kijelöl utánna töröl, ezért lehet alkérdést használni.
+    - `UPDATE r SET a,b,c WHERE g,h,j`
+- Data definition (Tábla létrehozás)
+    - `CREATE TABLE név (...)`
+    - `DELETE TABLE név`
+    - Típusok:
+        - INT
+        - REAL
+        - CHAR(n)
+            - n hosszú
+        - VARCHAR(n)
+            - legfeljebb n hosszú
+        - DATE
+            - 'yyyy-mm-dd'
+        - TIME
+            - 'hh:mm:ss,5'
+    - Kulcsok:
+        - `PRIMARY KEY (k1, k2)` & `UNIQUE`
+            - nem lehet két ilyen sor
+            - PRIMARY nem lehet null, UNIQUE lehet
+    - Megszorítások 
+        - Idegen kulcsok
+            - `REFERENCES`
+            - `FOREING KEY (atr...) REFERENCEES rel (atr...)`
+            - Törlés ellen védekezés
+                - `DEFAULT`
+                - `ON DETETE SET NULL`
+                - `ON UPDATE CASCADE` - továbgyűrűzés
+        - Érték alapú `l(k) > 20`
+        - Sor alapú - `CHECK (ár < 5)`
+        - Globális - `CREATE ASSERSION name CHECK (rel..)` (bármely módosítás triggerli)
+    - Triggerek
+        - ECA (event-condition-action)
+        - `CREATE TRIGGER trigname`
+        - `BEFORE INSERT ON felsz`
+        - `REFERENCE NEW ROW AS ujfelsz`
+        - `FOR EACH ROW`
+        - `WHEN (felt)`
+        - `INSERT INTO (..)`
+    - Tranzakció
+        - ACID tranzakció (Atomic-Konzisztencia-Elkülönítés-Tartósság)
+        - `COMIT SQL`
+        - `ROLLBACK SQL`
+
+
