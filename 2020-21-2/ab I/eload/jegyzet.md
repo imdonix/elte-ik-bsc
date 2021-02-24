@@ -49,6 +49,8 @@
     - `GROUP BY`
     - `HAVING` csoport szintű szűrés
 
+# III
+
 ## SQL Haladó II
 
 - Data modification (Módosítás)
