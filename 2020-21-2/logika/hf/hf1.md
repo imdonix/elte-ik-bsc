@@ -22,21 +22,21 @@ A formalizálás után, közös igazságtábla segítéségével vizsgáljuk meg
 
 ---
 
-- F1 = `A és B`
-- F2 = `C -> B`
-- F3 = `(A és !B) -> !C`
+- F1 = `A ∧ B`
+- F2 = `C → B`
+- F3 = `(A ∧ ¬B) → ¬C`
 
-- G = `C -> (A és B)`
+- G = `C → (A ∧ B)`
 
-| A | B | C | A és b | C -> B | (A és !B) -> !C | C -> (A és B) |
+| A | B | C | A ∧ B  | C → B  | (A ∧ ¬B) → ¬C   | C → (A ∧ B)   |
 |---|---|---|--------|--------|-----------------|---------------|
 | I | I | I | **I**  | **I**  | **I**           | **I**         |
-| I | I | H | I      | H      | I               | H             |
-| I | H | I | H      | I      | H               | H             |
-| I | H | H | H      | I      | I               | H             |
-| H | I | I | H      | I      | I               | I             |
-| H | I | H | H      | H      | I               | I             |
-| H | H | I | H      | I      | I               | I             |
+| I | I | H | I      | I      | I               | I             |
+| I | H | I | H      | H      | H               | H             |
+| I | H | H | H      | I      | I               | I             |
+| H | I | I | H      | I      | I               | H             |
+| H | I | H | H      | I      | I               | I             |
+| H | H | I | H      | H      | I               | H             |
 | H | H | H | H      | I      | I               | I             |
 
 Az igazság tábla első sorára teljesül a szemantikus következmény.
