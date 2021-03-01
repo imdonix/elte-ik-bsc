@@ -101,4 +101,24 @@
         - `COMIT SQL`
         - `ROLLBACK SQL`
 
+# IV
+
+## Nézet táblák
+- `CREATE [MATERIALIZED] VIEW <név> AS <lekérkezés>`
+- alapértelmezetten virtualizált jön létre (nem materializált)
+
+## Relációs adatmodel tervezés
+
+- Redundás reláció
+- Funkcionális függőség
+    - Szuperkulcs
+    - Kulcs
+    -  kikövetkeztetés A -> B & B -> C => A -> C
+    - Armstrong-Axióma I.
+        - reflexivitás
+        - bővítés
+        - tranzivitás
+    - Lezárás
+    - Exponenciális alg.
+
 
