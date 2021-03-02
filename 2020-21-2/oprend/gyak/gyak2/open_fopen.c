@@ -29,6 +29,9 @@ void use_fopen_text(char* fname){
  f=fopen(fname,"r");
  if (f==NULL){perror("File opening error\n"); exit(1);}
  char line[160];
+
+
+ 
  while (!feof(f)){
    fgets(line,sizeof(line),f);
    printf("%s",line);
