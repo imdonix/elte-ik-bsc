@@ -25,7 +25,7 @@ void clear(char data[MAX][LINE])
 
 int dread(char data[MAX][LINE])
 {
-    FILE* file = fopen(FILENAME, "r"); 
+    FILE* file = fopen(FILENAME, "a+"); 
     if (file<0){ perror("Error at opening the file\n"); return 0; }
 
     int c = 0;
