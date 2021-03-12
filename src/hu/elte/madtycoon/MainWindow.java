@@ -11,7 +11,7 @@ public class MainWindow {
     private JButton credits;
 
     public MainWindow() {
-        frame = new JFrame("Mad Tycoon");
+        frame = new JFrame("Mad Tycoon - Menu");
         panel = new JPanel();
 
         play = new JButton();
