@@ -36,4 +36,18 @@ public class Vector2F
         return (float) Math.sqrt(Math.pow(x - target.x,2)+Math.pow(y - target.y,2));
     }
 
+    @Override
+    public String toString()
+    {
+        return String.format("(%f, %f)", x,y);
+    }
+
+    public static Vector2F UP = new Vector2F(0,-1);
+
+    public static Vector2F DOWN = new Vector2F(0,1);
+
+    public static Vector2F LEFT = new Vector2F(1,0);
+
+    public static Vector2F RIGHT = new Vector2F(-1,0);
+
 }
