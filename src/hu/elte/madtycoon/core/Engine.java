@@ -8,10 +8,12 @@ import java.awt.event.ActionEvent;
 
 public class Engine extends JFrame
 {
-    public static final int GAME_SIZE = 16;
+    public static final int GAME_SIZE_X = 24;
+    public static final int GAME_SIZE_Y = 16;
     public static final int BLOCK_SIZE = 50;
-    public static final int SCREEN_SIZE = GAME_SIZE * BLOCK_SIZE;
-    public static final int RENDER_BASE_CAPACITY = GAME_SIZE * GAME_SIZE;
+    public static final int SCREEN_SIZE_X = GAME_SIZE_X * BLOCK_SIZE;
+    public static final int SCREEN_SIZE_Y = GAME_SIZE_Y * BLOCK_SIZE;
+    public static final int RENDER_BASE_CAPACITY = GAME_SIZE_X * GAME_SIZE_Y;
 
     private final Timer tickTimer;
     private final World world;
@@ -32,7 +34,7 @@ public class Engine extends JFrame
         this.time = 0;
 
         add(canvas);
-        canvas.setPreferredSize(new Dimension(SCREEN_SIZE, SCREEN_SIZE));
+        canvas.setPreferredSize(new Dimension(SCREEN_SIZE_X, SCREEN_SIZE_Y));
         setVisible(true);
         setResizable(false);
         pack();
