@@ -28,7 +28,7 @@ public class MinHeap<T extends Comparable<T>>
         bubbleUp();
     }
 
-    public T rem()
+    protected T rem()
     {
         if (isEmpty()) return null;
 
@@ -43,12 +43,12 @@ public class MinHeap<T extends Comparable<T>>
         return result;
     }
 
-    public boolean isEmpty()
+    protected boolean isEmpty()
     {
         return length == 0;
     }
 
-    public T peek()
+    private T peek()
     {
         if (isEmpty()) throw new IllegalStateException();
         return heap[1];
