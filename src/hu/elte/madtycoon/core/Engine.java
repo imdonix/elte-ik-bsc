@@ -2,9 +2,12 @@ package hu.elte.madtycoon.core;
 
 import hu.elte.madtycoon.render.SpriteRenderBuffer;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.io.File;
+import java.io.IOException;
 
 public class Engine extends JFrame
 {
@@ -18,6 +21,7 @@ public class Engine extends JFrame
     private final Timer tickTimer;
     private final World world;
     private final JPanel canvas;
+    private final JPanel hud;
 
     private SpriteRenderBuffer renderBuffer;
     private float time;
@@ -27,17 +31,33 @@ public class Engine extends JFrame
     {
         super("Mad Tycoon - Game");
         this.canvas = new GamePanel();
+
+        this.hud = new JPanel(){
+                @Override
+                public void paintComponent(Graphics g) {
+                    super.paintComponent(g);
+                    Image img = Toolkit.getDefaultToolkit().getImage("res/main_window_hud.jpg");
+                    g.drawImage(img, 0, 0, this);
+                }
+        };
+        this.hud.setPreferredSize(new Dimension(1920,110));
         this.tickTimer = new Timer(1000/144, this::loop);
         this.world = new World();
         this.renderBuffer = new SpriteRenderBuffer(RENDER_BASE_CAPACITY);
         this.lastTick = System.currentTimeMillis();
+        this.setLayout(new BorderLayout());
         this.time = 0;
 
-        add(canvas);
-        canvas.setPreferredSize(new Dimension(SCREEN_SIZE_X, SCREEN_SIZE_Y));
-        setVisible(true);
-        setResizable(false);
+        add(canvas,BorderLayout.NORTH);
+        add(hud,BorderLayout.EAST);
+        canvas.setPreferredSize(new Dimension(1920, 970));
+        //this.setUndecorated(true); remove // if exit btn added
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        this.setPreferredSize(screenSize);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         pack();
+        setVisible(true);
         tickTimer.start();
     }
 
@@ -66,8 +86,8 @@ public class Engine extends JFrame
         @Override
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
-            g.setColor(Color.green);
-            g.fillRect(0,0, getWidth(), getHeight());
+            Image img = Toolkit.getDefaultToolkit().getImage("res/main_window_bg.jpg");
+            g.drawImage(img,0, 0, this);
             renderBuffer.draw(g);
         }
     }
