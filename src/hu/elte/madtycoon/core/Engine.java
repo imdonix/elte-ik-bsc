@@ -1,27 +1,33 @@
 package hu.elte.madtycoon.core;
 
+import hu.elte.madtycoon.render.SpriteRenderBuffer;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 
 public class Engine extends JFrame
 {
-    private static final int GAME_SIZE = 16;
-    private static final int BLOCK_SIZE = 50;
-    private static final int SCREEN_SIZE = GAME_SIZE * BLOCK_SIZE;
+    public static final int GAME_SIZE = 16;
+    public static final int BLOCK_SIZE = 50;
+    public static final int SCREEN_SIZE = GAME_SIZE * BLOCK_SIZE;
+    public static final int RENDER_BASE_CAPACITY = GAME_SIZE * GAME_SIZE;
 
-    private static Timer tickTimer;
+    private final Timer tickTimer;
+    private final World world;
 
+    private SpriteRenderBuffer renderBuffer;
     private float time;
     private long lastTick;
 
     public Engine()
     {
         super("Mad Tycoon - Game");
-        tickTimer = new Timer(1000/144, this::loop);
-        lastTick = System.currentTimeMillis();
-        time = 0;
-
+        this.tickTimer = new Timer(1000/144, this::loop);
+        this.world = new World();
+        this.renderBuffer = new SpriteRenderBuffer(RENDER_BASE_CAPACITY);
+        this.lastTick = System.currentTimeMillis();
+        this.time = 0;
 
         setPreferredSize(new Dimension(SCREEN_SIZE, SCREEN_SIZE));
         //setUndecorated(true);
@@ -41,23 +47,14 @@ public class Engine extends JFrame
         return delta / 1000F;
     }
 
-    private void update(float dt)
-    {
-        //TODO
-    }
-
-    private void render(float dt)
-    {
-        //TODO
-    }
-
     private void loop(ActionEvent event)
     {
+        renderBuffer = new SpriteRenderBuffer(RENDER_BASE_CAPACITY);
         float delta = time();
         time += delta;
 
-        update(delta);
-        render(delta);
+        world.update(delta);
+        world.render(renderBuffer);
 
         repaint();
     }
@@ -66,7 +63,6 @@ public class Engine extends JFrame
     public void paint(Graphics g)
     {
         super.paint(g);
-        g.setColor(Color.BLUE);
-        g.drawRect(50,50,25,45);
+        renderBuffer.draw(g);
     }
 }
