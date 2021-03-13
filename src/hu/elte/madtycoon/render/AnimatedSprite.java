@@ -34,7 +34,7 @@ public class AnimatedSprite
 
     public void setState(String state)
     {
-        if(!sprites.containsValue(state))
+        if(!sprites.containsKey(state))
             throw new IllegalArgumentException("This animated sprite doesn't have this state");
 
         this.state = state;
