@@ -30,14 +30,11 @@ public class Engine extends JFrame
         this.time = 0;
 
         setPreferredSize(new Dimension(SCREEN_SIZE, SCREEN_SIZE));
-        //setUndecorated(true);
         setVisible(true);
         setLocationRelativeTo(null);
         pack();
         tickTimer.start();
     }
-
-
 
     private float time()
     {
@@ -63,6 +60,7 @@ public class Engine extends JFrame
     public void paint(Graphics g)
     {
         super.paint(g);
+        g.clearRect(0,0, getWidth(), getHeight());
         renderBuffer.draw(g);
     }
 }
