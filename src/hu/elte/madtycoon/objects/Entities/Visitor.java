@@ -22,7 +22,6 @@ public class Visitor extends Entity
 
         sprite.setState("walk");
         position = position.add(Vector2F.DOWN.mul(dt));
-        System.out.println(position);
     }
 
     public static Visitor CreateNewVisitor(World world, Vector2F position)
