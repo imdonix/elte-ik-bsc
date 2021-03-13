@@ -26,4 +26,10 @@ public final class Vector2I
         return new Vector2I(x*s,y*s);
     }
 
+    @Override
+    public String toString()
+    {
+        return String.format("(%o, %o)", x,y);
+    }
+
 }
