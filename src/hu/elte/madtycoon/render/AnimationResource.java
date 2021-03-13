@@ -39,6 +39,14 @@ public class AnimationResource
         System.out.println(String.format("[Resources] %o sprite loaded into %o animation", loadedCount ,animsCount));
     }
 
+    public BufferedImage[] get(String path)
+    {
+        if(resources.containsKey(path))
+            return resources.get(path);
+        else
+            throw new IllegalStateException("This animation doesn't exits");
+    }
+
     private void loadObject(File object)
     {
         for(final File anim : object.listFiles())
