@@ -33,8 +33,8 @@ public class SpriteRenderBuffer extends MinHeap<LayeredSprite>
     {
         int baseX = (int) Math.floor(v.x);
         int baseY = (int) Math.floor(v.y);
-        int inX = (int) (v.x - baseX) * Engine.BLOCK_SIZE;
-        int inY = (int) (v.y - baseY) * Engine.BLOCK_SIZE;
+        int inX = (int) ((v.x - baseX) * Engine.BLOCK_SIZE);
+        int inY = (int) ((v.y - baseY) * Engine.BLOCK_SIZE);
         return new Vector2I(baseX * Engine.BLOCK_SIZE + inX, baseY * Engine.BLOCK_SIZE + inY);
     }
 }
