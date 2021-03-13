@@ -15,6 +15,7 @@ public class Engine extends JFrame
 
     private final Timer tickTimer;
     private final World world;
+    private final JPanel canvas;
 
     private SpriteRenderBuffer renderBuffer;
     private float time;
@@ -23,15 +24,17 @@ public class Engine extends JFrame
     public Engine()
     {
         super("Mad Tycoon - Game");
+        this.canvas = new GamePanel();
         this.tickTimer = new Timer(1000/144, this::loop);
         this.world = new World();
         this.renderBuffer = new SpriteRenderBuffer(RENDER_BASE_CAPACITY);
         this.lastTick = System.currentTimeMillis();
         this.time = 0;
 
-        setPreferredSize(new Dimension(SCREEN_SIZE, SCREEN_SIZE));
+        add(canvas);
+        canvas.setPreferredSize(new Dimension(SCREEN_SIZE, SCREEN_SIZE));
         setVisible(true);
-        setLocationRelativeTo(null);
+        setResizable(false);
         pack();
         tickTimer.start();
     }
@@ -53,14 +56,18 @@ public class Engine extends JFrame
         world.update(delta);
         world.render(renderBuffer);
 
-        repaint();
+        canvas.repaint();
     }
 
-    @Override
-    public void paint(Graphics g)
+    class GamePanel extends JPanel
     {
-        super.paint(g);
-        g.clearRect(0,0, getWidth(), getHeight());
-        renderBuffer.draw(g);
+        @Override
+        protected void paintComponent(Graphics g) {
+            super.paintComponent(g);
+            g.setColor(Color.green);
+            g.fillRect(0,0, getWidth(), getHeight());
+            renderBuffer.draw(g);
+        }
     }
+
 }

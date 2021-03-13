@@ -29,7 +29,11 @@ public class World
 
     private void start()
     {
-        entities.add(Visitor.CreateNewVisitor(this, new Vector2F(1,1)));
+        for (int i = 0; i < 15; i++) {
+            for (int j = 0; j < 15; j++) {
+                entities.add(Visitor.CreateNewVisitor(this, new Vector2F(i,j)));
+            }
+        }
     }
 
     public void update(float dt)
