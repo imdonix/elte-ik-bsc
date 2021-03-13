@@ -1,17 +1,13 @@
 package hu.elte.madtycoon.render;
 
 
+import hu.elte.madtycoon.Main;
 import hu.elte.madtycoon.core.Engine;
 import hu.elte.madtycoon.utils.MinHeap;
 import hu.elte.madtycoon.utils.Vector2F;
 import hu.elte.madtycoon.utils.Vector2I;
 
-import javax.imageio.ImageIO;
-import javax.swing.*;
 import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 
 public class SpriteRenderBuffer extends MinHeap<LayeredSprite>
 {
