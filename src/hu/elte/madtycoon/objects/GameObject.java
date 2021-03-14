@@ -27,13 +27,14 @@ public abstract class GameObject implements ITargetable
 
     public void update(float dt)
     {
-        if(!startFrame)
-        {
-            start();
-            startFrame = true;
-        }
+        if(active) {
+            if (!startFrame) {
+                start();
+                startFrame = true;
+            }
 
-        sprite.update(dt);
+            sprite.update(dt);
+        }
     }
 
     public void setActive(boolean active)
