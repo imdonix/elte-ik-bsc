@@ -6,4 +6,9 @@ public class Random
     {
         return min + ((int)(Math.random() * (max-min)));
     }
+
+    public static float getRandomFloat(float min, float max)
+    {
+        return min + ((float) Math.random() * (max-min));
+    }
 }

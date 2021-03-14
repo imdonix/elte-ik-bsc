@@ -11,6 +11,10 @@ import java.util.List;
 public abstract class Entity extends GameObject
 {
     protected final String name;
+    protected float interest;
+    protected float food;
+    protected int money;
+
 
     protected Entity(World world, AnimatedSprite sprite, Vector2F position)
     {
@@ -22,6 +26,11 @@ public abstract class Entity extends GameObject
     {
         final List<String> names = Resources.Instace.entityNames;
         return names.get(Random.getRandomInt(0, names.size()));
+    }
+
+    public float getHappiness()
+    {
+        return (interest + food) / 2;
     }
 
     @Override
