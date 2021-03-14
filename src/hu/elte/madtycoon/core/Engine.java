@@ -36,8 +36,7 @@ public class Engine extends JFrame
                 @Override
                 public void paintComponent(Graphics g) {
                     super.paintComponent(g);
-                    Image img = Toolkit.getDefaultToolkit().getImage("res/main_window_hud.jpg");
-                    g.drawImage(img, 0, 0, this);
+                    g.drawImage(Resources.Instace.gameHudImage, 0, 0, this);
                 }
         };
         this.hud.setPreferredSize(new Dimension(1920,110));
@@ -86,8 +85,7 @@ public class Engine extends JFrame
         @Override
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
-            Image img = Toolkit.getDefaultToolkit().getImage("res/main_window_bg.jpg");
-            g.drawImage(img,0, 0, this);
+            g.drawImage(Resources.Instace.gameBackGroundImage, 0, 0, this);
             renderBuffer.draw(g);
         }
     }
