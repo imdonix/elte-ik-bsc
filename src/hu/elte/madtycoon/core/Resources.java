@@ -1,10 +1,12 @@
 package hu.elte.madtycoon.core;
 
 import javax.imageio.ImageIO;
-import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.List;
 
 public class Resources
 {
@@ -18,6 +20,8 @@ public class Resources
 
     public BufferedImage gameBackGroundImage;
     public BufferedImage gameHudImage;
+
+    public List<String> entityNames;
 
     private Resources() {}
 
@@ -40,5 +44,6 @@ public class Resources
     {
         gameBackGroundImage = ImageIO.read(new File("res/main_window_bg.jpg"));
         gameHudImage = ImageIO.read(new File("res/main_window_hud.jpg"));
+        entityNames = Files.readAllLines(Paths.get("res/names.txt"));
     }
 }
