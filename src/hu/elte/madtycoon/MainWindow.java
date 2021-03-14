@@ -4,12 +4,7 @@ import hu.elte.madtycoon.core.Resources;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
 
-import java.io.File;
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
 public class MainWindow extends JFrame {
@@ -52,17 +47,17 @@ public class MainWindow extends JFrame {
         exit.setBorderPainted(false);
         exit.addActionListener(e -> System.exit(0));
 
-        play.setIcon(new ImageIcon(Resources.Instace.menuPlayButton));
-        settings.setIcon(new ImageIcon(Resources.Instace.menuSettingsButton));
-        credits.setIcon(new ImageIcon(Resources.Instace.menuCreditsButton));
-        exit.setIcon(new ImageIcon(Resources.Instace.menuExitButton));
+        play.setIcon(new ImageIcon(Resources.Instance.menuPlayButton));
+        settings.setIcon(new ImageIcon(Resources.Instance.menuSettingsButton));
+        credits.setIcon(new ImageIcon(Resources.Instance.menuCreditsButton));
+        exit.setIcon(new ImageIcon(Resources.Instance.menuExitButton));
 
         this.setPreferredSize(screenSize);
             this.setContentPane(new JPanel() {
                 @Override
                 public void paintComponent(Graphics g) {
                     super.paintComponent(g);
-                    g.drawImage(Resources.Instace.menuBackGroundImage, 0, 0, this);
+                    g.drawImage(Resources.Instance.menuBackGroundImage, 0, 0, this);
                 }
             });
         panel.add(play);
