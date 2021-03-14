@@ -2,6 +2,9 @@ package hu.elte.madtycoon.utils;
 
 public class Vector2F
 {
+
+    public static float E = 0.0025F;
+
     public final float x;
     public final float y;
 
@@ -26,9 +29,25 @@ public class Vector2F
         return new Vector2F(x + right.x, y + right.y);
     }
 
+    public Vector2F min(Vector2F right)
+    {
+        return new Vector2F(x - right.x, y - right.y);
+    }
+
     public Vector2F mul(float s)
     {
         return new Vector2F(x*s,y*s);
+    }
+
+    public float length()
+    {
+        return (float) Math.sqrt(x*x + y*y);
+    }
+
+    public Vector2F normalized()
+    {
+        float l = length();
+        return new Vector2F(x/l,y/l);
     }
 
     public float distance(Vector2F target)
@@ -49,5 +68,9 @@ public class Vector2F
     public static Vector2F LEFT = new Vector2F(1,0);
 
     public static Vector2F RIGHT = new Vector2F(-1,0);
+
+    public static Vector2F ZERO = new Vector2F(0,0);
+
+    public static Vector2F ONE = new Vector2F(1,1);
 
 }

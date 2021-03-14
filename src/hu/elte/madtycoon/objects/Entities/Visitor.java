@@ -4,6 +4,9 @@ import hu.elte.madtycoon.core.World;
 import hu.elte.madtycoon.objects.Entity;
 import hu.elte.madtycoon.render.AnimatedSprite;
 import hu.elte.madtycoon.render.AnimationResource;
+import hu.elte.madtycoon.task.GoRandomPlace;
+import hu.elte.madtycoon.task.LeavePark;
+import hu.elte.madtycoon.task.Task;
 import hu.elte.madtycoon.utils.Random;
 import hu.elte.madtycoon.utils.Vector2F;
 
@@ -30,14 +33,23 @@ public class Visitor extends Entity
     @Override
     protected void start()
     {
-        sprite.setState("idle");
+        if(world.getEntranceCost() > money / 2)
+            task = new LeavePark(this, world);
+        else
+            world.earn(pay(world.getEntranceCost()));
     }
 
     @Override
-    public void update(float dt)
-    {
-        super.update(dt);
+    protected Task getNewTask() {
+        return new GoRandomPlace(this);
     }
+
+    @Override
+    public float getMovementSpeed()
+    {
+        return 2;
+    }
+
 
 
     public static Visitor CreateNewVisitor(World world, Vector2F position)

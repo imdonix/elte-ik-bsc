@@ -29,9 +29,9 @@ public class World
 
     private void start()
     {
-        for (int i = 0; i < 15; i++) {
-            for (int j = 0; j < 15; j++) {
-                entities.add(Visitor.CreateNewVisitor(this, new Vector2F(i,j)));
+        for (int i = 0; i < 25; i++) {
+            for (int j = 0; j < 25; j++) {
+                entities.add(Visitor.CreateNewVisitor(this, new Vector2F(i+2,j+2)));
             }
         }
     }
@@ -49,6 +49,11 @@ public class World
     public int getMoney()
     {
         return money;
+    }
+
+    public void earn(int money)
+    {
+        this.money += money;
     }
 
     public int getEntranceCost()
