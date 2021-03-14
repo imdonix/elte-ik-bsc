@@ -12,15 +12,24 @@ public abstract class GameObject
     protected Vector2F position;
     protected World world;
 
+    private boolean startFrame;
+
     public GameObject(World world, AnimatedSprite sprite, Vector2F position)
     {
         this.world = world;
         this.sprite = sprite;
         this.position = position;
+        this.startFrame = false;
     }
 
     public void update(float dt)
     {
+        if(!startFrame)
+        {
+            start();
+            startFrame = true;
+        }
+
         sprite.update(dt);
     }
 
@@ -28,6 +37,8 @@ public abstract class GameObject
     {
         buffer.add(new LayeredSprite(sprite.getSprite(), getRenderLayer(), position));
     }
+
+    protected abstract void start();
 
     protected abstract int getRenderLayer();
 }

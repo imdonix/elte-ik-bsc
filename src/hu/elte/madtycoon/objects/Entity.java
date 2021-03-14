@@ -26,4 +26,6 @@ public abstract class Entity extends GameObject
 
     @Override
     protected int getRenderLayer() { return 1; }
+
+    protected abstract void start();
 }
