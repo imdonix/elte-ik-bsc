@@ -13,19 +13,13 @@ public class Resources
     public BufferedImage gameBackGroundImage;
     public BufferedImage gameHudImage;
 
-    private boolean loaded;
 
-    private Resources()
-    {
-        loaded = false;
-    }
+    private Resources() {}
 
     public void load() throws IOException
     {
         gameBackGroundImage = ImageIO.read(new File("res/main_window_bg.jpg"));
         gameHudImage = ImageIO.read(new File("res/main_window_hud.jpg"));
-
-        loaded = true;
     }
 
 }
