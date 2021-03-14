@@ -1,20 +1,24 @@
 package hu.elte.madtycoon.task;
 
 import hu.elte.madtycoon.objects.Entity;
+import hu.elte.madtycoon.objects.Game;
+import hu.elte.madtycoon.objects.GameObject;
 import hu.elte.madtycoon.utils.Vector2F;
 
-public abstract class Task
+public abstract class Task <T extends ITargetable>
 {
     public final Entity entity;
-    public final ITargetable target;
+    public final T target;
+    public final IInteract<T> interaction;
 
     private boolean reach;
     private boolean done;
 
-    public Task(Entity entity, ITargetable target)
+    public Task(Entity entity, T target, IInteract<T> interaction)
     {
         this.entity = entity;
         this.target = target;
+        this.interaction = interaction;
         done = false;
         reach = false;
     }
@@ -49,7 +53,6 @@ public abstract class Task
 
     private void interact()
     {
-        //TODO as interface
-        System.out.println("Interacted.");
+        interaction.interact(target);
     }
 }

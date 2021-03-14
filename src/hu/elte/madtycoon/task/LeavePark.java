@@ -13,6 +13,6 @@ public class LeavePark extends Task
             public Vector2F getPosition() {
                 return Vector2F.ZERO;
             }
-        });
+        }, (t) -> {System.out.println("Park left");});
     }
 }

@@ -15,6 +15,6 @@ public class GoRandomPlace extends Task
             public Vector2F getPosition() {
                 return v;
             }
-        });
+        }, (i) -> System.out.println("Place reached"));
     }
 }
