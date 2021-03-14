@@ -40,6 +40,22 @@ public class Engine extends JFrame
                 }
         };
         this.hud.setPreferredSize(new Dimension(1920,110));
+
+        JButton exit = new JButton();
+        exit.setOpaque(false);
+        exit.setContentAreaFilled(false);
+        exit.setBorderPainted(false);
+        exit.addActionListener(e -> System.exit(0));
+        exit.setMargin(new Insets(25, 0, 0, 0));
+
+
+        this.hud.add(exit);
+
+
+        exit.setIcon(new ImageIcon(Resources.Instace.gameExitButton));
+
+
+
         this.tickTimer = new Timer(1000/144, this::loop);
         this.world = new World();
         this.renderBuffer = new SpriteRenderBuffer(RENDER_BASE_CAPACITY);
@@ -50,7 +66,7 @@ public class Engine extends JFrame
         add(canvas,BorderLayout.NORTH);
         add(hud,BorderLayout.EAST);
         canvas.setPreferredSize(new Dimension(1920, 970));
-        //this.setUndecorated(true); remove // if exit btn added
+        this.setUndecorated(true); // if exit btn added
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         this.setPreferredSize(screenSize);

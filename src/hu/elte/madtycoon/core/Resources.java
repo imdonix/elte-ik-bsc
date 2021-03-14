@@ -20,6 +20,7 @@ public class Resources
 
     public BufferedImage gameBackGroundImage;
     public BufferedImage gameHudImage;
+    public BufferedImage gameExitButton;
 
     public List<String> entityNames;
 
@@ -44,6 +45,7 @@ public class Resources
     {
         gameBackGroundImage = ImageIO.read(new File("res/main_window_bg.jpg"));
         gameHudImage = ImageIO.read(new File("res/main_window_hud.jpg"));
+        gameExitButton = ImageIO.read(new File("res/main_window_exit.png"));
         entityNames = Files.readAllLines(Paths.get("res/names.txt"));
     }
 }
