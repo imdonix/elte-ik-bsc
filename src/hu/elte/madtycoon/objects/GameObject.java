@@ -14,6 +14,7 @@ public abstract class GameObject implements ITargetable
     protected World world;
 
     private boolean startFrame;
+    private boolean active;
 
     public GameObject(World world, AnimatedSprite sprite, Vector2F position)
     {
@@ -21,6 +22,7 @@ public abstract class GameObject implements ITargetable
         this.sprite = sprite;
         this.position = position;
         this.startFrame = false;
+        this.active = true;
     }
 
     public void update(float dt)
@@ -34,9 +36,15 @@ public abstract class GameObject implements ITargetable
         sprite.update(dt);
     }
 
+    public void setActive(boolean active)
+    {
+        this.active = active;
+    }
+
     public void render(SpriteRenderBuffer buffer)
     {
-        buffer.add(new LayeredSprite(sprite.getSprite(), getRenderLayer(), position));
+        if(active)
+            buffer.add(new LayeredSprite(sprite.getSprite(), getRenderLayer(), position));
     }
 
     public Vector2F getPosition()
