@@ -15,7 +15,7 @@ public class Main
     {
         try
         {
-            Resources.Instace.load();
+            Resources.Instance.load();
             AnimationResource.Instance.load();
         }
         catch (IOException exception)

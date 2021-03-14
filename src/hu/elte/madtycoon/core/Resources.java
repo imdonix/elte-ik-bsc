@@ -10,7 +10,7 @@ import java.util.List;
 
 public class Resources
 {
-    public static Resources Instace = new Resources();
+    public static Resources Instance = new Resources();
 
     public BufferedImage menuBackGroundImage;
     public BufferedImage menuPlayButton;

@@ -1,13 +1,11 @@
 package hu.elte.madtycoon.core;
 
+import hu.elte.madtycoon.Main;
 import hu.elte.madtycoon.render.SpriteRenderBuffer;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.io.File;
-import java.io.IOException;
 
 public class Engine extends JFrame
 {
@@ -36,7 +34,7 @@ public class Engine extends JFrame
                 @Override
                 public void paintComponent(Graphics g) {
                     super.paintComponent(g);
-                    g.drawImage(Resources.Instace.gameHudImage, 0, 0, this);
+                    g.drawImage(Resources.Instance.gameHudImage, 0, 0, this);
                 }
         };
         this.hud.setPreferredSize(new Dimension(1920,110));
@@ -52,7 +50,7 @@ public class Engine extends JFrame
         this.hud.add(exit);
 
 
-        exit.setIcon(new ImageIcon(Resources.Instace.gameExitButton));
+        exit.setIcon(new ImageIcon(Resources.Instance.gameExitButton));
 
 
 
@@ -96,12 +94,22 @@ public class Engine extends JFrame
         canvas.repaint();
     }
 
+    private void drawDebugGrid(Graphics g)
+    {
+        g.setColor(Color.blue);
+        for (int i = 0; i < GAME_SIZE_X; i++)
+            for (int j = 0; j < GAME_SIZE_Y; j++)
+                g.drawRect(i*BLOCK_SIZE, j*BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE);
+
+    }
+
     class GamePanel extends JPanel
     {
         @Override
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
-            g.drawImage(Resources.Instace.gameBackGroundImage, 0, 0, this);
+            g.drawImage(Resources.Instance.gameBackGroundImage, 0, 0, this);
+            if(Main.DEBUG) drawDebugGrid(g);
             renderBuffer.draw(g);
         }
     }
