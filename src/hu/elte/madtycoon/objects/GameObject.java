@@ -4,9 +4,10 @@ import hu.elte.madtycoon.core.World;
 import hu.elte.madtycoon.render.AnimatedSprite;
 import hu.elte.madtycoon.render.LayeredSprite;
 import hu.elte.madtycoon.render.SpriteRenderBuffer;
+import hu.elte.madtycoon.task.ITargetable;
 import hu.elte.madtycoon.utils.Vector2F;
 
-public abstract class GameObject
+public abstract class GameObject implements ITargetable
 {
     protected AnimatedSprite sprite;
     protected Vector2F position;
@@ -36,6 +37,16 @@ public abstract class GameObject
     public void render(SpriteRenderBuffer buffer)
     {
         buffer.add(new LayeredSprite(sprite.getSprite(), getRenderLayer(), position));
+    }
+
+    public Vector2F getPosition()
+    {
+        return position;
+    }
+
+    public AnimatedSprite getSprite()
+    {
+        return sprite;
     }
 
     protected abstract void start();
