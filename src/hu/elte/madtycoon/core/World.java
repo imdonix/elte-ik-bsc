@@ -1,10 +1,12 @@
 package hu.elte.madtycoon.core;
 
+import hu.elte.madtycoon.objects.Building;
 import hu.elte.madtycoon.objects.Entities.Visitor;
 import hu.elte.madtycoon.objects.Entity;
 import hu.elte.madtycoon.objects.GameObject;
 import hu.elte.madtycoon.render.SpriteRenderBuffer;
 import hu.elte.madtycoon.utils.Vector2F;
+import hu.elte.madtycoon.utils.Vector2I;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -15,6 +17,7 @@ public class World
     public static int DEFAULT_START_MONEY = 200;
 
     private final List<Entity> entities;
+    private List<Building> buildings;
 
     private int money;
     private int entranceCost;
@@ -64,5 +67,15 @@ public class World
     public void setEntranceCost(int entranceCost)
     {
         this.entranceCost = entranceCost;
+    }
+
+    public boolean isColide(int x, int y, Vector2I size) {
+        for(int i = 0; i < buildings.size(); i++) {
+            if(buildings.get(i).getSize() == size && buildings.get(i).getPosition().x == x
+                    && buildings.get(i).getPosition().y == y) {
+                return true;
+            }
+        }
+        return false;
     }
 }
