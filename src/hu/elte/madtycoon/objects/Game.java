@@ -8,13 +8,15 @@ import hu.elte.madtycoon.utils.Vector2I;
 
 import java.util.Queue;
 
-public abstract class Game extends Interactable {
+public abstract class Game extends Building {
     private int max;
     private float timer;
     private int useCost;
     private Queue <Visitor> queue;
 
-    public Game(World world, AnimatedSprite sprite, Vector2F position, Vector2I size, float health, float decorationValue, boolean opened, boolean needRepair, int max, float timer, int useCost, Queue<Visitor> queue) {
+    public Game(World world, AnimatedSprite sprite, Vector2F position, Vector2I size, float health,
+                float decorationValue, boolean opened, boolean needRepair, int max, float timer,
+                int useCost, Queue<Visitor> queue) {
         super(world, sprite, position, size, health, decorationValue, opened, needRepair);
         this.max = max;
         this.timer = timer;
