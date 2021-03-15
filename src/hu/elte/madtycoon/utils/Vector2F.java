@@ -55,6 +55,14 @@ public class Vector2F
         return (float) Math.sqrt(Math.pow(x - target.x,2)+Math.pow(y - target.y,2));
     }
 
+    public boolean getAnimDirection()
+    {
+        if(x > 0)
+            return true;
+        else
+            return false;
+    }
+
     @Override
     public String toString()
     {

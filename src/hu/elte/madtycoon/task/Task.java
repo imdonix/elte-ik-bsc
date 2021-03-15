@@ -40,8 +40,9 @@ public abstract class Task <T extends ITargetable>
             reach = true;
         else
         {
-            entity.getSprite().setState("walk");
             Vector2F dir = target.getPosition().min(entity.getPosition());
+            entity.getSprite().setRotation(dir.getAnimDirection());
+            entity.getSprite().setState("walk");
             entity.move(dir, dt);
         }
     }
