@@ -32,8 +32,8 @@ public class World
 
     private void start()
     {
-        for (int i = 0; i < 25; i++) {
-            for (int j = 0; j < 25; j++) {
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < 5; j++) {
                 entities.add(Visitor.CreateNewVisitor(this, new Vector2F(i+2,j+2)));
             }
         }

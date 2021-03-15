@@ -26,8 +26,10 @@ public class Engine extends JFrame
 
     private Vector2I selectedBlock;
     private SpriteRenderBuffer renderBuffer;
+    private FPSDisplay fpsDisplay;
     private float time;
     private long lastTick;
+
 
     public Engine()
     {
@@ -64,6 +66,7 @@ public class Engine extends JFrame
         this.lastTick = System.currentTimeMillis();
         this.setLayout(new BorderLayout());
         this.time = 0;
+        this.fpsDisplay = new FPSDisplay(30);
         this.selectedBlock = null;
 
         add(canvas,BorderLayout.NORTH);
@@ -83,8 +86,10 @@ public class Engine extends JFrame
     {
         long current = System.currentTimeMillis();
         long delta = current - lastTick;
+        float deltaTime = delta / 1000F;
         lastTick = current;
-        return delta / 1000F;
+        fpsDisplay.record((int) (1F / deltaTime));
+        return deltaTime;
     }
 
     private void loop(ActionEvent event)
@@ -105,12 +110,6 @@ public class Engine extends JFrame
         for (int i = 0; i < GAME_SIZE_X; i++)
             for (int j = 0; j < GAME_SIZE_Y; j++)
                 g.drawRect(i*BLOCK_SIZE, j*BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE);
-
-        if(selectedBlock != null)
-        {
-            g.setColor(Color.red);
-            g.drawRect(selectedBlock.x*BLOCK_SIZE, selectedBlock.y*BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE);
-        }
     }
 
     private void debugDrawSelected(Graphics g)
@@ -120,6 +119,11 @@ public class Engine extends JFrame
             g.drawRect(selectedBlock.x*BLOCK_SIZE, selectedBlock.y*BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE);
     }
 
+    private void debugFPS(Graphics g)
+    {
+        g.setColor(Color.orange);
+        g.drawString(String.format("%o", fpsDisplay.get()),15,15);
+    }
 
 
     class GamePanel extends JPanel
@@ -130,10 +134,9 @@ public class Engine extends JFrame
             g.drawImage(Resources.Instance.gameBackGroundImage, 0, 0, this);
             if(Main.DEBUG) debugDrawGrid(g);
             if(Main.DEBUG) debugDrawSelected(g);
+            if(Main.DEBUG) debugFPS(g);
             renderBuffer.draw(g);
         }
-
-
     }
 
     class ClickListener implements MouseListener
@@ -164,6 +167,37 @@ public class Engine extends JFrame
         public void mouseExited(MouseEvent e)
         {
             selectedBlock = null;
+        }
+    }
+
+    class FPSDisplay
+    {
+        private int counter;
+        private int sum;
+        private int recorded;
+        private int last;
+
+        public FPSDisplay(int recorded)
+        {
+            this.recorded = recorded;
+            this.last = this.counter = this.sum = 0;
+        }
+
+        public void record(int fps)
+        {
+            sum+=fps;
+            counter++;
+
+            if(counter >= recorded)
+            {
+                last = sum/counter;
+                counter = sum = 0;
+            }
+        }
+
+        public int get()
+        {
+            return last;
         }
     }
 }
