@@ -71,8 +71,10 @@ public class World
 
     public boolean isColide(int x, int y, Vector2I size) {
         for(int i = 0; i < buildings.size(); i++) {
-            if(buildings.get(i).getSize() == size && buildings.get(i).getPosition().x == x
-                    && buildings.get(i).getPosition().y == y) {
+            if(buildings.get(i).getPosition().x < x + size.x &&
+            buildings.get(i).getPosition().x + buildings.get(i).getSize().x > x &&
+            buildings.get(i).getPosition().y < y + size.y &&
+            buildings.get(i).getPosition().y + buildings.get(i).getSize().y > y) {
                 return true;
             }
         }
