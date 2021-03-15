@@ -49,7 +49,9 @@ public abstract class Entity extends GameObject {
 
     public void move(Vector2F dir, float dt)
     {
-        position = position.add(dir.normalized().mul(dt * getMovementSpeed()));
+        Vector2F force = dir.normalized().mul(dt * getMovementSpeed());
+        if(force.length() > dir.length()) force = dir;
+        position = position.add(force);
     }
 
     @Override
