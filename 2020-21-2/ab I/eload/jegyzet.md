@@ -122,3 +122,9 @@
     - Exponenciális alg.
 
 
+# V
+
+- Veszteségmentes felbontás (van R reláció és R1 x R2 visszaadja ezt)
+- Boyce-Codd normálforma (BCNF)
+- Chase-teszt
+- 3NF
