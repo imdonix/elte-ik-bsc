@@ -33,7 +33,7 @@ int dread(char data[MAX][LINE])
 
     fclose(file);
 
-    return c-1;
+    return c-1; 
 }
 
 int dwrite(char data[MAX][LINE], int len)
@@ -122,7 +122,7 @@ int main()
     int lr = dread(data);
     printf("Number of records read from datafile: %i\n", lr);
 
-    loop(data, lr);
+    loop(data, &lr);
 
     int lw = dwrite(data, lr);
     printf("%i records saved to the datafile\n", lw);

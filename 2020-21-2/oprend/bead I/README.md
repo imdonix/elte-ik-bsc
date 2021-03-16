@@ -10,3 +10,22 @@
 - A forrásállományt vagy állományokat okat itt töltsék fel .c vagy .zip formában.
 
 Beadási határidő: 2021  április 6. 
+
+## Használat
+A program indítása után egy parancssor szerű felületet kapunk ahol:
+- close: program bezárása és adatok mentése
+- list: adatok listázása
+- add \<rec\> : új adat felvétele (nincs ellenörzés)
+- remove \<id\> : adat törlése
+- update \<id\> \<rex\> : adat módisítása (nincs ellenörzés)
+
+## Teszt esetek
+- [X] Nincs alapfájl
+- [X] van alapfájl
+- [X] Üres adattömb mentése
+- [X] Felhasználó felvétele
+- [X] Egy "nem utolsó" felhasználó törlése
+- [X] Egy "utolsó" felhasználó törlése
+- [X] Egy felhasználó módosítása
+- [X] Üres adattömb listázása
+- [X] Adattömb listázása
