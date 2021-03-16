@@ -3,6 +3,7 @@ package hu.elte.madtycoon.core;
 import hu.elte.madtycoon.objects.Building;
 import hu.elte.madtycoon.objects.Entities.Visitor;
 import hu.elte.madtycoon.objects.Entity;
+import hu.elte.madtycoon.objects.Game;
 import hu.elte.madtycoon.objects.GameObject;
 import hu.elte.madtycoon.render.SpriteRenderBuffer;
 import hu.elte.madtycoon.utils.Vector2F;
@@ -27,6 +28,7 @@ public class World
         money = DEFAULT_START_MONEY;
         entranceCost = DEFAULT_ENTRANCE_COST;
         entities = new LinkedList<Entity>();
+        buildings  = new LinkedList<Building>();
         start();
     }
 
@@ -42,11 +44,13 @@ public class World
     public void update(float dt)
     {
         for(final GameObject obj : entities) obj.update(dt);
+        for(final GameObject obj : buildings) obj.update(dt);
     }
 
     public void render(SpriteRenderBuffer buffer)
     {
         for(final GameObject obj : entities) obj.render(buffer);
+        for(final GameObject obj : buildings) obj.render(buffer);
     }
 
     public int getMoney()
