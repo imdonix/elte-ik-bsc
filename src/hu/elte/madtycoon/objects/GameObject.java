@@ -58,6 +58,11 @@ public abstract class GameObject implements ITargetable
         return sprite;
     }
 
+    public Vector2F getTargetPosition()
+    {
+        return getPosition();
+    }
+
     protected abstract void start();
 
     protected abstract int getRenderLayer();
