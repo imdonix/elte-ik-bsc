@@ -2,14 +2,15 @@ package hu.elte.madtycoon.task;
 
 import hu.elte.madtycoon.objects.Entity;
 import hu.elte.madtycoon.objects.GameObject;
+import hu.elte.madtycoon.render.AnimatedSprite;
 import hu.elte.madtycoon.utils.Vector2F;
 
-public abstract class GoTask <T extends ITargetable> extends Task<T>
+public abstract class GoTask <T extends ITargetable> extends Task
 {
-    private T target;
+    protected T target;
 
-    public GoTask(Entity entity, T target, IInteract<T> interaction) {
-        super(entity, interaction);
+    public GoTask(Entity entity, T target) {
+        super(entity);
         this.target = target;
     }
 
@@ -21,14 +22,9 @@ public abstract class GoTask <T extends ITargetable> extends Task<T>
         {
             Vector2F dir = target.getTargetPosition().min(entity.getPosition());
             entity.getSprite().setRotation(dir.getAnimDirection());
-            entity.getSprite().setState("walk");
+            entity.getSprite().setState(AnimatedSprite.WALK);
             entity.move(dir, dt);
         }
     }
 
-    @Override
-    protected void interact()
-    {
-        interaction.interact(target);
-    }
 }

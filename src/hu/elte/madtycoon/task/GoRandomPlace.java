@@ -15,6 +15,15 @@ public class GoRandomPlace extends GoTask
             public Vector2F getTargetPosition() {
                 return v;
             }
-        }, (i) -> System.out.println("Place reached"));
+        });
+    }
+
+    @Override
+    protected void start() {}
+
+    @Override
+    protected void interact()
+    {
+        System.out.println(String.format("%s has reached the random position", entity.getName()));
     }
 }

@@ -5,31 +5,39 @@ import hu.elte.madtycoon.objects.Game;
 import hu.elte.madtycoon.objects.GameObject;
 import hu.elte.madtycoon.utils.Vector2F;
 
-public abstract class Task <T extends ITargetable>
+public abstract class Task
 {
     public final Entity entity;
-    public final IInteract<T> interaction;
 
     protected boolean reach;
     protected boolean done;
+    private boolean startFrame;
 
-    public Task(Entity entity, IInteract<T> interaction)
+    public Task(Entity entity)
     {
         this.entity = entity;
-        this.interaction = interaction;
         done = false;
         reach = false;
+        startFrame = true;
     }
 
     public final void update(float dt)
     {
-        if(reach)
+        if(startFrame)
         {
-            if(!done) interact();
-            done = true;
+            startFrame = false;
+            start();
         }
         else
-            doPre(dt);
+        {
+            if(reach)
+            {
+                if(!done) interact();
+                done = true;
+            }
+            else
+                doPre(dt);
+        }
     }
 
     public boolean isDone()
@@ -37,7 +45,10 @@ public abstract class Task <T extends ITargetable>
         return done;
     }
 
+    protected abstract void doPre(float dt);
+
+    protected abstract void start();
+
     protected abstract void interact();
 
-    protected abstract void doPre(float dt);
 }

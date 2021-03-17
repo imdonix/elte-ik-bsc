@@ -2,26 +2,21 @@ package hu.elte.madtycoon.task;
 
 import hu.elte.madtycoon.objects.Entity;
 
-public abstract class WaitTask extends Task<Entity>
+public abstract class WaitTask extends Task
 {
     private float execute;
 
-    public WaitTask(Entity entity, float time, IInteract<Entity> interaction)
+    public WaitTask(Entity entity, float time)
     {
-        super(entity, interaction);
+        super(entity);
         execute = time;
     }
 
     @Override
-    protected void doPre(float dt)
+    protected final void doPre(float dt)
     {
         execute-=dt;
         if(execute <= 0) reach = true;
     }
 
-    @Override
-    protected void interact()
-    {
-        interaction.interact(entity);
-    }
 }
