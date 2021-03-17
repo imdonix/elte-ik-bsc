@@ -5,6 +5,7 @@ import hu.elte.madtycoon.objects.Entity;
 import hu.elte.madtycoon.render.AnimatedSprite;
 import hu.elte.madtycoon.render.AnimationResource;
 import hu.elte.madtycoon.task.GoRandomPlace;
+import hu.elte.madtycoon.task.Idle;
 import hu.elte.madtycoon.task.LeavePark;
 import hu.elte.madtycoon.task.Task;
 import hu.elte.madtycoon.utils.Random;
@@ -41,7 +42,7 @@ public class Visitor extends Entity
 
     @Override
     protected Task getNewTask() {
-        return new GoRandomPlace(this);
+        return Random.getRandomInt(0, 10) > 5 ? new GoRandomPlace(this) : new Idle(this);
     }
 
     @Override
