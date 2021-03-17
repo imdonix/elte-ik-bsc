@@ -7,6 +7,8 @@ import java.util.HashMap;
 
 public class AnimatedSprite
 {
+    public final static String IDLE = "idle";
+    public final static String WALK = "walk";
 
     private final HashMap<String, BufferedImage[]> sprites;
     private final float frameLength;
