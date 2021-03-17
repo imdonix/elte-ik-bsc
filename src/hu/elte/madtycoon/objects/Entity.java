@@ -40,6 +40,11 @@ public abstract class Entity extends GameObject {
         return (interest + food) / 2;
     }
 
+    public String getName()
+    {
+        return name;
+    }
+
     public int pay(int money)
     {
         //TODO pop pay emote
