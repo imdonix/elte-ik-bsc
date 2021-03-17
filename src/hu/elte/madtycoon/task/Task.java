@@ -8,22 +8,20 @@ import hu.elte.madtycoon.utils.Vector2F;
 public abstract class Task <T extends ITargetable>
 {
     public final Entity entity;
-    public final T target;
     public final IInteract<T> interaction;
 
-    private boolean reach;
-    private boolean done;
+    protected boolean reach;
+    protected boolean done;
 
-    public Task(Entity entity, T target, IInteract<T> interaction)
+    public Task(Entity entity, IInteract<T> interaction)
     {
         this.entity = entity;
-        this.target = target;
         this.interaction = interaction;
         done = false;
         reach = false;
     }
 
-    public void update(float dt)
+    public final void update(float dt)
     {
         if(reach)
         {
@@ -31,20 +29,7 @@ public abstract class Task <T extends ITargetable>
             done = true;
         }
         else
-            moveToTarget(dt);
-    }
-
-    private void moveToTarget(float dt)
-    {
-        if(entity.getPosition().distance(target.getPosition()) < Vector2F.E)
-            reach = true;
-        else
-        {
-            Vector2F dir = target.getPosition().min(entity.getPosition());
-            entity.getSprite().setRotation(dir.getAnimDirection());
-            entity.getSprite().setState("walk");
-            entity.move(dir, dt);
-        }
+            doPre(dt);
     }
 
     public boolean isDone()
@@ -52,8 +37,7 @@ public abstract class Task <T extends ITargetable>
         return done;
     }
 
-    private void interact()
-    {
-        interaction.interact(target);
-    }
+    protected abstract void interact();
+
+    protected abstract void doPre(float dt);
 }
