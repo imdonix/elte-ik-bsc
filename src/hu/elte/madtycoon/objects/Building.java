@@ -6,30 +6,30 @@ import hu.elte.madtycoon.render.AnimatedSprite;
 import hu.elte.madtycoon.utils.Vector2F;
 import hu.elte.madtycoon.utils.Vector2I;
 
-public abstract class Building extends GameObject {
+public abstract class Building extends GameObject
+{
+    public static float SAFE_HEALTH = 0.3f;
+
     private Vector2I size;
     protected float health;
-    protected float decorationValue;
     private boolean opened;
-    private boolean needRepair;
-    public static float MIN_HEALTH = 50;
+    private boolean repairRequested;
 
-    public Building(World world, AnimatedSprite sprite, Vector2F position, Vector2I size, float health,
-                    float decorationValue, boolean opened, boolean needRepair) {
+    public Building(World world, AnimatedSprite sprite, Vector2F position, Vector2I size) {
         super(world, sprite, position);
         this.size = size;
-        this.health = health;
-        this.decorationValue = decorationValue;
-        this.opened = opened;
-        this.needRepair = needRepair;
+        this.health = 1F;
+        this.opened = true;
+    }
+
+    @Override
+    protected int getRenderLayer()
+    {
+        return 1;
     }
 
     public Vector2I getSize() {
         return size;
-    }
-
-    public float getDecorationValue() {
-        return decorationValue;
     }
 
     public boolean isOpened() {
@@ -40,15 +40,28 @@ public abstract class Building extends GameObject {
         this.opened = opened;
     }
 
-    public void isRepairNeeded() {
-        if(this.health < MIN_HEALTH) {
-            this.needRepair = true;
-        } else {
-            this.needRepair = false;
-        }
+    public boolean isRepairNeeded()
+    {
+       return this.health < Building.SAFE_HEALTH;
+    }
+
+    public void markRepair()
+    {
+        repairRequested = true;
+    }
+
+    public boolean isRepairRequested()
+    {
+        return repairRequested;
     }
 
     public void repair() {
-        this.health = 100;
+        health = 1F;
     }
+
+    public abstract float getDecorationValue();
+
+
+
+
 }
