@@ -34,11 +34,11 @@ public class Resources
 
     private void loadMenu() throws IOException
     {
-        menuBackGroundImage = ImageIO.read(new File("res/menu_bg.jpg"));
-        menuPlayButton = ImageIO.read(new File("res/menu_play_button.png"));
-        menuSettingsButton = ImageIO.read(new File("res/menu_settings_button.png"));
-        menuCreditsButton = ImageIO.read(new File("res/menu_credits_button.png"));
-        menuExitButton = ImageIO.read(new File("res/menu_exit_button.png"));
+        menuBackGroundImage = ImageIO.read(new File("res/menu/bg.jpg"));
+        menuPlayButton = ImageIO.read(new File("res/menu/play_button.png"));
+        menuSettingsButton = ImageIO.read(new File("res/menu/settings_button.png"));
+        menuCreditsButton = ImageIO.read(new File("res/menu/credits_button.png"));
+        menuExitButton = ImageIO.read(new File("res/menu/exit_button.png"));
     }
 
     private void loadGame() throws IOException
