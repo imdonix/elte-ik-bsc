@@ -45,11 +45,15 @@ public abstract class Entity extends GameObject {
         return name;
     }
 
-    public int pay(int money)
+    public boolean pay(int money)
     {
+        if(this.money < money)
+            return false;
+
         //TODO pop pay emote
         this.money -= money;
-        return money;
+        world.earn(money);
+        return true;
     }
 
     public void move(Vector2F dir, float dt)
