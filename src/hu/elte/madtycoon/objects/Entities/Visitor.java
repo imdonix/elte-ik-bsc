@@ -22,6 +22,10 @@ public class Visitor extends Entity
     public static float START_FOOD_MAX = 0.8f;
     public static float START_INT_MIN = 0.2f;
     public static float START_INT_MAX = 0.5f;
+    public static float MIN_MS_SPEED = 1F;
+    public static float MAX_MS_SPEED = 2F;
+
+    private final float movementSpeed;
 
     private Visitor(World world, AnimatedSprite sprite, Vector2F position)
     {
@@ -29,6 +33,7 @@ public class Visitor extends Entity
         this.money = Random.getRandomInt(START_MONEY_MIN, START_MONEY_MAX);
         this.food = Random.getRandomFloat(START_FOOD_MIN, START_FOOD_MAX);
         this.interest = Random.getRandomFloat(START_INT_MIN, START_INT_MAX);
+        this.movementSpeed = Random.getRandomFloat(MIN_MS_SPEED, MAX_MS_SPEED);
     }
 
     @Override
@@ -49,7 +54,7 @@ public class Visitor extends Entity
     @Override
     public float getMovementSpeed()
     {
-        return 2;
+        return movementSpeed;
     }
 
 
