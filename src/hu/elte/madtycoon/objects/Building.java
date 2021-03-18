@@ -36,6 +36,10 @@ public abstract class Building extends GameObject {
         return opened;
     }
 
+    public void setOpened(boolean opened) {
+        this.opened = opened;
+    }
+
     public void isRepairNeeded() {
         if(this.health < MIN_HEALTH) {
             this.needRepair = true;
