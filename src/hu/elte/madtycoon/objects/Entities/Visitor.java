@@ -59,12 +59,12 @@ public class Visitor extends Entity
 
 
 
-    public static Visitor CreateNewVisitor(World world, Vector2F position)
+    public static Visitor Create(World world, Vector2F position)
     {
         BufferedImage[] idle = AnimationResource.Instance.get("visitor_idle");
         BufferedImage[] walk = AnimationResource.Instance.get("visitor_walk");
-        AnimatedSprite anim = new AnimatedSprite("idle", idle, 0.25f);
-        anim.addState("walk", walk);
+        AnimatedSprite anim = new AnimatedSprite(AnimatedSprite.IDLE, idle, 0.25f);
+        anim.addState(AnimatedSprite.WALK, walk);
         return new Visitor(world, anim, position);
     }
 }

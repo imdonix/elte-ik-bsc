@@ -1,6 +1,7 @@
 package hu.elte.madtycoon.core;
 
 import hu.elte.madtycoon.objects.Building;
+import hu.elte.madtycoon.objects.Buildings.CoinFlip;
 import hu.elte.madtycoon.objects.Entities.Visitor;
 import hu.elte.madtycoon.objects.Entity;
 import hu.elte.madtycoon.objects.Game;
@@ -36,9 +37,11 @@ public class World
     {
         for (int i = 0; i < 5; i++) {
             for (int j = 0; j < 5; j++) {
-                entities.add(Visitor.CreateNewVisitor(this, new Vector2F(i+2,j+2)));
+                entities.add(Visitor.Create(this, new Vector2F(i+2,j+2)));
             }
         }
+
+        buildings.add(CoinFlip.Create(this, new Vector2F(2,2)));
     }
 
     public void update(float dt)
@@ -61,6 +64,11 @@ public class World
     public void earn(int money)
     {
         this.money += money;
+    }
+
+    public void pay(int money)
+    {
+        this.money -= money;
     }
 
     public int getEntranceCost()

@@ -22,6 +22,17 @@ public abstract class Entity extends GameObject {
         this.task = null;
     }
 
+    public void addInterest(float interest)
+    {
+        //TODO pop happy | sad emote (if amount large enough)
+        this.interest += interest;
+    }
+
+    public void addFood(float food)
+    {
+        //TODO pop happy | sad emote (if amount large enough)
+        this.food += food;
+    }
 
     @Override
     public void update(float dt)
@@ -45,6 +56,7 @@ public abstract class Entity extends GameObject {
         return name;
     }
 
+
     public boolean pay(int money)
     {
         if(this.money < money)
@@ -54,6 +66,12 @@ public abstract class Entity extends GameObject {
         this.money -= money;
         world.earn(money);
         return true;
+    }
+
+    public void earn(int money)
+    {
+        this.money += money;
+        world.pay(money);
     }
 
     public void move(Vector2F dir, float dt)

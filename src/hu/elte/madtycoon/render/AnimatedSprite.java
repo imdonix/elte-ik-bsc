@@ -9,6 +9,7 @@ public class AnimatedSprite
 {
     public final static String IDLE = "idle";
     public final static String WALK = "walk";
+    public final static String GAME_PLAY = "gameplay";
 
     private final HashMap<String, BufferedImage[]> sprites;
     private final float frameLength;
