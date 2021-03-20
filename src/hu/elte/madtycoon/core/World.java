@@ -123,6 +123,14 @@ public class World
         return false;
     }
 
+    public float getHappiness()
+    {
+        float sum = 0;
+        for(Entity entity : entities)
+            sum += entity.getHappiness();
+        return sum / entities.size();
+    }
+
     public List<Game> getGames()
     {
         List<Game> tmp = new LinkedList<>();

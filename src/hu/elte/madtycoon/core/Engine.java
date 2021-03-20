@@ -2,6 +2,8 @@ package hu.elte.madtycoon.core;
 
 import hu.elte.madtycoon.Main;
 import hu.elte.madtycoon.render.SpriteRenderBuffer;
+import hu.elte.madtycoon.ui.HUD;
+import hu.elte.madtycoon.ui.IEngine;
 import hu.elte.madtycoon.utils.Vector2I;
 
 import javax.swing.*;
@@ -10,13 +12,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-public class Engine extends JFrame
+public class Engine extends JFrame implements IEngine
 {
     public static final int GAME_SIZE_X = 38;
     public static final int GAME_SIZE_Y = 18;
     public static final int BLOCK_SIZE = 50;
-    public static final int SCREEN_SIZE_X = GAME_SIZE_X * BLOCK_SIZE;
-    public static final int SCREEN_SIZE_Y = GAME_SIZE_Y * BLOCK_SIZE;
     public static final int RENDER_BASE_CAPACITY = GAME_SIZE_X * GAME_SIZE_Y;
 
     private final Timer tickTimer;
@@ -28,55 +28,39 @@ public class Engine extends JFrame
     private SpriteRenderBuffer renderBuffer;
     private FPSDisplay fpsDisplay;
     private float time;
+    private float timeScale;
     private long lastTick;
 
 
     public Engine()
     {
+        //HUD
         super("Mad Tycoon - Game");
         this.canvas = new GamePanel();
-
-        this.hud = new JPanel(){
-                @Override
-                public void paintComponent(Graphics g) {
-                    super.paintComponent(g);
-                    g.drawImage(Resources.Instance.gameHudImage, 0, 0, this);
-                }
-        };
-        this.hud.setPreferredSize(new Dimension(1920,110));
-
-        JButton exit = new JButton();
-        exit.setOpaque(false);
-        exit.setContentAreaFilled(false);
-        exit.setBorderPainted(false);
-        exit.addActionListener(e -> System.exit(0));
-        exit.setMargin(new Insets(25, 0, 0, 0));
-
-
-        this.hud.add(exit);
-
-
-        exit.setIcon(new ImageIcon(Resources.Instance.gameExitButton));
-
+        this.hud = new HUD(this);
 
         this.canvas.addMouseListener(new ClickListener());
+        this.canvas.setPreferredSize(new Dimension(1920, 970));
+        this.setLayout(new BorderLayout());
+        this.fpsDisplay = new FPSDisplay(30);
+        this.setUndecorated(true);
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        this.setPreferredSize(Toolkit.getDefaultToolkit().getScreenSize());
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        add(canvas,BorderLayout.NORTH);
+        add(hud,BorderLayout.EAST);
+
+
+        //Engine
         this.tickTimer = new Timer(1000/144, this::loop);
         this.world = new World();
         this.renderBuffer = new SpriteRenderBuffer(RENDER_BASE_CAPACITY);
         this.lastTick = System.currentTimeMillis();
-        this.setLayout(new BorderLayout());
         this.time = 0;
-        this.fpsDisplay = new FPSDisplay(30);
+        this.timeScale = 1;
         this.selectedBlock = null;
 
-        add(canvas,BorderLayout.NORTH);
-        add(hud,BorderLayout.EAST);
-        canvas.setPreferredSize(new Dimension(1920, 970));
-        this.setUndecorated(true); // if exit btn added
-        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        this.setPreferredSize(screenSize);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        //Finalize
         pack();
         setVisible(true);
         tickTimer.start();
@@ -95,7 +79,7 @@ public class Engine extends JFrame
     private void loop(ActionEvent event)
     {
         renderBuffer = new SpriteRenderBuffer(RENDER_BASE_CAPACITY);
-        float delta = time();
+        float delta = time() * timeScale;
         time += delta;
 
         world.update(delta);
@@ -125,6 +109,28 @@ public class Engine extends JFrame
         g.drawString(String.format("%o", fpsDisplay.get()),15,15);
     }
 
+    @Override
+    public int getMoney()
+    {
+        return world.getMoney();
+    }
+
+    @Override
+    public float getOverallHappiness()
+    {
+        return world.getHappiness();
+    }
+
+    @Override
+    public int getTime() {
+        return (int) time;
+    }
+
+    @Override
+    public void setTimeScale(float scale)
+    {
+        timeScale = scale;
+    }
 
     class GamePanel extends JPanel
     {
