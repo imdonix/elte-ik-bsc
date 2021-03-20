@@ -73,7 +73,6 @@ public abstract class Game extends Building
         }
         else
         {
-            System.out.println(queue.size());
             if (queue.size() == max)
                 gameStart();
         }
@@ -85,7 +84,10 @@ public abstract class Game extends Building
         this.setOpened(true);
         this.playing = false;
         for(Visitor visitor : queue)
+        {
+            visitor.addVisited(this);
             visitor.setActive(true);
+        }
         queue.clear();
 
     }

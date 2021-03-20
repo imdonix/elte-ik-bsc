@@ -12,8 +12,8 @@ import java.awt.event.MouseListener;
 
 public class Engine extends JFrame
 {
-    public static final int GAME_SIZE_X = 24;
-    public static final int GAME_SIZE_Y = 16;
+    public static final int GAME_SIZE_X = 38;
+    public static final int GAME_SIZE_Y = 18;
     public static final int BLOCK_SIZE = 50;
     public static final int SCREEN_SIZE_X = GAME_SIZE_X * BLOCK_SIZE;
     public static final int SCREEN_SIZE_Y = GAME_SIZE_Y * BLOCK_SIZE;

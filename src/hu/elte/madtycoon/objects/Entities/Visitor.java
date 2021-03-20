@@ -1,6 +1,7 @@
 package hu.elte.madtycoon.objects.Entities;
 
 import hu.elte.madtycoon.core.World;
+import hu.elte.madtycoon.objects.Building;
 import hu.elte.madtycoon.objects.Entity;
 import hu.elte.madtycoon.objects.Game;
 import hu.elte.madtycoon.render.AnimatedSprite;
@@ -10,6 +11,8 @@ import hu.elte.madtycoon.utils.Random;
 import hu.elte.madtycoon.utils.Vector2F;
 
 import java.awt.image.BufferedImage;
+import java.util.LinkedList;
+import java.util.List;
 
 public class Visitor extends Entity
 {
@@ -24,6 +27,7 @@ public class Visitor extends Entity
     public static float MAX_MS_SPEED = 2F;
 
     private final float movementSpeed;
+    private final List<Game> visited;
 
     private Visitor(World world, AnimatedSprite sprite, Vector2F position)
     {
@@ -32,13 +36,19 @@ public class Visitor extends Entity
         this.food = Random.getRandomFloat(START_FOOD_MIN, START_FOOD_MAX);
         this.interest = Random.getRandomFloat(START_INT_MIN, START_INT_MAX);
         this.movementSpeed = Random.getRandomFloat(MIN_MS_SPEED, MAX_MS_SPEED);
+        this.visited = new LinkedList<>();
+    }
+
+    public void addVisited(Game game)
+    {
+        visited.add(game);
     }
 
     @Override
     protected void start()
     {
         if(world.getEntranceCost() > money / 2)
-            task = new LeavePark(this, world);
+            task = new LeavePark(this);
         else
             pay(world.getEntranceCost());
 
@@ -53,13 +63,41 @@ public class Visitor extends Entity
     @Override
     protected Task getNewTask()
     {
-        Game game = world.getNearestOpenGame(getPosition());
-        if(game != null)
-            return new Play(this, game);
+        List<Game> unvisited = getUnvisitedGames();
+
+        if(unvisited.size() > 0)
+        {
+            Game game = findNearestGame(unvisited);
+
+            if(game != null)
+                return new Play(this, game);
+            else
+                return new GoRandomPlace(this);
+        }
         else
-            return new GoRandomPlace(this);
+            return new LeavePark(this);
     }
 
+
+    private List<Game> getUnvisitedGames()
+    {
+        List<Game> tmp = new LinkedList<>();
+        for(Game game : world.getGames())
+            if(!visited.contains(game))
+                tmp.add(game);
+        return tmp;
+    }
+
+    private Game findNearestGame(List<Game> games)
+    {
+        Game min = null;
+        for(Game game : games)
+            if(game.isOpened())
+                if(min == null || min.getPosition().distance(position) > game.getPosition().distance(position))
+                    min = game;
+        return min;
+
+    }
 
 
     public static Visitor Create(World world, Vector2F position)

@@ -7,17 +7,12 @@ import hu.elte.madtycoon.utils.Vector2F;
 public class LeavePark extends GoTask
 {
 
-    public LeavePark(Entity entity, World world)
-    {
-        super(entity, new ITargetable()
-        {
-            @Override
-            public Vector2F getTargetPosition() {
-                return Vector2F.ZERO;
-            }
-        });
+    private final World world;
 
-        //TODO add world entry point as exit
+    public LeavePark(Entity entity)
+    {
+        super(entity, () -> new Vector2F(World.ENTRANCE_POINT));
+        this.world = entity.getWorld();
     }
 
     @Override
@@ -27,8 +22,8 @@ public class LeavePark extends GoTask
     @Override
     protected void interact()
     {
-        // TODO destroy the entity
-        System.out.println(String.format("%s left the park", entity.getName()));
+        System.out.println(String.format("[TASK] %s left the park", entity.toString()));
+        world.destroy(entity);
     }
 
 }

@@ -9,11 +9,12 @@ public class GoRandomPlace extends GoTask
     public GoRandomPlace(Entity entity) {
         super(entity, new ITargetable() {
 
-            Vector2F v = new Vector2F(Random.getRandomFloat(2, 40), Random.getRandomFloat(2, 15));
+            Vector2F r = new Vector2F(Random.getRandomFloat(-3, 3), Random.getRandomFloat(-3, 3));
+            Vector2F d = entity.getPosition().add(r);
 
             @Override
             public Vector2F getTargetPosition() {
-                return v;
+                return d;
             }
         });
     }

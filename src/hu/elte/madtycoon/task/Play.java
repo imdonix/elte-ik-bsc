@@ -20,9 +20,11 @@ public class Play extends GoTask<Visitor, Game>
         try {
             target.enter(entity);
         } catch (GameFullException e) {
-            System.out.println("Game is full");
-        } catch (NoCoverageException e) {
-            System.out.println("No money for this game");
+
+        } catch (NoCoverageException e)
+        {
+            System.out.println(String.format("%s has no money to this game", entity));
+            entity.setTask(new LeavePark(entity));
         }
     }
 }

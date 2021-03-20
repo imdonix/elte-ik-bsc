@@ -62,6 +62,10 @@ public abstract class Entity extends GameObject {
         return name;
     }
 
+    public World getWorld()
+    {
+        return world;
+    }
 
     public boolean pay(int money)
     {
@@ -87,10 +91,15 @@ public abstract class Entity extends GameObject {
         position = position.add(force);
     }
 
+    public void setTask(Task task)
+    {
+        this.task = task;
+    }
+
     @Override
     public Vector2F getRenderPosition()
     {
-        return getPosition().add(SIZE.mul(0.5F));
+        return getPosition().add(SIZE.mul(-.5F));
     }
 
     @Override
