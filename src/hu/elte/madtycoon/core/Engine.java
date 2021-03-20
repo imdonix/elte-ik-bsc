@@ -5,6 +5,7 @@ import hu.elte.madtycoon.objects.Building;
 import hu.elte.madtycoon.render.SpriteRenderBuffer;
 import hu.elte.madtycoon.ui.HUD;
 import hu.elte.madtycoon.ui.IEngine;
+import hu.elte.madtycoon.utils.Utils;
 import hu.elte.madtycoon.utils.Vector2I;
 
 import javax.swing.*;
@@ -132,7 +133,7 @@ public class Engine extends JFrame implements IEngine
     @Override
     public void setTimeScale(float scale)
     {
-        timeScale = scale;
+        timeScale = Utils.clap(0,5, scale);
     }
 
     @Override
