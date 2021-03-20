@@ -15,14 +15,17 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Stream;
 
 public class World
 {
     public static int DEFAULT_ENTRANCE_COST = 50;
     public static int DEFAULT_START_MONEY = 200;
+    public static Vector2I ENTRANCE_POINT = new Vector2I(Engine.GAME_SIZE_X/2,Engine.GAME_SIZE_Y);
 
     private final List<Entity> entities;
-    private List<Building> buildings;
+    private final List<Building> buildings;
+    private final List<GameObject> destroyBuffer;
 
     private int money;
     private int entranceCost;
@@ -33,23 +36,27 @@ public class World
         entranceCost = DEFAULT_ENTRANCE_COST;
         entities = new LinkedList<Entity>();
         buildings  = new LinkedList<Building>();
+        destroyBuffer = new LinkedList<GameObject>();
         start();
     }
 
     private void start()
     {
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < 5; j++) {
                 entities.add(Visitor.Create(this, new Vector2F(i+2,j+2)));
             }
         }
 
-        for (int i = 0; i < 3; i++)
-            buildings.add(CoinFlip.Create(this, new Vector2F(i*3+5,i*3+5)));
+        for (int i = 0; i < 2; i++)
+            for (int j = 0; j < 4; j++)
+                buildings.add(CoinFlip.Create(this, new Vector2F(j*3+i*3+5,i*3+5)));
     }
 
     public void update(float dt)
     {
+        doDestroy();
+
         for(final GameObject obj : entities)
             if(obj.getActive())
                 obj.update(dt);
@@ -70,6 +77,12 @@ public class World
                 obj.render(buffer);
     }
 
+    public void destroy(GameObject game)
+    {
+        game.setActive(false);
+        destroyBuffer.add(game);
+    }
+
     public int getMoney()
     {
         return money;
@@ -77,11 +90,14 @@ public class World
 
     public void earn(int money)
     {
+        //TODO trigger gui
         this.money += money;
+        System.out.println(this.money);
     }
 
     public void pay(int money)
     {
+        //TODO trigger gui
         this.money -= money;
     }
 
@@ -107,19 +123,23 @@ public class World
         return false;
     }
 
-    public Game getNearestOpenGame(Vector2F position)
+    public List<Game> getGames()
     {
-        Game min = null;
+        List<Game> tmp = new LinkedList<>();
         for(Building building : buildings)
             if(building instanceof Game)
-            {
-                Game game = (Game) building;
-                if(game.isOpened())
-                    if(min == null || min.getPosition().distance(position) > game.getPosition().distance(position))
-                        min= game;
-            }
-        return min;
+                tmp.add((Game) building);
+        return tmp;
     }
 
+    private void doDestroy()
+    {
+        for(GameObject obj : destroyBuffer)
+            if(obj instanceof Entity)
+                entities.remove(obj);
+            else if (obj instanceof Building)
+                buildings.remove(obj);
+        destroyBuffer.clear();
+    }
 
 }
