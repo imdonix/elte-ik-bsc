@@ -10,6 +10,10 @@ import hu.elte.madtycoon.utils.Vector2F;
 import java.util.List;
 
 public abstract class Entity extends GameObject {
+
+    private static int idCounter = 0;
+
+    protected final int id;
     protected final String name;
     protected float interest;
     protected float food;
@@ -20,6 +24,7 @@ public abstract class Entity extends GameObject {
         super(world, sprite, position);
         this.name = getRandomName();
         this.task = null;
+        this.id = Entity.idCounter++;
     }
 
     public void addInterest(float interest)
@@ -90,7 +95,10 @@ public abstract class Entity extends GameObject {
 
     protected abstract float getMovementSpeed();
 
-
+    @Override
+    public String toString() {
+        return String.format("[%d] %s (I: %f, F: %f, M: %d)", id, name, interest, food, money);
+    }
 
     private static String getRandomName()
     {
