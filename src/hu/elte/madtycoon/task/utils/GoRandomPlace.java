@@ -1,6 +1,8 @@
-package hu.elte.madtycoon.task;
+package hu.elte.madtycoon.task.utils;
 
 import hu.elte.madtycoon.objects.Entity;
+import hu.elte.madtycoon.task.GoTask;
+import hu.elte.madtycoon.task.ITargetable;
 import hu.elte.madtycoon.utils.Random;
 import hu.elte.madtycoon.utils.Vector2F;
 

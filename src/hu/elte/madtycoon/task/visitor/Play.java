@@ -1,7 +1,9 @@
-package hu.elte.madtycoon.task;
+package hu.elte.madtycoon.task.visitor;
 
 import hu.elte.madtycoon.objects.Entities.Visitor;
 import hu.elte.madtycoon.objects.Game;
+import hu.elte.madtycoon.task.GoTask;
+import hu.elte.madtycoon.task.utils.LeavePark;
 import hu.elte.madtycoon.utils.exception.GameFullException;
 import hu.elte.madtycoon.utils.exception.NoCoverageException;
 

@@ -1,7 +1,8 @@
-package hu.elte.madtycoon.task;
+package hu.elte.madtycoon.task.utils;
 
 import hu.elte.madtycoon.objects.Entity;
 import hu.elte.madtycoon.render.AnimatedSprite;
+import hu.elte.madtycoon.task.WaitTask;
 
 public class Idle extends WaitTask
 {

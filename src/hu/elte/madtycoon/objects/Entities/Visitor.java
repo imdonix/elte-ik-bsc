@@ -1,12 +1,14 @@
 package hu.elte.madtycoon.objects.Entities;
 
 import hu.elte.madtycoon.core.World;
-import hu.elte.madtycoon.objects.Building;
 import hu.elte.madtycoon.objects.Entity;
 import hu.elte.madtycoon.objects.Game;
 import hu.elte.madtycoon.render.AnimatedSprite;
 import hu.elte.madtycoon.render.AnimationResource;
 import hu.elte.madtycoon.task.*;
+import hu.elte.madtycoon.task.utils.GoRandomPlace;
+import hu.elte.madtycoon.task.utils.LeavePark;
+import hu.elte.madtycoon.task.visitor.Play;
 import hu.elte.madtycoon.utils.Random;
 import hu.elte.madtycoon.utils.Vector2F;
 

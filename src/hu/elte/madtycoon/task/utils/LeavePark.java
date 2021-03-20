@@ -1,7 +1,8 @@
-package hu.elte.madtycoon.task;
+package hu.elte.madtycoon.task.utils;
 
 import hu.elte.madtycoon.core.World;
 import hu.elte.madtycoon.objects.Entity;
+import hu.elte.madtycoon.task.GoTask;
 import hu.elte.madtycoon.utils.Vector2F;
 
 public class LeavePark extends GoTask
