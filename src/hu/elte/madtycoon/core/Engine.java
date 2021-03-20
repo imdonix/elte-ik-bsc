@@ -1,6 +1,7 @@
 package hu.elte.madtycoon.core;
 
 import hu.elte.madtycoon.Main;
+import hu.elte.madtycoon.objects.Building;
 import hu.elte.madtycoon.render.SpriteRenderBuffer;
 import hu.elte.madtycoon.ui.HUD;
 import hu.elte.madtycoon.ui.IEngine;
@@ -22,7 +23,7 @@ public class Engine extends JFrame implements IEngine
     private final Timer tickTimer;
     private final World world;
     private final JPanel canvas;
-    private final JPanel hud;
+    private final HUD hud;
 
     private Vector2I selectedBlock;
     private SpriteRenderBuffer renderBuffer;
@@ -85,6 +86,8 @@ public class Engine extends JFrame implements IEngine
         world.update(delta);
         world.render(renderBuffer);
 
+        hud.updateGUI();
+
         canvas.repaint();
     }
 
@@ -130,6 +133,12 @@ public class Engine extends JFrame implements IEngine
     public void setTimeScale(float scale)
     {
         timeScale = scale;
+    }
+
+    @Override
+    public Building getSelectedBuilding()
+    {
+        return world.collisionCheck(selectedBlock.x, selectedBlock.y, Vector2I.ONE);
     }
 
     class GamePanel extends JPanel

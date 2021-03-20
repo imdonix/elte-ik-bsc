@@ -32,4 +32,16 @@ public final class Vector2I
         return String.format("(%o, %o)", x,y);
     }
 
+    public static Vector2I UP = new Vector2I(0,-1);
+
+    public static Vector2I DOWN = new Vector2I(0,1);
+
+    public static Vector2I LEFT = new Vector2I(1,0);
+
+    public static Vector2I RIGHT = new Vector2I(-1,0);
+
+    public static Vector2I ZERO = new Vector2I(0,0);
+
+    public static Vector2I ONE = new Vector2I(1,1);
+
 }

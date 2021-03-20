@@ -92,7 +92,6 @@ public class World
     {
         //TODO trigger gui
         this.money += money;
-        System.out.println(this.money);
     }
 
     public void pay(int money)
@@ -111,16 +110,15 @@ public class World
         this.entranceCost = entranceCost;
     }
 
-    public boolean isColide(int x, int y, Vector2I size) {
-        for(int i = 0; i < buildings.size(); i++) {
-            if(buildings.get(i).getPosition().x < x + size.x &&
-            buildings.get(i).getPosition().x + buildings.get(i).getSize().x > x &&
-            buildings.get(i).getPosition().y < y + size.y &&
-            buildings.get(i).getPosition().y + buildings.get(i).getSize().y > y) {
-                return true;
+    public Building collisionCheck(int x, int y, Vector2I size) {
+        for(Building building : buildings)
+            if(building.getPosition().x < x + size.x &&
+                    building.getPosition().x + building.getSize().x > x &&
+                    building.getPosition().y < y + size.y &&
+                    building.getPosition().y + building.getSize().y > y) {
+                return building;
             }
-        }
-        return false;
+        return null;
     }
 
     public float getHappiness()

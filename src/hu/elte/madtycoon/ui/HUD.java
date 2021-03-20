@@ -29,7 +29,7 @@ public class HUD extends JPanel
         add(exit);
     }
 
-    public void update()
+    public void updateGUI()
     {
         //TODO draw game status via IEngine
     }

@@ -1,5 +1,8 @@
 package hu.elte.madtycoon.ui;
 
+import hu.elte.madtycoon.objects.Building;
+import hu.elte.madtycoon.utils.Vector2I;
+
 public interface IEngine
 {
     /**
@@ -21,4 +24,10 @@ public interface IEngine
      * @param scale The amount witch will be multiplied with the deltaTime, 0 is freeze, 1 is default, 5 max
      */
     void setTimeScale(float scale);
+
+
+    /**
+     * @return Return the selected building or null if nothing is selected
+     */
+    Building getSelectedBuilding();
 }

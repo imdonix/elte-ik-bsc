@@ -5,6 +5,7 @@ import hu.elte.madtycoon.core.World;
 import hu.elte.madtycoon.render.AnimatedSprite;
 import hu.elte.madtycoon.task.Task;
 import hu.elte.madtycoon.utils.Random;
+import hu.elte.madtycoon.utils.Utils;
 import hu.elte.madtycoon.utils.Vector2F;
 
 import java.util.List;
@@ -33,12 +34,14 @@ public abstract class Entity extends GameObject {
     {
         //TODO pop happy | sad emote (if amount large enough)
         this.interest += interest;
+        this.interest = Utils.clap(0,1,this.interest);
     }
 
     public void addFood(float food)
     {
         //TODO pop happy | sad emote (if amount large enough)
         this.food += food;
+        this.food = Utils.clap(0,1,this.food);
     }
 
     @Override
