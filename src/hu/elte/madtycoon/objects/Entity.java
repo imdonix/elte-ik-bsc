@@ -11,6 +11,8 @@ import java.util.List;
 
 public abstract class Entity extends GameObject {
 
+    public static final Vector2F SIZE = new Vector2F(.5F, 1F);
+
     private static int idCounter = 0;
 
     protected final int id;
@@ -50,7 +52,6 @@ public abstract class Entity extends GameObject {
         task.update(dt);
     }
 
-
     public float getHappiness()
     {
         return (interest + food) / 2;
@@ -87,7 +88,22 @@ public abstract class Entity extends GameObject {
     }
 
     @Override
-    protected int getRenderLayer() { return 1; }
+    public Vector2F getRenderPosition()
+    {
+        return getPosition().add(SIZE.mul(0.5F));
+    }
+
+    @Override
+    protected int getRenderLayer()
+    {
+        return 1;
+    }
+
+    @Override
+    public String toString()
+    {
+        return String.format("[%d] %s (I: %f, F: %f, M: %d)", id, name, interest, food, money);
+    }
 
     protected abstract void start();
 
@@ -95,10 +111,7 @@ public abstract class Entity extends GameObject {
 
     protected abstract float getMovementSpeed();
 
-    @Override
-    public String toString() {
-        return String.format("[%d] %s (I: %f, F: %f, M: %d)", id, name, interest, food, money);
-    }
+
 
     private static String getRandomName()
     {

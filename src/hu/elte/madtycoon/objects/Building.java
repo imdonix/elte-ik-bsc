@@ -28,6 +28,13 @@ public abstract class Building extends GameObject
         return 1;
     }
 
+    @Override
+    public Vector2F getTargetPosition()
+    {
+        Vector2F pos = getPosition();
+        return new Vector2F(pos.x + size.x/2F, pos.y + size.y/2F);
+    }
+
     public Vector2I getSize() {
         return size;
     }

@@ -42,12 +42,17 @@ public abstract class GameObject implements ITargetable
 
     public void render(SpriteRenderBuffer buffer)
     {
-        buffer.add(new LayeredSprite(sprite.getSprite(), getRenderLayer(), position));
+        buffer.add(new LayeredSprite(sprite.getSprite(), getRenderLayer(), getRenderPosition()));
     }
 
-    public Vector2F getPosition()
+    public final Vector2F getPosition()
     {
         return position;
+    }
+
+    public Vector2F getRenderPosition()
+    {
+        return getPosition();
     }
 
     public AnimatedSprite getSprite()
