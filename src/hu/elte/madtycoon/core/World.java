@@ -110,7 +110,13 @@ public class World
         this.entranceCost = entranceCost;
     }
 
-    public Building collisionCheck(int x, int y, Vector2I size) {
+    public Building collisionCheck(Vector2I pos, Vector2I size) {
+
+        if(pos == null)
+            return null;
+
+        int x = pos.x;
+        int y = pos.y;
         for(Building building : buildings)
             if(building.getPosition().x < x + size.x &&
                     building.getPosition().x + building.getSize().x > x &&

@@ -1,6 +1,7 @@
 package hu.elte.madtycoon.ui;
 
 import hu.elte.madtycoon.core.Resources;
+import hu.elte.madtycoon.objects.Building;
 
 import javax.swing.*;
 import java.awt.*;
@@ -32,6 +33,11 @@ public class HUD extends JPanel
     public void updateGUI()
     {
         //TODO draw game status via IEngine
+
+        Building b = engine.getSelectedBuilding();
+        if(b!=null)
+            System.out.println(b.getSize());
+
     }
 
     public void paintComponent(Graphics g)

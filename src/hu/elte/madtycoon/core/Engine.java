@@ -138,7 +138,7 @@ public class Engine extends JFrame implements IEngine
     @Override
     public Building getSelectedBuilding()
     {
-        return world.collisionCheck(selectedBlock.x, selectedBlock.y, Vector2I.ONE);
+        return world.collisionCheck(selectedBlock, Vector2I.ONE);
     }
 
     class GamePanel extends JPanel
@@ -157,11 +157,7 @@ public class Engine extends JFrame implements IEngine
     class ClickListener implements MouseListener
     {
         @Override
-        public void mouseClicked(MouseEvent e) {
-            int x=e.getX();
-            int y=e.getY();
-            System.out.println(x+","+y);//these co-ords are relative to the component
-        }
+        public void mouseClicked(MouseEvent e) { }
 
         @Override
         public void mousePressed(MouseEvent e)
