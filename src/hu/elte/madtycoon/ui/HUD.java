@@ -5,6 +5,9 @@ import hu.elte.madtycoon.objects.Building;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class HUD extends JPanel
 {
@@ -82,7 +85,6 @@ public class HUD extends JPanel
         moneyIcon.setIcon(new ImageIcon(Resources.Instance.gameExitButton));
 
         moneyLabel = new JLabel();
-        moneyLabel.setText("Ez az");
 
         happiness = new JButton();
         happiness.setOpaque(false);
@@ -93,7 +95,6 @@ public class HUD extends JPanel
         happiness.setIcon(new ImageIcon(Resources.Instance.gameExitButton));
 
         happinessLabel = new JLabel();
-        happinessLabel.setText("Boldog");
 
         time = new JButton();
         time.setOpaque(false);
@@ -104,7 +105,6 @@ public class HUD extends JPanel
         time.setIcon(new ImageIcon(Resources.Instance.gameExitButton));
 
         timeLabel = new JLabel();
-        timeLabel.setText("12:30");
 
         playPause = new JButton();
         playPause.setOpaque(false);
@@ -162,7 +162,41 @@ public class HUD extends JPanel
         Building b = engine.getSelectedBuilding();
         if(b!=null)
             System.out.println(b.getSize());
-        
+
+        int money = engine.getMoney();
+        moneyLabel.setText(String.valueOf(money));
+
+        float happinessValue = engine.getOverallHappiness();
+        happinessLabel.setText(String.valueOf(happinessValue));
+
+        int gameTime = engine.getTime();
+        timeLabel.setText(String.valueOf(gameTime));
+
+
+
+        fast.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                if(engine.getTimeScale() == 1) {
+                    engine.setTimeScale(2.5F);
+                } else if(engine.getTimeScale() == 2.5F) {
+                    engine.setTimeScale(5);
+                } else if(engine.getTimeScale() == 5) {
+                    engine.setTimeScale(1);
+                }
+            }
+        });
+
+        playPause.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                if(engine.getTimeScale() == 0) {
+                    engine.setTimeScale(1);
+                } else {
+                    engine.setTimeScale(0);
+                }
+            }
+        });
     }
 
     public void paintComponent(Graphics g)

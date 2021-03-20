@@ -30,4 +30,6 @@ public interface IEngine
      * @return Return the selected building or null if nothing is selected
      */
     Building getSelectedBuilding();
+
+    float getTimeScale();
 }

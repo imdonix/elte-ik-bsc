@@ -142,6 +142,9 @@ public class Engine extends JFrame implements IEngine
         return world.collisionCheck(selectedBlock, Vector2I.ONE);
     }
 
+    @Override
+    public float getTimeScale() { return timeScale; }
+
     class GamePanel extends JPanel
     {
         @Override
