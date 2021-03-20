@@ -45,9 +45,10 @@ public abstract class Game extends Building
 
     public void enter(Visitor visitor) throws GameFullException, NoCoverageException
     {
-        if(queue.size() < max) throw new GameFullException();
+        if(queue.size() >= max) throw new GameFullException();
         if(!visitor.pay(getUseCost())) throw new NoCoverageException();
         queue.add(visitor);
+        visitor.setActive(false);
     }
 
     @Override
@@ -72,6 +73,7 @@ public abstract class Game extends Building
         }
         else
         {
+            System.out.println(queue.size());
             if (queue.size() == max)
                 gameStart();
         }
@@ -81,17 +83,19 @@ public abstract class Game extends Building
     {
         this.sprite.setState(AnimatedSprite.IDLE);
         this.setOpened(true);
+        this.playing = false;
         for(Visitor visitor : queue)
             visitor.setActive(true);
         queue.clear();
+
     }
 
     private void gameStart()
     {
         this.sprite.setState(AnimatedSprite.GAME_PLAY);
         this.setOpened(false);
-        playing = true;
-        timer = 0F;
+        this.playing = true;
+        this.timer = 0F;
         for(Visitor visitor : queue)
             visitor.setActive(false);
     }

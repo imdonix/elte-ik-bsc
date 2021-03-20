@@ -2,12 +2,10 @@ package hu.elte.madtycoon.objects.Entities;
 
 import hu.elte.madtycoon.core.World;
 import hu.elte.madtycoon.objects.Entity;
+import hu.elte.madtycoon.objects.Game;
 import hu.elte.madtycoon.render.AnimatedSprite;
 import hu.elte.madtycoon.render.AnimationResource;
-import hu.elte.madtycoon.task.GoRandomPlace;
-import hu.elte.madtycoon.task.Idle;
-import hu.elte.madtycoon.task.LeavePark;
-import hu.elte.madtycoon.task.Task;
+import hu.elte.madtycoon.task.*;
 import hu.elte.madtycoon.utils.Random;
 import hu.elte.madtycoon.utils.Vector2F;
 
@@ -47,14 +45,19 @@ public class Visitor extends Entity
     }
 
     @Override
-    protected Task getNewTask() {
-        return Random.getRandomInt(0, 10) > 5 ? new GoRandomPlace(this) : new Idle(this);
-    }
-
-    @Override
     public float getMovementSpeed()
     {
         return movementSpeed;
+    }
+
+    @Override
+    protected Task getNewTask()
+    {
+        Game game = world.getNearestOpenGame(getPosition());
+        if(game != null)
+            return new Play(this, game);
+        else
+            return new GoRandomPlace(this);
     }
 
 
