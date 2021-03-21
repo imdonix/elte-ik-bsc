@@ -20,7 +20,7 @@ import java.util.stream.Stream;
 public class World
 {
     public static int DEFAULT_ENTRANCE_COST = 50;
-    public static int DEFAULT_START_MONEY = 200;
+    public static int DEFAULT_START_MONEY = 300;
     public static Vector2I ENTRANCE_POINT = new Vector2I(Engine.GAME_SIZE_X/2,Engine.GAME_SIZE_Y);
 
     private final List<Entity> entities;
@@ -44,13 +44,13 @@ public class World
     {
         for (int i = 0; i < 25; i++) {
             for (int j = 0; j < 5; j++) {
-                entities.add(Visitor.Create(this, new Vector2F(i+2,j+2)));
+                instantiate(Visitor.Create(this, new Vector2F(i+2,j+2)));
             }
         }
 
         for (int i = 0; i < 2; i++)
             for (int j = 0; j < 6; j++)
-                buildings.add(CoinFlip.Create(this, new Vector2F(j*3+i*3+5,i*5+5)));
+                 instantiate(CoinFlip.Create(this, new Vector2F(j*3+i*3+5,i*5+5)));
     }
 
     public void update(float dt)
@@ -77,10 +77,20 @@ public class World
                 obj.render(buffer);
     }
 
-    public void destroy(GameObject game)
+    public void destroy(GameObject obj)
     {
-        game.setActive(false);
-        destroyBuffer.add(game);
+        obj.setActive(false);
+        destroyBuffer.add(obj);
+    }
+
+    public void instantiate(GameObject obj)
+    {
+        if(obj instanceof Entity)
+            entities.add((Entity) obj);
+        else if (obj instanceof Building)
+            buildings.add((Building) obj);
+        else
+            throw new IllegalArgumentException("You can only instantiate entities or buildings");
     }
 
     public int getMoney()
@@ -90,13 +100,11 @@ public class World
 
     public void earn(int money)
     {
-        //TODO trigger gui
         this.money += money;
     }
 
     public void pay(int money)
     {
-        //TODO trigger gui
         this.money -= money;
     }
 

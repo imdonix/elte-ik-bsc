@@ -1,5 +1,6 @@
-package hu.elte.madtycoon;
+package hu.elte.madtycoon.ui;
 
+import hu.elte.madtycoon.core.Engine;
 import hu.elte.madtycoon.core.Resources;
 
 import javax.swing.*;
@@ -7,15 +8,17 @@ import java.awt.*;
 
 import javax.swing.ImageIcon;
 
-public class MainWindow extends JFrame {
-    private JButton play;
-    private JButton exit;
-    private JButton settings;
-    private JButton credits;
-    private JPanel panel;
-    private Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+public class Menu extends JFrame {
+    private final JButton play;
+    private final JButton exit;
+    private final JButton settings;
+    private final JButton credits;
+    private final JPanel panel;
+    private final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
-    public MainWindow() {
+    private Engine engine;
+
+    public Menu() {
         this.setTitle("Mad Tycoon - Menu");
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.setUndecorated(true);
@@ -27,6 +30,10 @@ public class MainWindow extends JFrame {
         play.setOpaque(false);
         play.setContentAreaFilled(false);
         play.setBorderPainted(false);
+        play.addActionListener(a -> {
+            engine = new Engine();
+            this.setVisible(false);
+        });
 
         settings = new JButton();
         settings.setMargin(new Insets(50, 0, 0, 0));

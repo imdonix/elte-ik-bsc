@@ -3,13 +3,14 @@ package hu.elte.madtycoon;
 import hu.elte.madtycoon.core.Engine;
 import hu.elte.madtycoon.core.Resources;
 import hu.elte.madtycoon.render.AnimationResource;
+import hu.elte.madtycoon.ui.Menu;
 
 import java.io.IOException;
 
 public class Main
 {
 
-    public static boolean DEBUG = true;
+    public static boolean DEBUG = false;
 
     public static void main(String[] args)
     {
@@ -32,6 +33,6 @@ public class Main
         if(DEBUG)
             new Engine();
         else
-            new MainWindow();
+            new Menu();
     }
 }
