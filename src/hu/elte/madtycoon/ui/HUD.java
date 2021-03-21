@@ -9,6 +9,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import static java.lang.Math.round;
+
 public class HUD extends JPanel
 {
 
@@ -28,6 +30,8 @@ public class HUD extends JPanel
     private final JButton fast;
     private final JButton exit;
     private final JButton options;
+    private int i,j;
+    private final float[] variations = new float[]{0,1,2.5F,5};
 
     public HUD(IEngine engine)
     {
@@ -35,6 +39,9 @@ public class HUD extends JPanel
         setPreferredSize(new Dimension(1920,110));
 
         this.engine = engine;
+        i = 0;
+        j = 0;
+
 
         buildingMenu = new JButton();
         buildingMenu.setOpaque(false);
@@ -110,7 +117,7 @@ public class HUD extends JPanel
         playPause.setOpaque(false);
         playPause.setContentAreaFilled(false);
         playPause.setBorderPainted(false);
-        //exit.addActionListener(e -> System.exit(0));
+        playPause.addActionListener(e -> j++);
         playPause.setMargin(new Insets(25, 175, 0, 0));
         playPause.setIcon(new ImageIcon(Resources.Instance.gameExitButton));
 
@@ -118,7 +125,7 @@ public class HUD extends JPanel
         fast.setOpaque(false);
         fast.setContentAreaFilled(false);
         fast.setBorderPainted(false);
-        //exit.addActionListener(e -> System.exit(0));
+        fast.addActionListener(e -> i++);
         fast.setMargin(new Insets(25, 0, 0, 0));
         fast.setIcon(new ImageIcon(Resources.Instance.gameExitButton));
 
@@ -166,37 +173,35 @@ public class HUD extends JPanel
         int money = engine.getMoney();
         moneyLabel.setText(String.valueOf(money));
 
-        float happinessValue = engine.getOverallHappiness();
+        int happinessValue = round(engine.getOverallHappiness()*100);
         happinessLabel.setText(String.valueOf(happinessValue));
 
         int gameTime = engine.getTime();
-        timeLabel.setText(String.valueOf(gameTime));
+        int hours = gameTime / 60;
+        int minutes = gameTime % 60;
+        if(hours < 10 && minutes < 10) {
+            timeLabel.setText("0" + hours + ":" + "0" + minutes);
+        } else if(hours < 10 && minutes >= 10) {
+            timeLabel.setText("0" + hours + ":" + minutes);
+        } else if(hours >= 10 && minutes < 10) {
+            timeLabel.setText(hours + ":" + "0" + minutes);
+        } else if(hours >= 10 && minutes >= 10) {
+            timeLabel.setText(hours + ":" + minutes);
+        }
 
+        /*if (i % 3 == 0) {
+            engine.setTimeScale(variations[1]);
+        } else if(i % 3 == 1) {
+            engine.setTimeScale(variations[2]);
+        } else if(i % 3 == 2) {
+            engine.setTimeScale(variations[3]);
+        }*/
 
-
-        fast.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent ae) {
-                if(engine.getTimeScale() == 1) {
-                    engine.setTimeScale(2.5F);
-                } else if(engine.getTimeScale() == 2.5F) {
-                    engine.setTimeScale(5);
-                } else if(engine.getTimeScale() == 5) {
-                    engine.setTimeScale(1);
-                }
-            }
-        });
-
-        playPause.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent ae) {
-                if(engine.getTimeScale() == 0) {
-                    engine.setTimeScale(1);
-                } else {
-                    engine.setTimeScale(0);
-                }
-            }
-        });
+        if(j % 2 == 0) {
+            engine.setTimeScale(variations[1]);
+        } else if(j % 2 == 1) {
+            engine.setTimeScale(variations[0]);
+        }
     }
 
     public void paintComponent(Graphics g)
