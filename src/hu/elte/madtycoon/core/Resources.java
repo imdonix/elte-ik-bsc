@@ -39,6 +39,8 @@ public class Resources
     public BufferedImage gameHappyArrowDown;
     public BufferedImage gameHappyArrowEmpty;
 
+    public BufferedImage shopBackGroundImage;
+
     public List<String> entityNames;
 
     private Resources() {}
@@ -47,6 +49,7 @@ public class Resources
     {
         loadMenu();
         loadGame();
+        loadShop();
     }
 
     private void loadMenu() throws IOException
@@ -81,5 +84,11 @@ public class Resources
         gameHappyArrowDown = ImageIO.read(new File("res/menu/happy_down.png"));
         gameHappyArrowEmpty = ImageIO.read(new File("res/menu/happy_empty.png"));
         entityNames = Files.readAllLines(Paths.get("res/names.txt"));
+    }
+
+    private void loadShop() throws IOException
+    {
+        shopBackGroundImage = ImageIO.read(new File("res/menu/shop/shop_bg.png"));
+
     }
 }
