@@ -97,18 +97,22 @@ public class HUD extends JPanel
         moneyLabel = new JLabel();
         moneyLabel.setBorder(new EmptyBorder(30,0,0,0));
         moneyLabel.setForeground(Color.decode("#475425"));
+        moneyLabel.setMaximumSize(new Dimension(100,50));
+        moneyLabel.setPreferredSize(new Dimension(100,50));
 
         happiness = new JButton();
         happiness.setOpaque(false);
         happiness.setContentAreaFilled(false);
         happiness.setBorderPainted(false);
         //exit.addActionListener(e -> System.exit(0));
-        happiness.setMargin(new Insets(25, 280, 0, 0));
+        happiness.setMargin(new Insets(25, 200, 0, 0));
         happiness.setIcon(new ImageIcon(Resources.Instance.gameSanityIcon));
 
         happinessLabel = new JLabel();
         happinessLabel.setBorder(new EmptyBorder(30,0,0,0));
         happinessLabel.setForeground(Color.decode("#475425"));
+        happinessLabel.setMaximumSize(new Dimension(50,50));
+        happinessLabel.setPreferredSize(new Dimension(50,50));
 
         time = new JButton();
         time.setOpaque(false);
@@ -121,13 +125,15 @@ public class HUD extends JPanel
         timeLabel = new JLabel();
         timeLabel.setBorder(new EmptyBorder(30,0,0,0));
         timeLabel.setForeground(Color.decode("#475425"));
+        timeLabel.setMaximumSize(new Dimension(110,50));
+        timeLabel.setPreferredSize(new Dimension(110,50));
 
         playPause = new JButton();
         playPause.setOpaque(false);
         playPause.setContentAreaFilled(false);
         playPause.setBorderPainted(false);
         playPause.addActionListener(e -> j++);
-        playPause.setMargin(new Insets(25, 200, 0, 0));
+        playPause.setMargin(new Insets(25, 100, 0, 0));
         playPause.setIcon(new ImageIcon(Resources.Instance.gamePauseButton));
 
         fast = new JButton();
