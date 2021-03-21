@@ -5,11 +5,11 @@ import hu.elte.madtycoon.objects.GameObject;
 import hu.elte.madtycoon.render.AnimatedSprite;
 import hu.elte.madtycoon.utils.Vector2F;
 
-public abstract class GoTask <T extends ITargetable> extends Task
+public abstract class GoTask <G extends Entity, T extends ITargetable> extends Task<G>
 {
     protected T target;
 
-    public GoTask(Entity entity, T target) {
+    public GoTask(G entity, T target) {
         super(entity);
         this.target = target;
     }

@@ -27,14 +27,12 @@ public abstract class GameObject implements ITargetable
 
     public void update(float dt)
     {
-        if(active) {
-            if (!startFrame) {
-                start();
-                startFrame = true;
-            }
-
-            sprite.update(dt);
+        if (!startFrame) {
+            start();
+            startFrame = true;
         }
+
+        sprite.update(dt);
     }
 
     public void setActive(boolean active)
@@ -44,18 +42,27 @@ public abstract class GameObject implements ITargetable
 
     public void render(SpriteRenderBuffer buffer)
     {
-        if(active)
-            buffer.add(new LayeredSprite(sprite.getSprite(), getRenderLayer(), position));
+        buffer.add(new LayeredSprite(sprite.getSprite(), getRenderLayer(), getRenderPosition()));
     }
 
-    public Vector2F getPosition()
+    public final Vector2F getPosition()
     {
         return position;
+    }
+
+    public Vector2F getRenderPosition()
+    {
+        return getPosition();
     }
 
     public AnimatedSprite getSprite()
     {
         return sprite;
+    }
+
+    public boolean getActive()
+    {
+        return active;
     }
 
     public Vector2F getTargetPosition()

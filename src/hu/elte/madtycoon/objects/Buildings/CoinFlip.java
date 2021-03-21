@@ -22,7 +22,7 @@ public class CoinFlip extends Game
 
     private CoinFlip(World world, AnimatedSprite sprite, Vector2F position, Vector2I size, int max)
     {
-        super(world, sprite, position, size, max, MIN_USE_COST);
+        super(world, sprite, position, size, max, MAX_USE_COST);
     }
 
     @Override

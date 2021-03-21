@@ -1,15 +1,19 @@
-package hu.elte.madtycoon.task;
+package hu.elte.madtycoon.task.utils;
 
 import hu.elte.madtycoon.objects.Entity;
 import hu.elte.madtycoon.render.AnimatedSprite;
+import hu.elte.madtycoon.task.WaitTask;
 
 public class Idle extends WaitTask
 {
     public static final float IDLE_TIME = 1.5F;
 
+
     public Idle(Entity entity) {
-        super(entity, IDLE_TIME);
+        this(entity, IDLE_TIME);
     }
+
+    public Idle(Entity entity, float time) { super(entity, time); }
 
     @Override
     protected void start()

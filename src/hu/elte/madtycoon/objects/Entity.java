@@ -5,11 +5,18 @@ import hu.elte.madtycoon.core.World;
 import hu.elte.madtycoon.render.AnimatedSprite;
 import hu.elte.madtycoon.task.Task;
 import hu.elte.madtycoon.utils.Random;
+import hu.elte.madtycoon.utils.Utils;
 import hu.elte.madtycoon.utils.Vector2F;
 
 import java.util.List;
 
 public abstract class Entity extends GameObject {
+
+    public static final Vector2F SIZE = new Vector2F(.5F, 1F);
+
+    private static int idCounter = 0;
+
+    protected final int id;
     protected final String name;
     protected float interest;
     protected float food;
@@ -20,18 +27,21 @@ public abstract class Entity extends GameObject {
         super(world, sprite, position);
         this.name = getRandomName();
         this.task = null;
+        this.id = Entity.idCounter++;
     }
 
     public void addInterest(float interest)
     {
         //TODO pop happy | sad emote (if amount large enough)
         this.interest += interest;
+        this.interest = Utils.clap(0,1,this.interest);
     }
 
     public void addFood(float food)
     {
         //TODO pop happy | sad emote (if amount large enough)
         this.food += food;
+        this.food = Utils.clap(0,1,this.food);
     }
 
     @Override
@@ -45,7 +55,6 @@ public abstract class Entity extends GameObject {
         task.update(dt);
     }
 
-
     public float getHappiness()
     {
         return (interest + food) / 2;
@@ -56,6 +65,10 @@ public abstract class Entity extends GameObject {
         return name;
     }
 
+    public World getWorld()
+    {
+        return world;
+    }
 
     public boolean pay(int money)
     {
@@ -81,8 +94,28 @@ public abstract class Entity extends GameObject {
         position = position.add(force);
     }
 
+    public void setTask(Task task)
+    {
+        this.task = task;
+    }
+
     @Override
-    protected int getRenderLayer() { return 1; }
+    public Vector2F getRenderPosition()
+    {
+        return getPosition().add(SIZE.mul(-.5F));
+    }
+
+    @Override
+    protected int getRenderLayer()
+    {
+        return 1;
+    }
+
+    @Override
+    public String toString()
+    {
+        return String.format("[%d] %s (I: %f, F: %f, M: %d)", id, name, interest, food, money);
+    }
 
     protected abstract void start();
 

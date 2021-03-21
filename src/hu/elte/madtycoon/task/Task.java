@@ -5,15 +5,15 @@ import hu.elte.madtycoon.objects.Game;
 import hu.elte.madtycoon.objects.GameObject;
 import hu.elte.madtycoon.utils.Vector2F;
 
-public abstract class Task
+public abstract class Task<T extends Entity>
 {
-    public final Entity entity;
+    public final T entity;
 
     protected boolean reach;
     protected boolean done;
     private boolean startFrame;
 
-    public Task(Entity entity)
+    public Task(T entity)
     {
         this.entity = entity;
         done = false;
