@@ -218,11 +218,20 @@ public class HUD extends JPanel
         }
 
         engine.setTimeScale(variations[i%3]);
+        if(i % 3 == 0) {
+            fast.setIcon(new ImageIcon(Resources.Instance.gameSpeedButton));
+        } else if(i %3 == 1) {
+            fast.setIcon(new ImageIcon(Resources.Instance.gameSpeedButton2X));
+        } else if(i % 3 == 2) {
+            fast.setIcon(new ImageIcon(Resources.Instance.gameSpeedButton5X));
+        }
 
         if(j % 2 == 0) {
             engine.setTimeScale(variations[i%3]);
+            playPause.setIcon(new ImageIcon(Resources.Instance.gamePlayButton));
         } else if(j % 2 == 1) {
             engine.setTimeScale(0);
+            playPause.setIcon(new ImageIcon(Resources.Instance.gamePauseButton));
         }
     }
 

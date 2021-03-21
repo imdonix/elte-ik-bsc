@@ -29,9 +29,12 @@ public class Resources
     public BufferedImage gameMoneyIcon;
     public BufferedImage gameSanityIcon;
     public BufferedImage gameTimeIcon;
-    public BufferedImage gamePauseButton;
+    public BufferedImage gamePlayButton;
     public BufferedImage gameSpeedButton;
+    public BufferedImage gameSpeedButton2X;
+    public BufferedImage gameSpeedButton5X;
     public BufferedImage gameSettingsButton;
+    public BufferedImage gamePauseButton;
 
     public List<String> entityNames;
 
@@ -65,8 +68,11 @@ public class Resources
         gameMoneyIcon = ImageIO.read(new File("res/menu/money_icon.png"));
         gameSanityIcon = ImageIO.read(new File("res/menu/sanity_icon.png"));
         gameTimeIcon = ImageIO.read(new File("res/menu/time_icon.png"));
-        gamePauseButton = ImageIO.read(new File("res/menu/start_pause_button.png"));
+        gamePlayButton = ImageIO.read(new File("res/menu/start_pause_button.png"));
+        gamePauseButton = ImageIO.read(new File("res/menu/pause_button.png"));
         gameSpeedButton = ImageIO.read(new File("res/menu/speed_up_button.png"));
+        gameSpeedButton2X = ImageIO.read(new File("res/menu/speed_up_button_2x.png"));
+        gameSpeedButton5X = ImageIO.read(new File("res/menu/speed_up_button_5x.png"));
         gameSettingsButton = ImageIO.read(new File("res/menu/game_settings_button.png"));
         entityNames = Files.readAllLines(Paths.get("res/names.txt"));
     }
