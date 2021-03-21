@@ -21,6 +21,17 @@ public class Resources
     public BufferedImage gameBackGroundImage;
     public BufferedImage gameHudImage;
     public BufferedImage gameExitButton;
+    public BufferedImage gameHouseBuildButton;
+    public BufferedImage gameDecorBuildButton;
+    public BufferedImage gameRoadBuildButton;
+    public BufferedImage gameStatisticsButton;
+    public BufferedImage gameEmployeeButton;
+    public BufferedImage gameMoneyIcon;
+    public BufferedImage gameSanityIcon;
+    public BufferedImage gameTimeIcon;
+    public BufferedImage gamePauseButton;
+    public BufferedImage gameSpeedButton;
+    public BufferedImage gameSettingsButton;
 
     public List<String> entityNames;
 
@@ -46,6 +57,17 @@ public class Resources
         gameBackGroundImage = ImageIO.read(new File("res/main_window_bg.jpg"));
         gameHudImage = ImageIO.read(new File("res/main_window_hud.jpg"));
         gameExitButton = ImageIO.read(new File("res/main_window_exit.png"));
+        gameHouseBuildButton = ImageIO.read(new File("res/menu/house_build_button.png"));
+        gameDecorBuildButton = ImageIO.read(new File("res/menu/decor_build_button.png"));
+        gameRoadBuildButton = ImageIO.read(new File("res/menu/road_build_button.png"));
+        gameStatisticsButton = ImageIO.read(new File("res/menu/stats_button.png"));
+        gameEmployeeButton = ImageIO.read(new File("res/menu/employee_button.png"));
+        gameMoneyIcon = ImageIO.read(new File("res/menu/money_icon.png"));
+        gameSanityIcon = ImageIO.read(new File("res/menu/sanity_icon.png"));
+        gameTimeIcon = ImageIO.read(new File("res/menu/time_icon.png"));
+        gamePauseButton = ImageIO.read(new File("res/menu/start_pause_button.png"));
+        gameSpeedButton = ImageIO.read(new File("res/menu/speed_up_button.png"));
+        gameSettingsButton = ImageIO.read(new File("res/menu/game_settings_button.png"));
         entityNames = Files.readAllLines(Paths.get("res/names.txt"));
     }
 }
