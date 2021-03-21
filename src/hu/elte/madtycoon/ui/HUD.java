@@ -4,10 +4,13 @@ import hu.elte.madtycoon.core.Resources;
 import hu.elte.madtycoon.objects.Building;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 
 import static java.lang.Math.round;
 
@@ -49,7 +52,7 @@ public class HUD extends JPanel
         buildingMenu.setBorderPainted(false);
         //exit.addActionListener(e -> System.exit(0));
         buildingMenu.setMargin(new Insets(25, 60, 0, 0));
-        buildingMenu.setIcon(new ImageIcon(Resources.Instance.gameExitButton));
+        buildingMenu.setIcon(new ImageIcon(Resources.Instance.gameHouseBuildButton));
 
         decorationMenu = new JButton();
         decorationMenu.setOpaque(false);
@@ -57,7 +60,7 @@ public class HUD extends JPanel
         decorationMenu.setBorderPainted(false);
         //exit.addActionListener(e -> System.exit(0));
         decorationMenu.setMargin(new Insets(25, 25, 0, 0));
-        decorationMenu.setIcon(new ImageIcon(Resources.Instance.gameExitButton));
+        decorationMenu.setIcon(new ImageIcon(Resources.Instance.gameDecorBuildButton));
 
         roadMenu = new JButton();
         roadMenu.setOpaque(false);
@@ -65,7 +68,7 @@ public class HUD extends JPanel
         roadMenu.setBorderPainted(false);
         //exit.addActionListener(e -> System.exit(0));
         roadMenu.setMargin(new Insets(25, 25, 0, 0));
-        roadMenu.setIcon(new ImageIcon(Resources.Instance.gameExitButton));
+        roadMenu.setIcon(new ImageIcon(Resources.Instance.gameRoadBuildButton));
 
         stats = new JButton();
         stats.setOpaque(false);
@@ -73,7 +76,7 @@ public class HUD extends JPanel
         stats.setBorderPainted(false);
         //exit.addActionListener(e -> System.exit(0));
         stats.setMargin(new Insets(25, 25, 0, 0));
-        stats.setIcon(new ImageIcon(Resources.Instance.gameExitButton));
+        stats.setIcon(new ImageIcon(Resources.Instance.gameStatisticsButton));
 
         employeeMenu = new JButton();
         employeeMenu.setOpaque(false);
@@ -81,27 +84,31 @@ public class HUD extends JPanel
         employeeMenu.setBorderPainted(false);
         //exit.addActionListener(e -> System.exit(0));
         employeeMenu.setMargin(new Insets(25, 25, 0, 0));
-        employeeMenu.setIcon(new ImageIcon(Resources.Instance.gameExitButton));
+        employeeMenu.setIcon(new ImageIcon(Resources.Instance.gameEmployeeButton));
 
         moneyIcon = new JButton();
         moneyIcon.setOpaque(false);
         moneyIcon.setContentAreaFilled(false);
         moneyIcon.setBorderPainted(false);
         //exit.addActionListener(e -> System.exit(0));
-        moneyIcon.setMargin(new Insets(25, 125, 0, 0));
-        moneyIcon.setIcon(new ImageIcon(Resources.Instance.gameExitButton));
+        moneyIcon.setMargin(new Insets(25, 90, 0, 0));
+        moneyIcon.setIcon(new ImageIcon(Resources.Instance.gameMoneyIcon));
 
         moneyLabel = new JLabel();
+        moneyLabel.setBorder(new EmptyBorder(30,0,0,0));
+        moneyLabel.setForeground(Color.decode("#475425"));
 
         happiness = new JButton();
         happiness.setOpaque(false);
         happiness.setContentAreaFilled(false);
         happiness.setBorderPainted(false);
         //exit.addActionListener(e -> System.exit(0));
-        happiness.setMargin(new Insets(25, 275, 0, 0));
-        happiness.setIcon(new ImageIcon(Resources.Instance.gameExitButton));
+        happiness.setMargin(new Insets(25, 280, 0, 0));
+        happiness.setIcon(new ImageIcon(Resources.Instance.gameSanityIcon));
 
         happinessLabel = new JLabel();
+        happinessLabel.setBorder(new EmptyBorder(30,0,0,0));
+        happinessLabel.setForeground(Color.decode("#475425"));
 
         time = new JButton();
         time.setOpaque(false);
@@ -109,17 +116,19 @@ public class HUD extends JPanel
         time.setBorderPainted(false);
         //exit.addActionListener(e -> System.exit(0));
         time.setMargin(new Insets(25, 150, 0, 0));
-        time.setIcon(new ImageIcon(Resources.Instance.gameExitButton));
+        time.setIcon(new ImageIcon(Resources.Instance.gameTimeIcon));
 
         timeLabel = new JLabel();
+        timeLabel.setBorder(new EmptyBorder(30,0,0,0));
+        timeLabel.setForeground(Color.decode("#475425"));
 
         playPause = new JButton();
         playPause.setOpaque(false);
         playPause.setContentAreaFilled(false);
         playPause.setBorderPainted(false);
         playPause.addActionListener(e -> j++);
-        playPause.setMargin(new Insets(25, 175, 0, 0));
-        playPause.setIcon(new ImageIcon(Resources.Instance.gameExitButton));
+        playPause.setMargin(new Insets(25, 200, 0, 0));
+        playPause.setIcon(new ImageIcon(Resources.Instance.gamePauseButton));
 
         fast = new JButton();
         fast.setOpaque(false);
@@ -127,7 +136,7 @@ public class HUD extends JPanel
         fast.setBorderPainted(false);
         fast.addActionListener(e -> i++);
         fast.setMargin(new Insets(25, 0, 0, 0));
-        fast.setIcon(new ImageIcon(Resources.Instance.gameExitButton));
+        fast.setIcon(new ImageIcon(Resources.Instance.gameSpeedButton));
 
         options = new JButton();
         options.setOpaque(false);
@@ -135,7 +144,7 @@ public class HUD extends JPanel
         options.setBorderPainted(false);
         //exit.addActionListener(e -> System.exit(0));
         options.setMargin(new Insets(25, 0, 0, 0));
-        options.setIcon(new ImageIcon(Resources.Instance.gameExitButton));
+        options.setIcon(new ImageIcon(Resources.Instance.gameSettingsButton));
 
         exit = new JButton();
         exit.setOpaque(false);
@@ -160,6 +169,19 @@ public class HUD extends JPanel
         add(fast);
         add(options);
         add(exit);
+
+        try {
+            Font ch_bell = Font.createFont(Font.TRUETYPE_FONT, new File("res/font/christmas_bell.otf")).deriveFont(46f);
+            GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+            ge.registerFont(ch_bell);
+            moneyLabel.setFont(ch_bell);
+            happinessLabel.setFont(ch_bell);
+            timeLabel.setFont(ch_bell);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch(FontFormatException e) {
+            e.printStackTrace();
+        }
     }
 
     public void updateGUI()
