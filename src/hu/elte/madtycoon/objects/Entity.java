@@ -13,6 +13,8 @@ import java.util.List;
 public abstract class Entity extends GameObject {
 
     public static final Vector2F SIZE = new Vector2F(.5F, 1F);
+    public static final Vector2F FOOD_REQ = new Vector2F(0.002f, 0.005f); // 2-5 per sec
+    public static final Vector2F INT_REQ = new Vector2F(0.001f, 0.002f); // 1-2 per sec
 
     private static int idCounter = 0;
 
@@ -53,6 +55,13 @@ public abstract class Entity extends GameObject {
             task = getNewTask();
 
         task.update(dt);
+        requirements(dt);
+    }
+
+    private void requirements(float dt)
+    {
+        addFood(-Random.getRandomFloat(FOOD_REQ.x, FOOD_REQ.y) * dt);
+        addInterest(-Random.getRandomFloat(INT_REQ.x, INT_REQ.y) * dt);
     }
 
     public float getHappiness()
@@ -83,6 +92,7 @@ public abstract class Entity extends GameObject {
 
     public void earn(int money)
     {
+        //TODO pop pay emote
         this.money += money;
         world.pay(money);
     }

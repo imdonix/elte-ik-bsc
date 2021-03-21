@@ -42,7 +42,7 @@ public class World
 
     private void start()
     {
-        for (int i = 0; i < 25; i++) {
+        for (int i = 0; i < 5; i++) {
             for (int j = 0; j < 5; j++) {
                 instantiate(Visitor.Create(this, new Vector2F(i+2,j+2)));
             }
@@ -141,6 +141,14 @@ public class World
         for(Entity entity : entities)
             sum += entity.getHappiness();
         return sum / entities.size();
+    }
+
+    public float getDecoration()
+    {
+        float sum = 0;
+        for(Building building : buildings)
+            sum+= building.getDecorationValue();
+        return sum;
     }
 
     public List<Game> getGames()
