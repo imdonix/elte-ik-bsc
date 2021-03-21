@@ -33,8 +33,10 @@ public class HUD extends JPanel
     private final JButton fast;
     private final JButton exit;
     private final JButton options;
+    private final JButton happinessArrow;
     private int i,j;
     private final float[] variations = new float[]{1,2.5F,5};
+    private int prevHappyness = 0;
 
     public HUD(IEngine engine)
     {
@@ -114,12 +116,21 @@ public class HUD extends JPanel
         happinessLabel.setMaximumSize(new Dimension(50,50));
         happinessLabel.setPreferredSize(new Dimension(50,50));
 
+        happinessArrow = new JButton();
+        happinessArrow.setOpaque(false);
+        happinessArrow.setContentAreaFilled(false);
+        happinessArrow.setBorderPainted(false);
+        //exit.addActionListener(e -> System.exit(0));
+        happinessArrow.setMargin(new Insets(25, 0, 0, 0));
+        happinessArrow.setIcon(new ImageIcon(Resources.Instance.gameHappyArrowEmpty));
+
+
         time = new JButton();
         time.setOpaque(false);
         time.setContentAreaFilled(false);
         time.setBorderPainted(false);
         //exit.addActionListener(e -> System.exit(0));
-        time.setMargin(new Insets(25, 150, 0, 0));
+        time.setMargin(new Insets(25, 100 , 0, 0));
         time.setIcon(new ImageIcon(Resources.Instance.gameTimeIcon));
 
         timeLabel = new JLabel();
@@ -169,6 +180,7 @@ public class HUD extends JPanel
         add(moneyLabel);
         add(happiness);
         add(happinessLabel);
+        add(happinessArrow);
         add(time);
         add(timeLabel);
         add(playPause);
@@ -203,6 +215,14 @@ public class HUD extends JPanel
 
         int happinessValue = round(engine.getOverallHappiness()*100);
         happinessLabel.setText(String.valueOf(happinessValue));
+        if(prevHappyness>=happinessValue){
+            happinessArrow.setIcon(new ImageIcon(Resources.Instance.gameHappyArrowUp));
+        }else if (prevHappyness<happinessValue){
+            happinessArrow.setIcon(new ImageIcon(Resources.Instance.gameHappyArrowDown));
+        }else{
+            happinessArrow.setIcon(new ImageIcon(Resources.Instance.gameHappyArrowEmpty));
+        }
+        prevHappyness = happinessValue;
 
         int gameTime = engine.getTime();
         int hours = gameTime / 60;

@@ -35,6 +35,9 @@ public class Resources
     public BufferedImage gameSpeedButton5X;
     public BufferedImage gameSettingsButton;
     public BufferedImage gamePauseButton;
+    public BufferedImage gameHappyArrowUp;
+    public BufferedImage gameHappyArrowDown;
+    public BufferedImage gameHappyArrowEmpty;
 
     public List<String> entityNames;
 
@@ -74,6 +77,9 @@ public class Resources
         gameSpeedButton2X = ImageIO.read(new File("res/menu/speed_up_button_2x.png"));
         gameSpeedButton5X = ImageIO.read(new File("res/menu/speed_up_button_5x.png"));
         gameSettingsButton = ImageIO.read(new File("res/menu/game_settings_button.png"));
+        gameHappyArrowUp = ImageIO.read(new File("res/menu/happy_up.png"));
+        gameHappyArrowDown = ImageIO.read(new File("res/menu/happy_down.png"));
+        gameHappyArrowEmpty = ImageIO.read(new File("res/menu/happy_empty.png"));
         entityNames = Files.readAllLines(Paths.get("res/names.txt"));
     }
 }
