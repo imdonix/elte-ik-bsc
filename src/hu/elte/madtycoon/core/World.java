@@ -42,15 +42,15 @@ public class World
 
     private void start()
     {
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 25; i++) {
             for (int j = 0; j < 5; j++) {
                 entities.add(Visitor.Create(this, new Vector2F(i+2,j+2)));
             }
         }
 
         for (int i = 0; i < 2; i++)
-            for (int j = 0; j < 4; j++)
-                buildings.add(CoinFlip.Create(this, new Vector2F(j*3+i*3+5,i*3+5)));
+            for (int j = 0; j < 6; j++)
+                buildings.add(CoinFlip.Create(this, new Vector2F(j*3+i*3+5,i*5+5)));
     }
 
     public void update(float dt)
