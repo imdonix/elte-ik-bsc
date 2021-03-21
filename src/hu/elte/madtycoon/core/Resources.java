@@ -40,6 +40,7 @@ public class Resources
     public BufferedImage gameHappyArrowEmpty;
 
     public BufferedImage shopBackGroundImage;
+    public BufferedImage shopCoinFlipBuyButton;
 
     public List<String> entityNames;
 
@@ -89,6 +90,6 @@ public class Resources
     private void loadShop() throws IOException
     {
         shopBackGroundImage = ImageIO.read(new File("res/menu/shop/shop_bg.png"));
-
+        shopCoinFlipBuyButton = ImageIO.read(new File("res/menu/shop/coin_flip_buy.png"));
     }
 }
