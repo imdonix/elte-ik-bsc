@@ -34,7 +34,7 @@ public class HUD extends JPanel
     private final JButton exit;
     private final JButton options;
     private int i,j;
-    private final float[] variations = new float[]{0,1,2.5F,5};
+    private final float[] variations = new float[]{1,2.5F,5};
 
     public HUD(IEngine engine)
     {
@@ -217,18 +217,12 @@ public class HUD extends JPanel
             timeLabel.setText(hours + ":" + minutes);
         }
 
-        /*if (i % 3 == 0) {
-            engine.setTimeScale(variations[1]);
-        } else if(i % 3 == 1) {
-            engine.setTimeScale(variations[2]);
-        } else if(i % 3 == 2) {
-            engine.setTimeScale(variations[3]);
-        }*/
+        engine.setTimeScale(variations[i%3]);
 
         if(j % 2 == 0) {
-            engine.setTimeScale(variations[1]);
+            engine.setTimeScale(variations[i%3]);
         } else if(j % 2 == 1) {
-            engine.setTimeScale(variations[0]);
+            engine.setTimeScale(0);
         }
     }
 
