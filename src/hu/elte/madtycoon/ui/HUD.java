@@ -52,7 +52,7 @@ public class HUD extends JPanel
         buildingMenu.setOpaque(false);
         buildingMenu.setContentAreaFilled(false);
         buildingMenu.setBorderPainted(false);
-        buildingMenu.addActionListener(e -> new ShopWindow("Buildings"));
+        buildingMenu.addActionListener(e -> new BuildingShop());
         buildingMenu.setMargin(new Insets(25, 60, 0, 0));
         buildingMenu.setIcon(new ImageIcon(Resources.Instance.gameHouseBuildButton));
 
