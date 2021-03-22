@@ -1,5 +1,6 @@
 package hu.elte.madtycoon.ui;
 
+import hu.elte.madtycoon.core.Builder;
 import hu.elte.madtycoon.objects.Building;
 import hu.elte.madtycoon.utils.Vector2I;
 
@@ -27,9 +28,7 @@ public interface IEngine
 
 
     /**
-     * @return Return the selected building or null if nothing is selected
+     * @return Return the world builder.
      */
-    Building getSelectedBuilding();
-
-    float getTimeScale();
+    Builder getWorldBuilder();
 }

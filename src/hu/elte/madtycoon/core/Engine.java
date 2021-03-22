@@ -73,6 +73,7 @@ public class Engine extends JFrame implements IEngine
         //Finalize
         pack();
         setVisible(true);
+        hud.homeButtons();
         tickTimer.start();
     }
 
@@ -138,13 +139,10 @@ public class Engine extends JFrame implements IEngine
     }
 
     @Override
-    public Building getSelectedBuilding()
+    public Builder getWorldBuilder()
     {
-        return world.collisionCheck(builder.getSelected(), Vector2I.ONE);
+        return builder;
     }
-
-    @Override
-    public float getTimeScale() { return timeScale; }
 
 
     class GamePanel extends JPanel

@@ -16,6 +16,7 @@ import java.awt.image.BufferedImage;
 public class CoinFlip extends Game
 {
 
+    public final static String ID = "coin";
     public final static Vector2I SIZE = new Vector2I(3,4);
     public final static Vector2I ENTRANCE = new Vector2I(0,1);
     public final static int PRICE = 500;
@@ -26,7 +27,7 @@ public class CoinFlip extends Game
 
 
     static {
-        Builder.buildings.put("coin", new BuildReference(SIZE, PRICE, CoinFlip::Create));
+        Builder.buildings.put(ID, new BuildReference(SIZE, PRICE, CoinFlip::Create));
     }
 
     private CoinFlip(World world, AnimatedSprite sprite, Vector2F position, Vector2I size, int max)

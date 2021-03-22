@@ -1,10 +1,13 @@
 package hu.elte.madtycoon.ui;
 
 import hu.elte.madtycoon.core.Resources;
+import hu.elte.madtycoon.objects.Buildings.CoinFlip;
+import hu.elte.madtycoon.utils.BuilderState;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 
@@ -14,6 +17,7 @@ public class HUD extends JPanel
 {
 
     private IEngine engine;
+
     private final JButton buildingMenu;
     private final JButton decorationMenu;
     private final JButton roadMenu;
@@ -30,9 +34,12 @@ public class HUD extends JPanel
     private final JButton exit;
     private final JButton options;
     private final JButton happinessArrow;
+
     private int i,j;
     private final float[] variations = new float[]{1,2.5F,5};
+
     private int prevHappyness = 0;
+    private boolean roadBuilding = false;
 
     public HUD(IEngine engine)
     {
@@ -48,41 +55,31 @@ public class HUD extends JPanel
         buildingMenu.setOpaque(false);
         buildingMenu.setContentAreaFilled(false);
         buildingMenu.setBorderPainted(false);
-        buildingMenu.addActionListener(e -> buildButtons());
         buildingMenu.setMargin(new Insets(25, 60, 0, 0));
-        buildingMenu.setIcon(new ImageIcon(Resources.Instance.gameHouseBuildButton));
 
         decorationMenu = new JButton();
         decorationMenu.setOpaque(false);
         decorationMenu.setContentAreaFilled(false);
         decorationMenu.setBorderPainted(false);
-        decorationMenu.addActionListener(e -> decorButtons());
         decorationMenu.setMargin(new Insets(25, 25, 0, 0));
-        decorationMenu.setIcon(new ImageIcon(Resources.Instance.gameDecorBuildButton));
 
         roadMenu = new JButton();
         roadMenu.setOpaque(false);
         roadMenu.setContentAreaFilled(false);
         roadMenu.setBorderPainted(false);
-        roadMenu.addActionListener(e -> System.out.println("Road"));
         roadMenu.setMargin(new Insets(25, 25, 0, 0));
-        roadMenu.setIcon(new ImageIcon(Resources.Instance.gameRoadBuildButton));
 
         stats = new JButton();
         stats.setOpaque(false);
         stats.setContentAreaFilled(false);
         stats.setBorderPainted(false);
-        stats.addActionListener(e -> new PopWindow());
         stats.setMargin(new Insets(25, 25, 0, 0));
-        stats.setIcon(new ImageIcon(Resources.Instance.gameStatisticsButton));
 
         employeeMenu = new JButton();
         employeeMenu.setOpaque(false);
         employeeMenu.setContentAreaFilled(false);
         employeeMenu.setBorderPainted(false);
-        employeeMenu.addActionListener(e -> new PopWindow());
         employeeMenu.setMargin(new Insets(25, 25, 0, 0));
-        employeeMenu.setIcon(new ImageIcon(Resources.Instance.gameEmployeeButton));
 
         moneyIcon = new JButton();
         moneyIcon.setOpaque(false);
@@ -184,6 +181,7 @@ public class HUD extends JPanel
         add(options);
         add(exit);
 
+
         try {
             Font ch_bell = Font.createFont(Font.TRUETYPE_FONT, new File("res/font/christmas_bell.otf")).deriveFont(46f);
             GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
@@ -196,11 +194,11 @@ public class HUD extends JPanel
         } catch(FontFormatException e) {
             e.printStackTrace();
         }
+
     }
 
     public void updateGUI()
     {
-        //TODO draw game status via IEngine
 
         int money = engine.getMoney();
         moneyLabel.setText(String.valueOf(money));
@@ -247,75 +245,93 @@ public class HUD extends JPanel
         }
     }
 
+
+    public void homeButtons(){
+
+        removeActionListeners();
+        engine.getWorldBuilder().setState(BuilderState.SELECT);
+
+        buildingMenu.setIcon(new ImageIcon(Resources.Instance.gameHouseBuildButton));
+        buildingMenu.addActionListener(e -> buildButtons());
+
+        decorationMenu.setIcon(new ImageIcon(Resources.Instance.gameDecorBuildButton));
+        decorationMenu.addActionListener(e-> decorButtons());
+
+        roadMenu.setIcon(new ImageIcon(Resources.Instance.gameRoadBuildButton));
+        roadMenu.addActionListener(e ->
+        {
+            roadBuilding = !roadBuilding;
+            if(roadBuilding)
+                engine.getWorldBuilder().setState(BuilderState.BUILD, "road"); //TODO
+            else
+                engine.getWorldBuilder().setState(BuilderState.SELECT);
+        });
+
+        stats.setIcon(new ImageIcon(Resources.Instance.gameStatisticsButton));
+        stats.addActionListener(e -> new PopWindow()); //TODO
+
+        employeeMenu.setIcon(new ImageIcon(Resources.Instance.gameEmployeeButton));
+        employeeMenu.addActionListener(e -> new PopWindow()); //TODO
+    }
+
+    private void buildButtons(){
+
+        removeActionListeners();
+        engine.getWorldBuilder().setState(BuilderState.NONE);
+
+        buildingMenu.setIcon(new ImageIcon(Resources.Instance.shopCoinFlipBuyButton));
+        buildingMenu.addActionListener(e -> engine.getWorldBuilder().setState(BuilderState.BUILD, CoinFlip.ID));
+
+        decorationMenu.setIcon(new ImageIcon(Resources.Instance.sthBuyButton));
+        decorationMenu.addActionListener(e-> System.out.println("STH else build")); //TODO
+
+        roadMenu.setIcon(new ImageIcon(Resources.Instance.sthBuyButton));
+        roadMenu.addActionListener(e-> System.out.println("Sth else build")); //TODO
+
+        stats.setIcon(new ImageIcon(Resources.Instance.sthBuyButton));
+        stats.addActionListener(e-> System.out.println("Sth else build")); //TODO
+
+        employeeMenu.setIcon(new ImageIcon(Resources.Instance.shopBackButton));
+        employeeMenu.addActionListener(e -> homeButtons());
+    }
+
+
+    private void decorButtons()
+    {
+        removeActionListeners();
+        engine.getWorldBuilder().setState(BuilderState.NONE);
+
+        buildingMenu.setIcon(new ImageIcon(Resources.Instance.bushBuyButton));
+        buildingMenu.addActionListener(e -> engine.getWorldBuilder().setState(BuilderState.BUILD, "bush")); //TODO
+
+        decorationMenu.setIcon(new ImageIcon(Resources.Instance.flowerBuyButton));
+        decorationMenu.addActionListener(e -> engine.getWorldBuilder().setState(BuilderState.BUILD, "flower")); //TODO
+
+        roadMenu.setIcon(new ImageIcon(Resources.Instance.stickBuyButton));
+        roadMenu.addActionListener(e -> engine.getWorldBuilder().setState(BuilderState.BUILD, "stick")); //TODO
+
+        stats.setIcon(new ImageIcon(Resources.Instance.firePitBuyButton));
+        stats.addActionListener(e -> engine.getWorldBuilder().setState(BuilderState.BUILD, "firePit")); //TODO
+
+        employeeMenu.setIcon(new ImageIcon(Resources.Instance.shopBackButton));
+        employeeMenu.addActionListener(e -> homeButtons());
+    }
+
+    private void removeActionListeners()
+    {
+        for(ActionListener a : buildingMenu.getActionListeners()) buildingMenu.removeActionListener(a);
+        for(ActionListener a : decorationMenu.getActionListeners()) decorationMenu.removeActionListener(a);
+        for(ActionListener a : roadMenu.getActionListeners()) roadMenu.removeActionListener(a);
+        for(ActionListener a : stats.getActionListeners()) stats.removeActionListener(a);
+        for(ActionListener a : employeeMenu.getActionListeners()) employeeMenu.removeActionListener(a);
+    }
+
+
+    @Override
     public void paintComponent(Graphics g)
     {
         super.paintComponent(g);
         g.drawImage(Resources.Instance.gameHudImage, 0, 0, this);
     }
 
-    private void buildButtons(){
-        buildingMenu.removeActionListener(buildingMenu.getActionListeners()[0]);
-        buildingMenu.setIcon(new ImageIcon(Resources.Instance.shopCoinFlipBuyButton));
-        buildingMenu.addActionListener(e-> System.out.println("Coin build"));
-
-        decorationMenu.removeActionListener(decorationMenu.getActionListeners()[0]);
-        decorationMenu.setIcon(new ImageIcon(Resources.Instance.sthBuyButton));
-        decorationMenu.addActionListener(e-> System.out.println("STH else build"));
-
-        roadMenu.removeActionListener(roadMenu.getActionListeners()[0]);
-        roadMenu.setIcon(new ImageIcon(Resources.Instance.sthBuyButton));
-        roadMenu.addActionListener(e-> System.out.println("Sth else build"));
-
-        stats.removeActionListener(stats.getActionListeners()[0]);
-        stats.setIcon(new ImageIcon(Resources.Instance.sthBuyButton));
-        stats.addActionListener(e-> System.out.println("Sth else build"));
-
-        employeeMenu.removeActionListener(employeeMenu.getActionListeners()[0]);
-        employeeMenu.setIcon(new ImageIcon(Resources.Instance.shopBackButton));
-        employeeMenu.addActionListener(e -> resetButtons());
-    }
-
-    private void resetButtons(){
-        buildingMenu.removeActionListener(buildingMenu.getActionListeners()[0]);
-        buildingMenu.setIcon(new ImageIcon(Resources.Instance.gameHouseBuildButton));
-        buildingMenu.addActionListener(e -> buildButtons());
-
-        decorationMenu.removeActionListener(decorationMenu.getActionListeners()[0]);
-        decorationMenu.setIcon(new ImageIcon(Resources.Instance.gameDecorBuildButton));
-        decorationMenu.addActionListener(e-> decorButtons());
-
-        roadMenu.removeActionListener(roadMenu.getActionListeners()[0]);
-        roadMenu.setIcon(new ImageIcon(Resources.Instance.gameRoadBuildButton));
-        roadMenu.addActionListener(e -> System.out.println("Road"));
-
-        stats.removeActionListener(stats.getActionListeners()[0]);
-        stats.setIcon(new ImageIcon(Resources.Instance.gameStatisticsButton));
-        stats.addActionListener(e -> new PopWindow());
-
-        employeeMenu.removeActionListener(employeeMenu.getActionListeners()[0]);
-        employeeMenu.setIcon(new ImageIcon(Resources.Instance.gameEmployeeButton));
-        employeeMenu.addActionListener(e -> new PopWindow());
-    }
-
-    private void decorButtons(){
-        buildingMenu.removeActionListener(buildingMenu.getActionListeners()[0]);
-        buildingMenu.setIcon(new ImageIcon(Resources.Instance.bushBuyButton));
-        buildingMenu.addActionListener(e-> System.out.println("Bush build"));
-
-        decorationMenu.removeActionListener(decorationMenu.getActionListeners()[0]);
-        decorationMenu.setIcon(new ImageIcon(Resources.Instance.flowerBuyButton));
-        decorationMenu.addActionListener(e-> System.out.println("Flower build"));
-
-        roadMenu.removeActionListener(roadMenu.getActionListeners()[0]);
-        roadMenu.setIcon(new ImageIcon(Resources.Instance.stickBuyButton));
-        roadMenu.addActionListener(e-> System.out.println("Stick build"));
-
-        stats.removeActionListener(stats.getActionListeners()[0]);
-        stats.setIcon(new ImageIcon(Resources.Instance.firePitBuyButton));
-        stats.addActionListener(e-> System.out.println("Firepit build"));
-
-        employeeMenu.removeActionListener(employeeMenu.getActionListeners()[0]);
-        employeeMenu.setIcon(new ImageIcon(Resources.Instance.shopBackButton));
-        employeeMenu.addActionListener(e -> resetButtons());
-    }
 }

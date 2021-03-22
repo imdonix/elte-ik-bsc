@@ -26,9 +26,9 @@ public class Builder
     public Builder(World world)
     {
         this.world = world;
-        this.state = BuilderState.BUILD;
+        this.state = BuilderState.SELECT;
         this.selected = null;
-        this.reference = buildings.get("coin");
+        this.reference = null;
     }
 
 
@@ -37,24 +37,23 @@ public class Builder
         this.selected = selected;
     }
 
-    public void setState(BuilderState state)
+    public void setState(BuilderState state, String buildingID)
     {
         this.state = state;
-    }
-
-    public void setBuilding(String buildingID)
-    {
         this.reference = buildings.get(buildingID);
     }
 
-    public Vector2I getSelected()
+    public void setState(BuilderState state)
     {
-        return selected;
+        setState(state, null);
     }
+
+
+    //INTERFACE
 
     public void interact() throws NoCoverageException
     {
-        if(selected == null) return;
+        if(selected == null || state == BuilderState.NONE) return;
 
         if(this.state == BuilderState.SELECT) selectBuilding();
         else if(this.state == BuilderState.BUILD) buildBuilding();
@@ -62,11 +61,13 @@ public class Builder
 
     public void showMarker(Graphics g)
     {
-        if(selected == null) return;
+        if(selected == null || state == BuilderState.NONE) return;
 
         if(this.state == BuilderState.SELECT) showSelection(g);
         else if(this.state == BuilderState.BUILD) showBuildingBounding(g);
     }
+
+    //ACTION
 
     private void selectBuilding()
     {
@@ -92,6 +93,8 @@ public class Builder
         else
             throw new NoCoverageException();
     }
+
+    //SHOW
 
     private void showSelection(Graphics g)
     {
