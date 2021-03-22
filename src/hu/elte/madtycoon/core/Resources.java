@@ -1,6 +1,7 @@
 package hu.elte.madtycoon.core;
 
 import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -48,15 +49,17 @@ public class Resources
     public BufferedImage stickBuyButton;
     public BufferedImage firePitBuyButton;
 
+    public Font chBell;
+
     public List<String> entityNames;
 
     private Resources() {}
 
-    public void load() throws IOException
-    {
+    public void load() throws IOException, FontFormatException {
         loadMenu();
         loadGame();
         loadShop();
+        loadFonts();
     }
 
     private void loadMenu() throws IOException
@@ -104,5 +107,11 @@ public class Resources
         flowerBuyButton = ImageIO.read(new File("res/menu/flower_buy.png"));
         stickBuyButton = ImageIO.read(new File("res/menu/stick_buy.png"));
         firePitBuyButton = ImageIO.read(new File("res/menu/firepit_buy.png"));
+    }
+
+    private void loadFonts() throws IOException, FontFormatException {
+        chBell = Font.createFont(Font.TRUETYPE_FONT, new File("res/font/christmas_bell.otf")).deriveFont(46f);
+        GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        ge.registerFont(chBell);
     }
 }

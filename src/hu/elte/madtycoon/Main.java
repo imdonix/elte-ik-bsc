@@ -5,6 +5,7 @@ import hu.elte.madtycoon.core.Resources;
 import hu.elte.madtycoon.render.AnimationResource;
 import hu.elte.madtycoon.ui.Menu;
 
+import java.awt.*;
 import java.io.IOException;
 
 public class Main
@@ -27,6 +28,11 @@ public class Main
         catch (IllegalStateException exception)
         {
             System.out.println(exception.getMessage());
+            return;
+        }
+        catch (FontFormatException e)
+        {
+            System.out.println(e.getMessage());
             return;
         }
 
