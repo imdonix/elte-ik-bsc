@@ -1,10 +1,12 @@
 package hu.elte.madtycoon.objects.Buildings;
 
+import hu.elte.madtycoon.core.Builder;
 import hu.elte.madtycoon.core.World;
 import hu.elte.madtycoon.objects.Entities.Visitor;
 import hu.elte.madtycoon.objects.Game;
 import hu.elte.madtycoon.render.AnimatedSprite;
 import hu.elte.madtycoon.render.AnimationResource;
+import hu.elte.madtycoon.utils.BuildReference;
 import hu.elte.madtycoon.utils.Random;
 import hu.elte.madtycoon.utils.Vector2F;
 import hu.elte.madtycoon.utils.Vector2I;
@@ -14,12 +16,18 @@ import java.awt.image.BufferedImage;
 public class CoinFlip extends Game
 {
 
+    public final static Vector2I SIZE = new Vector2I(3,4);
+    public final static Vector2I ENTRANCE = new Vector2I(0,1);
+    public final static int PRICE = 500;
+
     public final static int MAX = 2;
     public final static int MIN_USE_COST = 20;
     public final static int MAX_USE_COST = 100;
-    public final static Vector2I SIZE = new Vector2I(3,4);
-    public final static Vector2I ENTRANCE = new Vector2I(0,1);
 
+
+    static {
+        Builder.buildings.put("coin", new BuildReference(SIZE, PRICE, CoinFlip::Create));
+    }
 
     private CoinFlip(World world, AnimatedSprite sprite, Vector2F position, Vector2I size, int max)
     {
@@ -54,6 +62,7 @@ public class CoinFlip extends Game
     public Vector2F getTargetPosition() {
         return super.getTargetPosition().add(new Vector2F(ENTRANCE));
     }
+
 
     public static CoinFlip Create(World world, Vector2F position)
     {

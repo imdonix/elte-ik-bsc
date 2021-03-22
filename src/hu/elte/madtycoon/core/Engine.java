@@ -9,12 +9,14 @@ import hu.elte.madtycoon.ui.IEngine;
 import hu.elte.madtycoon.utils.Utils;
 import hu.elte.madtycoon.utils.Vector2F;
 import hu.elte.madtycoon.utils.Vector2I;
+import hu.elte.madtycoon.utils.exception.NoCoverageException;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 
 public class Engine extends JFrame implements IEngine
 {
@@ -25,10 +27,12 @@ public class Engine extends JFrame implements IEngine
 
     private final Timer tickTimer;
     private final World world;
+    private final Builder builder;
+
     private final JPanel canvas;
     private final HUD hud;
 
-    private Vector2I selectedBlock;
+
     private SpriteRenderBuffer renderBuffer;
     private FPSDisplay fpsDisplay;
     private float time;
@@ -43,7 +47,9 @@ public class Engine extends JFrame implements IEngine
         this.canvas = new GamePanel();
         this.hud = new HUD(this);
 
-        this.canvas.addMouseListener(new ClickListener());
+        MouseHandler list = new MouseHandler();
+        this.canvas.addMouseListener(list);
+        this.canvas.addMouseMotionListener(list);
         this.canvas.setPreferredSize(new Dimension(1920, 970));
         this.setLayout(new BorderLayout());
         this.fpsDisplay = new FPSDisplay(30);
@@ -58,11 +64,11 @@ public class Engine extends JFrame implements IEngine
         //Engine
         this.tickTimer = new Timer(1000/144, this::loop);
         this.world = new World();
+        this.builder = new Builder(world);
         this.renderBuffer = new SpriteRenderBuffer(RENDER_BASE_CAPACITY);
         this.lastTick = System.currentTimeMillis();
         this.time = 0;
         this.timeScale = 1;
-        this.selectedBlock = null;
 
         //Finalize
         pack();
@@ -102,13 +108,6 @@ public class Engine extends JFrame implements IEngine
                 g.drawRect(i*BLOCK_SIZE, j*BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE);
     }
 
-    private void debugDrawSelected(Graphics g)
-    {
-        g.setColor(Color.red);
-        if(selectedBlock != null)
-            g.drawRect(selectedBlock.x*BLOCK_SIZE, selectedBlock.y*BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE);
-    }
-
     private void debugFPS(Graphics g)
     {
         g.setColor(Color.orange);
@@ -141,11 +140,12 @@ public class Engine extends JFrame implements IEngine
     @Override
     public Building getSelectedBuilding()
     {
-        return world.collisionCheck(selectedBlock, Vector2I.ONE);
+        return world.collisionCheck(builder.getSelected(), Vector2I.ONE);
     }
 
     @Override
     public float getTimeScale() { return timeScale; }
+
 
     class GamePanel extends JPanel
     {
@@ -154,29 +154,29 @@ public class Engine extends JFrame implements IEngine
             super.paintComponent(g);
             g.drawImage(Resources.Instance.gameBackGroundImage, 0, 0, this);
             if(Main.DEBUG) debugDrawGrid(g);
-            if(Main.DEBUG) debugDrawSelected(g);
             if(Main.DEBUG) debugFPS(g);
             renderBuffer.draw(g);
+            builder.showMarker(g);
         }
     }
 
-    class ClickListener implements MouseListener
+    class MouseHandler implements MouseListener, MouseMotionListener
     {
         @Override
         public void mouseClicked(MouseEvent e) { }
 
         @Override
-        public void mousePressed(MouseEvent e)
-        {
-            int x = e.getX() / BLOCK_SIZE;
-            int y = e.getY() / BLOCK_SIZE;
-
-            selectedBlock = new Vector2I(x,y);
-            world.instantiate(CoinFlip.Create(world, new Vector2F(selectedBlock)));
-        }
+        public void mousePressed(MouseEvent e) { }
 
         @Override
-        public void mouseReleased(MouseEvent e) { }
+        public void mouseReleased(MouseEvent e)
+        {
+            try {
+                builder.interact();
+            } catch (NoCoverageException noCoverageException) {
+                //TODO pop no money emote
+            }
+        }
 
         @Override
         public void mouseEntered(MouseEvent e) { }
@@ -184,7 +184,19 @@ public class Engine extends JFrame implements IEngine
         @Override
         public void mouseExited(MouseEvent e)
         {
-            selectedBlock = null;
+            builder.setSelected(null);
+        }
+
+        @Override
+        public void mouseDragged(MouseEvent e) { }
+
+        @Override
+        public void mouseMoved(MouseEvent e) {
+
+            int x = e.getX() / BLOCK_SIZE;
+            int y = e.getY() / BLOCK_SIZE;
+
+            builder.setSelected(new Vector2I(x,y));
         }
     }
 
