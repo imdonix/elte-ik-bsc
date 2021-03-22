@@ -1,7 +1,7 @@
 package hu.elte.madtycoon.ui;
 
 import hu.elte.madtycoon.core.Resources;
-import hu.elte.madtycoon.objects.Buildings.CoinFlip;
+import hu.elte.madtycoon.objects.Buildings.*;
 import hu.elte.madtycoon.utils.BuilderState;
 
 import javax.swing.*;
@@ -280,16 +280,16 @@ public class HUD extends JPanel
         engine.getWorldBuilder().setState(BuilderState.NONE);
 
         buildingMenu.setIcon(new ImageIcon(Resources.Instance.bushBuyButton));
-        buildingMenu.addActionListener(e -> engine.getWorldBuilder().setState(BuilderState.BUILD, "bush")); //TODO
+        buildingMenu.addActionListener(e -> engine.getWorldBuilder().setState(BuilderState.BUILD, Bush.ID));
 
         decorationMenu.setIcon(new ImageIcon(Resources.Instance.flowerBuyButton));
-        decorationMenu.addActionListener(e -> engine.getWorldBuilder().setState(BuilderState.BUILD, "flower")); //TODO
+        decorationMenu.addActionListener(e -> engine.getWorldBuilder().setState(BuilderState.BUILD, Flower.ID));
 
         roadMenu.setIcon(new ImageIcon(Resources.Instance.stickBuyButton));
-        roadMenu.addActionListener(e -> engine.getWorldBuilder().setState(BuilderState.BUILD, "stick")); //TODO
+        roadMenu.addActionListener(e -> engine.getWorldBuilder().setState(BuilderState.BUILD, Stick.ID));
 
         stats.setIcon(new ImageIcon(Resources.Instance.firePitBuyButton));
-        stats.addActionListener(e -> engine.getWorldBuilder().setState(BuilderState.BUILD, "firePit")); //TODO
+        stats.addActionListener(e -> engine.getWorldBuilder().setState(BuilderState.BUILD, FirePit.ID));
 
         employeeMenu.setIcon(new ImageIcon(Resources.Instance.shopBackButton));
         employeeMenu.addActionListener(e -> homeButtons());

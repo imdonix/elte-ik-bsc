@@ -26,10 +26,6 @@ public class CoinFlip extends Game
     public final static int MAX_USE_COST = 100;
 
 
-    static {
-        Builder.buildings.put(ID, new BuildReference(SIZE, PRICE, CoinFlip::Create));
-    }
-
     private CoinFlip(World world, AnimatedSprite sprite, Vector2F position, Vector2I size, int max)
     {
         super(world, sprite, position, size, max, MAX_USE_COST);
@@ -72,6 +68,11 @@ public class CoinFlip extends Game
         AnimatedSprite anim = new AnimatedSprite(AnimatedSprite.IDLE, idle, 0.75f);
         anim.addState(AnimatedSprite.GAME_PLAY, play);
         return new CoinFlip(world, anim, position, SIZE, MAX);
+    }
+
+    public static void AddReference()
+    {
+        Builder.buildings.put(ID, new BuildReference(SIZE, PRICE, CoinFlip::Create));
     }
 
 }

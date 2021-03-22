@@ -1,6 +1,7 @@
 package hu.elte.madtycoon.core;
 
 import hu.elte.madtycoon.objects.Building;
+import hu.elte.madtycoon.objects.Buildings.*;
 import hu.elte.madtycoon.utils.BuildReference;
 import hu.elte.madtycoon.utils.BuilderState;
 import hu.elte.madtycoon.utils.Vector2F;
@@ -14,7 +15,7 @@ import java.util.Map;
 
 public class Builder
 {
-    public static Map<String, BuildReference> buildings = new HashMap<>();
+    public final static Map<String, BuildReference> buildings = new HashMap<>();
 
     private final World world;
 
@@ -29,6 +30,19 @@ public class Builder
         this.state = BuilderState.SELECT;
         this.selected = null;
         this.reference = null;
+        init();
+    }
+
+    private void init()
+    {
+        //Games
+        CoinFlip.AddReference();
+
+        //Decor
+        Bush.AddReference();
+        Flower.AddReference();
+        Stick.AddReference();
+        FirePit.AddReference();
     }
 
 
