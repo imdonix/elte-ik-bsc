@@ -11,6 +11,11 @@ public final class Vector2I
         this.y = y;
     }
 
+    public Vector2I(Vector2F v)
+    {
+        this((int) v.x,(int) v.y);
+    }
+
     public Vector2I()
     {
         this(0,0);
@@ -24,6 +29,11 @@ public final class Vector2I
     public Vector2I mul(int s)
     {
         return new Vector2I(x*s,y*s);
+    }
+
+    public Vector2I div(int s)
+    {
+        return new Vector2I(x/s,y/s);
     }
 
     @Override
