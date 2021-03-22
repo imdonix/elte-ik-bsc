@@ -1,14 +1,10 @@
 package hu.elte.madtycoon.ui;
 
 import hu.elte.madtycoon.core.Resources;
-import hu.elte.madtycoon.objects.Building;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 
@@ -52,7 +48,7 @@ public class HUD extends JPanel
         buildingMenu.setOpaque(false);
         buildingMenu.setContentAreaFilled(false);
         buildingMenu.setBorderPainted(false);
-        buildingMenu.addActionListener(e -> new BuildingShop());
+        //buildingMenu.addActionListener(e -> new PopWindow());
         buildingMenu.setMargin(new Insets(25, 60, 0, 0));
         buildingMenu.setIcon(new ImageIcon(Resources.Instance.gameHouseBuildButton));
 
@@ -76,7 +72,7 @@ public class HUD extends JPanel
         stats.setOpaque(false);
         stats.setContentAreaFilled(false);
         stats.setBorderPainted(false);
-        //exit.addActionListener(e -> System.exit(0));
+        stats.addActionListener(e -> new PopWindow());
         stats.setMargin(new Insets(25, 25, 0, 0));
         stats.setIcon(new ImageIcon(Resources.Instance.gameStatisticsButton));
 
@@ -84,7 +80,7 @@ public class HUD extends JPanel
         employeeMenu.setOpaque(false);
         employeeMenu.setContentAreaFilled(false);
         employeeMenu.setBorderPainted(false);
-        //exit.addActionListener(e -> System.exit(0));
+        employeeMenu.addActionListener(e -> new PopWindow());
         employeeMenu.setMargin(new Insets(25, 25, 0, 0));
         employeeMenu.setIcon(new ImageIcon(Resources.Instance.gameEmployeeButton));
 

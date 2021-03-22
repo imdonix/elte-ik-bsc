@@ -9,10 +9,10 @@ import java.io.IOException;
 import javax.swing.*;
 
 
-public class ShopWindow extends JFrame{
+public class PopWindow extends JFrame{
     private final JButton exit;
 
-    public ShopWindow(){
+    public PopWindow(){
 
         this.setUndecorated(true);
 
@@ -23,8 +23,6 @@ public class ShopWindow extends JFrame{
         exit.setBorderPainted(false);
         exit.addActionListener(e -> this.dispose());
         exit.setIcon(new ImageIcon(Resources.Instance.gameExitButton));
-
-
 
         this.setPreferredSize(new Dimension(1220,773));
         this.setResizable(false);
