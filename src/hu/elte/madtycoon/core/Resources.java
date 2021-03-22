@@ -41,6 +41,12 @@ public class Resources
 
     public BufferedImage shopBackGroundImage;
     public BufferedImage shopCoinFlipBuyButton;
+    public BufferedImage shopBackButton;
+    public BufferedImage sthBuyButton;
+    public BufferedImage bushBuyButton;
+    public BufferedImage flowerBuyButton;
+    public BufferedImage stickBuyButton;
+    public BufferedImage firePitBuyButton;
 
     public List<String> entityNames;
 
@@ -90,6 +96,13 @@ public class Resources
     private void loadShop() throws IOException
     {
         shopBackGroundImage = ImageIO.read(new File("res/menu/shop/shop_bg.png"));
-        shopCoinFlipBuyButton = ImageIO.read(new File("res/menu/shop/coin_flip_buy.png"));
+
+        shopCoinFlipBuyButton = ImageIO.read(new File("res/menu/coin_flip_buy.png"));
+        shopBackButton = ImageIO.read(new File("res/menu/shop_back.png"));
+        sthBuyButton = ImageIO.read(new File("res/menu/sth_buy.png"));
+        bushBuyButton = ImageIO.read(new File("res/menu/bush_buy.png"));
+        flowerBuyButton = ImageIO.read(new File("res/menu/flower_buy.png"));
+        stickBuyButton = ImageIO.read(new File("res/menu/stick_buy.png"));
+        firePitBuyButton = ImageIO.read(new File("res/menu/firepit_buy.png"));
     }
 }
