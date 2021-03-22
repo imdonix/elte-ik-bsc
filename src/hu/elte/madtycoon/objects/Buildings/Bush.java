@@ -14,7 +14,7 @@ import java.awt.image.BufferedImage;
 public class Bush extends Decoration
 {
     public final static String ID = "bush";
-    public final static Vector2I SIZE = new Vector2I(1,1);
+    public final static Vector2I SIZE = new Vector2I(2,2);
     public final static int PRICE = 75;
 
     private Bush(World world, AnimatedSprite sprite, Vector2F position, Vector2I size)
