@@ -128,3 +128,17 @@
 - Boyce-Codd normálforma (BCNF)
 - Chase-teszt
 - 3NF
+
+#  VI
+
+- Többértékű függőség (TÉF)
+- Negyedik normálforma (4NF)
+- Egyedi kapcsolat model
+    - Egyed
+    - Egyedhalmaz
+    - Kapcsolat
+        - Sok-Sok kapcsolat
+        - Sok-Egy kapcsolat
+        - Egy-Egy kapcsolat
+    - Alosztályok
+    - Kulcs
