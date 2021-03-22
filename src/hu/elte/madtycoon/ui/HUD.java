@@ -36,7 +36,13 @@ public class HUD extends JPanel
     private final JButton happinessArrow;
 
     private int i,j;
-    private final float[] variations = new float[]{1,2.5F,5};
+    private final float[] timeScaleVariations = new float[]{1,2.5F,5F};
+    private final ImageIcon[] timeImageVariations = new ImageIcon[]
+            {
+                new ImageIcon(Resources.Instance.gameSpeedButton),
+                new ImageIcon(Resources.Instance.gameSpeedButton2X),
+                new ImageIcon(Resources.Instance.gameSpeedButton5X)
+            };
 
     private int prevHappyness = 0;
     private boolean roadBuilding = false;
@@ -94,6 +100,7 @@ public class HUD extends JPanel
         moneyLabel.setForeground(Color.decode("#475425"));
         moneyLabel.setMaximumSize(new Dimension(100,50));
         moneyLabel.setPreferredSize(new Dimension(100,50));
+        moneyLabel.setFont(Resources.Instance.chBell);
 
         happiness = new JButton();
         happiness.setOpaque(false);
@@ -108,6 +115,7 @@ public class HUD extends JPanel
         happinessLabel.setForeground(Color.decode("#475425"));
         happinessLabel.setMaximumSize(new Dimension(50,50));
         happinessLabel.setPreferredSize(new Dimension(50,50));
+        happinessLabel.setFont(Resources.Instance.chBell);
 
         happinessArrow = new JButton();
         happinessArrow.setOpaque(false);
@@ -131,6 +139,7 @@ public class HUD extends JPanel
         timeLabel.setForeground(Color.decode("#475425"));
         timeLabel.setMaximumSize(new Dimension(110,50));
         timeLabel.setPreferredSize(new Dimension(110,50));
+        timeLabel.setFont(Resources.Instance.chBell);
 
         playPause = new JButton();
         playPause.setOpaque(false);
@@ -180,21 +189,6 @@ public class HUD extends JPanel
         add(fast);
         add(options);
         add(exit);
-
-
-        try {
-            Font ch_bell = Font.createFont(Font.TRUETYPE_FONT, new File("res/font/christmas_bell.otf")).deriveFont(46f);
-            GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-            ge.registerFont(ch_bell);
-            moneyLabel.setFont(ch_bell);
-            happinessLabel.setFont(ch_bell);
-            timeLabel.setFont(ch_bell);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch(FontFormatException e) {
-            e.printStackTrace();
-        }
-
     }
 
     public void updateGUI()
@@ -214,30 +208,14 @@ public class HUD extends JPanel
         }
         prevHappyness = happinessValue;
 
-        int gameTime = engine.getTime();
-        int hours = gameTime / 60;
-        int minutes = gameTime % 60;
-        if(hours < 10 && minutes < 10) {
-            timeLabel.setText("0" + hours + ":" + "0" + minutes);
-        } else if(hours < 10 && minutes >= 10) {
-            timeLabel.setText("0" + hours + ":" + minutes);
-        } else if(hours >= 10 && minutes < 10) {
-            timeLabel.setText(hours + ":" + "0" + minutes);
-        } else if(hours >= 10 && minutes >= 10) {
-            timeLabel.setText(hours + ":" + minutes);
-        }
+        timeLabel.setText(getNiceTime(engine.getTime()));
 
-        engine.setTimeScale(variations[i%3]);
-        if(i % 3 == 0) {
-            fast.setIcon(new ImageIcon(Resources.Instance.gameSpeedButton));
-        } else if(i %3 == 1) {
-            fast.setIcon(new ImageIcon(Resources.Instance.gameSpeedButton2X));
-        } else if(i % 3 == 2) {
-            fast.setIcon(new ImageIcon(Resources.Instance.gameSpeedButton5X));
-        }
+        engine.setTimeScale(timeScaleVariations[i%3]);
+        fast.setIcon(timeImageVariations[i%3]);
+
 
         if(j % 2 == 0) {
-            engine.setTimeScale(variations[i%3]);
+            engine.setTimeScale(timeScaleVariations[i%3]);
             playPause.setIcon(new ImageIcon(Resources.Instance.gamePlayButton));
         } else if(j % 2 == 1) {
             engine.setTimeScale(0);
@@ -324,6 +302,22 @@ public class HUD extends JPanel
         for(ActionListener a : roadMenu.getActionListeners()) roadMenu.removeActionListener(a);
         for(ActionListener a : stats.getActionListeners()) stats.removeActionListener(a);
         for(ActionListener a : employeeMenu.getActionListeners()) employeeMenu.removeActionListener(a);
+    }
+
+    private String getNiceTime(int sec)
+    {
+        int dayTime = sec % (24*60*60);
+        int hours = dayTime / 60;
+        int minutes = dayTime % 60;
+        if(hours < 10 && minutes < 10) {
+            return "0" + hours + ":" + "0" + minutes;
+        } else if(hours < 10 && minutes >= 10) {
+            return "0" + hours + ":" + minutes;
+        } else if(hours >= 10 && minutes < 10) {
+            return hours + ":" + "0" + minutes;
+        } else {
+            return hours + ":" + minutes;
+        }
     }
 
 
