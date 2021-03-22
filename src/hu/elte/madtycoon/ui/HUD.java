@@ -206,10 +206,6 @@ public class HUD extends JPanel
     {
         //TODO draw game status via IEngine
 
-        Building b = engine.getSelectedBuilding();
-        if(b!=null)
-            System.out.println(b.getSize());
-
         int money = engine.getMoney();
         moneyLabel.setText(String.valueOf(money));
 

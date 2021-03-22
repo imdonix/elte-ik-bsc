@@ -1,6 +1,7 @@
 package hu.elte.madtycoon.core;
 
 import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
+import hu.elte.madtycoon.Main;
 import hu.elte.madtycoon.objects.Building;
 import hu.elte.madtycoon.objects.Buildings.CoinFlip;
 import hu.elte.madtycoon.objects.Entities.Visitor;
@@ -42,15 +43,27 @@ public class World
 
     private void start()
     {
-        for (int i = 0; i < 5; i++) {
-            for (int j = 0; j < 5; j++) {
-                instantiate(Visitor.Create(this, new Vector2F(i+2,j+2)));
+        if(Main.DEBUG) {
+            for (int i = 0; i < 15; i++) {
+                for (int j = 0; j < 15; j++) {
+                    instantiate(Visitor.Create(this, new Vector2F(ENTRANCE_POINT)));
+                }
             }
-        }
 
-        for (int i = 0; i < 2; i++)
-            for (int j = 0; j < 6; j++)
-                 instantiate(CoinFlip.Create(this, new Vector2F(j*3+i*3+5,i*5+5)));
+            for (int i = 0; i < 2; i++)
+                for (int j = 0; j < 6; j++)
+                    instantiate(CoinFlip.Create(this, new Vector2F(j * 3 + i * 3 + 5, i * 5 + 5)));
+        }
+        else
+        {
+            for (int j = 0; j < 2; j++) {
+                instantiate(Visitor.Create(this, new Vector2F(ENTRANCE_POINT)));
+            }
+
+            instantiate(CoinFlip.Create(this, new Vector2F(5,5)));
+            instantiate(CoinFlip.Create(this, new Vector2F(10,5))).getSprite().setRotation(true);
+
+        }
     }
 
     public void update(float dt)
@@ -83,7 +96,7 @@ public class World
         destroyBuffer.add(obj);
     }
 
-    public void instantiate(GameObject obj)
+    public GameObject instantiate(GameObject obj)
     {
         if(obj instanceof Entity)
             entities.add((Entity) obj);
@@ -91,6 +104,7 @@ public class World
             buildings.add((Building) obj);
         else
             throw new IllegalArgumentException("You can only instantiate entities or buildings");
+        return obj;
     }
 
     public int getMoney()
