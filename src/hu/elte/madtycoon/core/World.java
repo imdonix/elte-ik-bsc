@@ -172,11 +172,15 @@ public class World
 
     private void doDestroy()
     {
+
         for(GameObject obj : destroyBuffer)
+        {
+            obj.onDestroy();
             if(obj instanceof Entity)
                 entities.remove(obj);
             else if (obj instanceof Building)
                 buildings.remove(obj);
+        }
         destroyBuffer.clear();
     }
 

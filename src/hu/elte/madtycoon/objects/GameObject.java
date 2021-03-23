@@ -70,6 +70,9 @@ public abstract class GameObject implements ITargetable
         return getPosition();
     }
 
+
+    public abstract void onDestroy();
+
     protected abstract void start();
 
     protected abstract int getRenderLayer();

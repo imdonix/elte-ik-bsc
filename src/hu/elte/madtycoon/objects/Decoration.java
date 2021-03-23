@@ -10,4 +10,7 @@ public abstract class Decoration extends Building
     public Decoration(World world, AnimatedSprite sprite, Vector2F position, Vector2I size) {
         super(world, sprite, position, size);
     }
+
+    @Override
+    public void onDestroy() { }
 }

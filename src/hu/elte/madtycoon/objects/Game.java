@@ -13,6 +13,7 @@ import java.util.Queue;
 
 public abstract class Game extends Building
 {
+    public static final float DESTROY_RELEASE_PENALTY = -.3f;
 
     private final Queue <Visitor> queue;
     private int max;
@@ -78,18 +79,18 @@ public abstract class Game extends Building
         }
     }
 
+    @Override
+    public void onDestroy()
+    {
+        releaseVisitors(true);
+    }
+
     private void reset()
     {
         this.sprite.setState(AnimatedSprite.IDLE);
         this.setOpened(true);
         this.playing = false;
-        for(Visitor visitor : queue)
-        {
-            visitor.addVisited(this);
-            visitor.setActive(true);
-        }
-        queue.clear();
-
+        releaseVisitors(false);
     }
 
     private void gameStart()
@@ -98,8 +99,17 @@ public abstract class Game extends Building
         this.setOpened(false);
         this.playing = true;
         this.timer = 0F;
+    }
+
+    private void releaseVisitors(boolean forced)
+    {
         for(Visitor visitor : queue)
-            visitor.setActive(false);
+        {
+            visitor.addVisited(this);
+            visitor.setActive(true);
+            if(forced) visitor.addInterest(DESTROY_RELEASE_PENALTY);
+        }
+        queue.clear();
     }
 
     protected abstract void reward();

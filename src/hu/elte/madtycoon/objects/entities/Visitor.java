@@ -53,7 +53,6 @@ public class Visitor extends Entity
             task = new LeavePark(this);
         else
             pay(world.getEntranceCost());
-
     }
 
     @Override
@@ -80,6 +79,8 @@ public class Visitor extends Entity
             return new LeavePark(this);
     }
 
+    @Override
+    public void onDestroy() { }
 
     private List<Game> getUnvisitedGames()
     {
