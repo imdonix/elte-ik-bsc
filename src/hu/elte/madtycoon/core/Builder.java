@@ -38,6 +38,7 @@ public class Builder
     {
         //Games
         CoinFlip.AddReference();
+        RoundAbout.AddReference();
 
         //Decor
         Bush.AddReference();

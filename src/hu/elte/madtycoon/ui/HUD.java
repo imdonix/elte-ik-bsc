@@ -260,8 +260,8 @@ public class HUD extends JPanel
         buildingMenu.setIcon(new ImageIcon(Resources.Instance.shopCoinFlipBuyButton));
         buildingMenu.addActionListener(e -> engine.getWorldBuilder().setState(BuilderState.BUILD, CoinFlip.ID));
 
-        decorationMenu.setIcon(new ImageIcon(Resources.Instance.sthBuyButton));
-        decorationMenu.addActionListener(e-> System.out.println("STH else build")); //TODO
+        decorationMenu.setIcon(new ImageIcon(Resources.Instance.shopRoundBuyButton));
+        decorationMenu.addActionListener(e -> engine.getWorldBuilder().setState(BuilderState.BUILD, RoundAbout.ID));
 
         roadMenu.setIcon(new ImageIcon(Resources.Instance.sthBuyButton));
         roadMenu.addActionListener(e-> System.out.println("Sth else build")); //TODO
