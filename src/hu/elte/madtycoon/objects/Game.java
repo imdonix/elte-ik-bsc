@@ -3,6 +3,7 @@ package hu.elte.madtycoon.objects;
 import hu.elte.madtycoon.core.World;
 import hu.elte.madtycoon.objects.entities.Visitor;
 import hu.elte.madtycoon.render.AnimatedSprite;
+import hu.elte.madtycoon.utils.Random;
 import hu.elte.madtycoon.utils.Vector2F;
 import hu.elte.madtycoon.utils.Vector2I;
 import hu.elte.madtycoon.utils.exception.GameFullException;
@@ -14,6 +15,8 @@ import java.util.Queue;
 public abstract class Game extends Building
 {
     public static final float DESTROY_RELEASE_PENALTY = -.3f;
+    public static final float DMG_MAX = 1F;
+    public static final float DMG_MIN = .5F;
 
     private final Queue <Visitor> queue;
     private final int max;
@@ -71,6 +74,7 @@ public abstract class Game extends Building
             {
                 reward();
                 reset();
+                damage();
             }
         }
         else
@@ -111,6 +115,11 @@ public abstract class Game extends Building
             if(forced) visitor.addInterest(DESTROY_RELEASE_PENALTY);
         }
         queue.clear();
+    }
+
+    private void damage()
+    {
+        health -= Random.getRandomFloat(DMG_MIN, DMG_MAX);
     }
 
     protected abstract void reward();

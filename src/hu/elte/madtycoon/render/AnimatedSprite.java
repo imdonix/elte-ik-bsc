@@ -11,6 +11,11 @@ public class AnimatedSprite
     public final static String WALK = "walk";
     public final static String GAME_PLAY = "gameplay";
 
+<<<<<<< Updated upstream
+=======
+<<<<<<< Updated upstream
+=======
+>>>>>>> Stashed changes
     public final static String PARK_EARN = "pearn";
 
     public final static String VISITOR_EARN = "vearn";
@@ -19,7 +24,14 @@ public class AnimatedSprite
     public final static String VISITOR_HUNGRY = "vhungry";
     public final static String VISITOR_FOOD = "vfood";
 
+<<<<<<< Updated upstream
 
+=======
+    public final static String REPAIR = "repair";
+
+
+>>>>>>> Stashed changes
+>>>>>>> Stashed changes
     private final HashMap<String, BufferedImage[]> sprites;
     private final float frameLength;
     private String state;

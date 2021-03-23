@@ -8,12 +8,11 @@ import hu.elte.madtycoon.utils.Vector2I;
 
 public abstract class Building extends GameObject
 {
-    public static float SAFE_HEALTH = 0.3f;
+    public static float SAFE_HEALTH = 0.4f;
 
     private Vector2I size;
     protected float health;
     private boolean opened;
-    private boolean repairRequested;
 
     public Building(World world, AnimatedSprite sprite, Vector2F position, Vector2I size) {
         super(world, sprite, position);
@@ -40,7 +39,7 @@ public abstract class Building extends GameObject
     }
 
     public boolean isOpened() {
-        return opened;
+        return opened && health > 0;
     }
 
     public void setOpened(boolean opened) {
@@ -52,17 +51,14 @@ public abstract class Building extends GameObject
        return this.health < Building.SAFE_HEALTH;
     }
 
-    public void markRepair()
+    public boolean isWorking()
     {
-        repairRequested = true;
+        return health > 0;
     }
 
-    public boolean isRepairRequested()
+    public void repair()
     {
-        return repairRequested;
-    }
-
-    public void repair() {
+        world.getEmotes().pop(this, AnimatedSprite.REPAIR);
         health = 1F;
     }
 
