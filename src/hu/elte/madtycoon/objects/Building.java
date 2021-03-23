@@ -68,6 +68,7 @@ public abstract class Building extends GameObject
 
     public abstract float getDecorationValue();
 
+    public float getHealth(){return health;};
 
 
 

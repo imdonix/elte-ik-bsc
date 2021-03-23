@@ -2,6 +2,7 @@ package hu.elte.madtycoon.core;
 
 import hu.elte.madtycoon.objects.Building;
 import hu.elte.madtycoon.objects.Buildings.*;
+import hu.elte.madtycoon.ui.PopWindow;
 import hu.elte.madtycoon.utils.BuildReference;
 import hu.elte.madtycoon.utils.BuilderState;
 import hu.elte.madtycoon.utils.Vector2F;
@@ -88,7 +89,7 @@ public class Builder
         Building sb = world.collisionCheck(selected, Vector2I.ONE);
         if(sb != null)
         {
-            //TODO open panel of the building.
+            PopWindow window = new PopWindow(sb,world);
         }
     }
 

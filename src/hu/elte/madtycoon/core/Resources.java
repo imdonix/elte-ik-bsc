@@ -49,6 +49,8 @@ public class Resources
     public BufferedImage stickBuyButton;
     public BufferedImage firePitBuyButton;
 
+    public BufferedImage destroyButton;
+
     public Font chBell;
 
     public List<String> entityNames;
@@ -60,6 +62,7 @@ public class Resources
         loadGame();
         loadShop();
         loadFonts();
+        loadPopWindow();
     }
 
     private void loadMenu() throws IOException
@@ -113,5 +116,10 @@ public class Resources
         chBell = Font.createFont(Font.TRUETYPE_FONT, new File("res/font/christmas_bell.otf")).deriveFont(46f);
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
         ge.registerFont(chBell);
+    }
+
+    private void loadPopWindow() throws IOException
+    {
+        destroyButton = ImageIO.read(new File("res/menu/destroy_button.png"));
     }
 }
