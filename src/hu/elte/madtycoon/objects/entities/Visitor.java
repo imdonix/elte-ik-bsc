@@ -1,4 +1,4 @@
-package hu.elte.madtycoon.objects.Entities;
+package hu.elte.madtycoon.objects.entities;
 
 import hu.elte.madtycoon.core.World;
 import hu.elte.madtycoon.objects.Entity;

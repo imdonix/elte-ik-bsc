@@ -1,7 +1,7 @@
 package hu.elte.madtycoon.core;
 
 import hu.elte.madtycoon.objects.Building;
-import hu.elte.madtycoon.objects.Buildings.*;
+import hu.elte.madtycoon.objects.buildings.*;
 import hu.elte.madtycoon.ui.PopWindow;
 import hu.elte.madtycoon.utils.BuildReference;
 import hu.elte.madtycoon.utils.BuilderState;
@@ -10,7 +10,6 @@ import hu.elte.madtycoon.utils.Vector2I;
 import hu.elte.madtycoon.utils.exception.NoCoverageException;
 
 import java.awt.*;
-import java.lang.ref.Reference;
 import java.util.HashMap;
 import java.util.Map;
 

@@ -1,13 +1,10 @@
 package hu.elte.madtycoon.core;
 
 import hu.elte.madtycoon.Main;
-import hu.elte.madtycoon.objects.Building;
-import hu.elte.madtycoon.objects.Buildings.CoinFlip;
 import hu.elte.madtycoon.render.SpriteRenderBuffer;
 import hu.elte.madtycoon.ui.HUD;
 import hu.elte.madtycoon.ui.IEngine;
 import hu.elte.madtycoon.utils.Utils;
-import hu.elte.madtycoon.utils.Vector2F;
 import hu.elte.madtycoon.utils.Vector2I;
 import hu.elte.madtycoon.utils.exception.NoCoverageException;
 

@@ -1,4 +1,4 @@
-package hu.elte.madtycoon.objects.Buildings;
+package hu.elte.madtycoon.objects.buildings;
 
 import hu.elte.madtycoon.core.Builder;
 import hu.elte.madtycoon.core.World;

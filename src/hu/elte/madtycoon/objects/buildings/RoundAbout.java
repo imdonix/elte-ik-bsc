@@ -1,13 +1,12 @@
-package hu.elte.madtycoon.objects.Buildings;
+package hu.elte.madtycoon.objects.buildings;
 
 import hu.elte.madtycoon.core.Builder;
 import hu.elte.madtycoon.core.World;
-import hu.elte.madtycoon.objects.Entities.Visitor;
+import hu.elte.madtycoon.objects.entities.Visitor;
 import hu.elte.madtycoon.objects.Game;
 import hu.elte.madtycoon.render.AnimatedSprite;
 import hu.elte.madtycoon.render.AnimationResource;
 import hu.elte.madtycoon.utils.BuildReference;
-import hu.elte.madtycoon.utils.Random;
 import hu.elte.madtycoon.utils.Vector2F;
 import hu.elte.madtycoon.utils.Vector2I;
 

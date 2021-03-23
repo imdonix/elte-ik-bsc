@@ -1,6 +1,6 @@
 package hu.elte.madtycoon.task.visitor;
 
-import hu.elte.madtycoon.objects.Entities.Visitor;
+import hu.elte.madtycoon.objects.entities.Visitor;
 import hu.elte.madtycoon.objects.Game;
 import hu.elte.madtycoon.task.GoTask;
 import hu.elte.madtycoon.task.utils.LeavePark;

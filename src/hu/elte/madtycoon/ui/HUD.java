@@ -1,15 +1,13 @@
 package hu.elte.madtycoon.ui;
 
 import hu.elte.madtycoon.core.Resources;
-import hu.elte.madtycoon.objects.Buildings.*;
+import hu.elte.madtycoon.objects.buildings.*;
 import hu.elte.madtycoon.utils.BuilderState;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.IOException;
 
 import static java.lang.Math.round;
 

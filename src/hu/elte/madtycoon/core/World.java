@@ -1,10 +1,9 @@
 package hu.elte.madtycoon.core;
 
-import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 import hu.elte.madtycoon.Main;
 import hu.elte.madtycoon.objects.Building;
-import hu.elte.madtycoon.objects.Buildings.CoinFlip;
-import hu.elte.madtycoon.objects.Entities.Visitor;
+import hu.elte.madtycoon.objects.buildings.CoinFlip;
+import hu.elte.madtycoon.objects.entities.Visitor;
 import hu.elte.madtycoon.objects.Entity;
 import hu.elte.madtycoon.objects.Game;
 import hu.elte.madtycoon.objects.GameObject;
@@ -12,11 +11,8 @@ import hu.elte.madtycoon.render.SpriteRenderBuffer;
 import hu.elte.madtycoon.utils.Vector2F;
 import hu.elte.madtycoon.utils.Vector2I;
 
-import java.util.Collection;
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.stream.Stream;
 
 public class World
 {
