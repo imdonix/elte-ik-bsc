@@ -11,6 +11,15 @@ public class AnimatedSprite
     public final static String WALK = "walk";
     public final static String GAME_PLAY = "gameplay";
 
+    public final static String PARK_EARN = "pearn";
+
+    public final static String VISITOR_EARN = "vearn";
+    public final static String VISITOR_HAPPY = "vhappy";
+    public final static String VISITOR_SAD = "vsad";
+    public final static String VISITOR_HUNGRY = "vhungry";
+    public final static String VISITOR_FOOD = "vfood";
+
+
     private final HashMap<String, BufferedImage[]> sprites;
     private final float frameLength;
     private String state;

@@ -23,6 +23,7 @@ public class World
     private final List<Entity> entities;
     private final List<Building> buildings;
     private final List<GameObject> destroyBuffer;
+    private final Emotes emotes;
 
     private int money;
     private int entranceCost;
@@ -34,32 +35,19 @@ public class World
         entities = new LinkedList<Entity>();
         buildings  = new LinkedList<Building>();
         destroyBuffer = new LinkedList<GameObject>();
+        emotes = new Emotes(this);
         start();
     }
 
     private void start()
     {
-        if(Main.DEBUG) {
-            for (int i = 0; i < 15; i++) {
-                for (int j = 0; j < 15; j++) {
-                    instantiate(Visitor.Create(this, new Vector2F(ENTRANCE_POINT)));
-                }
-            }
-
-            for (int i = 0; i < 2; i++)
-                for (int j = 0; j < 6; j++)
-                    instantiate(CoinFlip.Create(this, new Vector2F(j * 3 + i * 3 + 5, i * 5 + 5)));
+        for (int j = 0; j < 200; j++) {
+            instantiate(Visitor.Create(this, new Vector2F(ENTRANCE_POINT)));
         }
-        else
-        {
-            for (int j = 0; j < 2; j++) {
-                instantiate(Visitor.Create(this, new Vector2F(ENTRANCE_POINT)));
-            }
 
-            instantiate(CoinFlip.Create(this, new Vector2F(5,5)));
-            instantiate(CoinFlip.Create(this, new Vector2F(10,5))).getSprite().setRotation(true);
+        instantiate(CoinFlip.Create(this, new Vector2F(5,5)));
+        instantiate(CoinFlip.Create(this, new Vector2F(10,5))).getSprite().setRotation(true);
 
-        }
     }
 
     public void update(float dt)
@@ -73,6 +61,8 @@ public class World
         for(final GameObject obj : buildings)
             if(obj.getActive())
                 obj.update(dt);
+
+        emotes.update(dt);
     }
 
     public void render(SpriteRenderBuffer buffer)
@@ -84,6 +74,8 @@ public class World
         for(final GameObject obj : buildings)
             if(obj.getActive())
                 obj.render(buffer);
+
+        emotes.render(buffer);
     }
 
     public void destroy(GameObject obj)
@@ -101,6 +93,11 @@ public class World
         else
             throw new IllegalArgumentException("You can only instantiate entities or buildings");
         return obj;
+    }
+
+    public Emotes getEmotes()
+    {
+        return emotes;
     }
 
     public int getMoney()
