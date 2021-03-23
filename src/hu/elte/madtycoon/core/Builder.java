@@ -132,6 +132,7 @@ public class Builder
         Vector2I size = reference.size.mul(Engine.BLOCK_SIZE);
         Vector2I textPos = pos.add(new Vector2I(reference.size.x,1).mul(Engine.BLOCK_SIZE).div(2));
         Vector2I adjustedTextPos = textPos.add(new Vector2I(price.length() * -4,0));
+        g.setColor(Color.ORANGE);
         g.drawString(price, adjustedTextPos.x, adjustedTextPos.y );
         g.setColor(sb == null && world.getMoney() >= reference.price ? Color.GREEN : Color.RED);
         g.drawRect(pos.x,pos.y,size.x,size.y);

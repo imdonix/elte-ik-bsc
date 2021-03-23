@@ -11,7 +11,7 @@ import java.io.IOException;
 public class Main
 {
 
-    public static boolean DEBUG = true;
+    public static boolean DEBUG = false;
 
     public static void main(String[] args)
     {
