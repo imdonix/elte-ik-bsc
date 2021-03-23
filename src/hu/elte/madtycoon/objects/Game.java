@@ -74,7 +74,7 @@ public abstract class Game extends Building
             {
                 reward();
                 reset();
-                damage();
+                damage(Random.getRandomFloat(DMG_MIN, DMG_MAX));
             }
         }
         else
@@ -115,11 +115,6 @@ public abstract class Game extends Building
             if(forced) visitor.addInterest(DESTROY_RELEASE_PENALTY);
         }
         queue.clear();
-    }
-
-    private void damage()
-    {
-        health -= Random.getRandomFloat(DMG_MIN, DMG_MAX);
     }
 
     protected abstract void reward();

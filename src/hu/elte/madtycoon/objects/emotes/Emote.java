@@ -1,6 +1,8 @@
-package hu.elte.madtycoon.objects;
+package hu.elte.madtycoon.objects.emotes;
 
 import hu.elte.madtycoon.core.World;
+import hu.elte.madtycoon.objects.Building;
+import hu.elte.madtycoon.objects.GameObject;
 import hu.elte.madtycoon.render.AnimatedSprite;
 import hu.elte.madtycoon.render.AnimationResource;
 import hu.elte.madtycoon.utils.Vector2F;
@@ -13,10 +15,10 @@ public class Emote extends GameObject
     public static final float EMOTE_SIZE = .5F;
 
     private final GameObject holder;
-    private float timer;
-    private float speed;
+    protected float timer;
+    protected float speed;
 
-    public Emote(World world, AnimatedSprite sprite, GameObject holder)
+    protected Emote(World world, AnimatedSprite sprite, GameObject holder)
     {
         super(world, sprite, Vector2F.ZERO);
         this.holder = holder;

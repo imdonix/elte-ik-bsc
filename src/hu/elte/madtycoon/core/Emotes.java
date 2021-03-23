@@ -1,8 +1,10 @@
 package hu.elte.madtycoon.core;
 
-import hu.elte.madtycoon.objects.Emote;
+import hu.elte.madtycoon.objects.Building;
+import hu.elte.madtycoon.objects.emotes.Emote;
 import hu.elte.madtycoon.objects.GameObject;
-import hu.elte.madtycoon.render.LayeredSprite;
+import hu.elte.madtycoon.objects.emotes.NeedRepairEmote;
+import hu.elte.madtycoon.render.AnimatedSprite;
 import hu.elte.madtycoon.render.SpriteRenderBuffer;
 
 import java.util.*;
@@ -21,6 +23,17 @@ public class Emotes
     public void pop(GameObject holder, String type)
     {
         Emote emote = Emote.Create(world, holder, type);
+        pop(holder, emote);
+    }
+
+    public void popSpecial(GameObject holder, String type)
+    {
+        if(type.equals(AnimatedSprite.NEED_REPAIR))
+            pop(holder, NeedRepairEmote.Create(world, (Building) holder, type));
+    }
+
+    private void pop(GameObject holder, Emote emote)
+    {
         emote.setActive(false);
         if(emotes.containsKey(holder))
             emotes.get(holder).add(emote);

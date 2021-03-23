@@ -3,6 +3,7 @@ package hu.elte.madtycoon.objects;
 import com.sun.xml.internal.bind.v2.TODO;
 import hu.elte.madtycoon.core.World;
 import hu.elte.madtycoon.render.AnimatedSprite;
+import hu.elte.madtycoon.utils.Random;
 import hu.elte.madtycoon.utils.Vector2F;
 import hu.elte.madtycoon.utils.Vector2I;
 
@@ -59,7 +60,15 @@ public abstract class Building extends GameObject
     public void repair()
     {
         world.getEmotes().pop(this, AnimatedSprite.REPAIR);
+        getSprite().setState(AnimatedSprite.IDLE);
         health = 1F;
+    }
+
+    protected void damage(float dmg)
+    {
+        health -= dmg;
+        if(!isWorking())
+            world.getEmotes().popSpecial(this, AnimatedSprite.NEED_REPAIR);
     }
 
     public abstract float getDecorationValue();
