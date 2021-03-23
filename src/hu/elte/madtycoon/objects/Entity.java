@@ -15,6 +15,7 @@ public abstract class Entity extends GameObject {
     public static final Vector2F SIZE = new Vector2F(.5F, 1F);
     public static final Vector2F FOOD_REQ = new Vector2F(0.002f, 0.005f); // 2-5 per sec
     public static final Vector2F INT_REQ = new Vector2F(0.001f, 0.002f); // 1-2 per sec
+    public static final float EMOTE_TH = 0.05F;
 
     private static int idCounter = 0;
 
@@ -34,14 +35,21 @@ public abstract class Entity extends GameObject {
 
     public void addInterest(float interest)
     {
-        //TODO pop happy | sad emote (if amount large enough)
+
+        if(interest > EMOTE_TH)
+            world.getEmotes().pop(this, AnimatedSprite.VISITOR_HAPPY);
+        else if(interest < -EMOTE_TH)
+            world.getEmotes().pop(this, AnimatedSprite.VISITOR_SAD);
+
         this.interest += interest;
         this.interest = Utils.clap(0,1,this.interest);
     }
 
     public void addFood(float food)
     {
-        //TODO pop happy | sad emote (if amount large enough)
+        if(food > EMOTE_TH)
+            world.getEmotes().pop(this, AnimatedSprite.VISITOR_FOOD);
+
         this.food += food;
         this.food = Utils.clap(0,1,this.food);
     }
@@ -84,7 +92,6 @@ public abstract class Entity extends GameObject {
         if(this.money < money)
             return false;
 
-        //TODO pop pay emote
         this.money -= money;
         world.earn(money);
         return true;
@@ -92,7 +99,7 @@ public abstract class Entity extends GameObject {
 
     public void earn(int money)
     {
-        //TODO pop pay emote
+        world.getEmotes().pop(this, AnimatedSprite.VISITOR_EARN);
         this.money += money;
         world.pay(money);
     }

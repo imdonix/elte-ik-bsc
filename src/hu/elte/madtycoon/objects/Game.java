@@ -16,7 +16,7 @@ public abstract class Game extends Building
     public static final float DESTROY_RELEASE_PENALTY = -.3f;
 
     private final Queue <Visitor> queue;
-    private int max;
+    private final int max;
     private float timer;
     private boolean playing;
     private int useCost;
@@ -48,6 +48,7 @@ public abstract class Game extends Building
     {
         if(queue.size() >= max) throw new GameFullException();
         if(!visitor.pay(getUseCost())) throw new NoCoverageException();
+        world.getEmotes().pop(this, AnimatedSprite.PARK_EARN);
         queue.add(visitor);
         visitor.setActive(false);
     }
