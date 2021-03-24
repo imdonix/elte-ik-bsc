@@ -29,15 +29,12 @@ public class PathFindJob implements Runnable {
     @Override
     public void run()
     {
-        long t = System.currentTimeMillis();
-        System.out.println("Path find started");
         Node path = find();
 
         if(path != null)
             request.finalize(createPath(path));
         else
             request.finalize();
-        System.out.println("Path find finished " + ((System.currentTimeMillis() - t)/1000F));
     }
 
     private Node find() {

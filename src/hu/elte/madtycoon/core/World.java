@@ -46,14 +46,14 @@ public class World
     {
         instantiate(Road.Create(this, new Vector2F( ENTRANCE_POINT)));
 
-        for (int j = 0; j < 0; j++) {
-            instantiate(Visitor.Create(this, new Vector2F(ENTRANCE_POINT)));
-        }
 
         instantiate(CoinFlip.Create(this, new Vector2F(5,5)));
         instantiate(CoinFlip.Create(this, new Vector2F(10,5))).getSprite().setRotation(true);
 
     }
+
+    //DEBUG
+    float timer = 0;
 
     public void update(float dt)
     {
@@ -68,6 +68,15 @@ public class World
                 obj.update(dt);
 
         emotes.update(dt);
+
+        //DEBUG
+        timer+=dt;
+        if(timer > 1)
+        {
+            timer = 0;
+            instantiate(Visitor.Create(this, new Vector2F(ENTRANCE_POINT)));
+        }
+
     }
 
     public void render(SpriteRenderBuffer buffer)
