@@ -6,7 +6,7 @@ import hu.elte.madtycoon.objects.Game;
 import hu.elte.madtycoon.render.AnimatedSprite;
 import hu.elte.madtycoon.render.AnimationResource;
 import hu.elte.madtycoon.task.*;
-import hu.elte.madtycoon.task.utils.GoRandomPlace;
+import hu.elte.madtycoon.task.utils.Idle;
 import hu.elte.madtycoon.task.utils.LeavePark;
 import hu.elte.madtycoon.task.visitor.Play;
 import hu.elte.madtycoon.utils.Random;
@@ -66,14 +66,14 @@ public class Visitor extends Entity
     {
         List<Game> unvisited = getUnvisitedGames();
 
-        if(unvisited.size() > 0)
+        if(unvisited.size() > 0 && interest > .1F && food > .1F)
         {
             Game game = findNearestGame(unvisited);
 
             if(game != null)
                 return new Play(this, game);
             else
-                return new GoRandomPlace(this);
+                return new Idle(this);
         }
         else
             return new LeavePark(this);
