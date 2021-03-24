@@ -1,6 +1,7 @@
 package hu.elte.madtycoon.objects.buildings;
 
 import hu.elte.madtycoon.core.Builder;
+import hu.elte.madtycoon.core.Engine;
 import hu.elte.madtycoon.core.World;
 import hu.elte.madtycoon.objects.Building;
 import hu.elte.madtycoon.render.AnimatedSprite;
@@ -37,6 +38,13 @@ public class Road extends Building
     @Override
     protected void start() {}
 
+    public boolean isInside()
+    {
+        int x = (int) position.x;
+        int y = (int) position.y;
+
+        return x >=0 && x < Engine.GAME_SIZE_X && y >= 0 && y < Engine.GAME_SIZE_Y;
+    }
 
 
     public static Road Create(World world, Vector2F pos)
