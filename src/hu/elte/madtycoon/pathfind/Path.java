@@ -12,4 +12,9 @@ public class Path
     {
         this.path = path;
     }
+
+    public List<Road> get()
+    {
+        return path;
+    }
 }

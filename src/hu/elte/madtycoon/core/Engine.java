@@ -152,7 +152,6 @@ public class Engine extends JFrame implements IEngine
             renderBuffer.draw(g);
             builder.showMarker(g);
             if(Main.DEBUG) debugFPS(g);
-            if(Main.DEBUG) world.getRoadSystem().debug(g);
         }
     }
 
