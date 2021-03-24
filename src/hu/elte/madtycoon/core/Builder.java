@@ -44,6 +44,9 @@ public class Builder
         Flower.AddReference();
         Stick.AddReference();
         FirePit.AddReference();
+
+        //Road
+        Road.AddReference();
     }
 
 
@@ -66,7 +69,7 @@ public class Builder
 
     //INTERFACE
 
-    public void interact() throws NoCoverageException
+    public void interact()
     {
         if(selected == null || state == BuilderState.NONE) return;
 
@@ -80,6 +83,19 @@ public class Builder
 
         if(this.state == BuilderState.SELECT) showSelection(g);
         else if(this.state == BuilderState.BUILD) showBuildingBounding(g);
+        else if(this.state == BuilderState.ROAD) showRoadBounding(g);
+    }
+
+    public void dragInteract(Vector2I selected, boolean leftButton)
+    {
+        if(selected == null || state != BuilderState.ROAD) return;
+        this.selected = selected;
+
+        if(leftButton)
+            roadBuilding();
+        else
+            roadDestoly();
+
     }
 
     //ACTION
@@ -93,7 +109,7 @@ public class Builder
         }
     }
 
-    private void buildBuilding() throws NoCoverageException
+    private void buildBuilding()
     {
         if(world.getMoney() >= reference.price)
         {
@@ -105,8 +121,27 @@ public class Builder
                 world.instantiate(reference.create(world, new Vector2F(realPos)));
             }
         }
-        else
-            throw new NoCoverageException();
+    }
+
+    private void roadBuilding()
+    {
+        if(world.getMoney() >= Road.PRICE)
+        {
+            Building sb = world.collisionCheck(selected, Vector2I.ONE);
+            if(sb == null)
+            {
+                world.pay(Road.PRICE);
+                world.instantiate(Road.Create(world, new Vector2F(selected)));
+            }
+        }
+    }
+
+    private void roadDestoly()
+    {
+        Building sb = world.collisionCheck(selected, Vector2I.ONE);
+        if(sb != null)
+            if(sb instanceof Road)
+                world.destroy(sb);
     }
 
     //SHOW
@@ -136,6 +171,22 @@ public class Builder
         g.drawString(price, adjustedTextPos.x, adjustedTextPos.y );
         g.setColor(sb == null && world.getMoney() >= reference.price ? Color.GREEN : Color.RED);
         g.drawRect(pos.x,pos.y,size.x,size.y);
+    }
+
+    private void showRoadBounding(Graphics g)
+    {
+        String price = String.format("%d$", Road.PRICE);
+        Vector2I realPos = selected.add(Vector2I.ONE.div(-2));
+        Building sb = world.collisionCheck(realPos, Vector2I.ONE);
+        Vector2I pos = realPos.mul(Engine.BLOCK_SIZE);
+        Vector2I size = Vector2I.ONE.mul(Engine.BLOCK_SIZE);
+        Vector2I textPos = pos.add(Vector2I.ONE.mul(Engine.BLOCK_SIZE).div(2));
+        Vector2I adjustedTextPos = textPos.add(new Vector2I(price.length() * -4,0));
+        g.setColor(Color.ORANGE);
+        g.drawString(price, adjustedTextPos.x, adjustedTextPos.y );
+        g.setColor(sb == null && world.getMoney() >= Road.PRICE ? Color.GREEN : Color.RED);
+        g.drawRect(pos.x,pos.y,size.x,size.y);
+
     }
 
 }

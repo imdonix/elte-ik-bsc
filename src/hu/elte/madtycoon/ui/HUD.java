@@ -238,7 +238,7 @@ public class HUD extends JPanel
         {
             roadBuilding = !roadBuilding;
             if(roadBuilding)
-                engine.getWorldBuilder().setState(BuilderState.BUILD, "road"); //TODO
+                engine.getWorldBuilder().setState(BuilderState.ROAD);
             else
                 engine.getWorldBuilder().setState(BuilderState.SELECT);
         });

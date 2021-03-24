@@ -161,16 +161,12 @@ public class Engine extends JFrame implements IEngine
         public void mouseClicked(MouseEvent e) { }
 
         @Override
-        public void mousePressed(MouseEvent e) { }
+        public void mousePressed(MouseEvent e) {}
 
         @Override
         public void mouseReleased(MouseEvent e)
         {
-            try {
-                builder.interact();
-            } catch (NoCoverageException noCoverageException) {
-                //TODO pop no money emote
-            }
+            builder.interact();
         }
 
         @Override
@@ -183,16 +179,19 @@ public class Engine extends JFrame implements IEngine
         }
 
         @Override
-        public void mouseDragged(MouseEvent e) { }
+        public void mouseDragged(MouseEvent e)
+        {
+            builder.dragInteract(ScreenToWorld(e.getPoint()), SwingUtilities.isLeftMouseButton(e)); }
 
         @Override
-        public void mouseMoved(MouseEvent e) {
-
-            int x = e.getX() / BLOCK_SIZE;
-            int y = e.getY() / BLOCK_SIZE;
-
-            builder.setSelected(new Vector2I(x,y));
+        public void mouseMoved(MouseEvent e)
+        {
+            builder.setSelected(ScreenToWorld(e.getPoint()));
         }
+
+        private Vector2I ScreenToWorld(Point e)
+        {
+            return new Vector2I(e.x/ BLOCK_SIZE,e.y / BLOCK_SIZE); }
     }
 
     class FPSDisplay
