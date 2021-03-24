@@ -26,7 +26,7 @@ public class NeedRepairEmote extends Emote
     @Override
     public boolean isTimeToDie()
     {
-        return building.isWorking();
+        return building.isWorking() || !building.getActive();
     }
 
     @Override
