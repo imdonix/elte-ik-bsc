@@ -149,9 +149,10 @@ public class Engine extends JFrame implements IEngine
             super.paintComponent(g);
             g.drawImage(Resources.Instance.gameBackGroundImage, 0, 0, this);
             if(Main.DEBUG) debugDrawGrid(g);
-            if(Main.DEBUG) debugFPS(g);
             renderBuffer.draw(g);
             builder.showMarker(g);
+            if(Main.DEBUG) debugFPS(g);
+            if(Main.DEBUG) world.getRoadSystem().debug(g);
         }
     }
 

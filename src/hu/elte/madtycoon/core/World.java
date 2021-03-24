@@ -3,6 +3,7 @@ package hu.elte.madtycoon.core;
 import hu.elte.madtycoon.Main;
 import hu.elte.madtycoon.objects.Building;
 import hu.elte.madtycoon.objects.buildings.CoinFlip;
+import hu.elte.madtycoon.objects.buildings.Road;
 import hu.elte.madtycoon.objects.entities.Visitor;
 import hu.elte.madtycoon.objects.Entity;
 import hu.elte.madtycoon.objects.Game;
@@ -24,6 +25,7 @@ public class World
     private final List<Building> buildings;
     private final List<GameObject> destroyBuffer;
     private final Emotes emotes;
+    private final RoadSystem roadSystem;
 
     private int money;
     private int entranceCost;
@@ -35,6 +37,7 @@ public class World
         entities = new LinkedList<Entity>();
         buildings  = new LinkedList<Building>();
         destroyBuffer = new LinkedList<GameObject>();
+        roadSystem = new RoadSystem(this);
         emotes = new Emotes(this);
         start();
     }
@@ -82,6 +85,7 @@ public class World
     {
         obj.setActive(false);
         destroyBuffer.add(obj);
+        if(obj instanceof Road) roadSystem.updateMap();
     }
 
     public GameObject instantiate(GameObject obj)
@@ -89,7 +93,10 @@ public class World
         if(obj instanceof Entity)
             entities.add((Entity) obj);
         else if (obj instanceof Building)
+        {
             buildings.add((Building) obj);
+            if(obj instanceof Road) roadSystem.updateMap();
+        }
         else
             throw new IllegalArgumentException("You can only instantiate entities or buildings");
         return obj;
@@ -99,6 +106,8 @@ public class World
     {
         return emotes;
     }
+
+    public RoadSystem getRoadSystem(){ return roadSystem; }
 
     public int getMoney()
     {
@@ -164,6 +173,15 @@ public class World
         for(Building building : buildings)
             if(building instanceof Game)
                 tmp.add((Game) building);
+        return tmp;
+    }
+
+    public List<Road> getRoads()
+    {
+        List<Road> tmp = new LinkedList<>();
+        for(Building building : buildings)
+            if(building instanceof Road)
+                tmp.add((Road) building);
         return tmp;
     }
 
