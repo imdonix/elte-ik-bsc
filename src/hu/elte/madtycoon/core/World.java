@@ -18,8 +18,8 @@ import java.util.List;
 public class World
 {
     public static int DEFAULT_ENTRANCE_COST = 50;
-    public static int DEFAULT_START_MONEY = 300;
-    public static Vector2I ENTRANCE_POINT = new Vector2I(Engine.GAME_SIZE_X/2,Engine.GAME_SIZE_Y);
+    public static int DEFAULT_START_MONEY = 300000;
+    public static Vector2I ENTRANCE_POINT = new Vector2I(Engine.GAME_SIZE_X/2,Engine.GAME_SIZE_Y - 1);
 
     private final List<Entity> entities;
     private final List<Building> buildings;
@@ -44,7 +44,9 @@ public class World
 
     private void start()
     {
-        for (int j = 0; j < 200; j++) {
+        instantiate(Road.Create(this, new Vector2F( ENTRANCE_POINT)));
+
+        for (int j = 0; j < 0; j++) {
             instantiate(Visitor.Create(this, new Vector2F(ENTRANCE_POINT)));
         }
 
@@ -187,7 +189,6 @@ public class World
 
     private void doDestroy()
     {
-
         for(GameObject obj : destroyBuffer)
         {
             obj.onDestroy();
