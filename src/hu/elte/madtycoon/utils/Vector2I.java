@@ -37,6 +37,17 @@ public final class Vector2I
     }
 
     @Override
+    public boolean equals(Object obj)
+    {
+        if(obj instanceof Vector2I)
+        {
+            Vector2I o = (Vector2I) obj;
+            return x == o.x && y == o.y;
+        }
+        return false;
+    }
+
+    @Override
     public String toString()
     {
         return String.format("(%o, %o)", x,y);
