@@ -3,6 +3,7 @@ package hu.elte.madtycoon.core;
 import hu.elte.madtycoon.Main;
 import hu.elte.madtycoon.objects.Building;
 import hu.elte.madtycoon.objects.buildings.CoinFlip;
+import hu.elte.madtycoon.objects.buildings.Road;
 import hu.elte.madtycoon.objects.entities.Visitor;
 import hu.elte.madtycoon.objects.Entity;
 import hu.elte.madtycoon.objects.Game;
@@ -17,13 +18,14 @@ import java.util.List;
 public class World
 {
     public static int DEFAULT_ENTRANCE_COST = 50;
-    public static int DEFAULT_START_MONEY = 300;
-    public static Vector2I ENTRANCE_POINT = new Vector2I(Engine.GAME_SIZE_X/2,Engine.GAME_SIZE_Y);
+    public static int DEFAULT_START_MONEY = 300000;
+    public static Vector2I ENTRANCE_POINT = new Vector2I(Engine.GAME_SIZE_X/2,Engine.GAME_SIZE_Y - 1);
 
     private final List<Entity> entities;
     private final List<Building> buildings;
     private final List<GameObject> destroyBuffer;
     private final Emotes emotes;
+    private final RoadSystem roadSystem;
 
     private int money;
     private int entranceCost;
@@ -35,20 +37,23 @@ public class World
         entities = new LinkedList<Entity>();
         buildings  = new LinkedList<Building>();
         destroyBuffer = new LinkedList<GameObject>();
+        roadSystem = new RoadSystem(this);
         emotes = new Emotes(this);
         start();
     }
 
     private void start()
     {
-        for (int j = 0; j < 200; j++) {
-            instantiate(Visitor.Create(this, new Vector2F(ENTRANCE_POINT)));
-        }
+        instantiate(Road.Create(this, new Vector2F( ENTRANCE_POINT)));
+
 
         instantiate(CoinFlip.Create(this, new Vector2F(5,5)));
         instantiate(CoinFlip.Create(this, new Vector2F(10,5))).getSprite().setRotation(true);
 
     }
+
+    //DEBUG
+    float timer = 0;
 
     public void update(float dt)
     {
@@ -63,6 +68,15 @@ public class World
                 obj.update(dt);
 
         emotes.update(dt);
+
+        //DEBUG
+        timer+=dt;
+        if(timer > 1)
+        {
+            timer = 0;
+            instantiate(Visitor.Create(this, new Vector2F(ENTRANCE_POINT)));
+        }
+
     }
 
     public void render(SpriteRenderBuffer buffer)
@@ -82,6 +96,7 @@ public class World
     {
         obj.setActive(false);
         destroyBuffer.add(obj);
+        if(obj instanceof Road) roadSystem.updateMap();
     }
 
     public GameObject instantiate(GameObject obj)
@@ -89,7 +104,10 @@ public class World
         if(obj instanceof Entity)
             entities.add((Entity) obj);
         else if (obj instanceof Building)
+        {
             buildings.add((Building) obj);
+            if(obj instanceof Road) roadSystem.updateMap();
+        }
         else
             throw new IllegalArgumentException("You can only instantiate entities or buildings");
         return obj;
@@ -99,6 +117,8 @@ public class World
     {
         return emotes;
     }
+
+    public RoadSystem getRoadSystem(){ return roadSystem; }
 
     public int getMoney()
     {
@@ -167,9 +187,17 @@ public class World
         return tmp;
     }
 
+    public List<Road> getRoads()
+    {
+        List<Road> tmp = new LinkedList<>();
+        for(Building building : buildings)
+            if(building instanceof Road)
+                tmp.add((Road) building);
+        return tmp;
+    }
+
     private void doDestroy()
     {
-
         for(GameObject obj : destroyBuffer)
         {
             obj.onDestroy();
