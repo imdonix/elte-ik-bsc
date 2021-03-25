@@ -16,7 +16,7 @@ public class RoundAbout extends Game {
 
     public final static String ID = "round";
     public final static Vector2I SIZE = new Vector2I(4,4);
-    public final static Vector2I ENTRANCE = new Vector2I(0,1);
+    public final static Vector2I ENTRANCE = new Vector2I(-2,1);
     public final static int PRICE = 1000;
 
     public final static int MAX = 3;

@@ -4,6 +4,7 @@ import hu.elte.madtycoon.Main;
 import hu.elte.madtycoon.objects.Building;
 import hu.elte.madtycoon.objects.buildings.CoinFlip;
 import hu.elte.madtycoon.objects.buildings.Road;
+import hu.elte.madtycoon.objects.buildings.RoundAbout;
 import hu.elte.madtycoon.objects.entities.Visitor;
 import hu.elte.madtycoon.objects.Entity;
 import hu.elte.madtycoon.objects.Game;
