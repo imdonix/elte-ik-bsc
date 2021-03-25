@@ -1,12 +1,11 @@
 package hu.elte.madtycoon.pathfind;
 
-import hu.elte.madtycoon.core.Emotes;
 import hu.elte.madtycoon.core.Engine;
 import hu.elte.madtycoon.objects.buildings.Road;
 import hu.elte.madtycoon.utils.MinHeap;
 import hu.elte.madtycoon.utils.Vector2I;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
 public class PathFindJob implements Runnable {
@@ -32,9 +31,9 @@ public class PathFindJob implements Runnable {
         Node path = find();
 
         if(path != null)
-            request.finalize(createPath(path));
+            request.finalizePath(createPath(path));
         else
-            request.finalize();
+            request.finalizePath();
     }
 
     private Node find() {
@@ -86,7 +85,7 @@ public class PathFindJob implements Runnable {
 
     private Path createPath(Node node)
     {
-        List<Road> roads = new LinkedList<>();
+        List<Road> roads = new ArrayList<>();
         roads.add(map[node.position.x][node.position.y]);
 
         while(node.parent != null)
