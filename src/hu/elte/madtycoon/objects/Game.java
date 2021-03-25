@@ -7,6 +7,7 @@ import hu.elte.madtycoon.utils.Random;
 import hu.elte.madtycoon.utils.Vector2F;
 import hu.elte.madtycoon.utils.Vector2I;
 import hu.elte.madtycoon.utils.exception.GameFullException;
+import hu.elte.madtycoon.utils.exception.GameUnderConstruction;
 import hu.elte.madtycoon.utils.exception.NoCoverageException;
 
 import java.util.ArrayDeque;
@@ -47,10 +48,11 @@ public abstract class Game extends Building
         return queue.toArray(new Visitor[max]);
     }
 
-    public void enter(Visitor visitor) throws GameFullException, NoCoverageException
+    public void enter(Visitor visitor) throws GameFullException, NoCoverageException, GameUnderConstruction
     {
         if(queue.size() >= max) throw new GameFullException();
         if(!visitor.pay(getUseCost())) throw new NoCoverageException();
+        if(!isWorking()) throw new GameUnderConstruction();
         world.getEmotes().pop(this, AnimatedSprite.PARK_EARN);
         queue.add(visitor);
         visitor.setActive(false);

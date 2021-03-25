@@ -5,6 +5,7 @@ import hu.elte.madtycoon.objects.Game;
 import hu.elte.madtycoon.task.SmartGoTask;
 import hu.elte.madtycoon.task.utils.LeavePark;
 import hu.elte.madtycoon.utils.exception.GameFullException;
+import hu.elte.madtycoon.utils.exception.GameUnderConstruction;
 import hu.elte.madtycoon.utils.exception.NoCoverageException;
 
 public class Play extends SmartGoTask<Visitor, Game>
@@ -24,6 +25,10 @@ public class Play extends SmartGoTask<Visitor, Game>
         {
             System.out.println(String.format("%s has no money to this game", entity));
             entity.setTask(new LeavePark(entity));
+        } catch (GameUnderConstruction e)
+        {
+            System.out.println(String.format("%s reached game, but it's under construction now", entity));
+            //entity.addVisited(target);
         }
     }
 
