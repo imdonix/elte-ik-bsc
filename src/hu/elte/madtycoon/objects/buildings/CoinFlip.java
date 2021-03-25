@@ -18,7 +18,7 @@ public class CoinFlip extends Game
 
     public final static String ID = "coin";
     public final static Vector2I SIZE = new Vector2I(3,4);
-    public final static Vector2I ENTRANCE = new Vector2I(0,1);
+    public final static Vector2I ENTRANCE = new Vector2I(-1,1);
     public final static int PRICE = 500;
 
     public final static int MAX = 2;
