@@ -29,14 +29,14 @@ public class PathFindRequest
         return finished;
     }
 
-    public synchronized void finalize(Path path)
+    public synchronized void finalizePath(Path path)
     {
         this.finished = true;
         this.successful = true;
         this.path = path;
     }
 
-    public synchronized void finalize()
+    public synchronized void finalizePath()
     {
         this.finished = true;
         this.successful = false;
