@@ -60,7 +60,7 @@ public abstract class Building extends GameObject
     public void repair()
     {
         world.getEmotes().pop(this, AnimatedSprite.REPAIR);
-        getSprite().setState(AnimatedSprite.IDLE);
+        getSprite().setState(AnimatedSprite.GAME_UNDER_CONSTRUCTION); //TODO **this takes some time**
         health = 1F;
     }
 

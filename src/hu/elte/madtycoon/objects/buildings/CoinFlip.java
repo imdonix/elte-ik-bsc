@@ -66,9 +66,11 @@ public class CoinFlip extends Game
         BufferedImage[] idle = AnimationResource.Instance.get("coin_idle");
         BufferedImage[] play = AnimationResource.Instance.get("coin_play");
         BufferedImage[] stop = AnimationResource.Instance.get("coin_stop");
+        BufferedImage[] underConstruction = AnimationResource.Instance.get("coin_construction");
         AnimatedSprite anim = new AnimatedSprite(AnimatedSprite.IDLE, idle, 0.75f);
         anim.addState(AnimatedSprite.GAME_PLAY, play);
         anim.addState(AnimatedSprite.GAME_STOP, stop);
+        anim.addState(AnimatedSprite.GAME_UNDER_CONSTRUCTION, underConstruction);
         return new CoinFlip(world, anim, position, SIZE, MAX);
     }
 

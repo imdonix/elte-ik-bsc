@@ -11,6 +11,7 @@ public class AnimatedSprite
     public final static String WALK = "walk";
     public final static String GAME_PLAY = "gameplay";
     public final static String GAME_STOP = "gamestop";
+    public final static String GAME_UNDER_CONSTRUCTION = "underConstruction";
 
 
     public final static String PARK_EARN = "pearn";
