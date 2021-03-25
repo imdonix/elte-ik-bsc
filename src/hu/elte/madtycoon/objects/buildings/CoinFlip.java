@@ -60,6 +60,11 @@ public class CoinFlip extends Game
         return super.getTargetPosition().add(new Vector2F(ENTRANCE));
     }
 
+    @Override
+    protected void damage(float dmg) {
+        super.damage(dmg);
+    }
+
 
     public static CoinFlip Create(World world, Vector2F position)
     {

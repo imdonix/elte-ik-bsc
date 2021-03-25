@@ -32,8 +32,12 @@ public class RoundAbout extends Game {
     {
         BufferedImage[] idle = AnimationResource.Instance.get("round_idle");
         BufferedImage[] play = AnimationResource.Instance.get("round_play");
+        BufferedImage[] stop = AnimationResource.Instance.get("round_stop");
+        BufferedImage[] underConstruction = AnimationResource.Instance.get("round_construction");
         AnimatedSprite anim = new AnimatedSprite(AnimatedSprite.IDLE, idle, 0.75f);
         anim.addState(AnimatedSprite.GAME_PLAY, play);
+        anim.addState(AnimatedSprite.GAME_STOP, stop);
+        anim.addState(AnimatedSprite.GAME_UNDER_CONSTRUCTION, underConstruction);
         return new RoundAbout(world, anim, position, SIZE, MAX);
     }
 

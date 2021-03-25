@@ -67,9 +67,10 @@ public abstract class Building extends GameObject
     protected void damage(float dmg)
     {
         health -= dmg;
-        if(!isWorking())
+        if(!isWorking()) {
             world.getEmotes().popSpecial(this, AnimatedSprite.NEED_REPAIR);
             getSprite().setState(AnimatedSprite.GAME_STOP);
+        }
     }
 
     public abstract float getDecorationValue();

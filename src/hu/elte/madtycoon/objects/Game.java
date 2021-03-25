@@ -121,4 +121,8 @@ public abstract class Game extends Building
 
     protected abstract float getPlayPeriod();
 
+    @Override
+    protected void damage(float dmg) {
+        super.damage(dmg);
+    }
 }
