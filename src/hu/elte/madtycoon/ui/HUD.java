@@ -265,7 +265,7 @@ public class HUD extends JPanel
         roadMenu.addActionListener(e-> System.out.println("Sth else build")); //TODO
 
         stats.setIcon(new ImageIcon(Resources.Instance.sthBuyButton));
-        stats.addActionListener(e-> System.out.println("Sth else build")); //TODO
+        stats.addActionListener(e-> engine.getWorldBuilder().setState(BuilderState.BUILD, Shop.ID));
 
         employeeMenu.setIcon(new ImageIcon(Resources.Instance.shopBackButton));
         employeeMenu.addActionListener(e -> homeButtons());

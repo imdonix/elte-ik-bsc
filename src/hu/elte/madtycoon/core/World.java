@@ -5,6 +5,7 @@ import hu.elte.madtycoon.objects.Building;
 import hu.elte.madtycoon.objects.buildings.CoinFlip;
 import hu.elte.madtycoon.objects.buildings.Road;
 import hu.elte.madtycoon.objects.buildings.RoundAbout;
+import hu.elte.madtycoon.objects.buildings.Shop;
 import hu.elte.madtycoon.objects.entities.Visitor;
 import hu.elte.madtycoon.objects.Entity;
 import hu.elte.madtycoon.objects.Game;
@@ -194,6 +195,14 @@ public class World
         for(Building building : buildings)
             if(building instanceof Road)
                 tmp.add((Road) building);
+        return tmp;
+    }
+
+    public List<Shop> getShops(){
+        List<Shop> tmp = new LinkedList<>();
+        for(Building building : buildings)
+            if(building instanceof Shop)
+                tmp.add((Shop) building);
         return tmp;
     }
 

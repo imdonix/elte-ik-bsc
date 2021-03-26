@@ -37,6 +37,7 @@ public class Builder
         //Games
         CoinFlip.AddReference();
         RoundAbout.AddReference();
+        Shop.AddReference();
 
         //Decor
         Bush.AddReference();
@@ -184,6 +185,8 @@ public class Builder
         g.drawRect(pos.x,pos.y,size.x,size.y);
 
         for(Building sb : world.getGames())
+            showBuilding(g,sb);
+        for(Building sb : world.getShops())
             showBuilding(g,sb);
     }
 
