@@ -7,6 +7,7 @@ import hu.elte.madtycoon.task.utils.LeavePark;
 import hu.elte.madtycoon.utils.exception.GameFullException;
 import hu.elte.madtycoon.utils.exception.GameUnderConstruction;
 import hu.elte.madtycoon.utils.exception.NoCoverageException;
+import hu.elte.madtycoon.utils.exception.NoWorkerInDuty;
 
 public class Play extends SmartGoTask<Visitor, Game>
 {
@@ -29,6 +30,9 @@ public class Play extends SmartGoTask<Visitor, Game>
         {
             System.out.println(String.format("%s reached game, but it's under construction now", entity));
             //entity.addVisited(target);
+        } catch (NoWorkerInDuty e){
+            System.out.println("No worker in duty");
+            entity.setTask(new LeavePark(entity));
         }
     }
 

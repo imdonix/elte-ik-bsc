@@ -184,7 +184,7 @@ public class World
     {
         List<Game> tmp = new LinkedList<>();
         for(Building building : buildings)
-            if(building instanceof Game)
+            if(building instanceof Game && !(building instanceof Shop))
                 tmp.add((Game) building);
         return tmp;
     }
