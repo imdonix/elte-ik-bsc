@@ -6,6 +6,7 @@ import hu.elte.madtycoon.objects.buildings.CoinFlip;
 import hu.elte.madtycoon.objects.buildings.Road;
 import hu.elte.madtycoon.objects.buildings.RoundAbout;
 import hu.elte.madtycoon.objects.buildings.Shop;
+import hu.elte.madtycoon.objects.entities.ShopAssistant;
 import hu.elte.madtycoon.objects.entities.Visitor;
 import hu.elte.madtycoon.objects.Entity;
 import hu.elte.madtycoon.objects.Game;
@@ -51,6 +52,7 @@ public class World
 
         instantiate(CoinFlip.Create(this, new Vector2F(5,5)));
         instantiate(CoinFlip.Create(this, new Vector2F(10,5))).getSprite().setRotation(true);
+        instantiate(Shop.Create(this, new Vector2F(20,5))).getSprite().setRotation(true);
 
     }
 
@@ -77,6 +79,7 @@ public class World
         {
             timer = 0;
             instantiate(Visitor.Create(this, new Vector2F(ENTRANCE_POINT)));
+            instantiate(ShopAssistant.Create(this, new Vector2F(ENTRANCE_POINT)));
         }
 
     }

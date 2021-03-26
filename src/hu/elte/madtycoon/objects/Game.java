@@ -1,6 +1,8 @@
 package hu.elte.madtycoon.objects;
 
 import hu.elte.madtycoon.core.World;
+import hu.elte.madtycoon.objects.buildings.Shop;
+import hu.elte.madtycoon.objects.entities.ShopAssistant;
 import hu.elte.madtycoon.objects.entities.Visitor;
 import hu.elte.madtycoon.render.AnimatedSprite;
 import hu.elte.madtycoon.utils.Random;

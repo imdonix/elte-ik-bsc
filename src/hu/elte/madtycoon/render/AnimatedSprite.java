@@ -70,7 +70,7 @@ public class AnimatedSprite
             time = time - frameLength;
         }
     }
-
+    
     public BufferedImage getSprite()
     {
         BufferedImage[] images = sprites.get(state);

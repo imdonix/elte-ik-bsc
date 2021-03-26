@@ -2,6 +2,7 @@ package hu.elte.madtycoon.objects.buildings;
 
 import hu.elte.madtycoon.core.Builder;
 import hu.elte.madtycoon.core.World;
+import hu.elte.madtycoon.objects.entities.ShopAssistant;
 import hu.elte.madtycoon.objects.entities.Visitor;
 import hu.elte.madtycoon.objects.Game;
 import hu.elte.madtycoon.render.AnimatedSprite;
@@ -29,11 +30,27 @@ public class Shop extends Game
     public final static int MIN_USE_COST = 20;
     public final static int MAX_USE_COST = 100;
     public static boolean worker = false;
+    public ShopAssistant employee;
 
 
     private Shop(World world, AnimatedSprite sprite, Vector2F position, Vector2I size, int max)
     {
         super(world, sprite, position, size, max, MAX_USE_COST);
+    }
+
+    public void work(ShopAssistant employee){
+        if(!worker){
+            employee.setActive(false);
+            this.employee=employee;
+            worker = true;
+            this.sprite.setState(AnimatedSprite.IDLE);
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        employee.setActive(true);
     }
 
     @Override
