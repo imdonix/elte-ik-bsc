@@ -1,6 +1,8 @@
 package hu.elte.madtycoon.objects;
 
 import hu.elte.madtycoon.core.World;
+import hu.elte.madtycoon.objects.buildings.Shop;
+import hu.elte.madtycoon.objects.entities.ShopAssistant;
 import hu.elte.madtycoon.objects.entities.Visitor;
 import hu.elte.madtycoon.render.AnimatedSprite;
 import hu.elte.madtycoon.utils.Random;
@@ -9,6 +11,7 @@ import hu.elte.madtycoon.utils.Vector2I;
 import hu.elte.madtycoon.utils.exception.GameFullException;
 import hu.elte.madtycoon.utils.exception.GameUnderConstruction;
 import hu.elte.madtycoon.utils.exception.NoCoverageException;
+import hu.elte.madtycoon.utils.exception.NoWorkerInDuty;
 
 import java.util.ArrayDeque;
 import java.util.Queue;
@@ -48,8 +51,7 @@ public abstract class Game extends Building
         return queue.toArray(new Visitor[max]);
     }
 
-    public void enter(Visitor visitor) throws GameFullException, NoCoverageException, GameUnderConstruction
-    {
+    public void enter(Visitor visitor) throws GameFullException, NoCoverageException, GameUnderConstruction, NoWorkerInDuty {
         if(queue.size() >= max) throw new GameFullException();
         if(!visitor.pay(getUseCost())) throw new NoCoverageException();
         if(!isWorking()) throw new GameUnderConstruction();

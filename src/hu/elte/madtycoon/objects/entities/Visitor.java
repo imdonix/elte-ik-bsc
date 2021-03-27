@@ -3,11 +3,13 @@ package hu.elte.madtycoon.objects.entities;
 import hu.elte.madtycoon.core.World;
 import hu.elte.madtycoon.objects.Entity;
 import hu.elte.madtycoon.objects.Game;
+import hu.elte.madtycoon.objects.buildings.Shop;
 import hu.elte.madtycoon.render.AnimatedSprite;
 import hu.elte.madtycoon.render.AnimationResource;
 import hu.elte.madtycoon.task.*;
 import hu.elte.madtycoon.task.utils.Idle;
 import hu.elte.madtycoon.task.utils.LeavePark;
+import hu.elte.madtycoon.task.utils.GoShop;
 import hu.elte.madtycoon.task.visitor.Play;
 import hu.elte.madtycoon.utils.Random;
 import hu.elte.madtycoon.utils.Vector2F;
@@ -73,10 +75,11 @@ public class Visitor extends Entity
             if(game != null)
                 return new Play(this, game);
             else
-                return new Idle(this);
+                return super.getNewTask();
         }
-        else
+        else {
             return new LeavePark(this);
+        }
     }
 
     @Override
@@ -91,6 +94,12 @@ public class Visitor extends Entity
         return tmp;
     }
 
+    private List<Shop> getShop()
+    {
+        List<Shop> tmp = new LinkedList<>(world.getShops());
+        return tmp;
+    }
+
     private Game findNearestGame(List<Game> games)
     {
         Game min = null;
@@ -101,7 +110,6 @@ public class Visitor extends Entity
         return min;
 
     }
-
 
     public static Visitor Create(World world, Vector2F position)
     {
