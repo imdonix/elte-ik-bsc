@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<project name="Mad Tycoon" default="jar">
+
+    <property name="name" value="Mad Tycoon"/>
+    <property name="version" value="1.0"/>
+
+    <property name="build" value="build"/>
+    <property name="out" value="out"/>
+    <property name="res" value="res"/>
+
+    <target name="clean">
+        <delete dir="${out}/"/>
+        <delete dir="${build}/"/>
+    </target>
+
+    <target name="compile" depends="clean">
+        <mkdir dir="${out}"/>
+        <javac srcdir="src" destdir="${out}"/>
+        <javac srcdir="test" destdir="${out}"/>
+    </target>
+
+    <target name="jar" depends="compile">
+        <copydir src="${res}" dest="build/${res}"/>
+        <jar destfile="${build}/${name}.jar" basedir="${out}">
+            <manifest>
+                <attribute name="Main-Class" value="hu.elte.madtycoon.Main"/>
+            </manifest>
+        </jar>
+    </target>
+
+    <target name="run" depends="jar">
+        <java jar="${build}/${name}.jar" fork="true"/>
+    </target>
+
+    <target name="zip" depends="jar">
+        <zip basedir="${build}" destfile="${build}/mad-tycoon-${version}.zip" />
+    </target>
+
+    <target name="test" depends="compile" >
+
+        <junit printsummary="yes" haltonfailure="yes">
+
+            <classpath>
+                <pathelement location="${project.class.path}"/>
+                <pathelement location="${build.tests}"/>
+                <pathelement path="${java.class.path}"/>
+            </classpath>
+
+            <test name="com.jenkov.test.MyUnitTest"
+                  haltonfailure="no" outfile="result">
+
+                <formatter type="plain"/>
+                <formatter type="xml"/>
+
+            </test>
+
+        </junit>
+    </target>
+
+</project>
