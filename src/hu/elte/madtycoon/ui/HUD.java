@@ -2,6 +2,13 @@ package hu.elte.madtycoon.ui;
 
 import hu.elte.madtycoon.core.Resources;
 import hu.elte.madtycoon.objects.buildings.*;
+import hu.elte.madtycoon.objects.buildings.decoration.Bush;
+import hu.elte.madtycoon.objects.buildings.decoration.FirePit;
+import hu.elte.madtycoon.objects.buildings.decoration.Flower;
+import hu.elte.madtycoon.objects.buildings.decoration.Stick;
+import hu.elte.madtycoon.objects.buildings.games.CoinFlip;
+import hu.elte.madtycoon.objects.buildings.games.GhostCastle;
+import hu.elte.madtycoon.objects.buildings.games.RoundAbout;
 import hu.elte.madtycoon.utils.BuilderState;
 
 import javax.swing.*;

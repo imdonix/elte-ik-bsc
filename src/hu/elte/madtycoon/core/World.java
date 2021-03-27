@@ -1,10 +1,8 @@
 package hu.elte.madtycoon.core;
 
-import hu.elte.madtycoon.Main;
 import hu.elte.madtycoon.objects.Building;
-import hu.elte.madtycoon.objects.buildings.CoinFlip;
+import hu.elte.madtycoon.objects.buildings.games.CoinFlip;
 import hu.elte.madtycoon.objects.buildings.Road;
-import hu.elte.madtycoon.objects.buildings.RoundAbout;
 import hu.elte.madtycoon.objects.buildings.Shop;
 import hu.elte.madtycoon.objects.entities.ShopAssistant;
 import hu.elte.madtycoon.objects.entities.Visitor;
