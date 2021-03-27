@@ -2,8 +2,11 @@ package hu.elte.madtycoon.objects;
 
 import hu.elte.madtycoon.core.Resources;
 import hu.elte.madtycoon.core.World;
+import hu.elte.madtycoon.objects.buildings.Shop;
 import hu.elte.madtycoon.render.AnimatedSprite;
 import hu.elte.madtycoon.task.Task;
+import hu.elte.madtycoon.task.utils.GoShop;
+import hu.elte.madtycoon.task.utils.Idle;
 import hu.elte.madtycoon.utils.Random;
 import hu.elte.madtycoon.utils.Utils;
 import hu.elte.madtycoon.utils.Vector2F;
@@ -111,10 +114,32 @@ public abstract class Entity extends GameObject {
         position = position.add(force);
     }
 
+    protected Task getNewTask()
+    {
+        if (food < .45F)
+        {
+            List<Shop> shops = world.getShops();
+            if(shops.size() > 0)
+                return new GoShop(this, findNearestShop(shops));
+        }
+
+        return new Idle(this);
+    }
+
     public void setTask(Task task)
     {
         this.task = task;
     }
+
+    protected Shop findNearestShop(List<Shop> shops)
+    {
+        Shop min = shops.get(0);
+        for(Shop shop : shops)
+            if(min.getPosition().distance(getPosition()) > shop.getPosition().distance(getPosition()))
+                min = shop;
+        return min;
+    }
+
 
     @Override
     public Vector2F getRenderPosition()
@@ -134,9 +159,8 @@ public abstract class Entity extends GameObject {
         return String.format("[%d] %s (I: %f, F: %f, M: %d)", id, name, interest, food, money);
     }
 
-    protected abstract void start();
 
-    protected abstract Task getNewTask();
+    protected abstract void start();
 
     protected abstract float getMovementSpeed();
 

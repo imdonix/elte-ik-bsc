@@ -1,5 +1,6 @@
-package hu.elte.madtycoon.task.visitor;
+package hu.elte.madtycoon.task.utils;
 
+import hu.elte.madtycoon.objects.Entity;
 import hu.elte.madtycoon.objects.buildings.Shop;
 import hu.elte.madtycoon.objects.entities.Visitor;
 import hu.elte.madtycoon.objects.Game;
@@ -10,20 +11,20 @@ import hu.elte.madtycoon.utils.exception.GameUnderConstruction;
 import hu.elte.madtycoon.utils.exception.NoCoverageException;
 import hu.elte.madtycoon.utils.exception.NoWorkerInDuty;
 
-public class GoShop extends SmartGoTask<Visitor, Shop>
+public class GoShop extends SmartGoTask<Entity, Shop>
 {
-    public GoShop(Visitor entity, Shop target) {
+    public GoShop(Entity entity, Shop target) {
         super(entity, target);
     }
 
     @Override
     protected void interact()
     {
-        try {
-            target.enter(entity);
-        } catch (GameFullException e) {
-
-        } catch (NoCoverageException e)
+        try
+        {
+            target.eat(entity);
+        }
+        catch (NoCoverageException e)
         {
             System.out.println(String.format("%s has no money to eat", entity));
             entity.setTask(new LeavePark(entity));

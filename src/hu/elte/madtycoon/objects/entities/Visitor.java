@@ -9,7 +9,7 @@ import hu.elte.madtycoon.render.AnimationResource;
 import hu.elte.madtycoon.task.*;
 import hu.elte.madtycoon.task.utils.Idle;
 import hu.elte.madtycoon.task.utils.LeavePark;
-import hu.elte.madtycoon.task.visitor.GoShop;
+import hu.elte.madtycoon.task.utils.GoShop;
 import hu.elte.madtycoon.task.visitor.Play;
 import hu.elte.madtycoon.utils.Random;
 import hu.elte.madtycoon.utils.Vector2F;
@@ -75,16 +75,7 @@ public class Visitor extends Entity
             if(game != null)
                 return new Play(this, game);
             else
-                return new Idle(this);
-        }
-        else if (food <= .1F){
-            List<Shop> shops = getShop();
-            if(shops.size()>0){
-                return new GoShop(this,shops.get(0));
-            }
-            else{
-                return new LeavePark(this);
-            }
+                return super.getNewTask();
         }
         else {
             return new LeavePark(this);

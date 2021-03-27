@@ -18,14 +18,11 @@ import java.util.List;
 
 public class ShopAssistant extends Entity {
 
-    public static int START_MONEY_MIN = 500;
-    public static int START_MONEY_MAX = 500;
-    public static float START_FOOD_MIN = 0.65f;
-    public static float START_FOOD_MAX = 0.8f;
-    public static float START_INT_MIN = 0.2f;
-    public static float START_INT_MAX = 0.5f;
-    public static float MIN_MS_SPEED = 1F;
-    public static float MAX_MS_SPEED = 2F;
+    public static int START_MONEY = 250;
+    public static float START_FOOD = 1f;
+    public static float START_INT = 1f;
+    public static float MIN_MS_SPEED = 1.5F;
+    public static float MAX_MS_SPEED = 3F;
 
     private final float movementSpeed;
     private final List<Game> visited;
@@ -33,9 +30,9 @@ public class ShopAssistant extends Entity {
     private ShopAssistant(World world, AnimatedSprite sprite, Vector2F position)
     {
         super(world, sprite, position);
-        this.money = 500;
-        this.food = 500;
-        this.interest = 500;
+        this.money = START_MONEY;
+        this.food = START_FOOD;
+        this.interest = START_INT;
         this.movementSpeed = Random.getRandomFloat(MIN_MS_SPEED, MAX_MS_SPEED);
         this.visited = new LinkedList<>();
     }
@@ -46,13 +43,7 @@ public class ShopAssistant extends Entity {
     }
 
     @Override
-    protected void start()
-    {
-        if(world.getEntranceCost() > money / 2)
-            task = new LeavePark(this);
-        else
-            pay(world.getEntranceCost());
-    }
+    protected void start() {}
 
     @Override
     public float getMovementSpeed()
@@ -63,9 +54,17 @@ public class ShopAssistant extends Entity {
     @Override
     protected Task getNewTask()
     {
-        if(getShop().size()>0) {
-            return new Work(this, getShop().get(0));
-        }else{
+        List<Shop> shops = getShopsWithJob();
+
+        System.out.println(shops.size());
+
+        if(shops.size() > 0)
+        {
+            return new Work(this, findNearestShop(shops));
+        }
+        else
+        {
+            System.out.println(String.format("%s can't be employed!", this));
             return new LeavePark(this);
         }
     }
@@ -73,13 +72,14 @@ public class ShopAssistant extends Entity {
     @Override
     public void onDestroy() { }
 
-
-    private List<Shop> getShop()
+    private List<Shop> getShopsWithJob()
     {
-        List<Shop> tmp = new LinkedList<>(world.getShops());
+        List<Shop> tmp = new LinkedList<>();
+        for(Shop shop : world.getShops())
+            if(shop.getEmployee() == null)
+                tmp.add(shop);
         return tmp;
     }
-
 
     public static ShopAssistant Create(World world, Vector2F position)
     {
