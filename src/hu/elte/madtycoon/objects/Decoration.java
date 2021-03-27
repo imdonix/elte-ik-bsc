@@ -12,5 +12,8 @@ public abstract class Decoration extends Building
     }
 
     @Override
+    protected void start() { }
+
+    @Override
     public void onDestroy() { }
 }

@@ -59,12 +59,6 @@ public abstract class Game extends Building
     }
 
     @Override
-    protected void start()
-    {
-        this.sprite.setState(AnimatedSprite.IDLE);
-    }
-
-    @Override
     public void update(float dt)
     {
         super.update(dt);
