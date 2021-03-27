@@ -183,6 +183,8 @@ public class World
         return sum;
     }
 
+    public List<Building> getBuildings() {return new LinkedList<Building>(buildings);}
+
     public List<Game> getGames()
     {
         List<Game> tmp = new LinkedList<>();

@@ -3,6 +3,7 @@ package hu.elte.madtycoon.objects.entities;
 import hu.elte.madtycoon.core.World;
 import hu.elte.madtycoon.objects.Entity;
 import hu.elte.madtycoon.objects.Game;
+import hu.elte.madtycoon.objects.Worker;
 import hu.elte.madtycoon.objects.buildings.Shop;
 import hu.elte.madtycoon.render.AnimatedSprite;
 import hu.elte.madtycoon.render.AnimationResource;
@@ -16,20 +17,21 @@ import java.awt.image.BufferedImage;
 import java.util.LinkedList;
 import java.util.List;
 
-public class ShopAssistant extends Entity {
+public class ShopAssistant extends Worker {
 
     public static int START_MONEY = 250;
     public static float START_FOOD = 1f;
     public static float START_INT = 1f;
     public static float MIN_MS_SPEED = 1.5F;
     public static float MAX_MS_SPEED = 3F;
+    public static int SALARY = 60;
 
     private final float movementSpeed;
     private final List<Game> visited;
 
     private ShopAssistant(World world, AnimatedSprite sprite, Vector2F position)
     {
-        super(world, sprite, position);
+        super(world, sprite, position, SALARY);
         this.money = START_MONEY;
         this.food = START_FOOD;
         this.interest = START_INT;
