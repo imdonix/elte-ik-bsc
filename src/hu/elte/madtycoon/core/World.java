@@ -27,6 +27,7 @@ public class World
     private final List<GameObject> destroyBuffer;
     private final Emotes emotes;
     private final RoadSystem roadSystem;
+    private final Coroutines coroutines;
 
     private int money;
     private int entranceCost;
@@ -40,7 +41,7 @@ public class World
         destroyBuffer = new LinkedList<GameObject>();
         roadSystem = new RoadSystem(this);
         emotes = new Emotes(this);
-
+        coroutines = new Coroutines();
         start();
     }
 
@@ -52,7 +53,6 @@ public class World
         instantiate(CoinFlip.Create(this, new Vector2F(5,5)));
         instantiate(CoinFlip.Create(this, new Vector2F(10,5))).getSprite().setRotation(true);
         instantiate(Shop.Create(this, new Vector2F(20,5))).getSprite().setRotation(true);
-
     }
 
     public void update(float dt)
@@ -68,6 +68,7 @@ public class World
                 obj.update(dt);
 
         emotes.update(dt);
+        coroutines.update(dt);
     }
 
     public void render(SpriteRenderBuffer buffer)
@@ -110,6 +111,8 @@ public class World
     }
 
     public RoadSystem getRoadSystem(){ return roadSystem; }
+
+    public Coroutines getCoroutines(){ return coroutines; }
 
     public int getMoney()
     {
