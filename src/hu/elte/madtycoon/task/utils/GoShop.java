@@ -23,7 +23,6 @@ public class GoShop extends SmartGoTask<Entity, Shop>
         try
         {
             target.eat(entity);
-            target.getEmployee().earn((int) target.getEmployee().getSalary());
         }
         catch (NoCoverageException e)
         {
