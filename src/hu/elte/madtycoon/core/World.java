@@ -150,6 +150,23 @@ public class World
         this.entranceCost = entranceCost;
     }
 
+    public List<Building> collisionCheckMultiple(Vector2I pos, Vector2I size) {
+
+        List<Building> buildings = new LinkedList<>();
+        if(pos == null) return buildings;
+
+        int x = pos.x;
+        int y = pos.y;
+        for(Building building : this.buildings)
+            if(building.getPosition().x < x + size.x &&
+                    building.getPosition().x + building.getSize().x > x &&
+                    building.getPosition().y < y + size.y &&
+                    building.getPosition().y + building.getSize().y > y) {
+                buildings.add(building);
+            }
+        return buildings;
+    }
+
     public Building collisionCheck(Vector2I pos, Vector2I size) {
 
         if(pos == null)

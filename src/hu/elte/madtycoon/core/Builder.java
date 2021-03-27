@@ -8,9 +8,13 @@ import hu.elte.madtycoon.utils.BuilderState;
 import hu.elte.madtycoon.utils.Vector2F;
 import hu.elte.madtycoon.utils.Vector2I;
 
-import java.awt.*;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.List;
+
+import java.awt.*;
+
+
 
 public class Builder
 {
@@ -117,8 +121,8 @@ public class Builder
         if(world.getMoney() >= reference.price)
         {
             Vector2I realPos = selected.add(reference.size.div(-2));
-            Building sb = world.collisionCheck(realPos, reference.size);
-            if(sb == null)
+            List<Building> sbs = world.collisionCheckMultiple(realPos, reference.size);
+            if(!checkWithoutRoad(sbs))
             {
                 world.pay(reference.price);
                 world.instantiate(reference.create(world, new Vector2F(realPos)));
@@ -160,7 +164,7 @@ public class Builder
     {
         String price = String.format("%d$", reference.price);
         Vector2I realPos = selected.add(reference.size.div(-2));
-        Building sb = world.collisionCheck(realPos, reference.size);
+        List<Building> sbs = world.collisionCheckMultiple(realPos, reference.size);
         Vector2I pos = realPos.mul(Engine.BLOCK_SIZE);
 
         Vector2I size = reference.size.mul(Engine.BLOCK_SIZE);
@@ -168,7 +172,7 @@ public class Builder
         Vector2I adjustedTextPos = textPos.add(new Vector2I(price.length() * -4,0));
         g.setColor(Color.ORANGE);
         g.drawString(price, adjustedTextPos.x, adjustedTextPos.y );
-        g.setColor(sb == null && world.getMoney() >= reference.price ? Color.GREEN : Color.RED);
+        g.setColor(!checkWithoutRoad(sbs) && world.getMoney() >= reference.price ? Color.GREEN : Color.RED);
         g.drawRect(pos.x,pos.y,size.x,size.y);
 
     }
@@ -206,6 +210,14 @@ public class Builder
         g.drawRect(ent.x,ent.y,Engine.BLOCK_SIZE,Engine.BLOCK_SIZE);
     }
 
+    //HELPER
 
+    private boolean checkWithoutRoad(List<Building> buildings)
+    {
+        for(Building building : buildings)
+            if(!(building instanceof Road))
+                return true;
+        return false;
+    }
 
 }
