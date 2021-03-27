@@ -40,6 +40,7 @@ public class World
         destroyBuffer = new LinkedList<GameObject>();
         roadSystem = new RoadSystem(this);
         emotes = new Emotes(this);
+
         start();
     }
 
@@ -54,9 +55,6 @@ public class World
 
     }
 
-    //DEBUG
-    float timer = 0;
-
     public void update(float dt)
     {
         doDestroy();
@@ -70,16 +68,6 @@ public class World
                 obj.update(dt);
 
         emotes.update(dt);
-
-        //DEBUG
-        timer+=dt;
-        if(timer > 1)
-        {
-            timer = 0;
-            instantiate(Visitor.Create(this, new Vector2F(ENTRANCE_POINT)));
-            instantiate(ShopAssistant.Create(this, new Vector2F(ENTRANCE_POINT)));
-        }
-
     }
 
     public void render(SpriteRenderBuffer buffer)
