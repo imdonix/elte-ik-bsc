@@ -2,10 +2,12 @@ package hu.elte.madtycoon.objects;
 
 import com.sun.xml.internal.bind.v2.TODO;
 import hu.elte.madtycoon.core.World;
+import hu.elte.madtycoon.objects.entities.RepairMan;
 import hu.elte.madtycoon.render.AnimatedSprite;
 import hu.elte.madtycoon.utils.Random;
 import hu.elte.madtycoon.utils.Vector2F;
 import hu.elte.madtycoon.utils.Vector2I;
+import hu.elte.madtycoon.utils.exception.JobAlreadyTaken;
 
 public abstract class Building extends GameObject
 {
@@ -15,11 +17,14 @@ public abstract class Building extends GameObject
     protected float health;
     private boolean opened;
 
+    private RepairMan employee;
+
     public Building(World world, AnimatedSprite sprite, Vector2F position, Vector2I size) {
         super(world, sprite, position);
         this.size = size;
         this.health = 1F;
         this.opened = true;
+        this.employee = null;
     }
 
     @Override
@@ -57,11 +62,16 @@ public abstract class Building extends GameObject
         return health > 0;
     }
 
-    public void repair()
+    public void repair(RepairMan employee) throws JobAlreadyTaken
     {
+        if(this.employee != null) throw new JobAlreadyTaken();
+
+        this.employee = employee;
+        this.employee.setActive(false);
         world.getEmotes().pop(this, AnimatedSprite.REPAIR);
         getSprite().setState(AnimatedSprite.GAME_UNDER_CONSTRUCTION); //TODO **this takes some time**
         health = 1F;
+        this.employee.setActive(true);
     }
 
     protected void damage(float dmg)
