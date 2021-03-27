@@ -30,6 +30,7 @@ public class World
     private final RoadSystem roadSystem;
     private final Coroutines coroutines;
 
+    private Entrance entrance;
     private int money;
     private int entranceCost;
 
@@ -48,7 +49,7 @@ public class World
 
     private void start()
     {
-        instantiate(Entrance.Create(this));
+        entrance = (Entrance) instantiate(Entrance.Create(this));
     }
 
     public void update(float dt)
@@ -109,6 +110,8 @@ public class World
     public RoadSystem getRoadSystem(){ return roadSystem; }
 
     public Coroutines getCoroutines(){ return coroutines; }
+
+    public Entrance getEntrance(){ return entrance; }
 
     public int getMoney()
     {
