@@ -79,9 +79,9 @@ public class Resources
 
     private void loadGame() throws IOException
     {
-        gameBackGroundImage = ImageIO.read(new File("res/main_window_bg.jpg"));
-        gameHudImage = ImageIO.read(new File("res/main_window_hud.jpg"));
-        gameExitButton = ImageIO.read(new File("res/main_window_exit.png"));
+        gameBackGroundImage = ImageIO.read(new File("res/main/background.jpg"));
+        gameHudImage = ImageIO.read(new File("res/main/hud.jpg"));
+        gameExitButton = ImageIO.read(new File("res/main/exit.png"));
         gameHouseBuildButton = ImageIO.read(new File("res/menu/house_build_button.png"));
         gameDecorBuildButton = ImageIO.read(new File("res/menu/decor_build_button.png"));
         gameRoadBuildButton = ImageIO.read(new File("res/menu/road_build_button.png"));
