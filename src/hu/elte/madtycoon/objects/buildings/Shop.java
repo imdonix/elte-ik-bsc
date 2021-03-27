@@ -66,7 +66,7 @@ public class Shop extends Building
     @Override
     public void onDestroy()
     {
-        employee.setActive(true);
+        if(employee != null) employee.setActive(true);
     }
 
     @Override
