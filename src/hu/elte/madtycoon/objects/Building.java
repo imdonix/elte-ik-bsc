@@ -71,6 +71,7 @@ public abstract class Building extends GameObject
         world.getEmotes().pop(this, AnimatedSprite.REPAIR);
         getSprite().setState(AnimatedSprite.GAME_UNDER_CONSTRUCTION); //TODO **this takes some time**
         health = 1F;
+        this.employee.earn(this.employee.getSalary());
         this.employee.setActive(true);
     }
 

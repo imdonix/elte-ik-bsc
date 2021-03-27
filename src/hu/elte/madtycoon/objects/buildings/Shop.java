@@ -54,6 +54,8 @@ public class Shop extends Building
         world.getEmotes().pop(this, AnimatedSprite.PARK_EARN);
 
         entity.addFood(0.5F);
+
+        this.employee.earn(employee.getSalary());
     }
 
     public ShopAssistant getEmployee()

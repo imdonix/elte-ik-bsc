@@ -20,7 +20,7 @@ public class RepairMan extends Worker {
     public static float START_INT = 1f;
     public static float MIN_MS_SPEED = 1.5F;
     public static float MAX_MS_SPEED = 3F;
-    public static float SALARY = 0.75F;
+    public static int SALARY = 75;
 
     private final float movementSpeed;
 
@@ -51,7 +51,7 @@ public class RepairMan extends Worker {
             return new Repair(this, findNearestBuilding(buildings));
         } else {
             System.out.println(String.format("%s can't be employed!", this));
-            return new LeavePark(this);
+            return super.getNewTask();
         }
     }
 

@@ -1,9 +1,7 @@
 package hu.elte.madtycoon.task.employee;
 
 import hu.elte.madtycoon.objects.Building;
-import hu.elte.madtycoon.objects.buildings.Shop;
 import hu.elte.madtycoon.objects.entities.RepairMan;
-import hu.elte.madtycoon.objects.entities.ShopAssistant;
 import hu.elte.madtycoon.task.SmartGoTask;
 import hu.elte.madtycoon.utils.exception.JobAlreadyTaken;
 
@@ -19,7 +17,6 @@ public class Repair extends SmartGoTask<RepairMan, Building> {
         try
         {
             target.repair(entity);
-            entity.earn((int) entity.getSalary());
         }
         catch (JobAlreadyTaken jobAlreadyTaken)
         {
@@ -30,7 +27,7 @@ public class Repair extends SmartGoTask<RepairMan, Building> {
     @Override
     protected void fail()
     {
-        System.out.println(String.format("%s cant reach the shop!", entity));
+        System.out.println(String.format("%s cant reach the building!", entity));
         //TODO pop emote for building cant be reach
     }
 }

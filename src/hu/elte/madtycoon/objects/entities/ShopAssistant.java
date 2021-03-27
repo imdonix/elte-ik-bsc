@@ -24,7 +24,7 @@ public class ShopAssistant extends Worker {
     public static float START_INT = 1f;
     public static float MIN_MS_SPEED = 1.5F;
     public static float MAX_MS_SPEED = 3F;
-    public static float SALARY = 0.6F;
+    public static int SALARY = 60;
 
     private final float movementSpeed;
     private final List<Game> visited;
