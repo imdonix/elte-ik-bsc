@@ -37,7 +37,7 @@ public class Builder
         //Games
         CoinFlip.AddReference();
         RoundAbout.AddReference();
-        Shop.AddReference();
+        GhostCastle.AddReference();
 
         //Decor
         Bush.AddReference();
@@ -47,6 +47,9 @@ public class Builder
 
         //Road
         Road.AddReference();
+
+        //Shop
+        Shop.AddReference();
     }
 
 

@@ -43,6 +43,7 @@ public class Resources
     public BufferedImage shopBackGroundImage;
     public BufferedImage shopCoinFlipBuyButton;
     public BufferedImage shopRoundBuyButton;
+    public BufferedImage shopCastleBuyButton;
     public BufferedImage shopBackButton;
     public BufferedImage sthBuyButton;
     public BufferedImage bushBuyButton;
@@ -106,6 +107,7 @@ public class Resources
 
         shopCoinFlipBuyButton = ImageIO.read(new File("res/menu/coin_flip_buy.png"));
         shopRoundBuyButton = ImageIO.read(new File("res/menu/round_buy.png"));
+        shopCastleBuyButton = ImageIO.read(new File("res/menu/castle_buy.png"));
         shopBackButton = ImageIO.read(new File("res/menu/shop_back.png"));
         sthBuyButton = ImageIO.read(new File("res/menu/sth_buy.png"));
         bushBuyButton = ImageIO.read(new File("res/menu/bush_buy.png"));
