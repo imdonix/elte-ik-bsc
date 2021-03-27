@@ -46,11 +46,11 @@ public class Shop extends Building
         this.employee.setActive(false);
     }
 
-    public void eat(Entity entity) throws NoCoverageException, GameUnderConstruction, NoWorkerInDuty
-    {
+    public void eat(Entity entity) throws NoCoverageException, GameUnderConstruction, NoWorkerInDuty, BuildingDestroyed {
         if(employee == null) throw new NoWorkerInDuty();
         if(!isWorking()) throw new GameUnderConstruction();
         if(!entity.pay(foodCost)) throw new NoCoverageException();
+        if(!getActive()) throw new BuildingDestroyed();
         world.getEmotes().pop(this, AnimatedSprite.PARK_EARN);
 
         entity.addFood(0.5F);

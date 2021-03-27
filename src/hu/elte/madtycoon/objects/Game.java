@@ -8,10 +8,7 @@ import hu.elte.madtycoon.render.AnimatedSprite;
 import hu.elte.madtycoon.utils.Random;
 import hu.elte.madtycoon.utils.Vector2F;
 import hu.elte.madtycoon.utils.Vector2I;
-import hu.elte.madtycoon.utils.exception.GameFullException;
-import hu.elte.madtycoon.utils.exception.GameUnderConstruction;
-import hu.elte.madtycoon.utils.exception.NoCoverageException;
-import hu.elte.madtycoon.utils.exception.NoWorkerInDuty;
+import hu.elte.madtycoon.utils.exception.*;
 
 import java.util.ArrayDeque;
 import java.util.Queue;
@@ -51,10 +48,11 @@ public abstract class Game extends Building
         return queue.toArray(new Visitor[max]);
     }
 
-    public void enter(Visitor visitor) throws GameFullException, NoCoverageException, GameUnderConstruction, NoWorkerInDuty {
+    public void enter(Visitor visitor) throws GameFullException, NoCoverageException, GameUnderConstruction, BuildingDestroyed {
         if(queue.size() >= max) throw new GameFullException();
         if(!visitor.pay(getUseCost())) throw new NoCoverageException();
         if(!isWorking()) throw new GameUnderConstruction();
+        if(!getActive()) throw new BuildingDestroyed();
         world.getEmotes().pop(this, AnimatedSprite.PARK_EARN);
         queue.add(visitor);
         visitor.setActive(false);

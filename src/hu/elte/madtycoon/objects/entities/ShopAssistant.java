@@ -58,8 +58,6 @@ public class ShopAssistant extends Worker {
     {
         List<Shop> shops = getShopsWithJob();
 
-        System.out.println(shops.size());
-
         if(shops.size() > 0)
         {
             return new Work(this, findNearestShop(shops));
