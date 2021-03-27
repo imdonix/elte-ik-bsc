@@ -12,10 +12,12 @@ import hu.elte.madtycoon.utils.exception.JobAlreadyTaken;
 public abstract class Building extends GameObject
 {
     public static float SAFE_HEALTH = 0.4f;
+    public static float BUILD_TIME = 5F;
 
     private Vector2I size;
     protected float health;
     private boolean opened;
+    private boolean constructed;
 
     private RepairMan employee;
 
@@ -25,6 +27,13 @@ public abstract class Building extends GameObject
         this.health = 1F;
         this.opened = true;
         this.employee = null;
+        this.constructed = false;
+    }
+
+    @Override
+    protected void start()
+    {
+        construction(AnimatedSprite.IDLE);
     }
 
     @Override
@@ -40,21 +49,24 @@ public abstract class Building extends GameObject
         return new Vector2F(pos.x + size.x/2F, pos.y + size.y/2F);
     }
 
-    public Vector2I getSize() {
-        return size;
-    }
 
     public boolean isOpened() {
-        return opened && health > 0;
+        return opened && constructed && health > 0;
     }
 
-    public void setOpened(boolean opened) {
+    public void setOpened(boolean opened)
+    {
         this.opened = opened;
     }
 
-    public boolean isRepairNeeded()
+    public Vector2I getSize()
     {
-       return this.health < Building.SAFE_HEALTH;
+        return size;
+    }
+
+    public float getHealth()
+    {
+        return health;
     }
 
     public boolean isWorking()
@@ -62,17 +74,27 @@ public abstract class Building extends GameObject
         return health > 0;
     }
 
+    public boolean isRepairNeeded()
+    {
+       return this.health < Building.SAFE_HEALTH;
+    }
+
+
     public void repair(RepairMan employee) throws JobAlreadyTaken
     {
         if(this.employee != null) throw new JobAlreadyTaken();
 
         this.employee = employee;
         this.employee.setActive(false);
-        world.getEmotes().pop(this, AnimatedSprite.REPAIR);
-        getSprite().setState(AnimatedSprite.GAME_UNDER_CONSTRUCTION); //TODO **this takes some time**
-        health = 1F;
-        this.employee.earn(this.employee.getSalary());
-        this.employee.setActive(true);
+        this.world.getEmotes().pop(this, AnimatedSprite.REPAIR);
+        this.getSprite().setState(AnimatedSprite.GAME_UNDER_CONSTRUCTION);
+        this.world.getCoroutines().schedule(BUILD_TIME, () ->
+        {
+            health = 1F;
+            this.employee.earn(this.employee.getSalary());
+            this.employee.setActive(true);
+            System.out.println("Building is repaired");
+        });
     }
 
     protected void damage(float dmg)
@@ -86,8 +108,18 @@ public abstract class Building extends GameObject
 
     public abstract float getDecorationValue();
 
-    public float getHealth(){return health;};
-
-
+    protected void construction(String startState)
+    {
+        constructed = false;
+        this.world.getEmotes().pop(this, AnimatedSprite.REPAIR);
+        this.getSprite().setState(AnimatedSprite.GAME_UNDER_CONSTRUCTION);
+        this.world.getCoroutines().schedule(BUILD_TIME, () ->
+        {
+            health = 1F;
+            System.out.println("Building is constructed");
+            this.getSprite().setState(startState);
+            constructed = true;
+        });
+    }
 
 }

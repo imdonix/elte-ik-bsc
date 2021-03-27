@@ -72,7 +72,7 @@ public class Shop extends Building
     @Override
     protected void start()
     {
-        this.sprite.setState(AnimatedSprite.GAME_STOP);
+        construction(AnimatedSprite.GAME_STOP);
     }
 
     @Override
@@ -92,9 +92,11 @@ public class Shop extends Building
         BufferedImage[] idle = AnimationResource.Instance.get("shop_idle");
         BufferedImage[] play = AnimationResource.Instance.get("shop_play");
         BufferedImage[] stop = AnimationResource.Instance.get("shop_stop");
+        BufferedImage[] construction = AnimationResource.Instance.get("shop_construction");
         AnimatedSprite anim = new AnimatedSprite(AnimatedSprite.IDLE, idle, 0.75f);
         anim.addState(AnimatedSprite.GAME_PLAY, play);
         anim.addState(AnimatedSprite.GAME_STOP, stop);
+        anim.addState(AnimatedSprite.GAME_UNDER_CONSTRUCTION, construction);
         return new Shop(world, anim, position, SIZE, FOOD_COST);
     }
 

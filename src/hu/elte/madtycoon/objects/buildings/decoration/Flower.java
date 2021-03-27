@@ -28,9 +28,6 @@ public class Flower extends Decoration
         return .25F;
     }
 
-    @Override
-    protected void start() { }
-
 
     public static Flower Create(World world, Vector2F position)
     {

@@ -36,7 +36,10 @@ public class Road extends Building
     public void onDestroy() {}
 
     @Override
-    protected void start() {}
+    protected void start()
+    {
+        //TODO We want to ignore the construction for now
+    }
 
     public boolean isInside()
     {

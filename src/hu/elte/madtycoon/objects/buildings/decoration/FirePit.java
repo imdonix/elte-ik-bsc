@@ -27,9 +27,6 @@ public class FirePit extends Decoration
         return .5F;
     }
 
-    @Override
-    protected void start() { }
-
 
     public static FirePit Create(World world, Vector2F position)
     {
