@@ -6,10 +6,7 @@ import hu.elte.madtycoon.objects.entities.Visitor;
 import hu.elte.madtycoon.objects.Game;
 import hu.elte.madtycoon.task.SmartGoTask;
 import hu.elte.madtycoon.task.utils.LeavePark;
-import hu.elte.madtycoon.utils.exception.GameFullException;
-import hu.elte.madtycoon.utils.exception.GameUnderConstruction;
-import hu.elte.madtycoon.utils.exception.NoCoverageException;
-import hu.elte.madtycoon.utils.exception.NoWorkerInDuty;
+import hu.elte.madtycoon.utils.exception.*;
 
 public class GoShop extends SmartGoTask<Entity, Shop>
 {
@@ -33,6 +30,8 @@ public class GoShop extends SmartGoTask<Entity, Shop>
         } catch (NoWorkerInDuty e){
             System.out.println("No worker in duty");
             entity.setTask(new LeavePark(entity));
+        } catch (BuildingDestroyed buildingDestroyed) {
+            System.out.println("Building no longer exits");
         }
     }
 
