@@ -71,7 +71,7 @@ public class PopWindow extends JFrame{
         objText.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
         objText.setEditable(false);
 
-        String text = "\nHealth :      " + sb.getHealth();
+        String text = "\nHealth :      " + getNiceHealth(sb.getHealth());
 
         objText.setText(text);
         objText.setForeground(Color.decode("#1c1710"));
@@ -104,5 +104,11 @@ public class PopWindow extends JFrame{
         this.add(exit,BorderLayout.PAGE_START);
         this.add(panel,BorderLayout.CENTER);
         this.setVisible(true);
+    }
+
+
+    private String getNiceHealth(float health)
+    {
+        return String.format("%d%%", (int) (health * 100));
     }
 }

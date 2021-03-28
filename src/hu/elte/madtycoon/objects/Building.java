@@ -4,6 +4,7 @@ import hu.elte.madtycoon.core.World;
 import hu.elte.madtycoon.objects.entities.RepairMan;
 import hu.elte.madtycoon.render.AnimatedSprite;
 import hu.elte.madtycoon.utils.Random;
+import hu.elte.madtycoon.utils.Utils;
 import hu.elte.madtycoon.utils.Vector2F;
 import hu.elte.madtycoon.utils.Vector2I;
 import hu.elte.madtycoon.utils.exception.JobAlreadyTaken;
@@ -98,7 +99,7 @@ public abstract class Building extends GameObject
 
     protected void damage(float dmg)
     {
-        health -= dmg;
+        health = Utils.clamp(0,1, health - dmg);
         if(!isWorking()) {
             world.getEmotes().popSpecial(this, AnimatedSprite.NEED_REPAIR);
             getSprite().setState(AnimatedSprite.GAME_STOP);

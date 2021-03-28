@@ -16,8 +16,8 @@ import java.util.Queue;
 public abstract class Game extends Building
 {
     public static final float DESTROY_RELEASE_PENALTY = -.3f;
-    public static final float DMG_MAX = 1F;
-    public static final float DMG_MIN = .5F;
+    public static final float DMG_MAX = .1F;
+    public static final float DMG_MIN = .05F;
 
     private final Queue <Visitor> queue;
     private final int max;
@@ -117,8 +117,4 @@ public abstract class Game extends Building
 
     protected abstract float getPlayPeriod();
 
-    @Override
-    protected void damage(float dmg) {
-        super.damage(dmg);
-    }
 }
