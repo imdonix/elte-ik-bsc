@@ -64,7 +64,7 @@ public class Entrance extends Building
         if(timer >  SPAWN_TIME)
         {
             float decor = world.getDecoration() / 5F;
-            int max = (int) (MVPD * decor);
+            int max = (int) (MVPD  * decor);
             int visitorToSpawn = (int) (MVSPM * decor);
             int visitorCount = world.getVisitors().size();
 
