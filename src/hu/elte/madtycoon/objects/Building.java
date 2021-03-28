@@ -71,7 +71,7 @@ public abstract class Building extends GameObject
 
     public boolean isWorking()
     {
-        return health > 0;
+        return health > 0 && constructed;
     }
 
     public boolean isRepairNeeded()

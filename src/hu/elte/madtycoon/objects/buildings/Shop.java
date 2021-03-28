@@ -37,9 +37,10 @@ public class Shop extends Building
         this.employee = null;
     }
 
-    public void work(ShopAssistant employee) throws JobAlreadyTaken
+    public void work(ShopAssistant employee) throws JobAlreadyTaken, GameUnderConstruction
     {
         if(this.employee != null) throw new JobAlreadyTaken();
+        if(!isWorking()) throw new GameUnderConstruction();
 
         this.employee = employee;
         this.sprite.setState(AnimatedSprite.IDLE);
@@ -73,6 +74,7 @@ public class Shop extends Building
     protected void start()
     {
         construction(AnimatedSprite.GAME_STOP);
+        world.instantiate(ShopAssistant.Create(world, world.getEntrance().getTargetPosition()));
     }
 
     @Override

@@ -25,6 +25,10 @@ public class Work extends SmartGoTask<ShopAssistant, Shop>
         {
             System.out.println(String.format("%s job is no longer available!", entity));
         }
+        catch (GameUnderConstruction gameUnderConstruction)
+        {
+            System.out.println(String.format("%s building is under construction!", entity));
+        }
     }
 
     @Override
