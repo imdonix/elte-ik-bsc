@@ -1,6 +1,5 @@
 package hu.elte.madtycoon.objects;
 
-import com.sun.xml.internal.bind.v2.TODO;
 import hu.elte.madtycoon.core.World;
 import hu.elte.madtycoon.objects.entities.RepairMan;
 import hu.elte.madtycoon.render.AnimatedSprite;
