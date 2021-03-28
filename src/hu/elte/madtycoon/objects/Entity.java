@@ -45,7 +45,7 @@ public abstract class Entity extends GameObject {
             world.getEmotes().pop(this, AnimatedSprite.VISITOR_SAD);
 
         this.interest += interest;
-        this.interest = Utils.clap(0,1,this.interest);
+        this.interest = Utils.clamp(0,1,this.interest);
     }
 
     public void addFood(float food)
@@ -54,7 +54,7 @@ public abstract class Entity extends GameObject {
             world.getEmotes().pop(this, AnimatedSprite.VISITOR_FOOD);
 
         this.food += food;
-        this.food = Utils.clap(0,1,this.food);
+        this.food = Utils.clamp(0,1,this.food);
     }
 
     @Override

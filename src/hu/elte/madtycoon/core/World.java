@@ -1,15 +1,16 @@
 package hu.elte.madtycoon.core;
 
 import hu.elte.madtycoon.objects.Building;
+import hu.elte.madtycoon.objects.buildings.Entrance;
 import hu.elte.madtycoon.objects.buildings.games.CoinFlip;
 import hu.elte.madtycoon.objects.buildings.Road;
 import hu.elte.madtycoon.objects.buildings.Shop;
-import hu.elte.madtycoon.objects.entities.ShopAssistant;
-import hu.elte.madtycoon.objects.entities.Visitor;
 import hu.elte.madtycoon.objects.Entity;
 import hu.elte.madtycoon.objects.Game;
 import hu.elte.madtycoon.objects.GameObject;
+import hu.elte.madtycoon.objects.entities.Visitor;
 import hu.elte.madtycoon.render.SpriteRenderBuffer;
+import hu.elte.madtycoon.utils.Utils;
 import hu.elte.madtycoon.utils.Vector2F;
 import hu.elte.madtycoon.utils.Vector2I;
 
@@ -20,7 +21,7 @@ public class World
 {
     public static int DEFAULT_ENTRANCE_COST = 50;
     public static int DEFAULT_START_MONEY = 300000;
-    public static Vector2I ENTRANCE_POINT = new Vector2I(Engine.GAME_SIZE_X/2,Engine.GAME_SIZE_Y - 1);
+    public static Vector2I ENTRANCE_POINT = new Vector2I(Engine.GAME_SIZE_X/2 + 2,Engine.GAME_SIZE_Y - 2);
 
     private final List<Entity> entities;
     private final List<Building> buildings;
@@ -29,6 +30,7 @@ public class World
     private final RoadSystem roadSystem;
     private final Coroutines coroutines;
 
+    private Entrance entrance;
     private int money;
     private int entranceCost;
 
@@ -47,12 +49,7 @@ public class World
 
     private void start()
     {
-        instantiate(Road.Create(this, new Vector2F( ENTRANCE_POINT)));
-
-
-        instantiate(CoinFlip.Create(this, new Vector2F(5,5)));
-        instantiate(CoinFlip.Create(this, new Vector2F(10,5))).getSprite().setRotation(true);
-        instantiate(Shop.Create(this, new Vector2F(20,5))).getSprite().setRotation(true);
+        entrance = (Entrance) instantiate(Entrance.Create(this));
     }
 
     public void update(float dt)
@@ -113,6 +110,8 @@ public class World
     public RoadSystem getRoadSystem(){ return roadSystem; }
 
     public Coroutines getCoroutines(){ return coroutines; }
+
+    public Entrance getEntrance(){ return entrance; }
 
     public int getMoney()
     {
@@ -185,8 +184,8 @@ public class World
     {
         float sum = 0;
         for(Building building : buildings)
-            sum+= building.getDecorationValue();
-        return sum;
+            sum += building.getDecorationValue();
+        return Utils.clamp(1,5, sum);
     }
 
     public List<Building> getBuildings() {return new LinkedList<Building>(buildings);}
@@ -214,6 +213,14 @@ public class World
         for(Building building : buildings)
             if(building instanceof Shop)
                 tmp.add((Shop) building);
+        return tmp;
+    }
+
+    public List<Visitor> getVisitors(){
+        List<Visitor> tmp = new LinkedList<>();
+        for(Entity entity : entities)
+            if(entity instanceof Visitor)
+                tmp.add((Visitor) entity);
         return tmp;
     }
 

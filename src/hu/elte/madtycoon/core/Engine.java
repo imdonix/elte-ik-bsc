@@ -6,7 +6,6 @@ import hu.elte.madtycoon.ui.HUD;
 import hu.elte.madtycoon.ui.IEngine;
 import hu.elte.madtycoon.utils.Utils;
 import hu.elte.madtycoon.utils.Vector2I;
-import hu.elte.madtycoon.utils.exception.NoCoverageException;
 
 import javax.swing.*;
 import java.awt.*;
@@ -132,7 +131,7 @@ public class Engine extends JFrame implements IEngine
     @Override
     public void setTimeScale(float scale)
     {
-        timeScale = Utils.clap(0,5, scale);
+        timeScale = Utils.clamp(0,5, scale);
     }
 
     @Override

@@ -13,7 +13,7 @@ public class LeavePark extends SmartGoTask
 
     public LeavePark(Entity entity)
     {
-        super(entity, () -> new Vector2F(World.ENTRANCE_POINT));
+        super(entity, entity.getWorld().getEntrance());
         this.world = entity.getWorld();
     }
 
