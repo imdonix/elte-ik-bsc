@@ -7,7 +7,7 @@ stages:
 
 before_script:
   - apt-get update -yqq
-  - apt-get install -yqq openjdk-15-jdk ant junit4
+  - apt-get install -yqq openjdk-8-jdk ant junit4
 
 build:
   stage: build
