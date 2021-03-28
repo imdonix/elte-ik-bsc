@@ -1,0 +1,33 @@
+image: ubuntu:18.04
+
+stages:
+  - build
+  - test
+  - zip
+
+before_script:
+  - apt-get update -yqq
+  - apt-get install -yqq openjdk-8-jdk ant junit4
+
+build:
+  stage: build
+  script:
+    - ant compileTest
+
+test:
+  stage: test
+  script:
+    - >
+      ant test
+      -Dlibs.junit_4.classpath=/usr/share/java/junit4.jar
+      -Dlibs.hamcrest.classpath=/usr/share/java/hamcrest-core.jar
+
+zip:
+  stage: build
+  script:
+    - ant compile
+    - ant zip
+  artifacts:
+    paths:
+      - build/mad-tycoon.zip
+    expire_in: 1 week
