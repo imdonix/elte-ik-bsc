@@ -12,7 +12,7 @@ public class Vector2FTest
     public void addTest()
     {
         Vector2F v = new Vector2F(1,1);
-        assertEquals(v.add(v).length(), new Vector2F(2,1).length(), E);
+        assertEquals(v.add(v).length(), new Vector2F(2,2).length(), E);
     }
 
 }
