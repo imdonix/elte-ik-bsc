@@ -60,7 +60,7 @@
     </target>
 
     <target name="zip" depends="jar">
-        <zip basedir="${build}" destfile="${build}/mad-tycoon-${version}.zip" />
+        <zip basedir="${build}" destfile="${build}/mad-tycoon.zip" />
     </target>
 
 
