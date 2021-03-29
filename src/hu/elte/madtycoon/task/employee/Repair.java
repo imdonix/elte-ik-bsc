@@ -1,13 +1,14 @@
 package hu.elte.madtycoon.task.employee;
 
 import hu.elte.madtycoon.objects.Building;
+import hu.elte.madtycoon.objects.Game;
 import hu.elte.madtycoon.objects.entities.RepairMan;
 import hu.elte.madtycoon.task.SmartGoTask;
 import hu.elte.madtycoon.utils.exception.JobAlreadyTaken;
 
-public class Repair extends SmartGoTask<RepairMan, Building> {
+public class Repair extends SmartGoTask<RepairMan, Game> {
 
-    public Repair(RepairMan entity, Building target) {
+    public Repair(RepairMan entity, Game target) {
         super(entity, target);
     }
 
@@ -27,7 +28,7 @@ public class Repair extends SmartGoTask<RepairMan, Building> {
     @Override
     protected void fail()
     {
-        System.out.println(String.format("%s cant reach the building!", entity));
+        System.out.println(String.format("%s cant reach the Game!", entity));
         //TODO pop emote for building cant be reach
     }
 }
