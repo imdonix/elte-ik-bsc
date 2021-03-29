@@ -2,11 +2,11 @@ package hu.elte.madtycoon.objects.entities;
 
 import hu.elte.madtycoon.core.World;
 import hu.elte.madtycoon.objects.Building;
+import hu.elte.madtycoon.objects.Game;
 import hu.elte.madtycoon.objects.Worker;
 import hu.elte.madtycoon.render.AnimatedSprite;
 import hu.elte.madtycoon.task.Task;
 import hu.elte.madtycoon.task.employee.Repair;
-import hu.elte.madtycoon.task.utils.LeavePark;
 import hu.elte.madtycoon.utils.Random;
 import hu.elte.madtycoon.utils.Vector2F;
 
@@ -43,12 +43,12 @@ public class RepairMan extends Worker {
 
     @Override
     protected Task getNewTask() {
-        List<Building> buildings = getBuildingsWithLowHealth();
+        List<Game> games = getGamesWithLowHealth();
 
-        System.out.println(buildings.size());
+        System.out.println(games.size());
 
-        if(buildings.size() > 0) {
-            return new Repair(this, findNearestBuilding(buildings));
+        if(games.size() > 0) {
+            return new Repair(this, (findNearestGame(games)));
         } else {
             System.out.println(String.format("%s can't be employed!", this));
             return super.getNewTask();
@@ -58,23 +58,23 @@ public class RepairMan extends Worker {
     @Override
     public void onDestroy() { }
 
-    private List<Building> getBuildingsWithLowHealth()
-    {
-        List<Building> tmp = new LinkedList<>();
-        for(Building building : world.getBuildings()) {
-            if(building.isRepairNeeded()) {
-                tmp.add(building);
+    private List<Game> getGamesWithLowHealth() {
+        List<Game> tmp = new LinkedList<>();
+        for(Game game : world.getGames()) {
+            if(game.isRepairNeeded()) {
+                tmp.add(game);
             }
         }
         return tmp;
     }
 
-    protected Building findNearestBuilding(List<Building> buildings)
-    {
-        Building min = buildings.get(0);
-        for(Building building : buildings)
-            if(min.getPosition().distance(getPosition()) > building.getPosition().distance(getPosition()))
-                min = building;
+    private Game findNearestGame(List<Game> games) {
+        Game min = null;
+        for(Game game : games)
+            if(game.isOpened())
+                if(min == null || min.getPosition().distance(position) > game.getPosition().distance(position))
+                    min = game;
         return min;
+
     }
 }

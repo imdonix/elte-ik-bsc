@@ -19,7 +19,7 @@ public abstract class Building extends GameObject
     private boolean opened;
     private boolean constructed;
 
-    private RepairMan employee;
+    private Worker employee;
 
     public Building(World world, AnimatedSprite sprite, Vector2F position, Vector2I size) {
         super(world, sprite, position);
@@ -80,7 +80,7 @@ public abstract class Building extends GameObject
     }
 
 
-    public void repair(RepairMan employee) throws JobAlreadyTaken
+    public void repair(Worker employee) throws JobAlreadyTaken
     {
         if(this.employee != null) throw new JobAlreadyTaken();
 
