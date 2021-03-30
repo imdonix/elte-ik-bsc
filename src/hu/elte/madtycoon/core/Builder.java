@@ -9,7 +9,7 @@ import hu.elte.madtycoon.objects.buildings.decoration.Stick;
 import hu.elte.madtycoon.objects.buildings.games.CoinFlip;
 import hu.elte.madtycoon.objects.buildings.games.GhostCastle;
 import hu.elte.madtycoon.objects.buildings.games.RoundAbout;
-import hu.elte.madtycoon.ui.PopWindow;
+import hu.elte.madtycoon.ui.core.GamePanel;
 import hu.elte.madtycoon.utils.BuildReference;
 import hu.elte.madtycoon.utils.BuilderState;
 import hu.elte.madtycoon.utils.Vector2F;
@@ -119,7 +119,7 @@ public class Builder
         Building sb = world.collisionCheck(selected, Vector2I.ONE);
         if(sb != null)
         {
-            PopWindow window = new PopWindow(sb,world);
+            GamePanel window = new GamePanel();
         }
     }
 

@@ -1,60 +1,48 @@
-package hu.elte.madtycoon.ui;
+package hu.elte.madtycoon.ui.core;
 
 import hu.elte.madtycoon.core.Resources;
 import hu.elte.madtycoon.core.World;
 import hu.elte.madtycoon.objects.Building;
 import hu.elte.madtycoon.objects.GameObject;
+import javafx.scene.shape.Box;
 
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
+import java.util.Random;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
 
-public class PopWindow extends JFrame{
-    private final JButton exit;
-    private JPanel panel;
-    private World world;
+public class GamePanel extends JFrame
+{
+    private final JPanel panel;
 
-    public PopWindow(){
-
+    public GamePanel()
+    {
         this.setUndecorated(true);
+        this.panel = new ShowPanel();
 
-        exit = new JButton();
-        exit.setMargin(new Insets(25, 1100, 0, 0));
-        exit.setOpaque(false);
-        exit.setContentAreaFilled(false);
-        exit.setBorderPainted(false);
-        exit.addActionListener(e -> this.dispose());
-        exit.setIcon(new ImageIcon(Resources.Instance.gameExitButton));
+        this.setContentPane(panel);
 
-        this.setPreferredSize(new Dimension(1220,773));
-        this.setResizable(false);
+        this.setPreferredSize(new Dimension(1220, 773));
         this.pack();
-        this.setContentPane(new JPanel() {
-            @Override
-            public void paintComponent(Graphics g) {
-                super.paintComponent(g);
-                g.drawImage(Resources.Instance.shopBackGroundImage, 0, 0, this);
-            }
-        });
+        this.setResizable(false);
         this.setLocationRelativeTo(null);
-        this.add(exit);
         this.setVisible(true);
     }
 
-    public PopWindow(Building sb, World world){
+
+    private String floatToPercent(float health)
+    {
+        return String.format("%d%%", (int) (health * 100));
+    }
+
+    @Deprecated
+    public GamePanel(Building sb, World world){
 
         this.setUndecorated(true);
         this.setLayout(new BorderLayout());
-        exit = new JButton();
-        exit.setMargin(new Insets(25, 1100, 0, 0));
-        exit.setOpaque(false);
-        exit.setContentAreaFilled(false);
-        exit.setBorderPainted(false);
-        exit.addActionListener(e -> this.dispose());
-        exit.setIcon(new ImageIcon(Resources.Instance.gameExitButton));
 
         panel = new JPanel();
         panel.setLayout(new BorderLayout());
@@ -71,7 +59,7 @@ public class PopWindow extends JFrame{
         objText.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
         objText.setEditable(false);
 
-        String text = "\nHealth :      " + getNiceHealth(sb.getHealth());
+        String text = "\nHealth :      ";
 
         objText.setText(text);
         objText.setForeground(Color.decode("#1c1710"));
@@ -87,7 +75,9 @@ public class PopWindow extends JFrame{
             this.dispose();
         });
         panel.add(delete,BorderLayout.PAGE_END);
-        panel.add(objText, BorderLayout.CENTER);
+        panel.add(objText);
+        panel.add(objText);
+        panel.add(objText);
         panel.add(objName, BorderLayout.NORTH);
 
         this.setPreferredSize(new Dimension(1220,773));
@@ -101,14 +91,8 @@ public class PopWindow extends JFrame{
             }
         });
         this.setLocationRelativeTo(null);
-        this.add(exit,BorderLayout.PAGE_START);
         this.add(panel,BorderLayout.CENTER);
         this.setVisible(true);
     }
 
-
-    private String getNiceHealth(float health)
-    {
-        return String.format("%d%%", (int) (health * 100));
-    }
 }
