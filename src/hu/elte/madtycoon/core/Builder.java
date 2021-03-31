@@ -9,7 +9,9 @@ import hu.elte.madtycoon.objects.buildings.decoration.Stick;
 import hu.elte.madtycoon.objects.buildings.games.CoinFlip;
 import hu.elte.madtycoon.objects.buildings.games.GhostCastle;
 import hu.elte.madtycoon.objects.buildings.games.RoundAbout;
-import hu.elte.madtycoon.ui.PopWindow;
+import hu.elte.madtycoon.ui.components.building.*;
+import hu.elte.madtycoon.ui.core.Preview;
+import hu.elte.madtycoon.ui.core.PreviewFrame;
 import hu.elte.madtycoon.utils.BuildReference;
 import hu.elte.madtycoon.utils.BuilderState;
 import hu.elte.madtycoon.utils.Vector2F;
@@ -32,7 +34,7 @@ public class Builder
     private BuilderState state;
     private Vector2I selected;
     private BuildReference reference;
-
+    private PreviewFrame preview;
 
     public Builder(World world)
     {
@@ -80,6 +82,7 @@ public class Builder
         setState(state, null);
     }
 
+    public void updateGUI() { if(preview!=null) preview.update();}
 
     //INTERFACE
 
@@ -119,7 +122,7 @@ public class Builder
         Building sb = world.collisionCheck(selected, Vector2I.ONE);
         if(sb != null)
         {
-            PopWindow window = new PopWindow(sb,world);
+            this.preview = new PreviewFrame(sb.getPreview());
         }
     }
 

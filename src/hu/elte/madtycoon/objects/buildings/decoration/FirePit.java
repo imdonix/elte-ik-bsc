@@ -27,6 +27,8 @@ public class FirePit extends Decoration
         return .5F;
     }
 
+    @Override
+    public String getName() { return "Fire Pit"; }
 
     public static FirePit Create(World world, Vector2F position)
     {

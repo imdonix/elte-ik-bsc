@@ -9,10 +9,12 @@ import hu.elte.madtycoon.objects.entities.Visitor;
 import hu.elte.madtycoon.objects.Game;
 import hu.elte.madtycoon.render.AnimatedSprite;
 import hu.elte.madtycoon.render.AnimationResource;
-import hu.elte.madtycoon.utils.BuildReference;
-import hu.elte.madtycoon.utils.Random;
-import hu.elte.madtycoon.utils.Vector2F;
-import hu.elte.madtycoon.utils.Vector2I;
+import hu.elte.madtycoon.ui.components.building.OpenComponent;
+import hu.elte.madtycoon.ui.components.building.SetComponent;
+import hu.elte.madtycoon.ui.components.building.ToggleComponent;
+import hu.elte.madtycoon.ui.components.building.WorkingComponent;
+import hu.elte.madtycoon.ui.core.Preview;
+import hu.elte.madtycoon.utils.*;
 import hu.elte.madtycoon.utils.exception.*;
 
 import java.awt.image.BufferedImage;
@@ -24,7 +26,9 @@ public class Shop extends Building
     public final static Vector2I SIZE = new Vector2I(5,3);
     public final static Vector2I ENTRANCE = new Vector2I(-2,1);
     public final static int PRICE = 100;
-    public final static int FOOD_COST = 100;
+    public final static int DEFAULT_FOOD_COST = 20;
+    public final static int MAX_FOOD_COST = 50;
+    public final static int MIN_FOOD_COST = 10;
 
     private ShopAssistant employee;
     private int foodCost;
@@ -35,6 +39,16 @@ public class Shop extends Building
         super(world, sprite, position, size);
         this.foodCost = foodCost;
         this.employee = null;
+    }
+
+    public int getFoodCost()
+    {
+        return foodCost;
+    }
+
+    public void setFoodCost(int foodCost)
+    {
+        this.foodCost = Utils.clamp(MIN_FOOD_COST, MAX_FOOD_COST, foodCost);
     }
 
     public void work(ShopAssistant employee) throws JobAlreadyTaken
@@ -86,6 +100,18 @@ public class Shop extends Building
         return super.getTargetPosition().add(new Vector2F(ENTRANCE));
     }
 
+    @Override
+    public String getName() { return "Shop"; }
+
+    @Override
+    public Preview getPreview() {
+        Preview preview = super.getPreview();
+        preview.addContent(new OpenComponent(this));
+        preview.addContent(new WorkingComponent(this));
+        preview.addContent(new SetComponent("Food cost", this::getFoodCost, this::setFoodCost));
+        preview.addAction(new ToggleComponent(this::isOpened, this::setOpened));
+        return preview;
+    }
 
     public static Shop Create(World world, Vector2F position)
     {
@@ -97,7 +123,7 @@ public class Shop extends Building
         anim.addState(AnimatedSprite.GAME_PLAY, play);
         anim.addState(AnimatedSprite.GAME_STOP, stop);
         anim.addState(AnimatedSprite.GAME_UNDER_CONSTRUCTION, construction);
-        return new Shop(world, anim, position, SIZE, FOOD_COST);
+        return new Shop(world, anim, position, SIZE, DEFAULT_FOOD_COST);
     }
 
     public static void AddReference()

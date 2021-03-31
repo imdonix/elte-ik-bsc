@@ -60,6 +60,8 @@ public class CoinFlip extends Game
         return super.getTargetPosition().add(new Vector2F(ENTRANCE));
     }
 
+    @Override
+    public String getName() { return "Coin Flip"; }
 
     public static CoinFlip Create(World world, Vector2F position)
     {

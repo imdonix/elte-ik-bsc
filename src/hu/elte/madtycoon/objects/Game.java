@@ -5,7 +5,13 @@ import hu.elte.madtycoon.objects.buildings.Shop;
 import hu.elte.madtycoon.objects.entities.ShopAssistant;
 import hu.elte.madtycoon.objects.entities.Visitor;
 import hu.elte.madtycoon.render.AnimatedSprite;
+import hu.elte.madtycoon.ui.components.building.OpenComponent;
+import hu.elte.madtycoon.ui.components.building.SetComponent;
+import hu.elte.madtycoon.ui.components.building.ToggleComponent;
+import hu.elte.madtycoon.ui.components.building.WorkingComponent;
+import hu.elte.madtycoon.ui.core.Preview;
 import hu.elte.madtycoon.utils.Random;
+import hu.elte.madtycoon.utils.Utils;
 import hu.elte.madtycoon.utils.Vector2F;
 import hu.elte.madtycoon.utils.Vector2I;
 import hu.elte.madtycoon.utils.exception.*;
@@ -35,7 +41,7 @@ public abstract class Game extends Building
 
     public void setUseCost(int useCost)
     {
-        this.useCost = useCost;
+        this.useCost = Utils.clamp(20, 200, useCost);
     }
 
     public int getUseCost()
@@ -84,6 +90,16 @@ public abstract class Game extends Building
     public void onDestroy()
     {
         releaseVisitors(true);
+    }
+
+    @Override
+    public Preview getPreview() {
+        Preview preview = super.getPreview();
+        preview.addContent(new SetComponent("Use cost", this::getUseCost, this::setUseCost));
+        preview.addContent(new OpenComponent(this));
+        preview.addContent(new WorkingComponent(this));
+        preview.addAction(new ToggleComponent(this::isOpened, this::setOpened));
+        return preview;
     }
 
     private void reset()

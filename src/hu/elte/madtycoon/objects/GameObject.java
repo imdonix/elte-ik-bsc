@@ -46,6 +46,11 @@ public abstract class GameObject implements ITargetable
             buffer.add(new LayeredSprite(sprite.getSprite(), getRenderLayer(), getRenderPosition()));
     }
 
+    public void destroy()
+    {
+        world.destroy(this);
+    }
+
     public final Vector2F getPosition()
     {
         return position;

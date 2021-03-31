@@ -53,6 +53,9 @@ public class Resources
     public BufferedImage firePitBuyButton;
 
     public BufferedImage destroyButton;
+    public BufferedImage openCloseButton;
+    public BufferedImage plusButton;
+    public BufferedImage minusButton;
 
     public Font chBell;
 
@@ -126,6 +129,9 @@ public class Resources
 
     private void loadPopWindow() throws IOException
     {
-        destroyButton = ImageIO.read(new File("res/menu/destroy_button.png"));
+        destroyButton = ImageIO.read(new File("res/menu/show/destroy_button.png"));
+        openCloseButton = ImageIO.read(new File("res/menu/show/openclose_button.png"));
+        plusButton = ImageIO.read(new File("res/menu/show/plus_button.png"));
+        minusButton = ImageIO.read(new File("res/menu/show/minus_button.png"));
     }
 }
