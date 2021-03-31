@@ -26,7 +26,7 @@ public class Play extends SmartGoTask<Visitor, Game>
         }
         catch (GameUnderConstruction e)
         {
-            System.out.println(String.format("%s reached game, but it's under construction now", entity));
+            System.out.println(String.format("%s reached game, but it's under construction now or playing", entity));
             //entity.addVisited(target);
         }
         catch (BuildingDestroyed buildingDestroyed)
