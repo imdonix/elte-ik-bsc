@@ -28,6 +28,8 @@ public class Flower extends Decoration
         return .25F;
     }
 
+    @Override
+    public String getName() { return "Flower"; }
 
     public static Flower Create(World world, Vector2F position)
     {

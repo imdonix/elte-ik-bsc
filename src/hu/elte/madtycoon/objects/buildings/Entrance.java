@@ -5,6 +5,11 @@ import hu.elte.madtycoon.objects.Building;
 import hu.elte.madtycoon.objects.entities.Visitor;
 import hu.elte.madtycoon.render.AnimatedSprite;
 import hu.elte.madtycoon.render.AnimationResource;
+import hu.elte.madtycoon.ui.components.building.DecorationComponent;
+import hu.elte.madtycoon.ui.components.building.OpenComponent;
+import hu.elte.madtycoon.ui.components.building.SetComponent;
+import hu.elte.madtycoon.ui.components.building.ToggleComponent;
+import hu.elte.madtycoon.ui.core.Preview;
 import hu.elte.madtycoon.utils.Utils;
 import hu.elte.madtycoon.utils.Vector2F;
 import hu.elte.madtycoon.utils.Vector2I;
@@ -33,6 +38,16 @@ public class Entrance extends Building
         this.timer = 0;
         this.entranceCost = DEFAULT_ENTRANCE_COST;
         this.constructed = true;
+    }
+
+    public int getEntranceCost()
+    {
+        return entranceCost;
+    }
+
+    public void setEntranceCost(int entranceCost)
+    {
+        this.entranceCost = Utils.clamp(MIN_ENTRANCE_COST, MAX_ENTRANCE_COST, entranceCost);
     }
 
     @Override
@@ -66,6 +81,20 @@ public class Entrance extends Building
         //TODO add prevent destroy
     }
 
+    @Override
+    public String getName() { return "Entrance"; }
+
+
+    @Override
+    public Preview getPreview() {
+        Preview preview = new Preview(getName());
+        preview.addContent(new OpenComponent(this));
+        preview.addContent(new DecorationComponent(this));
+        preview.addContent(new SetComponent("Entrance cost", this::getEntranceCost, this::setEntranceCost));
+        preview.addAction(new ToggleComponent(this::isOpened, this::setOpened));
+        return preview;
+    }
+
     private void spawn()
     {
         if(timer >  SPAWN_TIME && isOpened())
@@ -83,16 +112,6 @@ public class Entrance extends Building
 
             timer = 0;
         }
-    }
-
-    public int getEntranceCost()
-    {
-        return entranceCost;
-    }
-
-    public void setEntranceCost(int entranceCost)
-    {
-        this.entranceCost = Utils.clamp(MIN_ENTRANCE_COST, MAX_ENTRANCE_COST, entranceCost);
     }
 
     public static Entrance Create(World world)

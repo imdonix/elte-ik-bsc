@@ -3,6 +3,10 @@ package hu.elte.madtycoon.objects;
 import hu.elte.madtycoon.core.World;
 import hu.elte.madtycoon.objects.entities.RepairMan;
 import hu.elte.madtycoon.render.AnimatedSprite;
+import hu.elte.madtycoon.ui.components.building.DecorationComponent;
+import hu.elte.madtycoon.ui.components.building.DestroyComponent;
+import hu.elte.madtycoon.ui.components.building.HealthComponent;
+import hu.elte.madtycoon.ui.core.Preview;
 import hu.elte.madtycoon.utils.Random;
 import hu.elte.madtycoon.utils.Utils;
 import hu.elte.madtycoon.utils.Vector2F;
@@ -106,8 +110,6 @@ public abstract class Building extends GameObject
         }
     }
 
-    public abstract float getDecorationValue();
-
     protected void construction(String startState)
     {
         constructed = false;
@@ -122,4 +124,17 @@ public abstract class Building extends GameObject
         });
     }
 
+    public Preview getPreview()
+    {
+        Preview preview = new Preview(getName());
+        preview.addAction(new DestroyComponent(this));
+        preview.addContent(new HealthComponent(this));
+        preview.addContent(new DecorationComponent(this));
+
+        return preview;
+    }
+
+    public abstract float getDecorationValue();
+
+    public abstract String getName();
 }

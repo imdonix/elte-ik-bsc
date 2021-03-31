@@ -122,21 +122,7 @@ public class Builder
         Building sb = world.collisionCheck(selected, Vector2I.ONE);
         if(sb != null)
         {
-            Preview preview = new Preview("Test Elek");
-            preview.addAction(new DestroyComponent(sb));
-            preview.addAction(new ToggleComponent(sb::isOpened, sb::setOpened));
-            preview.addContent(new HealthComponent(sb));
-            preview.addContent(new DecorationComponent(sb));
-            preview.addContent(new WorkingComponent(sb));
-            preview.addContent(new OpenComponent(sb));
-
-            if(sb instanceof Entrance)
-            {
-                Entrance e = (Entrance) sb;
-                preview.addContent(new SetComponent("Entrance cost" ,e::getEntranceCost, e::setEntranceCost));
-            }
-
-            this.preview = new PreviewFrame(preview);
+            this.preview = new PreviewFrame(sb.getPreview());
         }
     }
 
