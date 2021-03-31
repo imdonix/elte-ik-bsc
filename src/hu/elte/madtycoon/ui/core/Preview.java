@@ -1,5 +1,6 @@
 package hu.elte.madtycoon.ui.core;
 
+import hu.elte.madtycoon.ui.components.CloseComponent;
 import hu.elte.madtycoon.ui.components.PreviewActionComponent;
 import hu.elte.madtycoon.ui.components.PreviewComponent;
 
@@ -18,6 +19,7 @@ public class Preview
         this.name = name;
         this.content = new LinkedList<>();
         this.actions = new LinkedList<>();
+        actions.add(new CloseComponent());
     }
 
     public String getName()

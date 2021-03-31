@@ -32,6 +32,7 @@ public class Entrance extends Building
         super(world, sprite, new Vector2F(World.ENTRANCE_POINT).add(new Vector2F(SIZE).mul(1/2F).mul(-1)), SIZE);
         this.timer = 0;
         this.entranceCost = DEFAULT_ENTRANCE_COST;
+        this.constructed = true;
     }
 
     @Override
@@ -67,7 +68,7 @@ public class Entrance extends Building
 
     private void spawn()
     {
-        if(timer >  SPAWN_TIME)
+        if(timer >  SPAWN_TIME && isOpened())
         {
             float decor = world.getDecoration() / 5F;
             int max = (int) (MVPD * decor);

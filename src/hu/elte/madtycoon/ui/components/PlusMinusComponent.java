@@ -31,7 +31,6 @@ public abstract class PlusMinusComponent extends PreviewComponent
         rem.addActionListener((e) -> {
             minus();
             panel.render();
-
         });
 
         p.add(rem);

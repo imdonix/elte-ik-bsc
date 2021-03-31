@@ -34,7 +34,7 @@ public class Builder
     private BuilderState state;
     private Vector2I selected;
     private BuildReference reference;
-
+    private PreviewFrame preview;
 
     public Builder(World world)
     {
@@ -82,6 +82,7 @@ public class Builder
         setState(state, null);
     }
 
+    public void updateGUI() { if(preview!=null) preview.update();}
 
     //INTERFACE
 
@@ -123,9 +124,11 @@ public class Builder
         {
             Preview preview = new Preview("Test Elek");
             preview.addAction(new DestroyComponent(sb));
+            preview.addAction(new ToggleComponent(sb::isOpened, sb::setOpened));
             preview.addContent(new HealthComponent(sb));
             preview.addContent(new DecorationComponent(sb));
             preview.addContent(new WorkingComponent(sb));
+            preview.addContent(new OpenComponent(sb));
 
             if(sb instanceof Entrance)
             {
@@ -133,8 +136,7 @@ public class Builder
                 preview.addContent(new SetComponent("Entrance cost" ,e::getEntranceCost, e::setEntranceCost));
             }
 
-            PreviewFrame window = new PreviewFrame(preview);
-
+            this.preview = new PreviewFrame(preview);
         }
     }
 

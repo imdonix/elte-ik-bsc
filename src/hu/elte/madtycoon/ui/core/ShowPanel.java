@@ -35,10 +35,13 @@ public class ShowPanel extends JPanel
     public void render()
     {
         removeAll();
+
         showTitle();
         showContent();
         showActionButtons();
-        revalidate();
+
+        invalidate();
+        validate();
         repaint();
     }
 

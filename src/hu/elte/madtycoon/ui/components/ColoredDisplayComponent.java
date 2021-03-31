@@ -1,6 +1,7 @@
 package hu.elte.madtycoon.ui.components;
 
 import hu.elte.madtycoon.core.Resources;
+import hu.elte.madtycoon.utils.IGetterT;
 
 import javax.swing.*;
 import java.awt.*;
@@ -8,14 +9,14 @@ import java.awt.*;
 public class ColoredDisplayComponent extends PreviewComponent
 {
     private final String property;
-    private final String value;
-    private final Color color;
+    private final IGetterT<String> valueGetter;
+    private final IGetterT<Color> colorGetter;
 
-    public ColoredDisplayComponent(String property, String value, Color color)
+    public ColoredDisplayComponent(String property, IGetterT<String> valueGetter, IGetterT<Color> colorGetter)
     {
         this.property = property;
-        this.value = value;
-        this.color = color;
+        this.valueGetter = valueGetter;
+        this.colorGetter = colorGetter;
     }
 
     @Override
@@ -33,8 +34,8 @@ public class ColoredDisplayComponent extends PreviewComponent
         text.setEditable(false);
 
         prop.setText(String.format("%s :  ", property));
-        text.setText(String.format("%s", value));
-        text.setBackground(color);
+        text.setText(String.format("%s", valueGetter.get()));
+        text.setBackground(colorGetter.get());
 
         text.setForeground(Color.decode("#1c1710"));
         prop.setForeground(Color.decode("#1c1710"));

@@ -17,7 +17,7 @@ public abstract class Building extends GameObject
     private Vector2I size;
     protected float health;
     private boolean opened;
-    private boolean constructed;
+    protected boolean constructed;
 
     private Worker employee;
 
@@ -51,7 +51,7 @@ public abstract class Building extends GameObject
 
 
     public boolean isOpened() {
-        return opened && constructed && health > 0;
+        return opened ;
     }
 
     public void setOpened(boolean opened)
@@ -71,7 +71,7 @@ public abstract class Building extends GameObject
 
     public boolean isWorking()
     {
-        return health > 0;
+        return opened && constructed && health > 0;
     }
 
     public boolean isRepairNeeded()

@@ -32,7 +32,7 @@ public class SetComponent extends PlusMinusComponent
     @Override
     public Component createComponent() {
         JPanel p = new JPanel();
-        DisplayComponent d = new DisplayComponent(property, intToDollar(getter.get()));
+        DisplayComponent d = new DisplayComponent(property, () -> intToDollar(getter.get()));
         p.setLayout(new FlowLayout());
         p.setOpaque(false);
 

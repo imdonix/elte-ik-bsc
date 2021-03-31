@@ -7,6 +7,6 @@ public class HealthComponent extends DisplayComponent
 {
     public HealthComponent(Building building)
     {
-        super("Health", floatToPercent(building.getHealth()).toString());
+        super("Health", () -> floatToPercent(building.getHealth()).toString());
     }
 }

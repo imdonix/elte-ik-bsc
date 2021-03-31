@@ -9,6 +9,6 @@ public class WorkingComponent extends ColoredDisplayComponent
 {
     public WorkingComponent(Building building)
     {
-        super("Working", building.isWorking() ? "Yes" : "No", building.isWorking() ? Color.GREEN : Color.RED );
+        super("Working",  () -> building.isWorking() ? "Yes" : "No",  () -> building.isWorking() ? Color.GREEN : Color.RED );
     }
 }

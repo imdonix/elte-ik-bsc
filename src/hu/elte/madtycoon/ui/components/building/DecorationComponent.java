@@ -7,6 +7,6 @@ public class DecorationComponent extends DisplayComponent
 {
     public DecorationComponent(Building building)
     {
-        super("Decoration", floatToDecoration(building.getDecorationValue()));
+        super("Decoration", () -> floatToDecoration(building.getDecorationValue()));
     }
 }
