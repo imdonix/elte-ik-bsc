@@ -72,7 +72,7 @@ public class RoundAbout extends Game {
     {
         Visitor[] players = getPlayers();
         for (Visitor player : players) {
-            player.addInterest(.4F);
+            player.addInterest(.6F);
         }
     }
 }

@@ -8,7 +8,7 @@ import hu.elte.madtycoon.utils.ISetter;
 import javax.swing.*;
 import java.awt.*;
 
-public class SetComponent extends PlusMinusComponent
+public class SetPercentComponent extends PlusMinusComponent
 {
     public static final int DELTA = 10;
 
@@ -16,7 +16,7 @@ public class SetComponent extends PlusMinusComponent
     private final ISetter setter;
     protected final String property;
 
-    public SetComponent(String property, IGetter getter, ISetter setter)
+    public SetPercentComponent(String property, IGetter getter, ISetter setter)
     {
         this.property = property;
         this.getter = getter;
@@ -32,7 +32,7 @@ public class SetComponent extends PlusMinusComponent
     @Override
     public Component createComponent() {
         JPanel p = new JPanel();
-        DisplayComponent d = new DisplayComponent(property, () -> intToDollar(getter.get()));
+        DisplayComponent d = new DisplayComponent(property, () -> String.format("%d%%", getter.get()));
         p.setLayout(new FlowLayout());
         p.setOpaque(false);
 

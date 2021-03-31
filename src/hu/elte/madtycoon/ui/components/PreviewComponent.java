@@ -34,7 +34,7 @@ public abstract class PreviewComponent
 
     public static String floatToDecoration(float decoration)
     {
-        return String.format("%.1f (", decoration);
+        return String.format("%.1f *", decoration);
     }
 
     public static String intToDollar(int money)

@@ -66,8 +66,11 @@ public class ShowPanel extends JPanel
         contentPanel.setOpaque(false);
         contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.Y_AXIS));
 
-        for(PreviewComponent comp : preview.getContent())
-            contentPanel.add(comp.build(this));
+        int size = preview.getContent().size();
+        for (int i = scrollIndex; i < scrollIndex + 6 && i < size; i++)
+            contentPanel.add(preview.getContent().get(i).build(this));
+
+
 
         add(contentPanel, BorderLayout.LINE_START);
     }
@@ -98,7 +101,7 @@ public class ShowPanel extends JPanel
         public void mouseWheelMoved(MouseWheelEvent e)
         {
             scrollIndex += e.getWheelRotation();
-            scrollIndex = Utils.clamp(0,50,scrollIndex);
+            scrollIndex = Utils.clamp(0,Math.max(preview.getContent().size()-6,0),scrollIndex);
             render();
         }
     }
