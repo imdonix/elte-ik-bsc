@@ -9,7 +9,10 @@ import hu.elte.madtycoon.objects.buildings.decoration.Stick;
 import hu.elte.madtycoon.objects.buildings.games.CoinFlip;
 import hu.elte.madtycoon.objects.buildings.games.GhostCastle;
 import hu.elte.madtycoon.objects.buildings.games.RoundAbout;
-import hu.elte.madtycoon.ui.core.GamePanel;
+import hu.elte.madtycoon.ui.components.building.DestroyComponent;
+import hu.elte.madtycoon.ui.components.building.HealthComponent;
+import hu.elte.madtycoon.ui.core.Preview;
+import hu.elte.madtycoon.ui.core.PreviewFrame;
 import hu.elte.madtycoon.utils.BuildReference;
 import hu.elte.madtycoon.utils.BuilderState;
 import hu.elte.madtycoon.utils.Vector2F;
@@ -119,7 +122,13 @@ public class Builder
         Building sb = world.collisionCheck(selected, Vector2I.ONE);
         if(sb != null)
         {
-            GamePanel window = new GamePanel();
+            Preview preview = new Preview("Test Elek");
+            preview.addAction(new DestroyComponent(sb));
+            preview.addContent(new HealthComponent(sb));
+
+
+            PreviewFrame window = new PreviewFrame(preview);
+
         }
     }
 

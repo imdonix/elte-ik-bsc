@@ -1,32 +1,55 @@
 package hu.elte.madtycoon.ui.core;
 
 import hu.elte.madtycoon.core.Resources;
+import hu.elte.madtycoon.ui.components.PreviewActionComponent;
+import hu.elte.madtycoon.ui.components.PreviewComponent;
+import hu.elte.madtycoon.utils.Utils;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.awt.event.MouseWheelEvent;
+import java.awt.event.MouseWheelListener;
 import java.util.Random;
 
-class ShowPanel extends JPanel
+public class ShowPanel extends JPanel
 {
 
-    public ShowPanel()
+    private final Preview preview;
+    private final JFrame frame;
+    private int scrollIndex;
+
+    public ShowPanel(JFrame frame, Preview preview)
     {
         super(new BorderLayout());
-        setOpaque(false);
-        setBorder(new EmptyBorder(120,75,75,75));
+        this.preview = preview;
+        this.frame = frame;
+        this.addMouseWheelListener(new Listener());
+        this.setOpaque(false);
+        this.setBorder(new EmptyBorder(120,75,75,75));
 
-
-        showTitle("Hello");
-        showContent();
-        showActionButtons();
-
+        render();
     }
 
 
-    private void showTitle(String title)
+    public void render()
     {
-        JLabel titleLabel = new JLabel(title);
+        removeAll();
+        showTitle();
+        showContent();
+        showActionButtons();
+        revalidate();
+        repaint();
+    }
+
+    public void dispose()
+    {
+        frame.dispose();
+    }
+
+    private void showTitle()
+    {
+        JLabel titleLabel = new JLabel(preview.getName());
         titleLabel.setHorizontalAlignment(0);
         titleLabel.setForeground(Color.decode("#1c1710"));
         titleLabel.setFont(Resources.Instance.chBell);
@@ -40,27 +63,8 @@ class ShowPanel extends JPanel
         contentPanel.setOpaque(false);
         contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.Y_AXIS));
 
-
-        Random rand = new Random();
-        for(int i = 0; i < 10; i++)
-        {
-            JPanel p = new JPanel();
-            p.setLayout(new FlowLayout());
-            p.setBackground(new Color(rand.nextInt(0xFFFFFF)));
-
-            for (int j = 0; j < 20; j++)
-            {
-                JLabel text = new JLabel(new Integer(j).toString());
-                text.setForeground(Color.decode("#1c1710"));
-                text.setFont(Resources.Instance.chBell);
-
-                p.add(text, j);
-            }
-
-
-            contentPanel.add(p, Component.LEFT_ALIGNMENT);
-
-        }
+        for(PreviewComponent comp : preview.getContent())
+            contentPanel.add(comp.build(this));
 
         add(contentPanel, BorderLayout.LINE_START);
     }
@@ -70,23 +74,29 @@ class ShowPanel extends JPanel
         JPanel actionPanel = new JPanel(new FlowLayout());
         actionPanel.setOpaque(false);
 
-        for(int i = 0; i < 5; i++)
-        {
-            JButton action = new JButton();
-            action.setOpaque(false);
-            action.setContentAreaFilled(false);
-            action.setBorderPainted(false);
-            action.setIcon(new ImageIcon(Resources.Instance.destroyButton));
-            actionPanel.add(action);
-        }
+        for(PreviewActionComponent comp : preview.getActions())
+            actionPanel.add(comp.build(this));
 
         add(actionPanel, BorderLayout.PAGE_END);
     }
 
 
     @Override
-    public void paintComponent(Graphics g) {
+    public void paintComponent(Graphics g)
+    {
         super.paintComponent(g);
         g.drawImage(Resources.Instance.shopBackGroundImage, 0, 0, this);
+    }
+
+    class Listener implements MouseWheelListener
+    {
+
+        @Override
+        public void mouseWheelMoved(MouseWheelEvent e)
+        {
+            scrollIndex += e.getWheelRotation();
+            scrollIndex = Utils.clamp(0,50,scrollIndex);
+            render();
+        }
     }
 }
