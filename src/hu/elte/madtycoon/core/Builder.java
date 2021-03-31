@@ -9,8 +9,7 @@ import hu.elte.madtycoon.objects.buildings.decoration.Stick;
 import hu.elte.madtycoon.objects.buildings.games.CoinFlip;
 import hu.elte.madtycoon.objects.buildings.games.GhostCastle;
 import hu.elte.madtycoon.objects.buildings.games.RoundAbout;
-import hu.elte.madtycoon.ui.components.building.DestroyComponent;
-import hu.elte.madtycoon.ui.components.building.HealthComponent;
+import hu.elte.madtycoon.ui.components.building.*;
 import hu.elte.madtycoon.ui.core.Preview;
 import hu.elte.madtycoon.ui.core.PreviewFrame;
 import hu.elte.madtycoon.utils.BuildReference;
@@ -125,7 +124,14 @@ public class Builder
             Preview preview = new Preview("Test Elek");
             preview.addAction(new DestroyComponent(sb));
             preview.addContent(new HealthComponent(sb));
+            preview.addContent(new DecorationComponent(sb));
+            preview.addContent(new WorkingComponent(sb));
 
+            if(sb instanceof Entrance)
+            {
+                Entrance e = (Entrance) sb;
+                preview.addContent(new SetComponent("Entrance cost" ,e::getEntranceCost, e::setEntranceCost));
+            }
 
             PreviewFrame window = new PreviewFrame(preview);
 

@@ -19,7 +19,6 @@ import java.util.List;
 
 public class World
 {
-    public static int DEFAULT_ENTRANCE_COST = 50;
     public static int DEFAULT_START_MONEY = 300000;
     public static Vector2I ENTRANCE_POINT = new Vector2I(Engine.GAME_SIZE_X/2 + 2,Engine.GAME_SIZE_Y - 2);
 
@@ -32,12 +31,10 @@ public class World
 
     private Entrance entrance;
     private int money;
-    private int entranceCost;
 
     public World()
     {
         money = DEFAULT_START_MONEY;
-        entranceCost = DEFAULT_ENTRANCE_COST;
         entities = new LinkedList<Entity>();
         buildings  = new LinkedList<Building>();
         destroyBuffer = new LinkedList<GameObject>();
@@ -126,16 +123,6 @@ public class World
     public void pay(int money)
     {
         this.money -= money;
-    }
-
-    public int getEntranceCost()
-    {
-        return entranceCost;
-    }
-
-    public void setEntranceCost(int entranceCost)
-    {
-        this.entranceCost = entranceCost;
     }
 
     public List<Building> collisionCheckMultiple(Vector2I pos, Vector2I size) {

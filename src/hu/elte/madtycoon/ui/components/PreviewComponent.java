@@ -31,4 +31,15 @@ public abstract class PreviewComponent
     {
         return String.format("%d%%", (int) (health * 100));
     }
+
+    public static String floatToDecoration(float decoration)
+    {
+        return String.format("%.1f (", decoration);
+    }
+
+    public static String intToDollar(int money)
+    {
+        return String.format("%d $", money);
+    }
+
 }

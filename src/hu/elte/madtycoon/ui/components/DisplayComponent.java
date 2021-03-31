@@ -1,4 +1,4 @@
-package hu.elte.madtycoon.ui.components.building;
+package hu.elte.madtycoon.ui.components;
 
 import hu.elte.madtycoon.core.Resources;
 import hu.elte.madtycoon.ui.components.PreviewComponent;
@@ -6,7 +6,7 @@ import hu.elte.madtycoon.ui.components.PreviewComponent;
 import javax.swing.*;
 import java.awt.*;
 
-abstract class DisplayComponent extends PreviewComponent
+public class DisplayComponent extends PreviewComponent
 {
     private final String property;
     private final String value;

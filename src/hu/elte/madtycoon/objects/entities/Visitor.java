@@ -51,10 +51,10 @@ public class Visitor extends Entity
     @Override
     protected void start()
     {
-        if(world.getEntranceCost() > money / 2)
+        if(world.getEntrance().getEntranceCost() > money / 2)
             task = new LeavePark(this);
         else
-            pay(world.getEntranceCost());
+            pay(world.getEntrance().getEntranceCost());
     }
 
     @Override
