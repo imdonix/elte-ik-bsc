@@ -6,8 +6,8 @@ import hu.elte.madtycoon.task.SmartGoTask;
 import hu.elte.madtycoon.task.WaitTask;
 import hu.elte.madtycoon.utils.exception.JobAlreadyTaken;
 
-public class FindRoad extends SmartGoTask<Cleaner, Road> {
-    public FindRoad(Cleaner entity, Road target) {
+public class FindDirtyRoad extends SmartGoTask<Cleaner, Road> {
+    public FindDirtyRoad(Cleaner entity, Road target) {
         super(entity, target);
     }
 
@@ -16,17 +16,7 @@ public class FindRoad extends SmartGoTask<Cleaner, Road> {
     {
         try
         {
-            entity.setTask(new WaitTask(entity,5F) {
-                @Override
-                protected void start() {
-
-                }
-
-                @Override
-                protected void interact() {
-
-                }
-            });
+            entity.setTask(new CleanRoad(entity, 5F));
             target.repair(entity);
         }
         catch (JobAlreadyTaken jobAlreadyTaken)

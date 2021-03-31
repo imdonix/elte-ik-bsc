@@ -5,7 +5,7 @@ import hu.elte.madtycoon.objects.Worker;
 import hu.elte.madtycoon.objects.buildings.Road;
 import hu.elte.madtycoon.render.AnimatedSprite;
 import hu.elte.madtycoon.task.Task;
-import hu.elte.madtycoon.task.employee.FindRoad;
+import hu.elte.madtycoon.task.employee.FindDirtyRoad;
 import hu.elte.madtycoon.utils.Random;
 import hu.elte.madtycoon.utils.Vector2F;
 
@@ -47,7 +47,7 @@ public class Cleaner extends Worker {
         System.out.println(roads.size());
 
         if(roads.size() > 0) {
-            return new FindRoad(this, findNearestRoad(roads));
+            return new FindDirtyRoad(this, findNearestRoad(roads));
         } else {
             System.out.println(String.format("%s can't be employed!", this));
             return super.getNewTask();
