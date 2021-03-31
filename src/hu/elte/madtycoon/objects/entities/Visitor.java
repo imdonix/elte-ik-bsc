@@ -70,16 +70,20 @@ public class Visitor extends Entity
 
         if(unvisited.size() > 0 && interest > .1F && food > .1F)
         {
-            Game game = findNearestGame(unvisited);
+            if(food > .45F)
+            {
+                Game game = findNearestGame(unvisited);
 
-            if(game != null)
-                return new Play(this, game);
+                if(game != null)
+                    return new Play(this, game);
+                else
+                    return new Idle(this);
+            }
             else
                 return super.getNewTask();
         }
-        else {
+        else
             return new LeavePark(this);
-        }
     }
 
     @Override
@@ -104,7 +108,7 @@ public class Visitor extends Entity
     {
         Game min = null;
         for(Game game : games)
-            if(game.isOpened())
+            if(game.isWorking())
                 if(min == null || min.getPosition().distance(position) > game.getPosition().distance(position))
                     min = game;
         return min;

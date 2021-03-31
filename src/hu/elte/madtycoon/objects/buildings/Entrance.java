@@ -21,8 +21,8 @@ public class Entrance extends Building
     public static final Vector2I SIZE = new Vector2I(6,7);
     public static final Vector2I ENTRANCE = new Vector2I(-1,1);
     public static final int MVPD = 500;//Max visitor at decoration level 5
-    public static final int MVSPM = 25; // Max visitor spawn per minute at decoration level 5
-    public static final float SPAWN_TIME = 60/10F;
+    public static final int MVSPM = 7; // Max visitor spawn per minute at decoration level 5
+    public static final float SPAWN_TIME = 60/20F;
 
     public static int DEFAULT_ENTRANCE_COST = 50;
     public static int MIN_ENTRANCE_COST = 0;
