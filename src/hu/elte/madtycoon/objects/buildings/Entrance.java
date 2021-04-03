@@ -2,6 +2,7 @@ package hu.elte.madtycoon.objects.buildings;
 
 import hu.elte.madtycoon.core.World;
 import hu.elte.madtycoon.objects.Building;
+import hu.elte.madtycoon.objects.entities.RepairMan;
 import hu.elte.madtycoon.objects.entities.Visitor;
 import hu.elte.madtycoon.render.AnimatedSprite;
 import hu.elte.madtycoon.render.AnimationResource;
@@ -55,6 +56,7 @@ public class Entrance extends Building
     {
         //Coroutines needed to spawn coz we cant update the entities list while inside the loop
         world.getCoroutines().schedule(0, () -> world.instantiate(Road.Create(world, getTargetPosition())));
+        world.getCoroutines().schedule(10, () -> world.instantiate(RepairMan.Create(world, getTargetPosition())));
     }
 
     @Override

@@ -15,7 +15,7 @@ import hu.elte.madtycoon.utils.exception.JobAlreadyTaken;
 
 public abstract class Building extends GameObject
 {
-    public static float SAFE_HEALTH = 0.4f;
+    public static float SAFE_HEALTH = 0.05f;
     public static float BUILD_TIME = 5F;
 
     private Vector2I size;
@@ -75,7 +75,7 @@ public abstract class Building extends GameObject
 
     public boolean isWorking()
     {
-        return opened && constructed && health > 0;
+        return opened && constructed && health > Building.SAFE_HEALTH;
     }
 
     public boolean isRepairNeeded()
@@ -102,9 +102,12 @@ public abstract class Building extends GameObject
         this.getSprite().setState(AnimatedSprite.GAME_UNDER_CONSTRUCTION);
         this.world.getCoroutines().schedule(BUILD_TIME, () ->
         {
-            health = 1F;
+            this.health = 1F;
+            this.getSprite().setState(AnimatedSprite.IDLE);
             this.employee.earn(this.employee.getSalary());
             this.employee.setActive(true);
+            this.employee.addInterest(0.5F);
+            this.employee = null;
             System.out.println("Building is repaired");
         });
     }
