@@ -1,10 +1,12 @@
 package hu.elte.madtycoon.core;
 
+import hu.elte.madtycoon.ui.components.loan.LoanComponent;
 import hu.elte.madtycoon.ui.core.Preview;
+import hu.elte.madtycoon.utils.Loan;
 
 public class Loans
 {
-    private final static float REPAY_TIMER = 60*5;
+    private final static float REPAY_TIMER = 60*3;
 
     private final World world;
     private final Loan[] loans;
@@ -19,9 +21,9 @@ public class Loans
 
     private void generate()
     {
-        loans[0] = new Loan(3, 5000, .2F);
-        loans[1] = new Loan(5, 20000, .15F);
-        loans[2] = new Loan(10, 50000, .1F);
+        loans[0] = new Loan(2, 500, .2F);
+        loans[1] = new Loan(3, 1000, .15F);
+        loans[2] = new Loan(5, 2000, .1F);
     }
 
     public void update(float dt)
@@ -44,48 +46,11 @@ public class Loans
     public Preview getPreview()
     {
         Preview preview = new Preview("Loans");
+        for(Loan l : loans)
+            preview.addContent(new LoanComponent(world,l));
         return preview;
     }
 
-    public class Loan
-    {
-        private final int pieces;
-        private final int amount;
-        private final float interest;
-
-        private int state;
-
-        public Loan(int pieces, int amount, float interest)
-        {
-            this.pieces = pieces;
-            this.amount = amount;
-            this.interest = interest;
-            this.state = 0;
-        }
-
-        public void rent()
-        {
-            if(!isRentable()) throw new IllegalStateException();
-            state = pieces;
-        }
-
-        public int getRemaining()
-        {
-            return state;
-        }
-
-        public boolean isRentable()
-        {
-            return state == 0;
-        }
-
-        public void repay(World world)
-        {
-            int piece = (int) ((amount / pieces) * interest);
-            world.pay(piece);
-            state--;
-        }
-    }
 }
 
 
