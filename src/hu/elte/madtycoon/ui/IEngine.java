@@ -1,6 +1,7 @@
 package hu.elte.madtycoon.ui;
 
 import hu.elte.madtycoon.core.Builder;
+import hu.elte.madtycoon.core.Statistics;
 import hu.elte.madtycoon.objects.Building;
 import hu.elte.madtycoon.utils.Vector2I;
 
@@ -31,4 +32,9 @@ public interface IEngine
      * @return Return the world builder.
      */
     Builder getWorldBuilder();
+
+    /**
+     * @return Return the world statistics.
+     */
+    Statistics getStatistics();
 }

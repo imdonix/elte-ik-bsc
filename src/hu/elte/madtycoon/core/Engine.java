@@ -142,6 +142,9 @@ public class Engine extends JFrame implements IEngine
         return builder;
     }
 
+    @Override
+    public Statistics getStatistics(){ return world.getStatistics();}
+
 
     class GamePanel extends JPanel
     {
