@@ -5,21 +5,21 @@ import hu.elte.madtycoon.core.Engine;
 import hu.elte.madtycoon.core.World;
 import hu.elte.madtycoon.objects.Building;
 import hu.elte.madtycoon.objects.Worker;
+import hu.elte.madtycoon.objects.entities.Cleaner;
 import hu.elte.madtycoon.render.AnimatedSprite;
 import hu.elte.madtycoon.render.AnimationResource;
-import hu.elte.madtycoon.utils.BuildReference;
-import hu.elte.madtycoon.utils.Utils;
-import hu.elte.madtycoon.utils.Vector2F;
-import hu.elte.madtycoon.utils.Vector2I;
+import hu.elte.madtycoon.utils.*;
 import hu.elte.madtycoon.utils.exception.JobAlreadyTaken;
 
 import java.awt.image.BufferedImage;
 
 public class Road extends Building
 {
-    public static final float DIRT_PER_STEP = 0.001F; //1% per step
+    public static final float MAX_DIRT_PER_STEP = 0.004F; //6% per step
+    public static final float MIN_DIRT_PER_STEP = 0.002F;//2% per step
     public static final String ID = "road";
     public static final int PRICE = 25;
+    public static final float DIRTY = 0.5F;
 
     private Road(World world, AnimatedSprite sprite, Vector2F position)
     {
@@ -32,7 +32,7 @@ public class Road extends Building
     @Override
     public float getDecorationValue()
     {
-        return 0;
+        return (1 - health) / -35;
     }
 
     @Override
@@ -47,6 +47,31 @@ public class Road extends Building
     @Override
     public String getName() { return "Road"; }
 
+    @Override
+    protected void damage(float dmg)
+    {
+        health = Utils.clamp(0,1, health - dmg);
+        if(health < DIRTY)
+            getSprite().setState(AnimatedSprite.ROAD_DIRTY);
+    }
+
+    @Override
+    public void repair(Worker worker)
+    {
+        System.out.println("Road is cleaned!");
+        this.health = 1F;
+        this.getEmployee().earn(this.getEmployee().getSalary());
+        this.getSprite().setState(AnimatedSprite.IDLE);
+        this.setEmployee(null);
+    }
+
+    public void clean(Cleaner worker) throws JobAlreadyTaken
+    {
+        if (this.getEmployee() != null) throw new JobAlreadyTaken();
+        if (this.health > DIRTY) throw new JobAlreadyTaken();
+        this.setEmployee(worker);
+    }
+
     public boolean isInside()
     {
         int x = (int) position.x;
@@ -57,28 +82,11 @@ public class Road extends Building
 
     public void dirty()
     {
-        damage(DIRT_PER_STEP);
+        damage(Random.getRandomFloat(MIN_DIRT_PER_STEP, MAX_DIRT_PER_STEP));
     }
 
-    @Override
-    protected void damage(float dmg)
-    {
-        health = Utils.clamp(0,1, health - dmg);
-        if(health < 0.5F)
-            getSprite().setState(AnimatedSprite.ROAD_DIRTY);
-    }
+    public boolean isDirty() { return this.health < DIRTY; }
 
-    @Override
-    public void repair(Worker employee) throws JobAlreadyTaken
-    {
-        if (this.getEmployee() != null) new JobAlreadyTaken();
-
-        this.setEmployee(employee);
-        this.health = 1F;
-        this.getEmployee().earn(this.getEmployee().getSalary());
-        getSprite().setState(AnimatedSprite.IDLE);
-        System.out.println("Road is cleaned!");
-    }
 
 
     public static Road Create(World world, Vector2F pos)

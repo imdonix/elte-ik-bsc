@@ -4,21 +4,26 @@ import hu.elte.madtycoon.core.World;
 import hu.elte.madtycoon.objects.Worker;
 import hu.elte.madtycoon.objects.buildings.Road;
 import hu.elte.madtycoon.render.AnimatedSprite;
+import hu.elte.madtycoon.render.AnimationResource;
 import hu.elte.madtycoon.task.Task;
 import hu.elte.madtycoon.task.employee.FindDirtyRoad;
 import hu.elte.madtycoon.utils.Random;
 import hu.elte.madtycoon.utils.Vector2F;
 
+import java.awt.image.BufferedImage;
 import java.util.LinkedList;
 import java.util.List;
 
 public class Cleaner extends Worker {
 
     public static int START_MONEY = 100;
+
     public static float START_FOOD = 1f;
     public static float START_INT = 1f;
+
     public static float MIN_MS_SPEED = 1.5F;
     public static float MAX_MS_SPEED = 3F;
+
     public static int SALARY = 75;
 
     private final float movementSpeed;
@@ -32,39 +37,38 @@ public class Cleaner extends Worker {
     }
 
     @Override
-    protected void start() {}
-
-    @Override
     public float getMovementSpeed()
     {
         return movementSpeed;
     }
 
     @Override
-    protected Task getNewTask() {
+    protected void start() {}
+
+    @Override
+    public void onDestroy() { }
+
+    @Override
+    protected Task getNewTask()
+    {
         List<Road> roads = getRoadsWithLowHealth();
 
-        System.out.println(roads.size());
-
-        if(roads.size() > 0) {
+        if(roads.size() > 0)
             return new FindDirtyRoad(this, findNearestRoad(roads));
-        } else {
+        else
+        {
             System.out.println(String.format("%s can't be employed!", this));
             return super.getNewTask();
         }
     }
 
-    @Override
-    public void onDestroy() { }
-
     private List<Road> getRoadsWithLowHealth()
     {
         List<Road> tmp = new LinkedList<>();
-        for(Road road : world.getRoads()) {
-            if(road.getHealth() < 0.5F) {
+        for(Road road : world.getRoads())
+            if(road.isDirty() && road.getEmployee() == null)
                 tmp.add(road);
-            }
-        }
+
         return tmp;
     }
 
@@ -75,5 +79,16 @@ public class Cleaner extends Worker {
             if(min.getPosition().distance(getPosition()) > road.getPosition().distance(getPosition()))
                 min = road;
         return min;
+    }
+
+    public static Cleaner Create(World world, Vector2F position)
+    {
+        BufferedImage[] idle = AnimationResource.Instance.get("cleaner_idle");
+        BufferedImage[] walk = AnimationResource.Instance.get("cleaner_walk");
+        BufferedImage[] cleaning = AnimationResource.Instance.get("cleaner_clean");
+        AnimatedSprite anim = new AnimatedSprite(AnimatedSprite.IDLE, idle, 0.25f);
+        anim.addState(AnimatedSprite.WALK, walk);
+        anim.addState(AnimatedSprite.CLEAN, cleaning);
+        return new Cleaner(world, anim, position);
     }
 }

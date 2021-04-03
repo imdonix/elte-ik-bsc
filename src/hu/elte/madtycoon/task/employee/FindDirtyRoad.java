@@ -16,12 +16,12 @@ public class FindDirtyRoad extends SmartGoTask<Cleaner, Road> {
     {
         try
         {
-            entity.setTask(new CleanRoad(entity, 5F));
-            target.repair(entity);
+            target.clean(entity);
+            entity.setTask(new CleanRoad(entity, target));
         }
         catch (JobAlreadyTaken jobAlreadyTaken)
         {
-            System.out.println(String.format("%s job is no longer available!", entity));
+            System.out.println("This road is already in cleaning");
         }
     }
 
