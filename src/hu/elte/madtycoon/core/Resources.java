@@ -57,6 +57,7 @@ public class Resources
     public BufferedImage plusButton;
     public BufferedImage minusButton;
     public BufferedImage interviews;
+    public BufferedImage rotate;
 
     public Font chBell;
     public Font sansPro;
@@ -138,5 +139,6 @@ public class Resources
         plusButton = ImageIO.read(new File("res/menu/show/plus_button.png"));
         minusButton = ImageIO.read(new File("res/menu/show/minus_button.png"));
         interviews = ImageIO.read(new File("res/menu/show/interviews.png"));
+        rotate = ImageIO.read(new File("res/menu/show/rotate.png"));
     }
 }

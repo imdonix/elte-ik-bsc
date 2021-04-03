@@ -1,16 +1,15 @@
 package hu.elte.madtycoon.objects.buildings;
 
+import hu.elte.madtycoon.core.Resources;
 import hu.elte.madtycoon.core.World;
 import hu.elte.madtycoon.objects.Building;
-import hu.elte.madtycoon.objects.entities.Cleaner;
-import hu.elte.madtycoon.objects.entities.RepairMan;
 import hu.elte.madtycoon.objects.entities.Visitor;
 import hu.elte.madtycoon.render.AnimatedSprite;
 import hu.elte.madtycoon.render.AnimationResource;
 import hu.elte.madtycoon.ui.components.building.DecorationComponent;
 import hu.elte.madtycoon.ui.components.building.OpenComponent;
 import hu.elte.madtycoon.ui.components.building.SetComponent;
-import hu.elte.madtycoon.ui.components.building.ToggleComponent;
+import hu.elte.madtycoon.ui.components.ToggleComponent;
 import hu.elte.madtycoon.ui.core.Preview;
 import hu.elte.madtycoon.utils.Utils;
 import hu.elte.madtycoon.utils.Vector2F;
@@ -93,7 +92,7 @@ public class Entrance extends Building
         preview.addContent(new OpenComponent(this));
         preview.addContent(new DecorationComponent(this));
         preview.addContent(new SetComponent("Entrance cost", this::getEntranceCost, this::setEntranceCost));
-        preview.addAction(new ToggleComponent(this::isOpened, this::setOpened));
+        preview.addAction(new ToggleComponent(Resources.Instance.openCloseButton, this::isOpened, this::setOpened));
         return preview;
     }
 

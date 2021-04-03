@@ -1,10 +1,10 @@
 package hu.elte.madtycoon.objects;
 
+import hu.elte.madtycoon.core.Resources;
 import hu.elte.madtycoon.core.World;
-import hu.elte.madtycoon.objects.buildings.Shop;
-import hu.elte.madtycoon.objects.entities.ShopAssistant;
 import hu.elte.madtycoon.objects.entities.Visitor;
 import hu.elte.madtycoon.render.AnimatedSprite;
+import hu.elte.madtycoon.ui.components.ToggleComponent;
 import hu.elte.madtycoon.ui.components.building.*;
 import hu.elte.madtycoon.ui.core.Preview;
 import hu.elte.madtycoon.utils.Random;
@@ -106,7 +106,7 @@ public abstract class Game extends Building
         preview.addContent(new OpenComponent(this));
         preview.addContent(new WorkingComponent(this));
         preview.addContent(new InGameComponent(this));
-        preview.addAction(new ToggleComponent(this::isOpened, this::setOpened));
+        preview.addAction(new ToggleComponent(Resources.Instance.openCloseButton, this::isOpened, this::setOpened));
         return preview;
     }
 

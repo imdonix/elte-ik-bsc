@@ -1,17 +1,16 @@
 package hu.elte.madtycoon.objects.buildings;
 
 import hu.elte.madtycoon.core.Builder;
+import hu.elte.madtycoon.core.Resources;
 import hu.elte.madtycoon.core.World;
 import hu.elte.madtycoon.objects.Building;
 import hu.elte.madtycoon.objects.Entity;
 import hu.elte.madtycoon.objects.entities.ShopAssistant;
-import hu.elte.madtycoon.objects.entities.Visitor;
-import hu.elte.madtycoon.objects.Game;
 import hu.elte.madtycoon.render.AnimatedSprite;
 import hu.elte.madtycoon.render.AnimationResource;
 import hu.elte.madtycoon.ui.components.building.OpenComponent;
 import hu.elte.madtycoon.ui.components.building.SetComponent;
-import hu.elte.madtycoon.ui.components.building.ToggleComponent;
+import hu.elte.madtycoon.ui.components.ToggleComponent;
 import hu.elte.madtycoon.ui.components.building.WorkingComponent;
 import hu.elte.madtycoon.ui.core.Preview;
 import hu.elte.madtycoon.utils.*;
@@ -110,7 +109,7 @@ public class Shop extends Building
         preview.addContent(new OpenComponent(this));
         preview.addContent(new WorkingComponent(this));
         preview.addContent(new SetComponent("Food cost", this::getFoodCost, this::setFoodCost));
-        preview.addAction(new ToggleComponent(this::isOpened, this::setOpened));
+        preview.addAction(new ToggleComponent(Resources.Instance.openCloseButton,this::isOpened, this::setOpened));
         return preview;
     }
 

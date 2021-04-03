@@ -6,6 +6,7 @@ import hu.elte.madtycoon.render.AnimatedSprite;
 import hu.elte.madtycoon.ui.components.building.DecorationComponent;
 import hu.elte.madtycoon.ui.components.building.DestroyComponent;
 import hu.elte.madtycoon.ui.components.building.HealthComponent;
+import hu.elte.madtycoon.ui.components.building.RotateComponent;
 import hu.elte.madtycoon.ui.core.Preview;
 import hu.elte.madtycoon.utils.Random;
 import hu.elte.madtycoon.utils.Utils;
@@ -139,6 +140,7 @@ public abstract class Building extends GameObject
     {
         Preview preview = new Preview(getName());
         preview.addAction(new DestroyComponent(this));
+        preview.addAction(new RotateComponent(this));
         preview.addContent(new HealthComponent(this));
         preview.addContent(new DecorationComponent(this));
 

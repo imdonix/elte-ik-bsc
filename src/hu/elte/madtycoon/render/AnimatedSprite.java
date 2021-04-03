@@ -58,6 +58,8 @@ public class AnimatedSprite
         rotation = lookToRight;
     }
 
+    public boolean getRotation(){ return rotation; }
+
     public void setState(String state)
     {
         if(!sprites.containsKey(state))
