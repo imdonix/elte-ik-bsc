@@ -250,7 +250,7 @@ public class HUD extends JPanel
         stats.addActionListener(e -> engine.getWorldBuilder().setGUI(new PreviewFrame(engine.getStatistics().getPreview())));
 
         employeeMenu.setIcon(new ImageIcon(Resources.Instance.gameEmployeeButton));
-        //employeeMenu.addActionListener(e -> new PreviewFrame()); //TODO
+        employeeMenu.addActionListener(e -> engine.getWorldBuilder().setGUI(new PreviewFrame(engine.getEmployment().getPreview())));
     }
 
     private void buildButtons(){

@@ -29,6 +29,7 @@ public class World
     private final RoadSystem roadSystem;
     private final Coroutines coroutines;
     private final Statistics statistics;
+    private final Employment employment;
 
     private Entrance entrance;
     private int money;
@@ -42,6 +43,7 @@ public class World
         roadSystem = new RoadSystem(this);
         emotes = new Emotes(this);
         statistics = new Statistics(this);
+        employment = new Employment(this);
         coroutines = new Coroutines();
         start();
     }
@@ -113,6 +115,8 @@ public class World
     public Coroutines getCoroutines(){ return coroutines; }
 
     public Statistics getStatistics(){ return statistics; }
+
+    public Employment getEmployment(){ return employment; }
 
     public Entrance getEntrance(){ return entrance; }
 
