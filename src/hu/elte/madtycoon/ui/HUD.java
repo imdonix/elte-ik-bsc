@@ -22,7 +22,9 @@ import static java.lang.Math.round;
 public class HUD extends JPanel
 {
 
-    private IEngine engine;
+    private final IEngine engine;
+    private final HappinessMeter meter;
+
 
     private final JButton buildingMenu;
     private final JButton decorationMenu;
@@ -30,9 +32,6 @@ public class HUD extends JPanel
     private final JButton stats;
     private final JButton employeeMenu;
     private final JButton moneyIcon;
-    private JLabel moneyLabel;
-    private JLabel happinessLabel;
-    private JLabel timeLabel;
     private final JButton happiness;
     private final JButton time;
     private final JButton playPause;
@@ -40,6 +39,10 @@ public class HUD extends JPanel
     private final JButton exit;
     private final JButton options;
     private final JButton happinessArrow;
+
+    private JLabel moneyLabel;
+    private JLabel happinessLabel;
+    private JLabel timeLabel;
 
     private int i,j;
     private final float[] timeScaleVariations = new float[]{1,2.5F,5F};
@@ -50,7 +53,6 @@ public class HUD extends JPanel
                 new ImageIcon(Resources.Instance.gameSpeedButton5X)
             };
 
-    private int prevHappyness = 0;
     private boolean roadBuilding = false;
 
     public HUD(IEngine engine)
@@ -59,6 +61,7 @@ public class HUD extends JPanel
         setPreferredSize(new Dimension(1920,110));
 
         this.engine = engine;
+        this.meter = new HappinessMeter();
         i = 0;
         j = 0;
 
@@ -198,16 +201,9 @@ public class HUD extends JPanel
         int money = engine.getMoney();
         moneyLabel.setText(String.valueOf(money));
 
-        int happinessValue = round(engine.getOverallHappiness()*100);
-        happinessLabel.setText(String.valueOf(happinessValue));
-        if(prevHappyness>=happinessValue){
-            happinessArrow.setIcon(new ImageIcon(Resources.Instance.gameHappyArrowUp));
-        }else if (prevHappyness<happinessValue){
-            happinessArrow.setIcon(new ImageIcon(Resources.Instance.gameHappyArrowDown));
-        }else{
-            happinessArrow.setIcon(new ImageIcon(Resources.Instance.gameHappyArrowEmpty));
-        }
-        prevHappyness = happinessValue;
+        meter.update(engine.getOverallHappiness());
+        happinessLabel.setText(meter.getText());
+        happinessArrow.setIcon(meter.getImage());
 
         timeLabel.setText(getNiceTime(engine.getTime()));
 

@@ -2,6 +2,8 @@ package hu.elte.madtycoon.utils;
 
 public class Utils
 {
+    public static final float E = .0005F;
+
     public static float clamp(float min, float max, float val)
     {
         if(val > max)
@@ -20,5 +22,10 @@ public class Utils
             return min;
         else
             return val;
+    }
+
+    public static boolean equals(float a, float b)
+    {
+        return Math.abs(a-b) < E;
     }
 }
