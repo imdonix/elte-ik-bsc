@@ -27,7 +27,6 @@ public class ShopAssistant extends Worker {
     public static int SALARY = 60;
 
     private final float movementSpeed;
-    private final List<Game> visited;
 
     private ShopAssistant(World world, AnimatedSprite sprite, Vector2F position)
     {
@@ -36,12 +35,6 @@ public class ShopAssistant extends Worker {
         this.food = START_FOOD;
         this.interest = START_INT;
         this.movementSpeed = Random.getRandomFloat(MIN_MS_SPEED, MAX_MS_SPEED);
-        this.visited = new LinkedList<>();
-    }
-
-    public void addVisited(Game game)
-    {
-        visited.add(game);
     }
 
     @Override
