@@ -27,6 +27,9 @@ public class Bush extends Decoration
         return .15F;
     }
 
+    @Override
+    public String getName() { return "Bush"; }
+
     public static Bush Create(World world, Vector2F position)
     {
         BufferedImage[] idle = AnimationResource.Instance.get("bush_idle");

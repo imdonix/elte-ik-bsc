@@ -9,6 +9,7 @@ import hu.elte.madtycoon.objects.buildings.decoration.Stick;
 import hu.elte.madtycoon.objects.buildings.games.CoinFlip;
 import hu.elte.madtycoon.objects.buildings.games.GhostCastle;
 import hu.elte.madtycoon.objects.buildings.games.RoundAbout;
+import hu.elte.madtycoon.ui.core.PreviewFrame;
 import hu.elte.madtycoon.utils.BuilderState;
 
 import javax.swing.*;
@@ -251,10 +252,10 @@ public class HUD extends JPanel
         });
 
         stats.setIcon(new ImageIcon(Resources.Instance.gameStatisticsButton));
-        stats.addActionListener(e -> new PopWindow()); //TODO
+        //stats.addActionListener(e -> new PreviewFrame()); //TODO
 
         employeeMenu.setIcon(new ImageIcon(Resources.Instance.gameEmployeeButton));
-        employeeMenu.addActionListener(e -> new PopWindow()); //TODO
+        //employeeMenu.addActionListener(e -> new PreviewFrame()); //TODO
     }
 
     private void buildButtons(){

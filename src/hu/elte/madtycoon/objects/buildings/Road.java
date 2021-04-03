@@ -44,6 +44,9 @@ public class Road extends Building
         //TODO We want to ignore the construction for now
     }
 
+    @Override
+    public String getName() { return "Road"; }
+
     public boolean isInside()
     {
         int x = (int) position.x;

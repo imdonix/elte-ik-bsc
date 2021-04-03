@@ -11,4 +11,14 @@ public class Utils
         else
             return val;
     }
+
+    public static int clamp(int min, int max, int val)
+    {
+        if(val > max)
+            return max;
+        else if(val < min)
+            return min;
+        else
+            return val;
+    }
 }

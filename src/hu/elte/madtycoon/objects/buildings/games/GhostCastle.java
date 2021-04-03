@@ -58,6 +58,9 @@ public class GhostCastle extends Game {
     }
 
     @Override
+    public String getName() { return "Ghost Castle"; }
+
+    @Override
     protected void reward() {
         Visitor[] players = getPlayers();
         for (Visitor player : players) {

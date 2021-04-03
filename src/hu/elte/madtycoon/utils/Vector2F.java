@@ -64,6 +64,14 @@ public class Vector2F
     }
 
     @Override
+    public boolean equals(Object obj) {
+        if(obj instanceof Vector2F)
+            return distance((Vector2F) obj) < E;
+        else
+            return false;
+    }
+
+    @Override
     public String toString()
     {
         return String.format("(%f, %f)", x,y);

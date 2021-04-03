@@ -28,6 +28,9 @@ public class Stick extends Decoration
         return .375F;
     }
 
+    @Override
+    public String getName() { return "Stick"; }
+
     public static Stick Create(World world, Vector2F position)
     {
         BufferedImage[] idle = AnimationResource.Instance.get("stick_idle");

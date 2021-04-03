@@ -63,13 +63,16 @@ public class RoundAbout extends Game {
         return super.getTargetPosition().add(new Vector2F(ENTRANCE));
     }
 
+    @Override
+    public String getName() { return "RoundAbout"; }
+
 
     @Override
     protected void reward()
     {
         Visitor[] players = getPlayers();
         for (Visitor player : players) {
-            player.addInterest(.4F);
+            player.addInterest(.6F);
         }
     }
 }

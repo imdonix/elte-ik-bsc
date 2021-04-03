@@ -3,6 +3,10 @@ package hu.elte.madtycoon.objects;
 import hu.elte.madtycoon.core.World;
 import hu.elte.madtycoon.objects.entities.RepairMan;
 import hu.elte.madtycoon.render.AnimatedSprite;
+import hu.elte.madtycoon.ui.components.building.DecorationComponent;
+import hu.elte.madtycoon.ui.components.building.DestroyComponent;
+import hu.elte.madtycoon.ui.components.building.HealthComponent;
+import hu.elte.madtycoon.ui.core.Preview;
 import hu.elte.madtycoon.utils.Random;
 import hu.elte.madtycoon.utils.Utils;
 import hu.elte.madtycoon.utils.Vector2F;
@@ -17,7 +21,7 @@ public abstract class Building extends GameObject
     private Vector2I size;
     protected float health;
     private boolean opened;
-    private boolean constructed;
+    protected boolean constructed;
 
     private Worker employee;
 
@@ -51,7 +55,7 @@ public abstract class Building extends GameObject
 
 
     public boolean isOpened() {
-        return opened && constructed && health > 0;
+        return opened ;
     }
 
     public void setOpened(boolean opened)
@@ -71,7 +75,7 @@ public abstract class Building extends GameObject
 
     public boolean isWorking()
     {
-        return health > 0 && constructed;
+        return opened && constructed && health > 0;
     }
 
     public boolean isRepairNeeded()
@@ -114,8 +118,6 @@ public abstract class Building extends GameObject
         }
     }
 
-    public abstract float getDecorationValue();
-
     protected void construction(String startState)
     {
         constructed = false;
@@ -130,4 +132,17 @@ public abstract class Building extends GameObject
         });
     }
 
+    public Preview getPreview()
+    {
+        Preview preview = new Preview(getName());
+        preview.addAction(new DestroyComponent(this));
+        preview.addContent(new HealthComponent(this));
+        preview.addContent(new DecorationComponent(this));
+
+        return preview;
+    }
+
+    public abstract float getDecorationValue();
+
+    public abstract String getName();
 }
