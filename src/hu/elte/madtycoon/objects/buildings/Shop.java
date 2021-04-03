@@ -51,7 +51,7 @@ public class Shop extends Building
         this.foodCost = Utils.clamp(MIN_FOOD_COST, MAX_FOOD_COST, foodCost);
     }
 
-    public void work(ShopAssistant employee) throws JobAlreadyTaken
+    public void work(ShopAssistant employee) throws JobAlreadyTaken, GameUnderConstruction
     {
         if(this.employee != null) throw new JobAlreadyTaken();
         if(!isWorking()) throw new GameUnderConstruction();
