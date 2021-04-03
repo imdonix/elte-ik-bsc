@@ -5,6 +5,7 @@ import hu.elte.madtycoon.objects.buildings.Shop;
 import hu.elte.madtycoon.objects.entities.Cleaner;
 import hu.elte.madtycoon.objects.entities.RepairMan;
 import hu.elte.madtycoon.objects.entities.ShopAssistant;
+import hu.elte.madtycoon.render.AnimatedSprite;
 import hu.elte.madtycoon.ui.components.TextComponent;
 import hu.elte.madtycoon.ui.components.employement.FireComponent;
 import hu.elte.madtycoon.ui.components.employement.HireComponent;
@@ -19,7 +20,7 @@ import java.util.List;
 
 public class Employment
 {
-    public final static float INTERVIEW_TIME = 60;
+    public final static float INTERVIEW_TIME = 15;
 
     private final World world;
     private final F[] creators;
@@ -36,7 +37,7 @@ public class Employment
     public void schedule()
     {
         workers = null;
-        world.getCoroutines().schedule(INTERVIEW_TIME, () -> createNewWorkerList());
+        world.getCoroutines().schedule(INTERVIEW_TIME, () -> after());
     }
 
     public void hire(Worker worker)
@@ -69,6 +70,12 @@ public class Employment
             preview.addContent(new FireComponent(worker));
 
         return preview;
+    }
+
+    private void after()
+    {
+        createNewWorkerList();
+        world.getEmotes().pop(world.getEntrance(), AnimatedSprite.NOTIFICATION);
     }
 
     private void createNewWorkerList()
