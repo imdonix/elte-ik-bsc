@@ -148,6 +148,8 @@ public class Engine extends JFrame implements IEngine
     @Override
     public Employment getEmployment(){ return world.getEmployment();}
 
+    @Override
+    public Loans getLoans(){ return world.getLoans();}
 
     class GamePanel extends JPanel
     {

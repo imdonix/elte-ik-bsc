@@ -27,6 +27,7 @@ public class World
     private final Coroutines coroutines;
     private final Statistics statistics;
     private final Employment employment;
+    private final Loans loans;
 
     private Entrance entrance;
     private int money;
@@ -41,6 +42,7 @@ public class World
         emotes = new Emotes(this);
         statistics = new Statistics(this);
         employment = new Employment(this);
+        loans = new Loans(this);
         coroutines = new Coroutines();
         start();
     }
@@ -62,6 +64,7 @@ public class World
             if(obj.getActive())
                 obj.update(dt);
 
+        loans.update(dt);
         emotes.update(dt);
         coroutines.update(dt);
     }
@@ -114,6 +117,8 @@ public class World
     public Statistics getStatistics(){ return statistics; }
 
     public Employment getEmployment(){ return employment; }
+
+    public Loans getLoans(){ return loans; }
 
     public Entrance getEntrance(){ return entrance; }
 
