@@ -28,6 +28,7 @@ public class World
     private final Emotes emotes;
     private final RoadSystem roadSystem;
     private final Coroutines coroutines;
+    private final Statistics statistics;
 
     private Entrance entrance;
     private int money;
@@ -40,6 +41,7 @@ public class World
         destroyBuffer = new LinkedList<GameObject>();
         roadSystem = new RoadSystem(this);
         emotes = new Emotes(this);
+        statistics = new Statistics(this);
         coroutines = new Coroutines();
         start();
     }
