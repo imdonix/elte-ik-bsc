@@ -97,7 +97,6 @@ public class HUD extends JPanel
         moneyIcon.setOpaque(false);
         moneyIcon.setContentAreaFilled(false);
         moneyIcon.setBorderPainted(false);
-        //exit.addActionListener(e -> System.exit(0));
         moneyIcon.setMargin(new Insets(25, 90, 0, 0));
         moneyIcon.setIcon(new ImageIcon(Resources.Instance.gameMoneyIcon));
 
@@ -112,7 +111,6 @@ public class HUD extends JPanel
         happiness.setOpaque(false);
         happiness.setContentAreaFilled(false);
         happiness.setBorderPainted(false);
-        //exit.addActionListener(e -> System.exit(0));
         happiness.setMargin(new Insets(25, 200, 0, 0));
         happiness.setIcon(new ImageIcon(Resources.Instance.gameSanityIcon));
 
@@ -127,7 +125,6 @@ public class HUD extends JPanel
         happinessArrow.setOpaque(false);
         happinessArrow.setContentAreaFilled(false);
         happinessArrow.setBorderPainted(false);
-        //exit.addActionListener(e -> System.exit(0));
         happinessArrow.setMargin(new Insets(25, 0, 0, 0));
         happinessArrow.setIcon(new ImageIcon(Resources.Instance.gameHappyArrowEmpty));
 
@@ -136,7 +133,6 @@ public class HUD extends JPanel
         time.setOpaque(false);
         time.setContentAreaFilled(false);
         time.setBorderPainted(false);
-        //exit.addActionListener(e -> System.exit(0));
         time.setMargin(new Insets(25, 100 , 0, 0));
         time.setIcon(new ImageIcon(Resources.Instance.gameTimeIcon));
 
@@ -167,7 +163,6 @@ public class HUD extends JPanel
         options.setOpaque(false);
         options.setContentAreaFilled(false);
         options.setBorderPainted(false);
-        //exit.addActionListener(e -> System.exit(0));
         options.setMargin(new Insets(25, 0, 0, 0));
         options.setIcon(new ImageIcon(Resources.Instance.gameSettingsButton));
 
@@ -252,7 +247,7 @@ public class HUD extends JPanel
         });
 
         stats.setIcon(new ImageIcon(Resources.Instance.gameStatisticsButton));
-        //stats.addActionListener(e -> new PreviewFrame()); //TODO
+        stats.addActionListener(e -> engine.getWorldBuilder().setGUI(new PreviewFrame(engine.getStatistics().getPreview())));
 
         employeeMenu.setIcon(new ImageIcon(Resources.Instance.gameEmployeeButton));
         //employeeMenu.addActionListener(e -> new PreviewFrame()); //TODO

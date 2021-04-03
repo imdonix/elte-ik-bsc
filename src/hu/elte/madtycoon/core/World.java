@@ -28,6 +28,7 @@ public class World
     private final Emotes emotes;
     private final RoadSystem roadSystem;
     private final Coroutines coroutines;
+    private final Statistics statistics;
 
     private Entrance entrance;
     private int money;
@@ -40,6 +41,7 @@ public class World
         destroyBuffer = new LinkedList<GameObject>();
         roadSystem = new RoadSystem(this);
         emotes = new Emotes(this);
+        statistics = new Statistics(this);
         coroutines = new Coroutines();
         start();
     }
@@ -87,8 +89,10 @@ public class World
 
     public GameObject instantiate(GameObject obj)
     {
-        if(obj instanceof Entity)
+        if(obj instanceof Entity) {
             entities.add((Entity) obj);
+            if(obj instanceof Visitor) statistics.increaseVisitorCount();
+        }
         else if (obj instanceof Building)
         {
             buildings.add((Building) obj);
@@ -108,6 +112,8 @@ public class World
 
     public Coroutines getCoroutines(){ return coroutines; }
 
+    public Statistics getStatistics(){ return statistics; }
+
     public Entrance getEntrance(){ return entrance; }
 
     public int getMoney()
@@ -118,11 +124,13 @@ public class World
     public void earn(int money)
     {
         this.money += money;
+        this.statistics.addMoneyGain(money);
     }
 
     public void pay(int money)
     {
         this.money -= money;
+        this.statistics.addMoneySpent(money);
     }
 
     public List<Building> collisionCheckMultiple(Vector2I pos, Vector2I size) {
@@ -220,6 +228,9 @@ public class World
                 entities.remove(obj);
             else if (obj instanceof Building)
                 buildings.remove(obj);
+
+            if(obj instanceof Visitor)
+                statistics.decreaseVisitorCount();
         }
         destroyBuffer.clear();
     }

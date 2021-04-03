@@ -84,6 +84,11 @@ public class Builder
         setState(state, null);
     }
 
+    public void setGUI(PreviewFrame preview)
+    {
+        this.preview = preview;
+    }
+
     public void updateGUI()
     {
         previewUpdateCounter++;
