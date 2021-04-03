@@ -69,7 +69,7 @@ public class RepairMan extends Worker {
     private List<Game> getGamesWithLowHealth() {
         List<Game> tmp = new LinkedList<>();
         for(Game game : world.getGames())
-            if(game.isRepairNeeded())
+            if(game.isRepairNeeded() && game.getEmployee() == null)
                 tmp.add(game);
 
 
