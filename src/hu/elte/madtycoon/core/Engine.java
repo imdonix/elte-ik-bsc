@@ -25,6 +25,7 @@ public class Engine extends JFrame implements IEngine
     private final Timer tickTimer;
     private final World world;
     private final Builder builder;
+    private final Options options;
 
     private final JPanel canvas;
     private final HUD hud;
@@ -62,6 +63,7 @@ public class Engine extends JFrame implements IEngine
         this.tickTimer = new Timer(1000/TARGET_FRAME_RATE, this::loop);
         this.world = new World();
         this.builder = new Builder(world);
+        this.options = new Options(this);
         this.renderBuffer = new SpriteRenderBuffer(RENDER_BASE_CAPACITY);
         this.lastTick = System.currentTimeMillis();
         this.time = 0;
@@ -150,6 +152,9 @@ public class Engine extends JFrame implements IEngine
 
     @Override
     public Loans getLoans(){ return world.getLoans();}
+
+    @Override
+    public Options getOptions(){ return options; }
 
     class GamePanel extends JPanel
     {

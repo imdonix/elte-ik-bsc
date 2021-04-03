@@ -169,6 +169,7 @@ public class HUD extends JPanel
         options.setBorderPainted(false);
         options.setMargin(new Insets(25, 0, 0, 0));
         options.setIcon(new ImageIcon(Resources.Instance.gameSettingsButton));
+        options.addActionListener(e -> engine.getWorldBuilder().setGUI(new PreviewFrame(engine.getOptions().getPreview())));
 
         exit = new JButton();
         exit.setOpaque(false);
