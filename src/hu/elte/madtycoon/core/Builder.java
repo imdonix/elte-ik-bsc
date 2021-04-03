@@ -35,6 +35,7 @@ public class Builder
     private Vector2I selected;
     private BuildReference reference;
     private PreviewFrame preview;
+    private int previewUpdateCounter;
 
     public Builder(World world)
     {
@@ -42,6 +43,7 @@ public class Builder
         this.state = BuilderState.SELECT;
         this.selected = null;
         this.reference = null;
+        this.previewUpdateCounter = 0;
         init();
     }
 
@@ -82,7 +84,16 @@ public class Builder
         setState(state, null);
     }
 
-    public void updateGUI() { if(preview!=null) preview.update();}
+    public void updateGUI()
+    {
+        previewUpdateCounter++;
+        if(previewUpdateCounter > Engine.TARGET_FRAME_RATE / 2)
+        {
+            if(preview!=null) preview.update();
+            previewUpdateCounter = 0;
+        }
+
+    }
 
     //INTERFACE
 

@@ -20,6 +20,7 @@ public class Engine extends JFrame implements IEngine
     public static final int GAME_SIZE_Y = 18;
     public static final int BLOCK_SIZE = 50;
     public static final int RENDER_BASE_CAPACITY = GAME_SIZE_X * GAME_SIZE_Y;
+    public static final int TARGET_FRAME_RATE = 144;
 
     private final Timer tickTimer;
     private final World world;
@@ -58,7 +59,7 @@ public class Engine extends JFrame implements IEngine
 
 
         //Engine
-        this.tickTimer = new Timer(1000/144, this::loop);
+        this.tickTimer = new Timer(1000/TARGET_FRAME_RATE, this::loop);
         this.world = new World();
         this.builder = new Builder(world);
         this.renderBuffer = new SpriteRenderBuffer(RENDER_BASE_CAPACITY);
@@ -93,6 +94,7 @@ public class Engine extends JFrame implements IEngine
         world.render(renderBuffer);
 
         hud.updateGUI();
+        builder.updateGUI();
 
         canvas.repaint();
     }
