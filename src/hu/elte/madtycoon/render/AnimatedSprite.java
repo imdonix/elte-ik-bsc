@@ -28,6 +28,8 @@ public class AnimatedSprite
     public final static String ROAD_DIRTY = "dirty";
     public static final String CLEAN = "clean";
 
+    public final static String NOTIFICATION = "notification";
+
 
     private final HashMap<String, BufferedImage[]> sprites;
     private final float frameLength;

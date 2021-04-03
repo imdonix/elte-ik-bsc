@@ -23,14 +23,15 @@ public class RepairMan extends Worker {
     public static float START_INT = 1f;
 
     public static float MIN_MS_SPEED = 1.5F;
-    public static float MAX_MS_SPEED = 3F;
+    public static float MAX_MS_SPEED = 5F;
 
-    public static int SALARY = 75;
+    public static int MIN_SALARY = 75;
+    public static int MAX_SALARY = 100;
 
     private final float movementSpeed;
 
     private RepairMan(World world, AnimatedSprite sprite, Vector2F position) {
-        super(world, sprite, position, SALARY);
+        super(world, sprite, position, Random.getRandomInt(MIN_SALARY,MAX_SALARY));
         this.money = START_MONEY;
         this.food = START_FOOD;
         this.interest = START_INT;
@@ -59,10 +60,16 @@ public class RepairMan extends Worker {
     @Override
     public void onDestroy() { }
 
+    @Override
+    public String getTypeName()
+    {
+        return "Repairer";
+    }
+
     private List<Game> getGamesWithLowHealth() {
         List<Game> tmp = new LinkedList<>();
         for(Game game : world.getGames())
-            if(game.isRepairNeeded())
+            if(game.isRepairNeeded() && game.getEmployee() == null)
                 tmp.add(game);
 
 

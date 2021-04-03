@@ -88,7 +88,6 @@ public class Shop extends Building
     protected void start()
     {
         construction(AnimatedSprite.GAME_STOP);
-        world.instantiate(ShopAssistant.Create(world, world.getEntrance().getTargetPosition()));
     }
 
     @Override

@@ -20,17 +20,21 @@ import java.util.List;
 public class ShopAssistant extends Worker {
 
     public static int START_MONEY = 250;
+
     public static float START_FOOD = 1f;
     public static float START_INT = 1f;
-    public static float MIN_MS_SPEED = 1.5F;
-    public static float MAX_MS_SPEED = 3F;
-    public static int SALARY = 60;
+
+    public static float MIN_MS_SPEED = 0.5F;
+    public static float MAX_MS_SPEED = 0.75F;
+
+    public static int MIN_SALARY = 15;
+    public static int MAX_SALARY = 35;
 
     private final float movementSpeed;
 
     private ShopAssistant(World world, AnimatedSprite sprite, Vector2F position)
     {
-        super(world, sprite, position, SALARY);
+        super(world, sprite, position, Random.getRandomInt(MIN_SALARY,MAX_SALARY));
         this.money = START_MONEY;
         this.food = START_FOOD;
         this.interest = START_INT;
@@ -64,6 +68,12 @@ public class ShopAssistant extends Worker {
 
     @Override
     public void onDestroy() { }
+
+    @Override
+    public String getTypeName()
+    {
+        return "Shopkeeper";
+    }
 
     private List<Shop> getShopsWithJob()
     {

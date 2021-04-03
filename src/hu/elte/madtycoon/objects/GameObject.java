@@ -76,6 +76,8 @@ public abstract class GameObject implements ITargetable
         return getPosition();
     }
 
+    public void setPosition(Vector2F position){this.position = position;}
+
 
     public abstract void onDestroy();
 

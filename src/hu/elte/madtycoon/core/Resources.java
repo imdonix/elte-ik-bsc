@@ -56,8 +56,10 @@ public class Resources
     public BufferedImage openCloseButton;
     public BufferedImage plusButton;
     public BufferedImage minusButton;
+    public BufferedImage interviews;
 
     public Font chBell;
+    public Font sansPro;
 
     public List<String> entityNames;
 
@@ -123,8 +125,10 @@ public class Resources
 
     private void loadFonts() throws IOException, FontFormatException {
         chBell = Font.createFont(Font.TRUETYPE_FONT, new File("res/font/christmas_bell.otf")).deriveFont(46f);
+        sansPro = Font.createFont(Font.TRUETYPE_FONT, new File("res/font/sans_pro.ttf")).deriveFont(40f);
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
         ge.registerFont(chBell);
+        ge.registerFont(sansPro);
     }
 
     private void loadPopWindow() throws IOException
@@ -133,5 +137,6 @@ public class Resources
         openCloseButton = ImageIO.read(new File("res/menu/show/openclose_button.png"));
         plusButton = ImageIO.read(new File("res/menu/show/plus_button.png"));
         minusButton = ImageIO.read(new File("res/menu/show/minus_button.png"));
+        interviews = ImageIO.read(new File("res/menu/show/interviews.png"));
     }
 }

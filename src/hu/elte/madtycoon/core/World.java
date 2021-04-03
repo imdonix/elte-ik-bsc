@@ -1,13 +1,10 @@
 package hu.elte.madtycoon.core;
 
-import hu.elte.madtycoon.objects.Building;
+import hu.elte.madtycoon.objects.*;
 import hu.elte.madtycoon.objects.buildings.Entrance;
 import hu.elte.madtycoon.objects.buildings.games.CoinFlip;
 import hu.elte.madtycoon.objects.buildings.Road;
 import hu.elte.madtycoon.objects.buildings.Shop;
-import hu.elte.madtycoon.objects.Entity;
-import hu.elte.madtycoon.objects.Game;
-import hu.elte.madtycoon.objects.GameObject;
 import hu.elte.madtycoon.objects.entities.Visitor;
 import hu.elte.madtycoon.render.SpriteRenderBuffer;
 import hu.elte.madtycoon.utils.Utils;
@@ -29,6 +26,7 @@ public class World
     private final RoadSystem roadSystem;
     private final Coroutines coroutines;
     private final Statistics statistics;
+    private final Employment employment;
 
     private Entrance entrance;
     private int money;
@@ -42,6 +40,7 @@ public class World
         roadSystem = new RoadSystem(this);
         emotes = new Emotes(this);
         statistics = new Statistics(this);
+        employment = new Employment(this);
         coroutines = new Coroutines();
         start();
     }
@@ -113,6 +112,8 @@ public class World
     public Coroutines getCoroutines(){ return coroutines; }
 
     public Statistics getStatistics(){ return statistics; }
+
+    public Employment getEmployment(){ return employment; }
 
     public Entrance getEntrance(){ return entrance; }
 
@@ -216,6 +217,14 @@ public class World
         for(Entity entity : entities)
             if(entity instanceof Visitor)
                 tmp.add((Visitor) entity);
+        return tmp;
+    }
+
+    public List<Worker> getWorkers(){
+        List<Worker> tmp = new LinkedList<>();
+        for(Entity entity : entities)
+            if(entity instanceof Worker)
+                tmp.add((Worker) entity);
         return tmp;
     }
 
