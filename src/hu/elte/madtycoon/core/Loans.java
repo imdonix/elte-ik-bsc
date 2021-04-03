@@ -1,5 +1,7 @@
 package hu.elte.madtycoon.core;
 
+import hu.elte.madtycoon.ui.core.Preview;
+
 public class Loans
 {
     private final static float REPAY_TIMER = 60*5;
@@ -39,6 +41,11 @@ public class Loans
                 l.repay(world);
     }
 
+    public Preview getPreview()
+    {
+        Preview preview = new Preview("Loans");
+        return preview;
+    }
 
     public class Loan
     {

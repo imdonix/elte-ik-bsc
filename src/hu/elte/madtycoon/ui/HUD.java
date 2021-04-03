@@ -102,6 +102,7 @@ public class HUD extends JPanel
         moneyIcon.setBorderPainted(false);
         moneyIcon.setMargin(new Insets(25, 90, 0, 0));
         moneyIcon.setIcon(new ImageIcon(Resources.Instance.gameMoneyIcon));
+        moneyIcon.addActionListener(e -> engine.getWorldBuilder().setGUI(new PreviewFrame(engine.getLoans().getPreview())));
 
         moneyLabel = new JLabel();
         moneyLabel.setBorder(new EmptyBorder(30,0,0,0));

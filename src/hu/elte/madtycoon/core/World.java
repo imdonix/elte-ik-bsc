@@ -118,6 +118,8 @@ public class World
 
     public Employment getEmployment(){ return employment; }
 
+    public Loans getLoans(){ return loans; }
+
     public Entrance getEntrance(){ return entrance; }
 
     public int getMoney()
