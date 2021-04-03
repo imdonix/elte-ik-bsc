@@ -84,6 +84,14 @@ public abstract class Building extends GameObject
     }
 
 
+    public Worker getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(Worker employee) {
+        this.employee = employee;
+    }
+
     public void repair(Worker employee) throws JobAlreadyTaken
     {
         if(this.employee != null) throw new JobAlreadyTaken();

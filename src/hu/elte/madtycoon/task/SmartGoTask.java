@@ -42,7 +42,10 @@ public abstract class SmartGoTask <G extends Entity, T extends ITargetable> exte
                     else
                     {
                         if(entity.getPosition().distance(target.getTargetPosition()) < Vector2F.E)
+                        {
+                            target.dirty();
                             request.getPath().next();
+                        }
                         else
                         {
                             Vector2F dir = target.getTargetPosition().min(entity.getPosition());

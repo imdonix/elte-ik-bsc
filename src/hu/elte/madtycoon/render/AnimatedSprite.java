@@ -25,6 +25,8 @@ public class AnimatedSprite
     public final static String REPAIR = "repair";
     public final static String NEED_REPAIR = "nrepair";
 
+    public final static String ROAD_DIRTY = "dirty";
+
 
     private final HashMap<String, BufferedImage[]> sprites;
     private final float frameLength;
