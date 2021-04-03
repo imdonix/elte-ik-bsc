@@ -21,15 +21,16 @@ public class Cleaner extends Worker {
     public static float START_FOOD = 1f;
     public static float START_INT = 1f;
 
-    public static float MIN_MS_SPEED = 1.5F;
-    public static float MAX_MS_SPEED = 3F;
+    public static float MIN_MS_SPEED = 1F;
+    public static float MAX_MS_SPEED = 2F;
 
-    public static int SALARY = 75;
+    public static int MIN_SALARY = 25;
+    public static int MAX_SALARY = 50;
 
     private final float movementSpeed;
 
     private Cleaner(World world, AnimatedSprite sprite, Vector2F position) {
-        super(world, sprite, position, SALARY);
+        super(world, sprite, position, Random.getRandomInt(MIN_SALARY,MAX_SALARY));
         this.money = START_MONEY;
         this.food = START_FOOD;
         this.interest = START_INT;
@@ -60,6 +61,12 @@ public class Cleaner extends Worker {
             System.out.println(String.format("%s can't be employed!", this));
             return super.getNewTask();
         }
+    }
+
+    @Override
+    public String getTypeName()
+    {
+        return "Cleaner";
     }
 
     private List<Road> getRoadsWithLowHealth()

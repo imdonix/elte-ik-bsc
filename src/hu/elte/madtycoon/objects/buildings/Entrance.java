@@ -55,13 +55,8 @@ public class Entrance extends Building
     @Override
     protected void start()
     {
-        //Coroutines needed to spawn coz we cant update the entities list while inside the loop
+        //Coroutines needed to spawn coz we cant update the buildings list while inside the loop
         world.getCoroutines().schedule(0, () -> world.instantiate(Road.Create(world, getTargetPosition())));
-
-        for (int i = 0; i < 7; i++)
-            world.getCoroutines().schedule(10*i, () -> world.instantiate(RepairMan.Create(world, getTargetPosition())));
-        for (int i = 0; i < 7; i++)
-            world.getCoroutines().schedule(10*i, () -> world.instantiate(Cleaner.Create(world, getTargetPosition())));
     }
 
     @Override

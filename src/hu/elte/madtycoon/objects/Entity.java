@@ -165,7 +165,6 @@ public abstract class Entity extends GameObject {
     protected abstract float getMovementSpeed();
 
 
-
     private static String getRandomName()
     {
         final List<String> names = Resources.Instance.entityNames;
