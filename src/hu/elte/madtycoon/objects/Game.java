@@ -1,6 +1,7 @@
 package hu.elte.madtycoon.objects;
 
 import hu.elte.madtycoon.core.Resources;
+import hu.elte.madtycoon.core.Sounds;
 import hu.elte.madtycoon.core.World;
 import hu.elte.madtycoon.objects.entities.Visitor;
 import hu.elte.madtycoon.render.AnimatedSprite;
@@ -13,6 +14,7 @@ import hu.elte.madtycoon.utils.Vector2F;
 import hu.elte.madtycoon.utils.Vector2I;
 import hu.elte.madtycoon.utils.exception.*;
 
+import java.net.URL;
 import java.util.ArrayDeque;
 import java.util.Queue;
 
@@ -124,6 +126,7 @@ public abstract class Game extends Building
         this.sprite.setState(AnimatedSprite.GAME_PLAY);
         this.playing = true;
         this.timer = 0F;
+        Sounds.play(getGameAudioClip());
     }
 
     private void releaseVisitors(boolean forced)
@@ -140,5 +143,7 @@ public abstract class Game extends Building
     protected abstract void reward();
 
     protected abstract float getPlayPeriod();
+
+    protected abstract URL getGameAudioClip();
 
 }

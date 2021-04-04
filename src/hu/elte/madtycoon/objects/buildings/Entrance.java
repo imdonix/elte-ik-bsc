@@ -102,8 +102,6 @@ public class Entrance extends Building
         float happiness = Utils.clamp(1.5F, 3F, world.getHappiness() * 3F);
         int max = Utils.clamp(0, MAX_VISITOR_IN_PARK , (int) (((float) countAvailableGameSlots())*happiness));
 
-        System.out.println(countAvailableGameSlots()*happiness);
-
         if(timer > SPAWN_TIME_AT_MAX / decor)
             if(isOpened())
                 if(max > world.getVisitors().size())

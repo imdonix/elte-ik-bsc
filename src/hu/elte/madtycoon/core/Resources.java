@@ -1,10 +1,15 @@
 package hu.elte.madtycoon.core;
 
 import javax.imageio.ImageIO;
+import java.applet.Applet;
+import java.applet.AudioClip;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
@@ -62,6 +67,12 @@ public class Resources
     public Font chBell;
     public Font sansPro;
 
+    public URL music;
+    public URL income;
+    public URL casteSound;
+    public URL coinSound;
+
+
     public List<String> entityNames;
 
     private Resources() {}
@@ -72,6 +83,7 @@ public class Resources
         loadShop();
         loadFonts();
         loadPopWindow();
+        loadSounds();
     }
 
     private void loadMenu() throws IOException
@@ -140,5 +152,13 @@ public class Resources
         minusButton = ImageIO.read(new File("res/menu/show/minus_button.png"));
         interviews = ImageIO.read(new File("res/menu/show/interviews.png"));
         rotate = ImageIO.read(new File("res/menu/show/rotate.png"));
+    }
+
+    private void loadSounds() throws MalformedURLException
+    {
+        music = new URL("file:res/sound/music.wav");
+        income = new URL("file:res/sound/income.wav");
+        casteSound = new URL("file:res/sound/castle.wav");
+        coinSound = new URL("file:res/sound/coin.wav");
     }
 }
