@@ -59,7 +59,7 @@ public class Sounds
         return () -> {
             AudioClip sound = Sounds.newFromURL(clip);
             sound.loop();
-            while (getAudio())
+            while (getMusic())
                 try { Thread.sleep(200); } catch (InterruptedException e) { }
             sound.stop();
         };
