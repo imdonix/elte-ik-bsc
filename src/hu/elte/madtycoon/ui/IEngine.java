@@ -1,9 +1,6 @@
 package hu.elte.madtycoon.ui;
 
-import hu.elte.madtycoon.core.Builder;
-import hu.elte.madtycoon.core.Employment;
-import hu.elte.madtycoon.core.Loans;
-import hu.elte.madtycoon.core.Statistics;
+import hu.elte.madtycoon.core.*;
 import hu.elte.madtycoon.objects.Building;
 import hu.elte.madtycoon.utils.Vector2I;
 
@@ -49,4 +46,9 @@ public interface IEngine
      * @return Return the world loans.
      */
     Loans getLoans();
+
+    /**
+     * @return Return the engine options.
+     */
+    Options getOptions();
 }
