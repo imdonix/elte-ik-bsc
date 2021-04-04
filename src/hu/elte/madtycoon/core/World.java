@@ -1,5 +1,6 @@
 package hu.elte.madtycoon.core;
 
+import hu.elte.madtycoon.Main;
 import hu.elte.madtycoon.objects.*;
 import hu.elte.madtycoon.objects.buildings.Entrance;
 import hu.elte.madtycoon.objects.buildings.games.CoinFlip;
@@ -16,7 +17,7 @@ import java.util.List;
 
 public class World
 {
-    public static int DEFAULT_START_MONEY = 300000;
+    public static int DEFAULT_START_MONEY = 5000;
     public static Vector2I ENTRANCE_POINT = new Vector2I(Engine.GAME_SIZE_X/2 + 2,Engine.GAME_SIZE_Y - 2);
 
     private final List<Entity> entities;
@@ -34,7 +35,7 @@ public class World
 
     public World()
     {
-        money = DEFAULT_START_MONEY;
+        money = Main.DEBUG ? DEFAULT_START_MONEY * 500 : DEFAULT_START_MONEY;
         entities = new LinkedList<Entity>();
         buildings  = new LinkedList<Building>();
         destroyBuffer = new LinkedList<GameObject>();
@@ -175,6 +176,7 @@ public class World
 
     public float getHappiness()
     {
+        if(entities.size() == 0) return 1;
         float sum = 0;
         for(Entity entity : entities)
             sum += entity.getHappiness();
@@ -186,7 +188,7 @@ public class World
         float sum = 0;
         for(Building building : buildings)
             sum += building.getDecorationValue();
-        return Utils.clamp(1,5, sum);
+        return Utils.clamp(1,10, sum);
     }
 
     public List<Building> getBuildings() {return new LinkedList<Building>(buildings);}

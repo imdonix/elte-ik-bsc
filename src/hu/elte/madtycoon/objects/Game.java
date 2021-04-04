@@ -26,7 +26,7 @@ public abstract class Game extends Building
     private final int max;
     private float timer;
     private boolean playing;
-    private int useCost;
+    protected int useCost;
 
     public Game(World world, AnimatedSprite sprite, Vector2F position, Vector2I size, int max, int useCost) {
         super(world, sprite, position, size);
@@ -45,6 +45,8 @@ public abstract class Game extends Building
     {
         return useCost;
     }
+
+    public int getSlots(){ return max; }
 
     public int getVisitorsCount()
     {

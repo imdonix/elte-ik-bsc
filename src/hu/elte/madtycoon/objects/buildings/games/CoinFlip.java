@@ -24,16 +24,16 @@ public class CoinFlip extends Game
 
     public final static int MAX = 2;
     public final static int MIN_USE_COST = 20;
-    public final static int MAX_USE_COST = 100;
+    public final static int MAX_USE_COST = 60;
 
-    public final static float EDGE = 0F;
+    public final static int EDGE = 0;
 
     private int edge;
 
     private CoinFlip(World world, AnimatedSprite sprite, Vector2F position, Vector2I size, int max)
     {
-        super(world, sprite, position, size, max, MAX_USE_COST);
-        this.edge = 0;
+        super(world, sprite, position, size, max, MAX_USE_COST / 2);
+        this.edge = EDGE;
     }
 
     public void setEdge(int edge)
@@ -53,15 +53,21 @@ public class CoinFlip extends Game
 
         if(edgeCase)
         {
-            players[0].addInterest(-.4F);
-            players[1].addInterest(-.4F);
+            players[0].addInterest(-.5F);
+            players[1].addInterest(-.5F);
         }
         else
         {
             players[winner % 2].earn(reward);
-            players[winner % 2].addInterest(.8F);
-            players[(winner + 1) % 2].addInterest(-.3F);
+            players[winner % 2].addInterest(.3F);
+            players[(winner + 1) % 2].addInterest(-.15F);
         }
+    }
+
+    @Override
+    public void setUseCost(int useCost)
+    {
+        this.useCost = Utils.clamp(MIN_USE_COST, MAX_USE_COST, useCost);
     }
 
     @Override

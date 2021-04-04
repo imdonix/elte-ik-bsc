@@ -21,11 +21,11 @@ import java.util.List;
 public class Visitor extends Entity
 {
 
-    public static int START_MONEY_MIN = 300;
-    public static int START_MONEY_MAX = 1500;
+    public static int START_MONEY_MIN = 450;
+    public static int START_MONEY_MAX = START_MONEY_MIN * 2;
     public static float START_FOOD_MIN = 0.65f;
     public static float START_FOOD_MAX = 0.8f;
-    public static float START_INT_MIN = 0.2f;
+    public static float START_INT_MIN = 0.3f;
     public static float START_INT_MAX = 0.5f;
     public static float MIN_MS_SPEED = 1F;
     public static float MAX_MS_SPEED = 2F;

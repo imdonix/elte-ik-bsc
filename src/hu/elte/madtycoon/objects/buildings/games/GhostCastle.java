@@ -7,6 +7,7 @@ import hu.elte.madtycoon.objects.entities.Visitor;
 import hu.elte.madtycoon.render.AnimatedSprite;
 import hu.elte.madtycoon.render.AnimationResource;
 import hu.elte.madtycoon.utils.BuildReference;
+import hu.elte.madtycoon.utils.Utils;
 import hu.elte.madtycoon.utils.Vector2F;
 import hu.elte.madtycoon.utils.Vector2I;
 
@@ -16,14 +17,14 @@ public class GhostCastle extends Game {
     public final static String ID = "castle";
     public final static Vector2I SIZE = new Vector2I(3,4);
     public final static Vector2I ENTRANCE = new Vector2I(0,1);
-    public final static int PRICE = 1200;
+    public final static int PRICE = 5000;
 
-    public final static int MAX = 5;
-    public final static int MIN_USE_COST = 100;
-    public final static int MAX_USE_COST = 200;
+    public final static int MAX = 10;
+    public final static int MIN_USE_COST = 20;
+    public final static int MAX_USE_COST = 100;
 
     private GhostCastle(World world, AnimatedSprite sprite, Vector2F position, Vector2I size, int max) {
-        super(world, sprite, position, size, max, MAX_USE_COST);
+        super(world, sprite, position, size, max, MAX_USE_COST/2);
     }
 
     public static GhostCastle Create(World world, Vector2F position) {
@@ -40,6 +41,12 @@ public class GhostCastle extends Game {
 
     public static void AddReference() {
         Builder.buildings.put(ID, new BuildReference(SIZE, PRICE, GhostCastle::Create));
+    }
+
+    @Override
+    public void setUseCost(int useCost)
+    {
+        this.useCost = Utils.clamp(MIN_USE_COST, MAX_USE_COST, useCost);
     }
 
     @Override
@@ -63,8 +70,7 @@ public class GhostCastle extends Game {
     @Override
     protected void reward() {
         Visitor[] players = getPlayers();
-        for (Visitor player : players) {
-            player.addInterest(1F);
-        }
+        for (Visitor player : players)
+            player.addInterest(0.3F);
     }
 }

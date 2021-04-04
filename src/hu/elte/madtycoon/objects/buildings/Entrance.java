@@ -3,6 +3,7 @@ package hu.elte.madtycoon.objects.buildings;
 import hu.elte.madtycoon.core.Resources;
 import hu.elte.madtycoon.core.World;
 import hu.elte.madtycoon.objects.Building;
+import hu.elte.madtycoon.objects.Game;
 import hu.elte.madtycoon.objects.entities.Visitor;
 import hu.elte.madtycoon.render.AnimatedSprite;
 import hu.elte.madtycoon.render.AnimationResource;
@@ -21,9 +22,8 @@ public class Entrance extends Building
 {
     public static final Vector2I SIZE = new Vector2I(6,7);
     public static final Vector2I ENTRANCE = new Vector2I(-1,1);
-    public static final int MVPD = 300;//Max visitor at decoration level 5
-    public static final int MVSPM = 4; // Max visitor spawn per minute at decoration level 5
-    public static final float SPAWN_TIME = 60/20F;
+    public static final int MAX_VISITOR_IN_PARK = 500; //Max visitor at decoration level 5
+    public static final float SPAWN_TIME_AT_MAX = 7.5F;
 
     public static int DEFAULT_ENTRANCE_COST = 50;
     public static int MIN_ENTRANCE_COST = 0;
@@ -98,21 +98,28 @@ public class Entrance extends Building
 
     private void spawn()
     {
-        if(timer >  SPAWN_TIME && isOpened())
-        {
-            float decor = world.getDecoration() / 5F;
-            int max = (int) (MVPD  * decor);
-            int visitorToSpawn = (int) (MVSPM * decor);
-            int visitorCount = world.getVisitors().size();
+        float decor = world.getDecoration();
+        float happiness = Utils.clamp(1.5F, 3F, world.getHappiness() * 3F);
+        int max = Utils.clamp(0, MAX_VISITOR_IN_PARK , (int) (((float) countAvailableGameSlots())*happiness));
 
-            if(visitorToSpawn + visitorCount > max)
-                visitorToSpawn = max - visitorCount;
+        System.out.println(countAvailableGameSlots()*happiness);
 
-            for (int i = 0; i < visitorToSpawn; i++)
-                world.instantiate(Visitor.Create(world, getTargetPosition()));
+        if(timer > SPAWN_TIME_AT_MAX / decor)
+            if(isOpened())
+                if(max > world.getVisitors().size())
+                {
+                    world.instantiate(Visitor.Create(world, getTargetPosition()));
+                    timer = 0;
+                }
+    }
 
-            timer = 0;
-        }
+
+    private int countAvailableGameSlots()
+    {
+        int c = 0;
+        for(Game game : world.getGames())
+            c += game.getSlots();
+        return c;
     }
 
     public static Entrance Create(World world)

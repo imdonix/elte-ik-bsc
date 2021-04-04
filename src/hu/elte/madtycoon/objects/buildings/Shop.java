@@ -24,9 +24,8 @@ public class Shop extends Building
     public final static String ID = "shop";
     public final static Vector2I SIZE = new Vector2I(5,3);
     public final static Vector2I ENTRANCE = new Vector2I(-2,1);
-    public final static int PRICE = 100;
-    public final static int DEFAULT_FOOD_COST = 20;
-    public final static int MAX_FOOD_COST = 50;
+    public final static int PRICE = 2000;
+    public final static int MAX_FOOD_COST = 40;
     public final static int MIN_FOOD_COST = 10;
 
     private ShopAssistant employee;
@@ -123,7 +122,7 @@ public class Shop extends Building
         anim.addState(AnimatedSprite.GAME_PLAY, play);
         anim.addState(AnimatedSprite.GAME_STOP, stop);
         anim.addState(AnimatedSprite.GAME_UNDER_CONSTRUCTION, construction);
-        return new Shop(world, anim, position, SIZE, DEFAULT_FOOD_COST);
+        return new Shop(world, anim, position, SIZE, MAX_FOOD_COST/2);
     }
 
     public static void AddReference()

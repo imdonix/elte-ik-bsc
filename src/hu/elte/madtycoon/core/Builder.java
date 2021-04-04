@@ -160,8 +160,8 @@ public class Builder
     {
         if(world.getMoney() >= Road.PRICE)
         {
-            Building sb = world.collisionCheck(selected, Vector2I.ONE);
-            if(sb == null || ! (sb instanceof Road))
+            List<Building> sb = world.collisionCheckMultiple(selected, Vector2I.ONE);
+            if(canBuildRoad(sb))
             {
                 world.pay(Road.PRICE);
                 world.instantiate(Road.Create(world, new Vector2F(selected)));
@@ -171,10 +171,10 @@ public class Builder
 
     private void roadDestroy()
     {
-        Building sb = world.collisionCheck(selected, Vector2I.ONE);
-        if(sb != null)
-            if(sb instanceof Road)
-                world.destroy(sb);
+        List<Building> sb = world.collisionCheckMultiple(selected, Vector2I.ONE);
+        for(Building building : sb)
+            if(building instanceof Road)
+                world.destroy(building);
     }
 
     //SHOW
@@ -244,6 +244,14 @@ public class Builder
             if(!(building instanceof Road))
                 return true;
         return false;
+    }
+
+    private boolean canBuildRoad(List<Building> sb)
+    {
+        for(Building building : sb)
+            if(building instanceof Road)
+                return false;
+        return true;
     }
 
 }

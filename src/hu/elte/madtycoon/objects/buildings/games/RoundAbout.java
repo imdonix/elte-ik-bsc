@@ -7,6 +7,7 @@ import hu.elte.madtycoon.objects.Game;
 import hu.elte.madtycoon.render.AnimatedSprite;
 import hu.elte.madtycoon.render.AnimationResource;
 import hu.elte.madtycoon.utils.BuildReference;
+import hu.elte.madtycoon.utils.Utils;
 import hu.elte.madtycoon.utils.Vector2F;
 import hu.elte.madtycoon.utils.Vector2I;
 
@@ -19,13 +20,13 @@ public class RoundAbout extends Game {
     public final static Vector2I ENTRANCE = new Vector2I(-2,1);
     public final static int PRICE = 1000;
 
-    public final static int MAX = 3;
+    public final static int MAX = 5;
     public final static int MIN_USE_COST = 50;
-    public final static int MAX_USE_COST = 150;
+    public final static int MAX_USE_COST = 200;
 
     private RoundAbout(World world, AnimatedSprite sprite, Vector2F position, Vector2I size, int max)
     {
-        super(world, sprite, position, size, max, MAX_USE_COST);
+        super(world, sprite, position, size, max, MAX_USE_COST/2);
     }
 
     public static RoundAbout Create(World world, Vector2F position)
@@ -44,6 +45,12 @@ public class RoundAbout extends Game {
     public static void AddReference()
     {
         Builder.buildings.put(ID, new BuildReference(SIZE, PRICE, RoundAbout::Create));
+    }
+
+    @Override
+    public void setUseCost(int useCost)
+    {
+        this.useCost = Utils.clamp(MIN_USE_COST, MAX_USE_COST, useCost);
     }
 
     @Override
@@ -71,8 +78,8 @@ public class RoundAbout extends Game {
     protected void reward()
     {
         Visitor[] players = getPlayers();
-        for (Visitor player : players) {
+        for (Visitor player : players)
             player.addInterest(.6F);
-        }
+
     }
 }

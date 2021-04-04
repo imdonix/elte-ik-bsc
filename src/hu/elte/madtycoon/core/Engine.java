@@ -20,7 +20,7 @@ public class Engine extends JFrame implements IEngine
     public static final int GAME_SIZE_Y = 18;
     public static final int BLOCK_SIZE = 50;
     public static final int RENDER_BASE_CAPACITY = GAME_SIZE_X * GAME_SIZE_Y;
-    public static final int TARGET_FRAME_RATE = 144;
+    public static final int TARGET_FRAME_RATE = 360;
 
     private final Timer tickTimer;
     private final World world;
