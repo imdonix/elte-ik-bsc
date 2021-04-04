@@ -1,6 +1,7 @@
 package hu.elte.madtycoon.objects.buildings.games;
 
 import hu.elte.madtycoon.core.Builder;
+import hu.elte.madtycoon.core.Resources;
 import hu.elte.madtycoon.core.World;
 import hu.elte.madtycoon.objects.Game;
 import hu.elte.madtycoon.objects.entities.Visitor;
@@ -12,6 +13,7 @@ import hu.elte.madtycoon.utils.Vector2F;
 import hu.elte.madtycoon.utils.Vector2I;
 
 import java.awt.image.BufferedImage;
+import java.net.URL;
 
 public class GhostCastle extends Game {
     public final static String ID = "castle";
@@ -72,5 +74,11 @@ public class GhostCastle extends Game {
         Visitor[] players = getPlayers();
         for (Visitor player : players)
             player.addInterest(0.3F);
+    }
+
+    @Override
+    protected URL getGameAudioClip()
+    {
+        return Resources.Instance.casteSound;
     }
 }

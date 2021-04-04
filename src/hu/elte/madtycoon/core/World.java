@@ -51,6 +51,7 @@ public class World
     private void start()
     {
         entrance = (Entrance) instantiate(Entrance.Create(this));
+        Sounds.loop(Resources.Instance.music);
     }
 
     public void update(float dt)
@@ -132,6 +133,7 @@ public class World
     {
         this.money += money;
         this.statistics.addMoneyGain(money);
+        Sounds.play(Resources.Instance.income);
     }
 
     public void pay(int money)

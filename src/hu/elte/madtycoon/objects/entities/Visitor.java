@@ -54,7 +54,10 @@ public class Visitor extends Entity
         if(world.getEntrance().getEntranceCost() > money / 2)
             task = new LeavePark(this);
         else
+        {
             pay(world.getEntrance().getEntranceCost());
+            world.getEmotes().pop(world.getEntrance(), AnimatedSprite.PARK_EARN);
+        }
     }
 
     @Override

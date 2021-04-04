@@ -1,6 +1,7 @@
 package hu.elte.madtycoon.objects.buildings.games;
 
 import hu.elte.madtycoon.core.Builder;
+import hu.elte.madtycoon.core.Resources;
 import hu.elte.madtycoon.core.World;
 import hu.elte.madtycoon.objects.entities.Visitor;
 import hu.elte.madtycoon.objects.Game;
@@ -13,6 +14,7 @@ import hu.elte.madtycoon.utils.*;
 
 import javax.rmi.CORBA.Util;
 import java.awt.image.BufferedImage;
+import java.net.URL;
 
 public class CoinFlip extends Game
 {
@@ -91,11 +93,20 @@ public class CoinFlip extends Game
     public String getName() { return "Coin Flip"; }
 
     @Override
-    public Preview getPreview() {
+    protected URL getGameAudioClip()
+    {
+        return Resources.Instance.coinSound;
+    }
+
+    @Override
+    public Preview getPreview()
+    {
         Preview view = super.getPreview();
         view.addContent(new SetPercentComponent("Edge case", this::getEdge, this::setEdge));
         return view;
     }
+
+
 
     public static CoinFlip Create(World world, Vector2F position)
     {
