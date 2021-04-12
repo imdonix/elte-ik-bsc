@@ -58,7 +58,8 @@ public class Resources
     public BufferedImage firePitBuyButton;
 
     public BufferedImage destroyButton;
-    public BufferedImage openCloseButton;
+    public BufferedImage openButton;
+    public BufferedImage closeButton;
     public BufferedImage plusButton;
     public BufferedImage minusButton;
     public BufferedImage interviews;
@@ -147,7 +148,8 @@ public class Resources
     private void loadPopWindow() throws IOException
     {
         destroyButton = ImageIO.read(new File("res/menu/show/destroy_button.png"));
-        openCloseButton = ImageIO.read(new File("res/menu/show/openclose_button.png"));
+        openButton = ImageIO.read(new File("res/menu/show/open_button.png"));
+        closeButton =  ImageIO.read(new File("res/menu/show/close_button.png"));
         plusButton = ImageIO.read(new File("res/menu/show/plus_button.png"));
         minusButton = ImageIO.read(new File("res/menu/show/minus_button.png"));
         interviews = ImageIO.read(new File("res/menu/show/interviews.png"));

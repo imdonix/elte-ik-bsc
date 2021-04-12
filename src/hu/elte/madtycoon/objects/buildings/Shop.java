@@ -108,7 +108,7 @@ public class Shop extends Building
         preview.addContent(new OpenComponent(this));
         preview.addContent(new WorkingComponent(this));
         preview.addContent(new SetComponent("Food cost", this::getFoodCost, this::setFoodCost));
-        preview.addAction(new ToggleComponent(Resources.Instance.openCloseButton,this::isOpened, this::setOpened));
+        preview.addAction(new ToggleComponent(this::isOpened, this::setOpened));
         return preview;
     }
 

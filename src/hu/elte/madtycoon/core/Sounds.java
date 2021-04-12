@@ -12,8 +12,8 @@ public class Sounds
 {
     private static List<URL> toDoAfterRestart = new ArrayList<>();
 
-    private static AtomicBoolean audio = new AtomicBoolean(true);
-    private static AtomicBoolean music = new AtomicBoolean(true);
+    private static AtomicBoolean audio = new AtomicBoolean(false);
+    private static AtomicBoolean music = new AtomicBoolean(false);
 
 
     public  static boolean getAudio()

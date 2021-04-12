@@ -92,7 +92,7 @@ public class Entrance extends Building
         preview.addContent(new OpenComponent(this));
         preview.addContent(new DecorationComponent(this));
         preview.addContent(new SetComponent("Entrance cost", this::getEntranceCost, this::setEntranceCost));
-        preview.addAction(new ToggleComponent(Resources.Instance.openCloseButton, this::isOpened, this::setOpened));
+        preview.addAction(new ToggleComponent(this::isOpened, this::setOpened));
         return preview;
     }
 

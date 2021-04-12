@@ -14,7 +14,7 @@ public class ToggleSoundComponent extends ToggleComponent
 {
     public ToggleSoundComponent()
     {
-        super(Resources.Instance.openCloseButton, Sounds::getAudio, Sounds::setAudio);
+        super(Sounds::getAudio, Sounds::setAudio);
     }
 
     @Override

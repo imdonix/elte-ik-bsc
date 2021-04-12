@@ -110,7 +110,7 @@ public abstract class Game extends Building
         preview.addContent(new OpenComponent(this));
         preview.addContent(new WorkingComponent(this));
         preview.addContent(new InGameComponent(this));
-        preview.addAction(new ToggleComponent(Resources.Instance.openCloseButton, this::isOpened, this::setOpened));
+        preview.addAction(new ToggleComponent(this::isOpened, this::setOpened));
         return preview;
     }
 
