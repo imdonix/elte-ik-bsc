@@ -24,7 +24,7 @@ test:
       -Dlibs.hamcrest.classpath=/usr/share/java/hamcrest-core.jar
 
 zip:
-  stage: build
+  stage: deploy
   script:
     - ant compile
     - ant zip
