@@ -4,8 +4,8 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 
-#define LINE 256
-#define MAX 128
+#include "vac.h"
+
 #define FILENAME "data"
 
 #define CLOSE "close"
@@ -13,7 +13,7 @@
 #define ADD "add"
 #define REMOVE "remove"
 #define UPDATE "update"
-
+#define VACINATE "vac"
 
 void clear(char data[MAX][LINE])
 {
@@ -55,17 +55,18 @@ void list(char data[MAX][LINE], int len)
 {
     int i;
     for(i = 0; i < len; i++)
-        printf("|%i| - %s", i , data[i]);
+        printf("|%i| - (%s) %s", i, data[i][0] == 'V' ? "Vacinated" : "Dangered", &data[i][1]);
+    
 }
 
 void add(char data[MAX][LINE], int* len, char* fname, char* lname, char* year, char* phone, char* extra)
 {
-    sprintf(data[(*len)++], "%s %s, %s, %s, %s\n", fname, lname, year, phone, extra);
+    sprintf(data[(*len)++], "D%s %s, %s, %s, %s\n", fname, lname, year, phone, extra);
 }
 
 void update(char data[MAX][LINE], int index, char* fname, char* lname, char* year, char* phone, char* extra)
 {
-    sprintf(data[index], "%s %s, %s, %s, %s\n", fname, lname, year, phone, extra);
+    sprintf(data[index], "%c%s %s, %s, %s, %s\n", data[index][0], fname, lname, year, phone, extra);
 }
 
 void dremove(char data[MAX][LINE], int* len, int index)
@@ -79,7 +80,7 @@ void dremove(char data[MAX][LINE], int* len, int index)
 
 void loop(char data[MAX][LINE], int* len)
 {
-    printf("Enter your next command:\n[close - list - add <rec> - remove <id> - update <id> <rec>]\n[<rec> = <fname> <lname> <year> <phone> <extra(Y/N)>]\n");
+    printf("Enter your next command:\n[close - list - add <rec> - remove <id> - update <id> <rec> - vac]\n[<rec> = <fname> <lname> <year> <phone> <extra(Y/N)>]\n");
 
     char cmd[LINE] = "";
     char tmp[5][LINE/5];
@@ -108,6 +109,10 @@ void loop(char data[MAX][LINE], int* len)
             scanf("%i", &index);
             scanf("%s %s %s %s %s", tmp[0], tmp[1], tmp[2], tmp[3], tmp[4]);
             update(data, index, tmp[0], tmp[1], tmp[2], tmp[3], tmp[4]);
+        }
+        else if(!strcmp(cmd, VACINATE))
+        {
+            vacinate(data);
         }
     }
 }
