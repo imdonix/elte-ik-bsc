@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h> 
+#include <time.h>
 #include <sys/types.h>
 #include <sys/stat.h>
 
@@ -112,13 +113,14 @@ void loop(char data[MAX][LINE], int* len)
         }
         else if(!strcmp(cmd, VACINATE))
         {
-            vacinate(data);
+            vacinate(data, *len);
         }
     }
 }
 
 int main()
 {
+    srand(time(NULL));
     printf("|Vakcin-acio| recorder started\n");
 
     char data[MAX][LINE];
