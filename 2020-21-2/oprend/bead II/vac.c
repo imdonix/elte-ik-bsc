@@ -73,7 +73,8 @@ void start(char data[MAX][LINE], int* patients, int len, int bus)
         fe = open("/tmp/rnyr2f-1", O_RDONLY);
         printf("[M] The Operation is started\n");
 
-        sleep(BUS);
+        for(i = 0; i < bus; i++)
+            pause();
 
         for(i = 0; i < len; i++) 
         {
