@@ -1,0 +1,61 @@
+Adatbázis-kezelés_1 2. ZH A
+
+A feladatokat egyetlen select-tel kell megoldani.
+
+Pizza(p_sorszám, p_név, p_ár)
+Alapanyag(a_sorszám, a_név)
+Hozzávaló(p_sorszám, a_sorszám, mennyiség)
+Pizzarendelés(személy, p_sorszám, dátum)
+
+1; Készítsen másolatot az adatbázisok tábláiból az eredeti néven!
+
+2; Módosítsa az „Pizza” adatbázist (p_ár) az árváltozás miatt.
+A tojást tartalmazó pizza ára nőtt 100-zal, a gombát tartalmazó ára csökkent 150-nel.
+Minden sajtot tartalmazó pizza ára nőtt, ezért a különböző (mozzarella sajt, füstőlt sajt,...) 'sajt'-okat tartalmazó pizzák ára is 150-nel nőtt.
+
+3. Melyik pizzát nem rendelték szombaton!
+
+4. Írassa ki a pizza nevét nagy kezdőbetűvel, s annyi + jelet tegyen mellé ahányan rendelték!
+
+5. Készítsen egy táblát 'rendelők' néven, melynek oszlopai sorszám mely a táblázat elsődleges kulcsa, név, darabszám.
+
+6. Rendelők táblázat tartalma: név a pizzát rendelők neve, darabszám a rendelő eddig  összesen hányszor rendelt pizzát.
+
+Megoldás:
+
+--1
+create table pizza as select * from BRANYI.pizza;
+create table alapanyag as select * from BRANYI.alapanyag;
+create table hozzávaló as select * from BRANYI.hozzávaló;
+create table pizzarendelés as select * from BRANYI.pizzarendelés;
+
+--2
+UPDATE pizza
+SET P_ÁR = P_ÁR + (SELECT SUM(case a_név when 'tojás' then 100 when 'gomba' then -150 when '%sajt%' then 150 else 0 end) FROM pizza NATURAL JOIN hozzávaló NATURAL JOIN alapanyag GROUP BY a_név); 
+
+--3
+SELECT p_név
+FROM pizza, pizzarendelés 
+WHERE pizza.p_sorszám = pizzarendelés.p_sorszám
+GROUP BY p_név
+HAVING SUM(case to_char(pizzarendelés.dátum,'day') when 'Szombat' then 1 else 0 end) < 1;
+
+--4
+SELECT rpad(INITCAP(p_név), LENGTH(p_név) + COUNT(*), '+')
+FROM Pizzarendelés, Pizza 
+WHERE Pizzarendelés.p_sorszám = Pizza.p_sorszám 
+GROUP BY p_név;
+
+--5
+CREATE TABLE rendelők(
+    sorszám NUMBER GENERATED ALWAYS AS IDENTITY,
+    név varchar(50),
+    darabszám numeric(2),
+    CONSTRAINT sorszám PRIMARY KEY (sorszám)
+);
+
+--6
+INSERT INTO rendelők (név, darabszám)
+SELECT személy as név, COUNT(*) as darabszám
+from pizzarendelés 
+group by személy;
