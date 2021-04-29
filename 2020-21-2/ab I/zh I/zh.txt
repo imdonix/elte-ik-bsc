@@ -1,0 +1,90 @@
+https://dbis-uibk.github.io/relax/calc.htm
+
+Adottak a következő relációk:
+
+Pizza = { psorszam:number, pnev:string, ar:number}
+Pizzarendeles = {szemelyazon:number, psorszam:number, datum:string }
+Szemely = {azon:number, vnev:string, knev:string, eletkor:number}
+Hozzavalo = { psorszam:number, alapanyag:string, mennyiseg:number}
+
+Pizza (psorszam)
+Fogyaszt (szemely, psorszam)
+Hozzavalo (psorszam,alapanyag)
+
+ZH alatt használható műveletek: π σ ρ ∧ c ¬ = ≠ < > ≥ ≤ ∩ ∪ ÷ - ⨯ ⨝ = -- /* */
+Írja fel alap relációs algebrában és SQL-ben a következőket feladatokat:
+
+1. A legidősebb személy milyen pizzát rendelt?
+
+2. Ki rendelt 'Hawaii' pizzán kívűl még 2 féle pizzát?
+
+3. Melyik pizzában van 'oregánó' de nincs benne 'kukorica'?
+
+4. Ki rendelte legalább azokat a pizzákat, mint 'Próba Zénó'?
+
+5. Melyik pizzát rendelte csak 1 személy?
+
+6. Adjuk meg személyenként, hogy melyik volt az általuk rendelt legdrágább pizza?
+
+7. Melyik pizzához kell az összes alapanyag?
+
+8. A 60 év felettiek milyen pizzát rendeltek?
+
+Megoldás:
+
+1.
+
+π pnev (Pizza ⨝ (σ szemelyazon = azon (Pizzarendeles ⨝ (π azon Szemely - π sz1.azon (σ sz1.eletkor < sz2.eletkor (ρ sz1 Szemely ⨯ ρ sz2 Szemely))))))
+
+select distinct pnev 
+from Pizza natural join 
+(select azon from 
+(Pizzarendeles natural join 
+(select azon from Szemely except Select sz1.azon from 
+(Szemely as sz1, Szemely as sz2) 
+where sz1.eletkor < sz2.eletkor)) 
+where azon=szemelyazon)
+
+2.
+
+(π szemelyazon σ r1.psorszam = r2.psorszam ∧ r2.psorszam = r3.psorszam ∧ r1.datum < r2.datum ∧ r2.datum < r3.datum (ρ r1 Pizzarendeles ⨯ ρ r2 Pizzarendeles ⨯ ρ r3 Pizzarendeles))
+
+3.
+π pnev (Pizza ⨝ (π psorszam σ alapanyag='oregánó' Hozzavalo - π psorszam σ alapanyag='kukorica' Hozzavalo))
+
+select distinct pnev from Pizza natural join 
+(select psorszam from Hozzavalo where alapanyag='oregánó' 
+except 
+(select psorszam from Hozzavalo where alapanyag='kukorica'))
+
+5.
+
+π pnev (Pizza ⨝ π p1.psorszam σ p1.psorszam = p2.psorszam ∧ p1.szemelyazon ≠ p2.szemelyazon ( ρ p1 Pizzarendeles ⨯ ρ p2 Pizzarendeles)) - (π pnev Pizza - π pnev (Pizza ⨝ π psorszam Pizzarendeles))
+
+select distinct pnev 
+from Pizza natural join 
+((select p1.psorszam from Pizzarendeles as p1, Pizzarendeles as p2 
+where p1.psorszam = p2.psorszam and p1.szemelyazon <> p2.szemelyazon)
+except
+(select pnev from Pizza except select pnev from Pizza natural join Pizzarendeles  ))
+
+6.
+
+π vnev, knev, p1.ar (Szemely ⨝ (π p1.azon,p1.ar (ρ p1 (Pizza ⨝ (σ azon=szemelyazon (Pizzarendeles ⨝ π azon Szemely))) x ρ p2 (Pizza ⨝ (σ azon=szemelyazon (Pizzarendeles ⨝ π azon Szemely))) - (σ p1.szemelyazon≠p2.szemelyazon or p1.ar<p2.ar (ρ p1 (Pizza ⨝ (σ azon=szemelyazon (Pizzarendeles ⨝ π azon Szemely))) x ρ p2 (Pizza ⨝ (σ azon=szemelyazon (Pizzarendeles ⨝ π azon Szemely))))))))
+
+7.
+
+π pnev Pizza - (π p1.pnev σ p1.alapanyag=p2.alapanyag (ρ p1 (Hozzavalo ⨝ Pizza) x ρ p2 (Hozzavalo ⨝ Pizza)))
+
+8.
+
+π pnev (Pizza ⨝ (σ azon=szemelyazon (Pizzarendeles ⨝ π azon σ eletkor>60 Szemely)))
+
+select distinct pnev 
+from (Pizza natural join 
+(select * from 
+(Pizzarendeles natural join 
+(select azon 
+from Szemely 
+where eletkor>60)) 
+where azon=szemelyazon))
