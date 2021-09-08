@@ -1,5 +1,7 @@
 # Követelmény
 
+# Gyakorlat
+
 - 2 ZH | 60 * 2 | legalább 15 minimum
 
 - 2 Pót ZH + UV?
@@ -16,3 +18,9 @@
 | 3 | 60  |
 | 4 | 80  |
 | 5 | 100 |
+
+# Előadás
+
+- Katalógus nincs
+
+- Irásbeli vizsga
