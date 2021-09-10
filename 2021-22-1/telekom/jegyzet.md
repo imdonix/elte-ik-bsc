@@ -10,4 +10,13 @@
 
 # Gyakorlat
 
-?
+- 4db socket beadandó (előfeltétel)
+- 1db mininet beadandó
+- 1db socket ZH 
+
+| Jegy | százalék  |
+|---|-----|
+| 2 | 50%  |
+| 3 | 60%  |
+| 4 | 75%  |
+| 5 | 85% |
