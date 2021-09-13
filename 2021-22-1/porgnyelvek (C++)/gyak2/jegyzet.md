@@ -1,4 +1,5 @@
 - Promociós szabály: char + int => int
 - Ref típus
-- Const correct => const int != int
+- Const correctnes => const int = int => fordtási hiba
+- referencia szerinti átadás: const int&
 
