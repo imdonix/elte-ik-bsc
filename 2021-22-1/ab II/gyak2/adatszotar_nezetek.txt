@@ -1,0 +1,162 @@
+Az adatszótár nézetek legfontosabb oszlopai
+-------------------------------------------
+
+DBA_OBJECTS
+-----------
+OWNER             tulajdonos
+OBJECT_NAME       objektum neve
+SUBOBJECT_NAME    összetett objektumok esetén (pl. partícionált tábla)  
+OBJECT_ID         egyedi azonosító
+DATA_OBJECT_ID    az objektumhoz tartozó adatobjektum (szegmens) azonosítója, null, ha nincs szegmense, pl. VIEW
+OBJECT_TYPE       objektum típusa, pl. TABLE, INDEX, VIEW stb.
+CREATED           létrehozás dátuma
+
+DBA_TABLES
+----------
+OWNER            tulajdonos
+TABLE_NAME       tábla neve
+TABLESPACE_NAME  táblatér neve
+CLUSTER_NAME     a klaszter neve, ha a tábla klaszreren van
+IOT_NAME         az IOT neve, ha ez egy túlcsordulási szegmens
+NUM_ROWS         tábla sorainak becsült száma (!)
+BLOCKS           tábla által foglalt blokkok becsült száma (!)
+IOT_TYPE         IOT vagy IOT_OVERFLOW (index szervezett tábla, vagy túlcsordulási szegmens esetén)
+
+DBA_TAB_COLUMNS  Táblák, nézetek, klaszterek oszlopai, adatípusai, default értékek
+---------------
+OWNER            tulajdonos 
+TABLE_NAME       tábla neve (nézet vagy klaszter neve is lehet)
+COLUMN_NAME      oszlop neve
+DATA_TYPE        oszlop adattípusa
+DATA_LENGTH      adattípus hossza, pl. CHAR(10) esetén 10
+DATA_PRECISION   NUMBER oszlop értékes jegyeinek száma, pl. NUMBER(10,2) esetén 10
+DATA_SCALE       NUMBER oszlop tizedes jegyeinek száma, pl. NUMBER(10,2) esetén 2
+NULLABLE         megengedett-e a NULL érték az oszlopban (Y/N)
+COLUMN_ID        hányadik oszlopa ez a táblának (nézetnek, klaszternek)
+DATA_DEFAULT     az oszlop DEFAULT értéke, ha van
+NUM_DISTINCT     az oszlopban elõforduló különbözõ értékek száma, becsült érték (!)
+
+DBA_SYNONYMS     Szinonima
+------------
+OWNER            tulajdonos
+SYNONYM_NAME     szinonima neve
+TABLE_OWNER      a tábla (nézet) tulajdonosa, amire a szinonima mutat
+TABLE_NAME       a tábla (nézet) neve, amire a szinonima mutat
+DB_LINK          ha távoli táblára mutat a szinonima, az adatbázis-kapcsoló neve 
+
+DBA_VIEWS        Nézetek
+---------
+OWNER            tulajdonos
+VIEW_NAME        nézet neve
+TEXT             a nézet lekérdezésének (SELECT utasítás) szövege
+
+DBA_SEQUENCES    Szekvencia: egy sorszámgenerátor, egyedi értékeke generálására.
+-------------
+SEQUENCE_OWNER   tulajdonos
+SEQUENCE_NAME    szekvencia neve
+MIN_VALUE        minimális kiadható érték
+MAX_VALUE        maximális kiadható érték
+INCREMENT_BY     értékek közötti lépésköz
+
+DBA_DB_LINKS     Távoli adatbázis elérésére szolgáló adatbázis-kapcsolat
+------------
+OWNER            a kapcsoló tulajdonosa
+DB_LINK          kapcsoló neve
+USERNAME         felhasználónév a távoli adatbázisban
+HOST             a távoli adatbázis adatai
+
+DBA_DATA_FILES   Adatfájlok, amelyekben a fizikai tárolás történik adatblokkok formájában.
+--------------
+FILE_NAME        adatfájl op. rendszerbeli neve
+FILE_ID          fájl azonosítója (most megegyezik a táblatéren belüli egyedi azonosítóval)
+TABLESPACE_NAME  a táblatér neve, amihez a fájl tartozik
+BYTES            a fájl (jelenlegi) mérete
+BLOCKS           a fájl mérete adatblokkokban     
+RELATIVE_FNO     a fájl táblatéren belüli egyedi azonosítója
+AUTOEXTENSIBLE   automatikusan növelheti-e a fájlt az op. rendszer
+MAXBYTES         maximális méret, amire növelni lehet
+
+DBA_TEMP_FILES   A temporális táblatérhez tartozó adatfájlok. A szerkezete azonos a dba_data_file-lal.
+--------------
+
+DBA_TABLESPACES  Táblatér: adatfájlok logikai csoportokba szervezésére.
+---------------
+TABLESPACE_NAME  táblatér neve
+BLOCK_SIZE       adatblokkok mérete a táblatéren
+STATUS           ONLINE vagy OFFLINE
+CONTENTS         mit tárolunk a táblatéren, PERMANENT, UNDO vagy TEMPORARY
+
+DBA_SEGMENTS     Szegmens: adatblokkokból álló, tárolást igénylõ objektum.
+------------
+OWNER            a szegmens objektumának tulajdonos
+SEGMENT_NAME     szegmens neve (megegyezik a tábla, index stb. nevével)
+PARTITION_NAME   partícionált tábla esetén a partíció vagy alpartíció neve
+SEGMENT_TYPE     szegmens típusa, pl. TABLE, INDEX, TABLE_PARTITION, CLUSTER
+TABLESPACE_NAME  a táblatér neve, amin a szegmens van
+BYTES            szegmens mérete
+BLOCKS           szegmens mérete adatblokkokban   
+EXTENTS          a szegmens extenseinek száma
+
+DBA_EXTENTS      Extens: egy fájlon belüli szomszédos adatblokkokból álló tárolási egység.
+-----------
+OWNER            annak az objektumnak a tulajdonosa, amihez az extens tartozik
+SEGMENT_NAME     a szegmens neve, amihez az extens tartozik
+SEGMENT_TYPE     szegmens típusa, pl. TABLE, INDEX, TABLE_PARTITION, CLUSTER
+TABLESPACE_NAME  a táblatér neve, amin az extens van
+EXTENT_ID        az extens sorszáma a szegmensen belül
+FILE_ID          a fájl azonosítója, amihez az extens tartozik
+BLOCK_ID         az extens elsõ blokkjának sorszáma a fájlon belül
+BYTES            az extens mérete
+BLOCKS           az extens mérete blokkokban 
+
+DBA_FREE_SPACE   A fájlon belüli összefüggõ szabad területek mérete.
+--------------
+TABLESPACE_NAME  a táblatér neve
+FILE_ID          a fájl azonosítója  
+BLOCK_ID         a szabad terület elsõ blokkjának sorszáma
+BYTES            a szabad terület mérete
+BLOCKS           a szabad terület mérete blokkokban
+
+DBA_INDEXES
+-----------
+TABLE_OWNER      a tábla tulajdonosa
+TABLE_NAME       az indexelt tábla neve
+OWNER            az index tulajdonosa 
+INDEX_NAME       index neve 
+INDEX_TYPE       index típusa, pl. NORMAL, BITMAP, CLUSTER, FUNCTION-BASED NORMAL stb. 
+UNIQUENESS       elõfordulhatnak-e azonos értékek
+COMPRESSION      az ismétlõdõ értékek hatékonyabb tárolását szolgálja
+PREFIX_LENGTH    tömörítés hány oszlopnyi legyen
+
+DBA_IND_COLUMNS  Mely oszlopok vannak indexelve
+-----------
+TABLE_OWNER      a tábla tulajdonosa
+TABLE_NAME       az indexelt tábla neve
+INDEX_OWNER      az index tulajdonosa 
+INDEX_NAME       index neve 
+COLUMN_NAME      indexelt oszlop neve 
+COLUMN_POSITION  az oszlop hányadik az indexelt oszlopok sorrendjében
+DESCEND          csökkenõ-e  
+
+DBA_IND_EXPRESSIONS  Ha egy index valamilyen kifejezés kiszámolt értékei alapján épül fel
+-------------------
+TABLE_OWNER        a tábla tulajdonosa
+TABLE_NAME         az indexelt tábla neve
+INDEX_OWNER        az index tulajdonosa 
+INDEX_NAME         index neve 
+COLUMN_EXPRESSION  a kifejezés, aminek értékei alapján az index felépül 
+COLUMN_POSITION    a kifejezés hányadik az index bejegyzések sorrendjében
+
+DBA_CLUSTERS 
+DBA_CLU_COLUMNS
+DBA_CLUSTER_HASH_EXPRESSIONS
+
+DBA_PART_TABLES
+DBA_PART_INDEXES
+DBA_TAB_PARTITIONS
+DBA_IND_PARTITIONS
+DBA_TAB_SUBPARTITIONS
+DBA_IND_SUBPARTITIONS
+DBA_PART_KEY_COLUMNS
+DBA_SUBPART_KEY_COLUMNS
+
