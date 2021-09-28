@@ -8,9 +8,9 @@
 
 - bónuszpont szerezhető (MAX 10)
 
-- ZH I: 6 hét környéke
+- ZH I: 7 hét
 
-- ZH II: ?
+- ZH II: 15. hét
 
 | Jegy | Pont  |
 |---|-----|
