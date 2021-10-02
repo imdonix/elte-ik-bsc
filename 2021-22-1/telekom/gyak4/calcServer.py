@@ -22,9 +22,7 @@ with socket(AF_INET, SOCK_STREAM) as server:
 			if s is server:
 				client, client_addr = s.accept()
 				inputs.append(client)
-				print('szia')
 			else:
-				print('ok')
 				try:
 					data = s.recv(unpacker.size)
 					print("Received:",data)
