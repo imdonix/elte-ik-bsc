@@ -4,6 +4,7 @@ import select
 import sys
 import random
 
+range = 100
 packer = struct.Struct('1s I')
 
 server_addr = (sys.argv[1], int(sys.argv[2]))
@@ -13,7 +14,7 @@ with socket(AF_INET, SOCK_STREAM) as server:
 	server.settimeout(1.0)
 	server.setsockopt(SOL_SOCKET, SO_REUSEADDR, 1)
 
-	target = random.randint(1,100)
+	target = random.randint(1,range)
 	end = False
 	print('Target: ', target)
 
@@ -38,13 +39,13 @@ with socket(AF_INET, SOCK_STREAM) as server:
 						res = packer.pack('V'.encode(), 0)
 					else:
 						if op == '=':
-							res = packer.pack(('Y' if number == target else 'N').encode(), 0)
+							res = packer.pack(('Y' if number == target else 'K').encode(), 0)
 							if number == target:
 								end = True
 						elif op == '>':
-							res = packer.pack(('I' if number > target else 'N').encode(), 0)
-						elif op == '<':
 							res = packer.pack(('I' if number < target else 'N').encode(), 0)
+						elif op == '<':
+							res = packer.pack(('I' if number > target else 'N').encode(), 0)
 						else:
 							raise ValueError()
 					
