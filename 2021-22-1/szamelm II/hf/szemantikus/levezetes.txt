@@ -1,0 +1,33 @@
+A1: Ha süt a nap, akkor jó kedvem van.
+A2: Ha jó kedvem van, akkor énekelek.
+B: Tehát, ha nem énekelek, akkor nem süt a nap.
+
+--- Ítéletváltozók
+
+S: Süt a nap
+K: Jó kedvem van
+É: Énekelek
+
+--- Formalizált
+
+A1: S → K
+A2: K → É
+B: ¬É → ¬S
+
+{A1,A2} |=0 B
+
+--- Formulákat és az állítás tagadottját KNF-ra
+A1: ¬S v K
+A2: ¬K v É
+¬B: ¬(É v ¬S) = ¬É ∧ S
+
+-- Klózhalmaz
+1. ¬S v K
+2. ¬K v É
+3. ¬É
+4. S
+
+-- Szemantikus
+
+[fa.png]
+
