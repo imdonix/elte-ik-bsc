@@ -1,0 +1,3 @@
+- structs
+- base oop
+- constructor
