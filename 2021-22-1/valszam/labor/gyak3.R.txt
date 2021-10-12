@@ -1,0 +1,536 @@
+##########################################
+###   3. Laboros gyakorlat (5-6 hét)   ###
+##########################################
+
+###########################################
+# Nevezetes abszolút folytonos eloszlások #
+###########################################
+
+## Egyenletes eloszlás / Egyenletes[a, b] /
+
+x <- seq(1,6,length=200)
+y <- dunif(x,min=1,max=6)
+plot(x,y, type="l", lwd=2, col="blue",
+     xlim=c(0, 7), ylim=c(0, 0.4),
+     ylab="f(x)",
+     main="Egyenletes[1,6] sûrûségfüggvénye")
+xe <- c(seq(0,1,length=100))
+ye <- seq(0,0,length=100)
+lines(xe,ye,type="l",lwd=2,col="blue")
+xe <- c(seq(6,7,length=100))
+ye <- seq(0,0,length=100)
+lines(xe,ye,type="l",lwd=2,col="blue")
+
+polygon(c(1,x,6),c(0,y,0),col="white",border=NA)
+lines(x,y,type="l",lwd=2,col="blue")
+xvsz <- seq(1,3,length=100)
+yvsz <- dunif(xvsz, min=1, max=6)
+polygon(c(1,xvsz,3),c(0,yvsz,0),col="lightgray",border=NA)
+lines(xvsz,yvsz,type="l",lwd=2,col="blue")
+
+
+## Stadard normális eloszlás / N(0, 1) /
+
+xseq <- seq(-4,4, 0.01)
+plot(xseq, dnorm(xseq, 0,1), 
+     type = "l",
+     lwd = 2, 
+     col = "blue", 
+     #cex.axis = 0.8,
+     xlab = "x", 
+     ylab = "f(x)",  
+     main = "Standard normális sûrûségfüggvénye")
+   text(-2.5, 0.3, expression(f(x) == 
+      paste(frac(1, sqrt(2*pi)*sigma)," ",e^{frac(-(x - mu)^2, 2 * sigma^2)})), 
+      cex = 1.2)
+# curve(dnorm, from=-4, to=4, n=41000, main="Standard normális sûrûségfüggvénye")
+
+
+## Normális eloszlás / N(m, szigma) /
+
+x <- seq(-6,6,1/1000)
+
+plot(x, dnorm(x), type="l", col="yellow", lwd=2, ylab='', xlab='', 
+     main = "Normális eloszlás sûrûségfüggvénye")
+lines(x, dnorm(x), type="l", col="black", lty=2)    # N(m = 0, szigma = 1)
+
+dn2 <- dnorm(x, mean = 2, sd = 1)
+lines(x, dn2, type="l", col="purple", lwd=2)     # N(m = 2, szigma = 1)
+
+dn3 <- dnorm(x, mean = 0, sd = 2)
+lines(x, dn3, type="l", col="blue", lwd=2)       # N(m = 0, szigma = 2)
+
+dn4 <- dnorm(x, mean = 0, sd = 3)
+lines(x, dn4,type="l", col="red", lwd=2)         # N(m = 0, szigma = 3)
+
+legend(x='topleft',bty='n',
+       legend = c(paste( 
+       c("N(0, 1)","N(2, 1)", "N(0, 2^2)","N(0, 3^2)"), sep='=')), 
+       col = c("yellow", "purple", "blue", "red"), lwd = 2 )
+
+
+   ## Normális valószínûségi változó standardizálása
+   # X ~ N(m, szigma)  =>  (X - m)/szigma ~ N(0, 1)
+   x <- rnorm(1000, mean = 5, sd = 3)
+   hist(x, freq=FALSE)
+   curve(dnorm(x, 5, 3), add=TRUE, col="blue", lwd=2)
+   
+   nx <- ( x - 5 ) / 3
+   hist(nx, freq=FALSE)
+   curve(dnorm(x, 0, 1), add=TRUE, col="blue", lwd=2)
+
+   # Példa:
+   # X ~ N(3,2^2)
+   # P(X < 4) = P(X-3 < 4-3) = P((x-3)/2 < (4-3)/2)
+   pnorm(4, mean = 3, sd = 2) == pnorm(1/2)
+
+   # 1. Feladat:  Legyen X ~ N(7, 3^2) valószínûségi változó.  Számolja ki 
+   # P(X > 8) - at standardizálással is!
+   
+   1 - pnorm(8, mean = 7, sd = 3)
+   # vagy   
+   pnorm(8, mean = 7, sd = 3, lower.tail = FALSE)
+
+   1 - pnorm((8-7)/3)
+   # vagy   
+   pnorm((8-7)/3, lower.tail = FALSE)
+
+   
+  ## Függvény alatti terület: 
+  x <- seq(-4, 4,length=200)
+  y <- dnorm(x, mean=0, sd=1)
+  plot(x,y,type="l",lwd=3,col="black", 
+       main = "Standard normális")
+  x <- seq(-4, -1, length=100)
+  y <- dnorm(x, mean=0, sd=1)
+  polygon(c(-4, x, -1),c(0,y,0),col="red")
+   
+
+## t eloszlás / t_n / 
+
+x <- seq(-6,6,1/1000)
+
+dt4 <- dt(x, 30)
+plot(x, dt4, type="l", col="yellow", lwd=2, ylab='', xlab='', 
+     main = "t eloszlás sûrûségfüggvénye")
+
+dt1 <- dt(x, 0.5)
+lines(x, dt1, type="l", col="cyan", lwd=2)
+
+dt2 <- dt(x, 1.5)
+lines(x, dt2, type="l", col="purple", lwd=2)
+
+dt3 <- dt(x, 5)
+lines(x, dt3, type="l", col="red", lwd=2)
+
+dnorm <- dnorm(x)
+lines(x, dnorm ,type="l", col="black", lty=2)
+
+legend(x='topleft',bty='n',
+       legend = c(paste('sz.f.',
+          c(0.5, 1.5, 5, 30), sep='=')), 
+       col = c("cyan", "purple", "red", "yellow"), lwd = 2 )
+
+legend(x='topright',bty='n',
+       legend = c(paste('N(0,1)', sep='=')), 
+       col = c("black"), lwd = 2, lty = 3)
+
+
+## Exponenciális / Exp(lambda) / eloszlás
+
+x <- seq(0, 1, 1/1000)
+
+dt1 <-  dexp(x, rate = 2.5)
+plot(x, dt1, type="l", col="red", lwd=2, ylab='', xlab='', 
+      main = "Exponenciális eloszlás sûrûségfüggvénye")
+
+dt2 <-  dexp(x, rate = 2)
+lines(x, dt2, type="l", col="purple", lwd=2)
+
+dt3 <-  dexp(x, rate = 1)
+lines(x, dt3, type="l", col="blue", lwd=2)
+
+de4 <- dexp(x, rate = 1/2)
+lines(x, de4, type="l", col="orange", lwd=2)
+
+legend(x='topright',bty='n',
+       legend = c(paste('lambda', c(2.5, 2, 1, 1/2),sep='=')), 
+       col = c("red", "purple", "blue", "orange"), lwd = 2 )
+
+
+## Khí-négyzet / Chi-square(df) / eloszlás 
+
+x <- seq(0, 15, 1/1000)
+
+dchisq1 <-  dchisq(x, df = 2)
+plot(x, dchisq1, type="l", col="red", lwd=2, ylab='', xlab='', 
+     main = "Khí-négyzet eloszlás sûrûségfüggvénye")
+
+dchisq2 <-  dchisq(x, df = 3)
+lines(x, dchisq2, type="l", col="purple", lwd=2)
+
+dchisq3 <-  dchisq(x, df = 4)
+lines(x, dchisq3, type="l", col="blue", lwd=2)
+
+dchisq4 <-  dchisq(x, df = 5)
+lines(x, dchisq4, type="l", col="orange", lwd=2)
+
+legend(x='topright',bty='n',
+       legend = c(paste('df', c(2, 3, 4, 5),sep='=')), 
+       col = c("red", "purple", "blue", "orange"), lwd = 2 )
+
+
+## F / F(df1,df2) / eloszlás 
+
+x <- seq(0, 5, 1/1000)
+
+df1 <-  df(x, df1 = 2, df2=1)
+plot(x, df1, type="l", col="red", lwd=2, ylab='', xlab='', 
+     main = "F eloszlás sûrûségfüggvénye")
+
+df2 <-  df(x, df1 = 5, df2=2)
+lines(x, df2, type="l", col="purple", lwd=2)
+
+df3 <-  df(x, df1 = 5, df2=5)
+lines(x, df3, type="l", col="blue", lwd=2)
+
+df4 <-  df(x, df1 = 20, df2=20)
+lines(x, df4, type="l", col="orange", lwd=2)
+
+legend(x='topright',bty='n',
+       legend = c(paste('df1, df2', c("2, 1", "5, 2", "5, 5", "20, 20"),sep=' = ')), 
+       col = c("red", "purple", "blue", "orange"), lwd = 2 )
+
+
+
+## Nevezetes abszolút folytonos eloszlásfüggvények
+
+par(mfrow=c(2,2))
+x_sample <- seq(-3.2, 3.2, 0.001)
+
+plot(x_sample, pnorm(x_sample), 
+     type="l", col="red", lwd=2, main="Eloszlásfüggvény: N(0,1)", ylab='', xlab='')
+plot(x_sample, pt(x_sample, 5),
+     type="l", col="red", lwd=2, main="t_5", ylab='', xlab='')
+plot(x_sample, pexp(x_sample, 5),
+     type="l", col="red", lwd=2, main="Exp(5)", ylab='', xlab='')
+plot(x_sample, punif(x_sample, -2,2),
+     type="l", col="red", lwd=2, main="Egyenletes[-2,2]", ylab='', xlab='')
+par(mfrow=c(1,1))
+
+
+## Nevezetes abszolút folytonos sûrûségfüggvények
+
+par(mfrow=c(2,2))
+x_sample <- seq(-3.2, 3.2, 0.001)
+
+plot(x_sample, dnorm(x_sample), 
+     type="l", col="blue", lwd=2, main="Sûrûségfüggvény: N(0,1)", ylab='', xlab='')
+
+plot(x_sample, dt(x_sample, 5),
+     type="l", col="blue", lwd=2, main="t_5", ylab='', xlab='')
+
+x_sample <- c(seq(0.01,1.5, 0.001))
+plot(x_sample, dexp(x_sample, 5), xlim=c(-0.5, 1.5),
+     type="l", col="blue", lwd=2, main="Exp(5)", ylab='', xlab='')
+xe <- c(seq(-3,0,length=100))
+ye <- seq(0,0,length=100)
+lines(xe,ye,type="l",lwd=2,col="blue")
+
+x <- seq(1,6,length=200)
+y <- dunif(x,min=1,max=6)
+plot(x,y, type="l", lwd=2, col="blue", main="Egyenletes[1,6]",
+     xlim=c(0, 7), ylim=c(0, 0.4), ylab='', xlab='')
+xe <- c(seq(0,1,length=100))
+ye <- seq(0,0,length=100)
+lines(xe,ye,type="l",lwd=2,col="blue")
+xe <- c(seq(6,7,length=100))
+ye <- seq(0,0,length=100)
+lines(xe,ye,type="l",lwd=2,col="blue")
+par(mfrow=c(1,1))
+
+
+   # 2. Feladat: Mit rajzol ki az alábbi program? MUtassa meg, hogy az alábbi függvény sûrûségfüggvény!
+   # Mit jelöl a besatírozott terület? Számolja ki és ábrázolja az eloszlásfüggvényt!
+
+   x <- seq(0, 2, 1/100);  y <- 1/4*(2-x)^3 
+   
+   xa <- seq(-1, 0, 1/100);  ya <- rep(0,length(xa))
+   xb <- seq( 2, 3, 1/100);  yb <- rep(0,length(xb))
+   
+   plot(x, y, type="l", col="black", lwd=3, ylab='', xlab='', xlim=c(-0.5,2.5), xaxt = "n", main = " ")
+   axis(1, cex.axis = 1.5)
+   lines(xb, yb, type="l", col="black", lwd=3)
+   lines(xa, ya, type="l", col="black", lwd=3)
+   abline(h = 0, lty = 2)
+   x1 <- seq(0, 0.5, 1/100)
+   y1 <- 1/4*(2-x1)^3
+   polygon(c(0,x1,0.5),c(0,y1,0),col="yellow")
+
+
+   ########## MEGOLDÁS ##########
+
+ 
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   ##############################
+   
+   
+
+########################
+# Nagy számok törvénye #
+########################
+
+
+##############
+# Kockadobás #
+##############
+kocka <- 1:6
+n <- 1000   # mintanagyság: dobások száma
+
+dobasok <- sample(kocka, size = n, replace = TRUE)
+atlagok <- cumsum(dobasok) / 1:n
+plot(atlagok, 
+     xlab = "kockadobások száma", 
+     ylab = "átlag",
+     ylim = c(1,6),
+     type = "l",
+     main = paste("Szimulált kockadobások átlaga (", n, "dobásig )"))
+abline(h = 3.5, col = "blue")
+
+
+##################################
+# Binomiális eloszás: Bin(n1, p) #
+##################################
+n1 <- 8
+p <- 0.3
+n <- 1000
+
+x <- rbinom(n, n1, p)
+atlagok <- cumsum(x) / 1:n
+plot(atlagok,
+     xlab = "kísérletek száma", 
+     ylab = "átlagok",
+     #ylim = c(0, 1),
+     type = "l",
+     main = paste("Szimulált binomiális ( Bin(",n1,",",p,") ) átlaga"))
+abline(h = n1*p, col = "blue")
+
+
+###################################
+# Normális eloszás: N(mu, szigma) #
+###################################
+mu <- 46
+szigma <- 2
+n <- 1000
+
+x <- rnorm(n, mu, szigma)
+atlagok <- cumsum(x) / 1:n
+plot(atlagok,
+     xlab = "kísérletek száma", 
+     ylab = "átlagok",
+     #ylim = c(mu-2*szigma, mu+2*szigma),
+     type = "l",
+     main = paste("Szimulált normális ( N(",mu,",",szigma,"^2) ) átlaga"))
+abline(h = mu, col = "blue")
+
+# plot(x, pch = ".")
+# points(1:n, atlagok, type = "l", col = "red")
+
+
+
+#################################
+# Centrális határeloszlás tétel #
+#################################
+
+##############
+# Kockadobás #
+##############
+
+# CHT alapján n kockadobás átlagának eloszlása:
+n <- 100
+x1 <- seq(1,6,0.001)
+plot(x1,dnorm(x1,mean=3.5,sd=1.707825/sqrt(n)),
+     type='l', col="red", lwd=2, ylab="", xlab="",
+     main='n kockadobás átlagának eloszlása a CHT alapján')
+lines(x1, dnorm(x1,mean=3.5,sd=1.707825/sqrt(5)), type="l", col="green", lwd=2)
+lines(x1, dnorm(x1,mean=3.5,sd=1.707825/sqrt(10)), type="l", col="yellow", lwd=2)
+lines(x1, dnorm(x1,mean=3.5,sd=1.707825/sqrt(30)), type="l", col="orange", lwd=2)
+legend(x='topleft',bty='n',
+       legend = c(paste(c("n = 5","n = 10", "n = 30","n = 100"), sep='=')), 
+       col = c("green", "yellow", "orange", "red"), lwd = 2 )
+
+# szimuáció:
+x <- 1:6
+ndobas <- 30   # dobások száma
+rep <- 1000    # ismétlések száma
+
+A <- matrix(sample(x, ndobas*rep, replace=T), ncol=ndobas, byrow=TRUE)
+xbar<-apply(A,1,mean)   # ndobas átlaga   
+
+head(cbind(A,xbar))
+tail(cbind(A,xbar))
+
+hist(xbar, col="blue", freq=F, xlab="", ylab="sûrûség", 
+     ylim=range(0,max(hist(xbar)$density, dnorm(x1,mean=3.5,sd=1.707825/sqrt(ndobas)))),
+     main = paste(ndobas, "kockadobás átlaga (", rep, "- szer szimulálva )"))
+lines(x1, dnorm(x1,mean=3.5,sd=1.707825/sqrt(ndobas)), type="l", col="orange", lwd=2)
+
+
+par(mfrow=c(2,2)) 
+hist(apply(matrix(sample(x, 5*rep, replace=T), ncol=5, byrow=T),1,mean), 
+     col="blue", freq=F, xlim=c(1,6), xlab="", ylab="sûrûség",
+     main = "5 kockadobás átlaga")
+lines(x1, dnorm(x1,mean=3.5,sd=1.707825/sqrt(5)), type="l", col="green", lwd=2)
+
+hist(apply(matrix(sample(x, 10*rep, replace=T), ncol=10, byrow=T),1,mean), 
+     col="blue", freq=F, xlim=c(1,6), xlab="", ylab="sûrûség",
+     main = "10 kockadobás átlaga")
+lines(x1, dnorm(x1,mean=3.5,sd=1.707825/sqrt(10)), type="l", col="yellow", lwd=2)
+
+hist(apply(matrix(sample(x, 30*rep, replace=T), ncol=30, byrow=T),1,mean), 
+     col="blue", freq=F, xlim=c(1,6), xlab="", ylab="sûrûség",
+     main = "30 kockadobás átlaga")
+lines(x1, dnorm(x1,mean=3.5,sd=1.707825/sqrt(30)), type="l", col="orange", lwd=2)
+
+hist(apply(matrix(sample(x, 100*rep, replace=T), ncol=100, byrow=T),1,mean), 
+     col="blue", freq=F, xlim=c(1,6), xlab="", ylab="sûrûség",
+     main = "100 kockadobás átlaga")
+lines(x1, dnorm(x1,mean=3.5,sd=1.707825/sqrt(100)), type="l", col="red", lwd=2)
+par(mfrow=c(1,1)) 
+
+
+##################################
+# Binomiális eloszás: Bin(m, p) #
+##################################
+
+n <- 100
+m <- 10
+p <- 0.3
+x1 <- seq(0,10,0.001)
+plot(x1,dnorm(x1,mean=m*p,sd=sqrt(m*p*(1-p))/sqrt(n)),
+     type='l', col="red", lwd=2, ylab="", xlab="",
+     main='n Binom(10, 0.3) átlagának eloszlása a CHT alapján')
+lines(x1, dnorm(x1,mean=m*p,sd=sqrt(m*p*(1-p))/sqrt(5)), type="l", col="green", lwd=2)
+lines(x1, dnorm(x1,mean=m*p,sd=sqrt(m*p*(1-p))/sqrt(10)), type="l", col="yellow", lwd=2)
+lines(x1, dnorm(x1,mean=m*p,sd=sqrt(m*p*(1-p))/sqrt(30)), type="l", col="orange", lwd=2)
+legend(x='topright',bty='n',
+       legend = c(paste(c("n = 5","n = 10", "n = 30","n = 100"), sep='=')), 
+       col = c("green", "yellow", "orange", "red"), lwd = 2 )
+
+# szimuáció:
+n <- 30
+m <- 10
+p <- 0.3
+rep <- 1000    # ismétlések száma
+
+A <- matrix(rbinom(n*rep,m,p), ncol=n, byrow=TRUE)
+xbar<-apply(A,1,mean)   # n db átlaga   
+
+head(cbind(A,xbar))
+tail(cbind(A,xbar))
+
+hist(xbar, col="blue", freq=F, xlab="", ylab="sûrûség", 
+     main = paste(n, "Binom(10, 0.3) átlaga (", rep, "- szer szimulálva )"))
+lines(x1, dnorm(x1,mean=m*p,sd=sqrt(m*p*(1-p))/sqrt(n)), type="l", col="orange", lwd=2)
+
+
+par(mfrow=c(2,2)) 
+hist(apply(matrix(rbinom(n*rep,m,p), ncol=5, byrow=T),1,mean), 
+     col="blue", freq=F, xlim=c(1,6), xlab="", ylab="sûrûség",
+     main = "5 Binom(10, 0.3) átlaga")
+lines(x1, dnorm(x1,mean=m*p,sd=sqrt(m*p*(1-p))/sqrt(5)), type="l", col="green", lwd=2)
+
+hist(apply(matrix(rbinom(n*rep,m,p), ncol=10, byrow=T),1,mean), 
+     col="blue", freq=F, xlim=c(1,6), xlab="", ylab="sûrûség",
+     main = "10 Binom(10, 0.3) átlaga")
+lines(x1, dnorm(x1,mean=m*p,sd=sqrt(m*p*(1-p))/sqrt(10)), type="l", col="yellow", lwd=2)
+
+hist(apply(matrix(rbinom(n*rep,m,p), ncol=30, byrow=T),1,mean), 
+     col="blue", freq=F, xlim=c(1,6), xlab="", ylab="sûrûség",
+     main = "30 Binom(10, 0.3) átlaga")
+lines(x1, dnorm(x1,mean=m*p,sd=sqrt(m*p*(1-p))/sqrt(30)), type="l", col="orange", lwd=2)
+
+hist(apply(matrix(rbinom(n*rep,m,p), ncol=100, byrow=T),1,mean), 
+     col="blue", freq=F, xlim=c(1,6), xlab="", ylab="sûrûség",
+     main = "100 Binom(10, 0.3) átlaga")
+lines(x1, dnorm(x1,mean=m*p,sd=sqrt(m*p*(1-p))/sqrt(100)), type="l", col="red", lwd=2)
+par(mfrow=c(1,1)) 
+
+
+
+
+##################################################################################
+################  Gyakorló feladatok (3. táblás gyakorlat utánra) ################
+##################################################################################
+
+### Táblás gyakorlat 3.18 Feladat ###
+
+# Tegyük fel, hogy egy tábla csokoládé tömege normális eloszlású 100g várható 
+# értékkel és 3g szórással. Legalább hány csokoládét csomagoljunk egy dobozba, 
+# hogy a dobozban levo táblák átlagos tömege legalább 0,9 valószínûséggel nagyobb
+# legyen 99,5 g-nál, ha feltételezzük, hogy az egyes táblák tömege egymástól 
+# független? 
+
+# Legyen X = egy tábla csokoládé tömege  ~ N(100, 3^2)
+
+# X_átlag  ~ N(100, (3/sqrt(n))^2) 
+# 0,9 = P(X_átlag > 99.5) = 1- P(X_átlag < 99,5) = 1 - P( std. normal < (99,5-100)/(3/sqrt(n) ) = 
+# = 1 - Fi(-sqrt(n)/6) = Fi(sqrt(n)/6)) vagyis qnorm(0.9) = sqrt(n)/6
+
+########## MEGOLDÁS ##########
+
+      
+##############################
+
+### Táblás gyakorlat 3.19 Feladat ###
+
+# Egy scannelt kép átlagos mérete 600KB, 100KB szórással. Mi a valószínûsége, 
+# hogy 80 ilyen kép együttesen 47 és 48MB közötti tárhelyet foglal el, ha feltételezzük, 
+# hogy a képek mérete egymástól független?
+   
+# Legyen X = egy szkennelt kép mérete  ~ N(600, 100^2)
+
+########## MEGOLDÁS ##########
+
+# vagy
+
+##############################
+
+
+### Táblás gyakorlat 3.20 Feladat ###
+
+# Egy szoftver frissítéséhez 68 file-t kell installálni, amik egymástól függetlenül 
+# 10mp várható értékû és 2mp szórású ideig töltõdnek.
+# a) Mi a valószínûsége, hogy a teljes frissítés lezajlik 12 percen belül?
+# b) A cég a következo frissítésnél azt ígéri, hogy az már 95% valószínûséggel 10
+#    percen belül betöltõdik. Hány file-ból állhat ez a frissítés?
+
+# Legyen X = egy fájl telepítési ideje  ~ N(10, 2^2)
+
+# a) P(S_n < 12 perc) = P(S_n < 12*60 mp) = P( std. normal < (720 - n*10)/(sqrt(n)*2) )
+
+########## MEGOLDÁS ##########
+
+##############################
+
+# b) 0.95 < P(S_n < 600) = P( std. normal < (600-10n)/(2sqrt(n)) )
+
+########## MEGOLDÁS ##########
+
+##############################
