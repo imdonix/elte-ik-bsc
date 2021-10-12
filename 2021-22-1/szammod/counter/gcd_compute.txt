@@ -1,0 +1,37 @@
+JMPZ 1 c2
+JMPZ 2 m1t3
+d12p
+JMPZ 1 c22
+JMPZ 2 m3t2
+DEC 1
+DEC 2
+INC 3
+JMP d12p
+c22
+JMPZ 2 end
+m3t1
+JMPZ 3 d12p
+DEC 3
+INC 1
+JMP m3t1
+m3t2
+JMPZ 3 d12p
+DEC 3
+INC 2
+JMP m3t2
+c2
+JMPZ 2 rf
+m1t3
+JMPZ 1 end
+DEC 1
+INC 3
+JMP m1t3
+m2t3
+JMPZ 2 end
+DEC 2
+INC 3
+JMP m2t3
+rf
+INC 4
+end
+HALT

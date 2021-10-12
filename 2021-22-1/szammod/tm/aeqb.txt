@@ -1,0 +1,45 @@
+name: aeqb
+init: q0
+accept: qi
+
+q0,a
+q1,_,>
+
+q0,b
+q2,_,>
+
+q0,x
+q0,_,>
+
+q0,_
+qi,_,-
+
+q1,a
+q1,a,>
+
+q1,x
+q1,x,>
+
+q1,b
+q3,x,<
+
+q2,a
+q3,x,<
+
+q2,b
+q2,b,>
+
+q2,x
+q2,x,>
+
+q3,a
+q3,a,<
+
+q3,b
+q3,b,<
+
+q3,x
+q3,x,<
+
+q3,_
+q0,_,>

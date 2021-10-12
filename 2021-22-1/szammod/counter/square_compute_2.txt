@@ -1,0 +1,21 @@
+INC 3
+loop
+JMPZ 1 end
+DEC 1
+a3t2
+JMPZ 3 m4t3
+DEC 3
+INC 2
+INC 4
+JMP a3t2
+m4t3
+JMPZ 4 i3b2
+DEC 4
+INC 3
+JMP m4t3
+i3b2
+INC 3
+INC 3
+JMP loop
+end
+HALT

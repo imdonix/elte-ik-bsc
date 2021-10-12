@@ -1,0 +1,36 @@
+name: double_not_optimal
+init: q0
+accept: qa
+
+q0,_
+q3,_,<
+
+q0,a
+q1,x,>
+
+q0,x
+q0,x,>
+
+q1,a
+q1,a,>
+
+q1,x
+q1,x,>
+
+q1,_
+q2,x,<
+
+q2,a
+q2,a,<
+
+q2,x
+q2,x,<
+
+q2,_
+q0,_,>
+
+q3,x
+q3,a,<
+
+q3,_
+qa,_,>

@@ -1,0 +1,21 @@
+name: square
+init: q0
+accept: qa
+
+q0,a,_
+q1,a,a,-,-
+
+q1,a,a
+q1,a,a,>,>
+
+q1,_,_
+qa,_,_,-,-
+
+q1,a,_
+q2,a,a,-,<
+
+q2,a,a
+q2,a,a,-,<
+
+q2,a,_
+q1,a,a,-,-

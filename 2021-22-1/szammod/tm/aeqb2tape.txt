@@ -1,0 +1,24 @@
+name: aeqb2tape
+init: q0
+accept: qi
+
+q0,a,_
+q0,a,a,>,>
+
+q0,b,_
+q0,b,_,>,-
+
+q0,_,_
+q1,_,_,<,<
+
+q1,a,a
+q1,a,a,<,-
+
+q1,b,a
+q1,b,a,<,<
+
+q1,a,_
+q1,a,_,<,-
+
+q1,_,_
+qi,_,_,-,-

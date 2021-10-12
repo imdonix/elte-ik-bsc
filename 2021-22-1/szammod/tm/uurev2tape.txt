@@ -1,0 +1,45 @@
+name: uurev2tape
+init: q0
+accept: qa
+
+q0,_,_
+qa,_,_,-,-
+
+q0,a,_
+qcopy1,a,a,>,>
+
+q0,b,_
+qcopy1,b,b,>,>
+
+qcopy1,a,_
+qcopy2,a,a,>,>
+
+qcopy1,b,_
+qcopy2,b,b,>,>
+
+qcopy2,a,_
+qcopy1,a,a,>,>
+
+qcopy2,b,_
+qcopy1,b,b,>,>
+
+qcopy2,_,_
+qrew,_,_,<,-
+
+qrew,a,_
+qrew,a,_,<,-
+
+qrew,b,_
+qrew,b,_,<,-
+
+qrew,_,_
+qcheck,_,_,>,<
+
+qcheck,a,a
+qcheck,a,a,>,<
+
+qcheck,b,b
+qcheck,b,b,>,<
+
+qcheck,_,_
+qa,_,_,-,-

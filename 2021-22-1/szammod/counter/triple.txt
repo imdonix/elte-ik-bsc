@@ -1,0 +1,14 @@
+start
+JMPZ 1 middle
+DEC 1
+INC 2
+INC 2
+INC 3
+JMP start
+middle
+JMPZ 3 end
+DEC 3
+INC 2
+JMP middle
+end
+HALT

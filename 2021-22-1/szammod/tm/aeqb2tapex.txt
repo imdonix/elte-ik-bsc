@@ -1,0 +1,30 @@
+name: aeqb2tapex
+init: q0
+accept: qi
+
+q0,a,_
+q1,a,x,>,>
+
+q0,b,_
+q1,b,x,>,<
+
+q0,_,_
+qi,_,x,-,-
+
+q1,a,_
+q1,a,_,>,>
+
+q1,a,x
+q1,a,x,>,>
+
+q1,b,_
+q1,b,_,>,<
+
+q1,b,x
+q1,b,x,>,<
+
+q1,_,x
+qi,_,x,-,-
+
+q1,_,_
+qn,_,_,-,-
