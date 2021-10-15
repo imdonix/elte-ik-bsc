@@ -1,0 +1,55 @@
+4. feladat  
+
+B+ fa index
+-----------
+Az alábbi feladatban a tankönyben leírt és az elõadáson is bemutatott algoritmussal 
+építsünk fel egy B+ fát!
+
+Tegyük fel, hogy egy B+ fa blokkjaiba 3 kulcs fér el plusz 4 mutató. A kulcsok 
+különbözõek. Szúrjuk be a B+ fába az alábbi kulcsértékeket a megadott sorrendben:
+39,15,50,70,79,83,72,43,75,45,60,80
+Adjuk meg a B+ fa minden olyan állapotát, amikor egy csomópont kettéosztására volt szükség.
+
+
+                       15|39|50                <- 70
+
+                          50
+                    15|39    50|70             <- 79
+
+                          50
+                    15|39    50|70|79          <- 83
+
+                         50|79
+                15|39    50|70   79|83         <- 72,43
+
+                         50|79
+           15|39|43    50|70|72   79|83        <- 75
+
+                        50|72|79
+          15|39|43   50|70    72|75   79|83    <- 45 
+
+45 beszúrása két lépésre osztva:
+1.
+                        43|50|72|79
+      15|39   43|45   50|70    72|75   79|83    
+
+2.
+                           72
+                43|50               79
+      15|39   43|45   50|70    72|75   79|83    <- 60,80
+
+                           72
+               43|50                   79
+      15|39   43|45   50|60|70    72|75   79|80|83
+
+Egy kis segítség:
+----------------
+
+Levél csúcs kettéosztásakor minden kulcsot megõrzünk a régi és az új (szomszédos) csúcsban.
+1 új kulcs-mutató párt küldünk felfelé a szülõ csúcsba, amit ott kell elhelyezni.
+
+Belsõ csúcs kettéosztásakor (N,M-re) a mutatók elsõ fele az N-be kerül, a második az M-be.
+A kulcsok elsõ fele az N-be kerül a második fele az M-be, de középen kimarad egy kulcs,
+ami az M-en keresztül (elsõ gyermekén keresztül) elérhetõ legkisebb kulcsot tartalmazza. 
+Ez nem kerül sem N-be, sem M-be, hanem ez megy fölfelé N és M közös szülõjébe az M-re mutató
+mutatóval együtt.

@@ -1,0 +1,210 @@
+B+ fa index
+-----------
+Az alábbi feladatban a tankönyben leírt és az elõadáson is bemutatott algoritmussal 
+építsünk fel egy B+ fát!
+
+Tegyük fel, hogy egy B+ fa blokkjaiba 3 kulcs fér el plusz 4 mutató. A kulcsok 
+különbözõek. Szúrjuk be a B+ fába az alábbi kulcsértékeket a megadott sorrendben:
+39,15,50,70,79,83,72,43,75,45
+Adjuk meg a B+ fa minden olyan állapotát, amikor egy csomópont kettéosztására volt szükség.
+Például, az elsõ kettéosztás utáni állapot:
+                          50
+                    15|39    50|70
+
+Egy kis segítség:
+----------------
+
+Levél csúcs kettéosztásakor minden kulcsot megõrzünk a régi és az új (szomszédos) csúcsban.
+1 új kulcs-mutató párt küldünk felfelé a szülõ csúcsba, amit ott kell elhelyezni.
+
+Belsõ csúcs kettéosztásakor (N,M csúcsra) a mutatók elsõ fele az N-be kerül, a második az M-be.
+A kulcsok elsõ fele az N-be kerül a második fele az M-be, de középen kimarad egy kulcs,
+ami az M-en keresztül (elsõ gyermekén keresztül) elérhetõ legkisebb kulcsot tartalmazza. 
+Ez nem kerül sem N-be, sem M-be, hanem ez megy fölfelé N és M közös szülõjébe az M-re mutató
+mutatóval együtt.
+
+
+Bitmap index
+------------
+
+DKOD DNEV   FIZETES  FOGLALKOZAS  BELEPES  OAZON
+---------------------------------------------------
+1    SMITH     800   CLERK        1980     20   
+2    ALLEN    1600   SALESMAN     1981     30	   
+3    WARD     1250   SALESMAN     1981     30	   
+4    JONES    2975   MANAGER      1981     20	   
+5    MARTIN   1250   SALESMAN     1981     30	   
+6    BLAKE    2850   MANAGER      1981     30	   
+7    CLARK    2450   MANAGER      1981     10	   
+8    SCOTT    3000   ANALYST      1982     20	   
+9    KING     5000   PRESIDENT    1981     10	   
+10   TURNER   1500   SALESMAN     1981     30	   
+11   ADAMS    1100   CLERK        1983     20	   
+12   JAMES     950   CLERK        1981     30	   
+13   FORD     3000   ANALYST      1981     20	   
+14   MILLER   1300   CLERK        1982     10	 
+
+
+Készítsen bitmap indexet a dolgozó tábla OAZON oszlopára és adja meg a bitvektorokat.
+
+Tegyük fel, hogy a FOGLALKOZAS, a BELEPES és az OAZON oszlopokra létezik bitmap index (3 index).
+Készítsük el az alábbi lekérdezésekhez szükséges bitvektorokat, majd végezzük el rajtuk a szükséges 
+mûveleteket, és adjuk meg azt az elõállt bitvektort, ami alapján a végeredmény sorok megkaphatók.
+Ellenõrzésképpen adjuk meg a lekérdezést SQL-ben is.
+ 
+- Adjuk meg azoknak a dolgozóknak a nevét, akik 1981-ben léptek be és a foglalkozásuk hivatalnok (CLERK),
+  vagy a 20-as osztályon dolgoznak és a foglalkozásuk MANAGER.
+
+- Adjuk meg azoknak a dolgozóknak a nevét, akik nem 1981-ben léptek be és a 10-es vagy a 30-as 
+  osztályon dolgoznak.
+
+Tömörítse a következõ bitvektort a szakaszhossz kódolással. (lásd UW_szakaszhossz_kodolas.doc)
+0000000000000000000000010000000101
+
+szakaszhosszok: 23, 7, 1 -> bináris formában: 10111, 111, 1
+tömörített -> 1111010111 110111 01
+                   -----    ---  -
+                     23      7   1
+
+Fejtsük vissza a következõ, szakaszhossz kódolással tömörített bitvektort:
+1111010101001011
+     ----- -  --
+       21  0   3
+visszafejtve -> 00000000000000000000110001
+
+
+Oracle indexek  
+--------------
+(DBA_INDEXES, DBA_IND_COLUMNS, DBA_IND_EXPRESSIONS)
+
+Hozzunk létre egy vagy több táblához több különbözõ indexet, legyen köztük több oszlopos,
+csökkenõ sorrendû, bitmap, függvény alapú stb. (Ehhez használhatók az ab2_oracle.doc
+állományban szereplõ példák, vagy a cr_index.txt-ben szereplõk.)
+Az alábbi lekérdezésekkel megállapítjuk az iménti indexeknek mindenféle tulajdonságait a 
+katalógusokból.
+
+1.
+Adjuk meg azoknak a tábláknak a nevét, amelyeknek van csökkenõ sorrendben indexelt oszlopa. (tulajdonos: NIKOVITS)
+--------------------------------------------------------------------------------
+SELECT * FROM dba_ind_columns WHERE descend='DESC' AND index_owner='NIKOVITS';
+
+Miért ilyen furcsa az oszlopnév?
+-> lásd DBA_IND_EXPRESSIONS
+
+2.
+Adjuk meg azoknak az indexeknek a nevét, amelyek legalább 9 oszloposak.
+(Vagyis a táblának legalább 9 oszlopát vagy egyéb kifejezését indexelik.)
+--------------------------------------------------------------------------------
+SELECT index_owner, index_name FROM dba_ind_columns 
+GROUP BY index_owner, index_name HAVING count(*) >=9;
+
+3.
+Adjuk meg a NIKOVITS.CUSTOMERS táblára létrehozott bitmap indexek nevét.
+Elõtte:
+create bitmap index CUSTOMERS_MARITAL_BIX on customers(cust_marital_status);
+create bitmap index CUSTOMERS_YOB_BIX on customers(cust_year_of_birth);
+--------------------------------------------------------------------------------
+SELECT index_name FROM dba_indexes 
+WHERE table_owner='NIKOVITS' AND table_name='CUSTOMERS' AND index_type='BITMAP';
+
+4.
+Adjuk meg azon kétoszlopos indexek nevét és tulajdonosát, amelyeknek legalább 
+az egyik kifejezése függvény alapú. (tulajdonos, név)
+--------------------------------------------------------------------------------
+SELECT index_owner, index_name FROM dba_ind_columns 
+GROUP BY index_owner, index_name HAVING count(*) =2
+ INTERSECT
+SELECT index_owner, index_name FROM dba_ind_expressions;
+
+5.
+Adjuk meg az egyikükre, pl. a NIKOVITS tulajdonában lévõre, hogy milyen kifejezések szerint 
+vannak indexelve a soraik. (Vagyis mi a függveny, ami alapján a bejegyzések készülnek.)
+--------------------------------------------------------------------------------
+SELECT * FROM dba_ind_expressions WHERE index_owner='NIKOVITS';
+
+6.
+Adjuk meg a NIKOVITS felhasználó tulajdonában levõ index-szervezett táblák nevét.
+(Melyik táblatéren vannak ezek a táblák? -> miért nem látható?)
+--------------------------------------------------------------------------------
+SELECT owner, table_name, iot_name, iot_type, tablespace_name FROM dba_tables 
+WHERE owner='NIKOVITS' AND iot_type = 'IOT';
+
+7.
+Adjuk meg a fenti táblák index részét, és azt, hogy ezek az index részek (szegmensek) 
+melyik táblatéren vannak?
+--------------------------------------------------------------------------------
+SELECT table_name, index_name, index_type, tablespace_name FROM dba_indexes 
+WHERE table_owner='NIKOVITS' AND index_type LIKE '%IOT%TOP%';
+
+8.
+Keressük meg a szegmensek között az elõzõ táblákat illetve indexeket, és adjuk
+meg a méretüket.
+--------------------------------------------------------------------------------
+SELECT table_name, index_name, index_type, s.bytes
+FROM dba_indexes i, dba_segments s 
+WHERE i.table_owner='NIKOVITS' AND i.index_type LIKE '%IOT%TOP%'
+AND i.index_name=s.segment_name AND s.owner='NIKOVITS';
+
+9.
+Keressük meg az adatbázis objektumok között a fenti táblákat és indexeket, és adjuk
+meg az objektum azonosítójukat és adatobjektum azonosítójukat (DATA_OBJECT_ID).
+
+10.
+Adjuk meg a fenti táblák túlcsordulási részeit (ha van).
+--------------------------------------------------------------------------------
+SELECT owner, table_name, iot_name, iot_type FROM dba_tables 
+WHERE owner='NIKOVITS' AND iot_type = 'IOT_OVERFLOW';
+
+11.
+Keressük meg a túlcsordulási részeket a szegmensek között és adjuk meg a méretüket.
+--------------------------------------------------------------------------------
+SELECT t.owner, t.table_name, t.iot_name, t.iot_type, s.bytes 
+FROM dba_tables t, dba_segments s
+WHERE t.owner='NIKOVITS' AND t.iot_type = 'IOT_OVERFLOW'
+AND s.owner='NIKOVITS' AND s.segment_name=t.table_name;
+
+12.
+Keressük meg a NIKOVITS.CIK_IOT index szervezett tábla részeit 
+(tábla szegmens, túlcsordulási szegmens, a tábla indexei), adjuk meg az
+objektum azonosítóikat és az adatobjektum azonosítóikat.
+(object_name, object_type, object_id, data_object_id)
+--------------------------------------------------------------------------------
+SELECT object_name, object_type, object_id, data_object_id 
+FROM dba_objects WHERE owner='NIKOVITS'
+AND (object_name LIKE 'SYS_IOT%' OR object_name LIKE 'CIKK_IOT%');
+
+13.
+Adjuk meg azokat az index szervezett táblákat, amelyeknek pontosan 
+1 dátum típusú oszlopa van. (owner, table_name)
+--------------------------------------------------------------------------------
+SELECT owner, table_name FROM dba_tables WHERE iot_type = 'IOT'
+ INTERSECT
+SELECT owner, table_name FROM dba_tab_columns
+WHERE data_type='DATE' GROUP BY owner, table_name
+HAVING count(*) = 1;
+
+--------------------------------------------------------------------------------
+14.
+Írjunk meg egy plsql procedúrát, amelyik a paraméterül kapott index szervezett 
+tábláról kiírja a tábla méretét. 
+Vigyázzunk, mert a táblának lehet index és túlcsordulási szegmense is!
+CREATE OR REPLACE PROCEDURE iot_size(p_owner VARCHAR2, p_table VARCHAR2) IS 
+...
+SET SERVEROUTPUT ON
+EXECUTE iot_size('nikovits', 'cikk_iot');
+
+Segítség:
+SELECT i.table_name, i.index_name, t.table_name overfl
+FROM dba_indexes i LEFT OUTER JOIN dba_tables t 
+ ON (t.owner='NIKOVITS' AND t.iot_type = 'IOT_OVERFLOW' AND i.table_name=t.iot_name)
+WHERE i.table_owner='NIKOVITS' AND i.index_type LIKE '%IOT%TOP%';
+--------------------------------------------------------------------------------
+15.
+Írjunk meg egy plsql procedúrát, amelyik a paraméterül kapott táblára vonatkozóan 
+kiírja a tábla indexeit és azok méretét. 
+CREATE OR REPLACE PROCEDURE list_indexes(p_owner VARCHAR2, p_table VARCHAR2) IS
+...
+SET SERVEROUTPUT ON
+EXECUTE list_indexes('nikovits', 'customers');
+EXECUTE list_indexes('nikovits', 'cikk_iot');
+-----------------------------------------------------------------------
