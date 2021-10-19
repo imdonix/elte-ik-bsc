@@ -100,6 +100,7 @@ int main(int argc, char* argv[]){
     iter = utlist.begin();
     while((*iter).sorszam != sorsz) ++iter;
     l = (lepesszam <= 5000000);
+	if(lepesszam >= 5000000) std::cout << "sok" << std::endl;
     ++lepesszam;
     if((*iter).tipus == "cimke"){
 	++sorsz;

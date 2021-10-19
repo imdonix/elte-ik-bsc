@@ -32,3 +32,9 @@ Alapok
 - 4 Generated: Contructor, Equal, Copy, Decontructor
 - int a = 2 => init
 - Int i = 2 => Int i(2)
+- friend global operator
+- global operator
+
+# GY6
+- template -> function, class
+- template<int i>
