@@ -1,0 +1,22 @@
+INC 3
+loop
+JMPZ 1 end
+DEC 1
+copy
+JMPZ 2 add
+INC 4
+DEC 2
+JMP copy
+add
+JMPZ 3 rev
+INC 2
+DEC 3
+JMP add
+rev
+JMPZ 4 loop
+INC 2
+INC 3
+DEC 4
+JMP rev
+end
+HALT
