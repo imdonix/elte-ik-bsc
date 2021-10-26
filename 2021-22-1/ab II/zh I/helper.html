@@ -8,18 +8,20 @@
 </head>
 <body>
     
-    <input type="text" id="rle" value="0000000000000000000000010000000101" size="55"> 
+    <a href="https://www.cs.usfca.edu/~galles/visualization/BPlusTree.html">b+</a>
+    <hr>
+    input<input type="text" id="rle" value="0000000000000000000000010000000101" size="55"> 
     <button type="submit" id="encode">Encode</button> 
     <button type="submit" id="decode">Decode</button>
     <br>
     <textarea name="rleres" id="rleres" cols="30" rows="10" style="width: 100%;"></textarea>
     <hr>
-    <input type="text" id="hashTrs" value="2.4" size="5"> 
-    <input type="text" id="hashInp" value="0000, 1110, 0101, 0001, 0110, 1011, 0111, 1100, 1111, 0100" size="55"> 
+    küszöb<input type="text" id="hashTrs" value="2.4" size="5"> 
+    blockméret<input type="text" id="hashBlock" value="2" size="5"> 
+    input<input type="text" id="hashInp" value="0000, 1110, 0101, 0001, 0110, 1011, 0111, 1100, 1111, 0100" size="55"> 
     <button type="submit" id="hashBtn">Hash</button> 
     <br>
     <textarea name="hashres" id="hashres" cols="30" rows="30" style="width: 100%;"></textarea>
-
     
     <script src="binlib.js"></script>
     <script src="rle.js"></script>
@@ -52,11 +54,14 @@
         const hashes = document.querySelector('#hashInp')
         const trs = document.querySelector('#hashTrs')
         const resh = document.querySelector('#hashres')
+        const block = document.querySelector('#hashBlock')
+        
         
         document.querySelector('#hashBtn').addEventListener('click', doHash)
 
         function doHash()
         {
+            let bn = parseInt(block)
             resh.innerHTML = ''
 
             for (const step of hash(hashes.value, trs.value))
@@ -73,7 +78,7 @@
                     {
                         section += `${num}, `
                         split++
-                        if(split >= 2)
+                        if(split >= bn)
                         {
                             section = section.substr(0, section.length - 2)
                             section += ` -> `
