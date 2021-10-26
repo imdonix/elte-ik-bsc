@@ -13,8 +13,18 @@
     <button type="submit" id="decode">Decode</button>
     <br>
     <textarea name="rleres" id="rleres" cols="30" rows="10" style="width: 100%;"></textarea>
+    <hr>
+    <input type="text" id="hashTrs" value="2.4" size="5"> 
+    <input type="text" id="hashInp" value="0000, 1110, 0101, 0001, 0110, 1011, 0111, 1100, 1111, 0100" size="55"> 
+    <button type="submit" id="hashBtn">Hash</button> 
+    <br>
+    <textarea name="hashres" id="hashres" cols="30" rows="30" style="width: 100%;"></textarea>
+
     
+    <script src="binlib.js"></script>
     <script src="rle.js"></script>
+    <script src="hash.js"></script>
+
     <script>
         const inp = document.querySelector('#rle')
         const res = document.querySelector('#rleres')
@@ -23,7 +33,6 @@
         document.querySelector('#decode').addEventListener('click', doDecode)
 
 
-        
         function doEncode()
         {
             let r = encode(inp.value)
@@ -37,9 +46,58 @@
             res.innerHTML = `szakaszhosszok: ${r[1].map(binary2str)} -> decimálisan: ${r[2]}\n`
             res.innerHTML += `visszafejtve -> ${binary2str(r[0])}\n`
         }
+    </script>
+
+    <script>
+        const hashes = document.querySelector('#hashInp')
+        const trs = document.querySelector('#hashTrs')
+        const resh = document.querySelector('#hashres')
+        
+        document.querySelector('#hashBtn').addEventListener('click', doHash)
+
+        function doHash()
+        {
+            resh.innerHTML = ''
+
+            for (const step of hash(hashes.value, trs.value))
+            {
+                let section = ''
+                let buckets = step[1]
+
+                section += `beszúr --> ${step[0]} | i = ${step[2]} ${step[3] ? '| új kosár hozzáadva' : ''}\n\n`
+                for (const bucket of buckets)
+                {
+                    section += `${bucket[0]} | `
+                    let split = 0
+                    for (const num of bucket[1]) 
+                    {
+                        section += `${num}, `
+                        split++
+                        if(split >= 2)
+                        {
+                            section = section.substr(0, section.length - 2)
+                            section += ` -> `
+                            split = 0
+                        }
+                    }
+
+                    let char = section.charAt(section.length-1)
+                    while( char != '0' && char != '1' )
+                    {
+                        console.log("as")
+                        section = section.substr(0, section.length - 1)
+                        char = section.charAt(section.length-1)
+                    }
 
 
+                    section += '\n'
+                }
 
+                section += '----------\n'
+
+                resh.innerHTML += section
+            }            
+        }
     </script>
 
 </body>
