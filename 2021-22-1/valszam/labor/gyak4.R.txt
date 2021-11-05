@@ -1,0 +1,347 @@
+##########################################
+###   4. Laboros gyakorlat (7-8 hét)   ###
+##########################################
+
+#####################
+# Leíró statisztika #
+#####################
+
+# 1. Egy szabályos dobókockával négyszer dobtunk és a következõket kaptuk: 1, 3, 6, 1.
+
+x <- c(1,3,6,1)
+
+# (a) Számolja ki a mintaátlagot, tapasztalati szórást és 
+#     korrigált tapasztalati szórást, a szórási együtthatót (a korrigált szórást
+#     használva), valamint a második tapasztalati momentumot!
+
+mean(x)                     # mintaátlag
+
+sqrt(mean((x-mean(x))^2))   # tapasztalati szórás
+# sqrt( ((1-mean(x))^2+(3-mean(x))^2+(6-mean(x))^2+(1-mean(x))^2) / 4 )
+
+sd(x)                       # korrigált tapasztalati szórás ( = sqrt(var(x)) ) 
+
+var(x)                      # korrigált szórásnégyzet ( = sd(x)^2 )
+
+sd(x)/mean(x)               # szórási együttható (vagy relatív szórás, CV) (átlaghoz viszonyított szórás)
+
+mean(x^2)                   # tapasztalati második momentum
+
+cat("átlag:", mean(x),
+    "\nszórás:", sqrt(mean((x-mean(x))^2)),
+    "\nkorrigált szórás:", sd(x),
+    "\nszórási együttható:", sd(x)/mean(x),
+    "\ntapasztalati második momentum:", mean(x^2),'\n')
+
+# (b) Tekintsük a 101, 103, 106, 101 adatokat, melyeket az elozõekbõl
+#     100-zal való eltolással kaptunk. Mennyi lesz most a mintaátlag és 
+#     a tapasztalati szórás?
+
+x_new <- x + 100 
+cat('átlag:',mean(x_new),
+    'régi átlag:',mean(x),
+    '\nszórás:',sd(x_new),
+    'régi szórás:',sd(x),'\n')
+
+
+# (c) Az (a)-pontbeli adatokat szorozzuk meg -3-mal: -3, -9, -18, -3. 
+#     Hogyan változik ekkor a mintaátlag és a tapasztalati szórás?
+
+x_new <- -3*x
+cat('átlag:',mean(x_new),
+    'régi átlag:',mean(x),
+    '\nszórás:',sd(x_new),
+    'régi szórás:',sd(x),'\n')
+
+# Ahogy vártuk, az átlag és a szórás szorzódik, az átlag -3-mal, a szórás 3-mal.
+
+
+# 2. Egy csoportban a hallgatók magassága (cm):
+#   180, 163, 1500, 157, 165, 165, 174, 191, 172, 165, 1-68, 186
+
+radatok <- c(180,163,1500,157,165,165,174,191,172,165,1-68,186)
+
+
+# (a) Nézzen rá az adatokra! Reálisak? Javítsa az esetleges adathibákat!
+#     Hibásnak tûnik két adat, azokat jelen esetben értelemszerûen 
+#     javíthatjuk. De ilyesmivel vigyázni kell, "csúnya" adatokat 
+#     nem szabad csak úgy javítani...
+
+# Magassági adatok:
+radatok
+n <- length(radatok); n       # mintanagyság
+
+plot(radatok)
+summary(radatok)      # statisztikák: min, max, átlag, kvartilisek
+
+data.entry(radatok)
+
+# Javított magassági adatok:
+adatok <- radatok
+adatok[3] <- 150	# ellenõrízve: 1500 helyett 150
+adatok[11] <- 168	# ellenõrízve: 1-68 helyett 168
+adatok
+
+plot(adatok)
+summary(adatok)
+
+
+# (b) Elemezze a hallgatók testmagasságát alapstatisztikák: átlag, 
+#     korrigált tapasztalati szórás, szórási együttható, kvartilisek,
+#     terjedelem, interkvartilis terjedelem
+min(adatok)
+max(adatok)
+max(adatok) - min(adatok)           # terjedelem
+
+which(adatok == max(adatok))
+
+mean(adatok)                        # átlag
+sd(adatok)                  				# korrigált tapasztalati szórás
+sd(adatok)/mean(adatok)             # szórási együttható
+
+sum( adatok >= 160 )                # hány adat >= 160
+
+# kvartilisek kiszámítása, 6-os típus: (elméleti leírásban szereplõ képlet alapján) 
+kvart <- quantile(adatok, probs = c(1/4, 1/2, 3/4), type = 6)
+kvart
+
+kvart[3] - kvart[1]                 # interkvartilis terjedelem
+
+
+# (c) Adja meg a rendezett mintát!
+
+x <- sort(adatok); x
+
+
+# (d) Rajzolja fel a tapasztalati eloszlásfüggvényt! Mennyi a tapasztalati 
+#     eloszlásfüggvény értéke a 180 helyen? értelmezze szövegesen!
+
+Fn <- ecdf(adatok)
+plot(Fn, do.points = FALSE, ylab='Fn(x)',		   # x a rendezett minta
+     main = "Tapasztalati eloszlás függvény")
+points(unique(x), unique(c(0, Fn(x)))[1:length(unique(x))], pch=19)
+points(unique(x), unique(Fn(x)), pch=21)
+
+# ecdf tapasztalati eloszlásfüggvény jobbról folytonos:
+Fn(180)
+# átalakítva balról folytonos:
+Fn_bf <- function(x) { mean(adatok<x) }
+Fn_bf(180)
+        
+abline(v = 180, lty = 3)
+abline(h = Fn_bf(180), lty = 3)
+
+
+# (e) Készítsen boxplot ábrát!
+        
+boxplot(adatok)
+boxplot(adatok, horizontal=TRUE)
+
+# dev.new()
+# library(ggplot2)
+df <- data.frame(adatok)
+ggplot(data = df, aes(x = "", y = adatok)) + 
+  geom_boxplot(fill="cyan") #+
+# coord_cartesian(ylim = c(150, 195)) 
+
+
+# (f) Készítsen hisztogramot!
+
+ggplot(data=df, aes(x=adatok)) + 
+  geom_histogram(breaks=seq(150, 200, by = 10), 
+                 col="blue", 
+                 fill="cyan", 
+                 alpha = .2) + 
+  labs(title="Magassági adatok hisztogramja (ggplot)", x="Magasság", y="Gyakoriság") 
+
+hisz <- hist(adatok, #breaks=5,
+             xlab="Magasság", 
+             ylab="Gyakoriság", 
+             main="Magassági adatok hisztogramja (hist)", 
+             col="cyan", 
+             border="blue")
+hisz$counts				# gyakoriságok az egyes osztályokban
+
+hist(adatok, breaks=c(min(adatok), 160, 170, 180, max(adatok)),
+     xlab="Magasság", 
+     ylab="Gyakoriság", 
+     main="Magassági adatok hisztogramja (hist, breaks)", 
+     col="cyan", 
+     border="blue")
+
+
+#############
+## Boxplot ##
+#############
+
+# built-in datasets
+# https://stat.ethz.ch/R-manual/R-devel/library/datasets/html/00Index.html
+
+boxplot(Temp ~ Month,
+        data=airquality,
+        main="Boxplotok havonta",
+        xlab="Hónap",
+        ylab="Hõmérséklet (Fahrenheit)",
+        col="orange",
+        border="brown")
+
+
+# 3. Legyen
+
+adat <- c(2,0,1,0,8,3,5,7,8,2,3,5,1,7,8,3,5,3,2,8)
+
+# (a) Mit számol az alábbi R program?
+  
+sum(adat<3)
+
+########## MEGOLDÁS ##########
+
+
+##############################
+
+
+t_adat <- table(adat)
+names(t_adat)[t_adat==max(t_adat)] 
+
+########## MEGOLDÁS ##########
+
+
+##############################
+
+
+rep <- rep(c("A","B"), c(10,10))
+df <- data.frame(adat = adat,rep=rep)
+ggplot(df, aes(x = rep, y = adat)) +
+  geom_boxplot(fill = "gold") +
+  scale_x_discrete (name = "A  és  B csoport") 
+
+########## MEGOLDÁS ##########
+
+
+##############################
+
+
+# (b) Az alábbi érték TRUE vagy FALSE?
+
+sd(adat) == sqrt(sum((adat-mean(adat))^2)/(length(adat)))
+
+# Amennyiben hamis az állítás, hogyan lehet igazzá tenni?
+
+########## MEGOLDÁS ##########
+
+
+
+
+##############################
+
+
+###################################
+## Tapasztalati eloszlásfüggvény ##  
+###################################  
+
+
+# Minta: X_1,...,X_n valószínûségi változó sorozat.  
+# A továbbiakban feltesszük, hogy függetlenek és azonos eloszlásúak. 
+# Realizációja: x_1,...,x_n
+# Statisztika: A minta valamely függvénye, pl. átlag,
+# tapasztalati eloszlásfüggvény: 
+#   F_n(x) = 1/n sum_{i=1}^n  I(X_i<x), 
+#   ahol I(X_i<x)= 1, ha X_i < x, 0 ha X_i >= x indikátor függvény
+
+# Glivenko-Cantelli tétel: Az F_n(x) tapasztalati eloszlásfüggvény és 
+# az F(x) elméleti eloszlásfüggvény közötti eltérés maximuma 1 valószínûséggel 
+# egyenletesen 0-hoz konvergál, ami azt jelenti, hogy elég nagy minta 
+# esetén F_n(x) értéke minden x-re közel van F(x) értékéhez.
+
+
+# 1. Generáljon 100 kockadobást és ábrázolja annak a tapasztalati eloszlásfüggvényét!
+
+n_values <- 100
+x_sample<- sample(1:6, size = n_values, replace = TRUE)
+table(x_sample)
+
+barplot(table(x_sample),
+        col="red",
+        xlab="Érték",
+        ylab="Gyakoriság",
+        main="Dobókocka dobások")
+
+plot(ecdf(x_sample), 
+     do.points=FALSE, 
+     col="red", 
+     lwd=2,
+     xlim=c(1, 6),
+     main='Tapasztalati eloszlásfüggvény')
+
+
+# eloszlás elméleti és tapasztalati eloszlásfüggvénye - szimuláció
+
+x <- 1:6
+trueF <- ecdf(x)
+n_values <- 100
+x_sample <- sample(1:6, size = n_values, replace = TRUE) #floor(runif(n_values, min=1, max=7))
+
+plot(trueF, 
+     do.points=FALSE, 
+     lwd=3, 
+     ylab = "F(x)",
+     main='Elméleti és tapasztalati eloszlásfüggvény \n (diszkrét egyenletes az {1,2,3,4,5,6}-on)')
+plot(ecdf(x_sample), add=TRUE,
+     do.points=FALSE, 
+     xlim=c(1, 6),  
+     col="red", 
+     lwd=2)
+legend(x='topleft', 
+       bty='n', 
+       legend = c('elméleti', 'tapasztalati'), 
+       col = c("black", "red"), 
+       lwd = 2)
+#points(unique(x), unique(c(0, trueF(x)))[1:length(unique(x))], pch=19)
+#points(unique(x), unique(trueF(x)), pch=21)
+
+# egy ábrán több szimuláció
+
+n_values <- c(10,100,1000)
+cols <- c("black", "yellow", "orange", "red2")  #colorspace::diverge_hsv(length(n_values)+1)
+
+i<-0
+plot(trueF,
+     do.points=FALSE,
+     col=cols[i<-i+1],
+     lwd=3,
+     main='Tapasztalati és elméleti eloszlásfüggvény')
+for(n in n_values){
+  x_sample <- sample(1:6, size = n, replace = TRUE)
+  plot(ecdf(x_sample),
+       add=TRUE,
+       do.points=FALSE,
+       col=cols[i<-i+1],lwd=2)
+}
+legend(x='topleft',
+       bty='n',
+       col = cols,
+       lwd = 2,
+       legend = c('elméleti', paste('n',n_values,sep='=')))
+
+
+
+# 2. Normális eloszlás elméleti és tapasztalati eloszlásfüggvénye - szimuláció
+
+n <- 12
+x <- rnorm(n)
+
+plot(ecdf(x), 
+     do.points=FALSE, 
+     xlim=c(-3.2,3.2), 
+     col="red", 
+     lwd=2, 
+     main='Elméleti és tapasztalati eloszlásfüggvény \n (abszolút folytonos v.v.: standard normális)', ylab = " ")
+
+x_sample <- seq(-3.2, 3.2, 0.01)
+lines(x_sample, pnorm(x_sample), lw=2) # ez a kek az elméleti
+legend(x='topleft', 
+       bty='n', 
+       col = c("black", "red"), 
+       lwd = 2, 
+       legend = c('elméleti', 'tapasztalati') )
+
