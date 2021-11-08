@@ -61,7 +61,7 @@
 
         function doHash()
         {
-            let bn = parseInt(block)
+            let bn = parseInt(block.value)
             resh.innerHTML = ''
 
             for (const step of hash(hashes.value, trs.value))
