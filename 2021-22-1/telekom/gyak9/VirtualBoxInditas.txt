@@ -1,0 +1,44 @@
+﻿Mininet indítása VirtualBox-ban:
+1, Töltsük le és csomagoljuk ki a tömörített lemezképet a VirtualBox-hoz!
+2, A VirtualBox-ban készítsünk egy új VM-t, úgy hogy a kicsomagolt lemezt használja!
+3, Mielőtt elindítanánk:
+	a, Engedélyezzük az EFI-t (Rendszer/Alap)
+	b, Engedélyezzük PAE/NX-t (Rendszer/Processzor)
+	c, A csatolt disket a SATA-ból át kell rakni az IDE vezerlő alá (drag and drop)
+	d, Network Interfacetcseréljük le: Host-only
+4, Indítsuk el a VM-t!
+
+Ha nem kap IP-t a VM, akkor futtassuk a dhclient parancsot.
+networks@networksELTE:~$ sudo dhclient
+
+Ha nem érjük el a gépet, akkor indítsuk újra a sshd-t!
+networks@networksELTE:~$ sudo service sshd restart
+
+Lemaradt az iptables:
+networks@networksELTE:~$ sudo apt install iptables
+
+XTerm elinditasi DISPLAY problemara talan a megoldas:
+networks@networksELTE:~$ sudo apt install x11-xserver-utils
+networks@networksELTE:~$ rm .Xauthority
+networks@networksELTE:~$ rm .Xauthority-*
+networks@networksELTE:~$ exit
+networks@networksELTE:~$ xauth list
+	'''
+	xauth add networksELTE:10 MIT-MAGIC-COOKIE-1 2138df6b1d058358ae10fb3218bc317e
+	'''
+networks@networksELTE:~$ xauth add networksELTE/unix:10 MIT-MAGIC-COOKIE-1 2138df6b1d058358ae10fb3218bc317e
+networks@networksELTE:~/mininetScriptek$ sudo xhost +
+
+
+
+Idegesítő ^H-k eltüntetése:
+networks@networksELTE:~$ echo "stty erase \^H" >> ~/.bashrc
+
+
+
+HyperV-n az alábbi beállítás szükséges, hogy az X11-t forwardolja a rendszer:
+
+nano /etc/sshd/sshd_config
+>>>
+X11UseLocalhost no
+>>>
