@@ -43,3 +43,8 @@ Alapok
 - std::vector
 - std::list
 - std::deque
+
+# GY9
+- iterator
+- list vs array pointer (example)
+- set
