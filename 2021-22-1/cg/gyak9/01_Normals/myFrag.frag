@@ -77,7 +77,7 @@ void main()
 	// A bejövő fényirányt (-L) egy N normálvektorú felületről "visszapattintjuk".
 	// Így megkapjuk az ún. tökéletes visszaverődési irányt.
 	vec3 R = reflect(-L, N);
-	vec3 specular = vec3(0.0);
+	vec3 specular = pow(clamp(dot(V, R), 0, 1), 16) * Ls * Ks; 
 	
 	//
 	// a fragment végső színének meghatározása
