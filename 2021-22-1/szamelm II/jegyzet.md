@@ -10,7 +10,7 @@
 
 - ZH I: 7 hét
 
-- ZH II: 15. hét
+- ZH II: 15. hét (ONLINE)
 
 | Jegy | Pont  |
 |---|-----|
