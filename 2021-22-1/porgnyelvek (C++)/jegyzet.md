@@ -48,3 +48,6 @@ Alapok
 - iterator
 - list vs array pointer (example)
 - set
+
+# GY10
+? hiányzik ?
