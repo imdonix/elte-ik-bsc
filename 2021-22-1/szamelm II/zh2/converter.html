@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <textarea name="area" id="area" cols="30" rows="30"></textarea>
+    <textarea name="output" id="output" cols="30" rows="30"></textarea>
+    <button id="btn" type="submit"></button>
+
+
+    <script>
+        const area = document.querySelector('#area')
+        const output = document.querySelector('#output')
+        const btn = document.querySelector('#btn')
+
+        area.addEventListener('input', () => 
+        {
+            try 
+            {
+                let parsed = area.value.replaceAll('ü', '_')
+                .replaceAll('\\leftarrow&leftarrow;', '<')
+                .replaceAll('\\rightarrow&rightarrow;', '>')
+                .replaceAll('\\rightarrow ', '>')
+                .replaceAll('\\leftarrow ', '<')
+                .replaceAll('LaTeX:', "")
+                let rows = parsed.split('\n').map(r => r.split('\t'))
+                console.log(rows)
+
+                let res = []
+                res.push('name: zh')
+                res.push('init: 0')
+                res.push('accept: igen, nem')
+
+                for (let i = 1; i < rows[0].length; i++) 
+                {
+                    let key = rows[0][i]
+                    console.log(key)
+                    for (let j = 1; j < rows.length; j++) 
+                    {
+                        const val = rows[j];
+                        if(val[i] && val[i].trim())
+                        {
+                            
+                            res.push(`${val[0]},${key}`)
+                            res.push(`${val[i].replaceAll(' ', ',').replaceAll(',,', ',')}`)
+                            res.push('')
+                        }
+                    }
+                    
+                }
+
+                output.value = res.join('\n')
+
+
+            } catch (error) 
+            {
+                output.value = ''
+            }
+           
+        })
+
+
+    </script>
+
+</body>
+</html>
