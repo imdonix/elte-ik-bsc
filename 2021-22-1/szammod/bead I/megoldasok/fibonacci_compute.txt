@@ -1,0 +1,22 @@
+INC 3
+next
+JMPZ 1 end
+DEC 1
+m2t4
+JMPZ 2 a3t24
+DEC 2
+INC 4
+JMP m2t4
+a3t24
+JMPZ 3 m4t3
+DEC 3
+INC 2
+INC 4
+JMP a3t24
+m4t3
+JMPZ 4 next
+DEC 4
+INC 3
+JMP m4t3
+end
+HALT
