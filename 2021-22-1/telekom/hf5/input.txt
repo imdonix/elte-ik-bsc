@@ -1,0 +1,16 @@
+r6 ip addr add 32.0.0.254/8 dev r6-eth0
+r6 ip addr add 42.0.0.254/8 dev r6-eth2
+r6 ip addr add 192.168.114.1/24 dev r6-eth1
+r7 ip addr add 32.0.0.253/8 dev r7-eth0
+r7 ip addr add 52.0.0.254/8 dev r7-eth2
+r7 ip addr add 192.168.110.1/24 dev r7-eth1
+r8 ip addr add 192.168.114.2/24 dev r8-eth0
+r8 ip addr add 192.168.110.2/24 dev r8-eth1
+r8 ip addr add 62.0.0.254/8 dev r8-eth2
+
+h1 ip route add default via 32.0.0.254 dev h1-eth0
+h2 ip route add default via 32.0.0.254 dev h2-eth0
+h3 ip route add default via 32.0.0.253 dev h3-eth0
+h4 ip route add default via 62.0.0.254 dev h4-eth0
+h5 ip route add default via 42.0.0.254 dev h5-eth0
+h6 ip route add default via 52.0.0.254 dev h6-eth0
