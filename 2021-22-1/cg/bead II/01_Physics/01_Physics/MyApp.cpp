@@ -195,6 +195,7 @@ bool CMyApp::Init()
 	// textura betöltése
 
 	m_globe_Texture.FromFile("earthmap1k.jpg");
+	m_globe_HeightTexture.FromFile("earthbump1k.jpg");
 
 	// geometria definiálása
 	InitSphere();
@@ -320,6 +321,7 @@ void CMyApp::Render()
 	m_globeProgram.SetUniform("light_dir", lighPosition());
 
 	m_globeProgram.SetTexture("texImage", 0, m_globe_Texture);
+	m_globeProgram.SetTexture("heiImage", 1, m_globe_HeightTexture);
 
 	glDrawElements(GL_TRIANGLES, 3 * 2 * (N) * (M), GL_UNSIGNED_SHORT, 0);
 

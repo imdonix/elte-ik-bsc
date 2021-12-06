@@ -11,7 +11,7 @@ uniform vec3 La = vec3(1, 1, 0.85);
 uniform vec3 Ld = vec3(1, 1, 0.85);
 uniform vec3 Ls = vec3(1, 1, 0.85);
 
-uniform vec3 Ka = vec3(0.5, 0.5, 0.5);
+uniform vec3 Ka = vec3(0.7, 0.7, 0.7);
 uniform vec3 Kd = vec3(1, 1, 1);
 uniform vec3 Ks = vec3(2, 2, 2);
 

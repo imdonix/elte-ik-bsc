@@ -14,10 +14,16 @@ out vec2 vs_out_tex;
 uniform mat4 MVP;
 uniform mat4 world;
 uniform mat4 worldIT;
+uniform sampler2D heiImage;
 
 void main()
 {
-	gl_Position = MVP * vec4( vs_in_pos, 1 );
+
+	vec4 textureColor = texture(heiImage, vs_in_tex);
+	vec3 dir = normalize(vs_in_pos);
+	float h = (textureColor.y - 0.5F) / 3;
+
+	gl_Position = MVP * vec4( vs_in_pos + dir * h , 1 );
 
 	vs_out_pos = (world * vec4(vs_in_pos, 1)).xyz;
 	vs_out_norm = (worldIT * vec4(vs_in_norm, 0)).xyz;

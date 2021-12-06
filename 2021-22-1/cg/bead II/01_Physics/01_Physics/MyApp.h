@@ -71,6 +71,7 @@ protected:
 
 	//Globe
 	Texture2D			m_globe_Texture;
+	Texture2D			m_globe_HeightTexture;
 	VertexArrayObject	m_globe_vao;
 	IndexBuffer			m_globe_gpuBufferIndices;
 	ArrayBuffer			m_globe_gpuBufferPos;
@@ -84,11 +85,11 @@ protected:
 	gCamera				m_camera;
 
 	//Engine
-	int	m_boidCount = 150;
+	int		m_boidCount =	150;
 
-	float m_lightAmplitudo = 5;
-	float m_lightState = 0;
-	int m_lightTravel = 1;
+	float	m_lightAmplitudo = 5;
+	float	m_lightState = 0;
+	int		m_lightTravel = 1;
 
 	std::vector<glm::vec3> m_boidPos;
 	std::vector<glm::vec3> m_boidVel;
