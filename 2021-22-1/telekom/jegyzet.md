@@ -4,9 +4,11 @@
 
 - Vizsga:
 - Beugró 20kérdés (20p) | min 11 pont
-- Esszé 5 kérdés (40p)
+- Esszé 5 kérdés (25p)
 
 - 50% tól elégséges
+
+- 4 óra van nyitva a 1órás vizsgára két rész között van szünet
 
 # Gyakorlat
 
