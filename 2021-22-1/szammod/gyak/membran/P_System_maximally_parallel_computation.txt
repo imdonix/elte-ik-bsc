@@ -1,0 +1,18 @@
+I)   a^2b -> c
+II)  b^2c -> a
+III) abc  -> b
+
+a^4b^4c^4
+2xI+II: ac^5
+I+II+III: a^2bc^3
+	I: c^4
+	III: abc^2
+		III: bc
+I+2xIII: b^3c^3
+	II: abc^2
+		III: bc
+2xII: a^6c^2
+II+2xIII: a^3b^2c
+	I+III: bc
+	II: a^4
+4xIII: b^4
