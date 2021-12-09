@@ -1,0 +1,83 @@
+Adatbázis-tervezés	ZH L. csoport
+Név:_____________________	NEPTUN-kód:_____________________
+
+A megoldásokat egyetlen szöveges (txt) állományba gyűjtsétek össze melynek neve NEPTUN-kód.txt,
+és a branyi@inf.elte.hu címre küldjétek el levélben! Az ARAMIS adatbázisban dolgozzatok
+
+1;
+Adjuk meg úgy a lekérdezést, hogy ne használjon bitmap indexet az oracle.
+
+explain plan for 
+select /*+ no_index(x)*/ * from nikovits.szallit x where x.pkod=10 and x.szkod=12;
+select plan_table_output from table(dbms_xplan.display('plan_table', null, 'serial'));
+
+
+Adjuk meg úgy a lekérdezést, hogy bitmap indexet használjon az oracle.
+
+explain plan for 
+select /*+ index(x)*/ * from nikovits.szallit x where x.pkod=10 and x.szkod=12;
+select plan_table_output from table(dbms_xplan.display('plan_table', null, 'serial'));
+
+
+select * from nikovits.szallit where pkod=10 and szkod=12;
+
+2; Lekérdezések a NIKOVITS tábláira vonatkoznak.
+Készítsen lekérdezést, melynek végrehajtási terve:
+a;
+---------------------------------------------------
+| Id  | Operation                 | Name          |
+---------------------------------------------------
+|   0 | SELECT STATEMENT          |               |
+|*  1 |  FILTER                   |               |
+|   2 |   HASH GROUP BY           |               |
+|   3 |    VIEW                   | VM_NWVW_1     |
+|   4 |     HASH GROUP BY         |               |
+|*  5 |      HASH JOIN            |               |
+|   6 |       MERGE JOIN CARTESIAN|               |
+|*  7 |        TABLE ACCESS FULL  | FIZ_KATEGORIA |
+|   8 |        BUFFER SORT        |               |
+|   9 |         TABLE ACCESS FULL | OSZTALY       |
+|  10 |       TABLE ACCESS FULL   | DOLGOZO       |
+---------------------------------------------------
+Predicate Information (identified by operation id):
+---------------------------------------------------
+   1 - filter(COUNT("$vm_col_1")>1)
+   5 - access("O"."OAZON"="D"."OAZON")
+   7 - filter("KATEGORIA"=1)
+
+
+
+b;
+-------------------------------------
+| Id  | Operation            | Name |
+-------------------------------------
+|   0 | SELECT STATEMENT     |      |
+|   1 |  SORT AGGREGATE      |      |
+|   2 |   VIEW               |      |
+|   3 |    HASH GROUP BY     |      |
+|*  4 |     TABLE ACCESS FULL| CIKK |
+-------------------------------------
+Predicate Information (identified by operation id):
+---------------------------------------------------
+   4 - filter("SZIN"<>'piros')
+
+
+
+
+c;
+-----------------------------------------
+| Id  | Operation             | Name    |
+-----------------------------------------
+|   0 | SELECT STATEMENT      |         |
+|   1 |  SORT AGGREGATE       |         |
+|   2 |   MERGE JOIN CARTESIAN|         |
+|   3 |    NESTED LOOPS       |         |
+|*  4 |     TABLE ACCESS FULL | PROJEKT |
+|*  5 |     TABLE ACCESS FULL | SZALLIT |
+|   6 |    BUFFER SORT        |         |
+|   7 |     TABLE ACCESS FULL | CIKK    |
+-----------------------------------------
+Predicate Information (identified by operation id):
+---------------------------------------------------
+   4 - filter("PNEV"='Sportcentrum')
+   5 - filter("HELYSZIN"<>'Gyor' OR "MENNYISEG"<10)

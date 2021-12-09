@@ -1,0 +1,89 @@
+Adatbázis-tervezés	ZH A. csoport
+Név:_____________________	NEPTUN-kód:_____________________
+
+A megoldásokat egyetlen szöveges állományba gyűjtsétek össze melynek neve az neptunkód.txt,
+és a branyi@inf.elte.hu címre küldjétek el levélben!
+Az ARAMIS adatbázisban dolgozzatok
+1;
+Adjuk meg úgy a lekérdezést, hogy csak az egyik táblára használjon bitmap indexet az oracle.
+
+explain plan for 
+select /*+ index(a) full(b) */ * from nikovits.szallit a, nikovits.szallito b where a.pkod=10 and b.szkod=12;
+select plan_table_output from table(dbms_xplan.display('plan_table', null, 'serial'));
+
+
+Adjuk meg úgy a lekérdezést, hogy mindkét táblára használjon indexet az oracle.
+
+explain plan for 
+select /*+ index(a) index(b) */ * from nikovits.szallit a, nikovits.szallito b where a.pkod=10 and b.szkod=12;
+select plan_table_output from table(dbms_xplan.display('plan_table', null, 'serial'));
+
+
+select * from nikovits.szallit a, nikovits.szallito b where a.pkod=10 and b.szkod=12;
+
+2; Lekérdezések nikovits tábláira vonatkoznak. Készítsen lekérdezést,
+melynek végrehajtási terve:
+a;
+--------------------------------------------------.
+| Id  | Operation                     | Name      |
+---------------------------------------------------
+|   0 | SELECT STATEMENT              |           |
+|   1 |  HASH GROUP BY                |           |
+|   2 |   MERGE JOIN                  |           |
+|   3 |    TABLE ACCESS BY INDEX ROWID| SZALLITO  |
+|   4 |     INDEX FULL SCAN           | SZO_SZKOD |
+|*  5 |    SORT JOIN                  |           |
+|*  6 |     TABLE ACCESS FULL         | SZALLIT   |
+---------------------------------------------------
+Predicate Information (identified by operation id):
+---------------------------------------------------
+   5 - access("SZALLIT"."SZKOD"="X"."SZKOD")
+       filter("SZALLIT"."SZKOD"="X"."SZKOD")
+   6 - filter("SZALLIT"."MENNYISEG">0)
+
+explain plan for 
+SELECT /*+ use_merge(x szallit)*/ x.telephely FROM nikovits.szallit szallit,nikovits.szallito x where szallit.szkod=x.szkod and szallit.mennyiseg > 0 group by x.telephely;
+select plan_table_output from table(dbms_xplan.display());
+
+
+
+b;
+------------------------------------------
+| Id  | Operation            | Name      |
+------------------------------------------
+|   0 | SELECT STATEMENT     |           |
+|   1 |  SORT AGGREGATE      |           |
+|   2 |   NESTED LOOPS       |           |
+|*  3 |    HASH JOIN         |           |
+|*  4 |     TABLE ACCESS FULL| CIKK      |
+|   5 |     TABLE ACCESS FULL| SZALLIT   |
+|*  6 |    INDEX UNIQUE SCAN | SZO_SZKOD |
+------------------------------------------
+Predicate Information (identified by operation id):
+---------------------------------------------------
+   3 - access("SZA"."CKOD"="CKOD")
+   4 - filter("SZIN"='piros')
+   6 - access("SZA"."SZKOD"="SZO"."SZKOD")
+
+explain plan for 
+SELECT /*+ use_hash(c, sza) */ SUM(mennyiseg) FROM nikovits.cikk c, nikovits.szallit sza, nikovits.szallito szo WHERE sza.ckod=c.ckod and szin='piros' and sza.szkod=szo.szkod;
+select plan_table_output from table(dbms_xplan.display('plan_table', null, 'serial'));
+
+c;
+------------------------------------------
+| Id  | Operation             | Name     |
+------------------------------------------
+|   0 | SELECT STATEMENT      |          |
+|   1 |  INTERSECTION         |          |
+|   2 |   SORT AGGREGATE      |          |
+|   3 |    VIEW               |          |
+|   4 |     HASH UNIQUE       |          |
+|*  5 |      TABLE ACCESS FULL| SZALLITO |
+|   6 |   SORT UNIQUE         |          |
+|*  7 |    TABLE ACCESS FULL  | SZALLIT  |
+------------------------------------------
+Predicate Information (identified by operation id):
+---------------------------------------------------
+   5 - filter("TELEPHELY"<>'Győr')
+   7 - filter("MENNYISEG"<20)
+

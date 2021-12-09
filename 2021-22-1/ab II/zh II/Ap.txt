@@ -1,0 +1,132 @@
+Adatbázis-tervezés	ZH A. csoport
+Név:_____________________	NEPTUN-kód:_____________________
+A megoldásokat egyetlen szöveges (txt) állományba gyűjtsétek össze melynek neve NEPTUN-kód.txt,
+és a branyi@inf.elte.hu címre küldjétek el levélben!
+
+1; Alább látható egy napló, melyet az 
+	a; UNDO protokoll szerint képeztünk.
+	b; REDO protokoll szerint képeztünk.
+Állítsuk vissza a konzisztens helyzetet.
+………………………
+<T START>
+<T,A,10>
+<U START>
+<U,B,20>
+<V START>
+<V,D,40>
+<V COMMIT>
+<W START>
+<START CHECKPOINT (T,U,W)>
+<X START>
+<W,E,50>
+<U,C,70>
+<T,F,90>
+<U COMMIT>
+<W,G,80>
+<W COMMIT>
+<X,H,60>
+
+a,
+Megoldás:
+... kész
+U kész
+V kész
+W kész
+T undo
+X undo
+
+X H 60
+X ABORT
+T F 90
+T A 10
+T ABORT
+
+b,
+Megoldás:
+U redo
+V redo
+W redo
+T abort
+X abort
+
+U B 20
+V D 40
+V END
+W E 50
+U C 70
+U END
+W G 80
+W END
+T ABORT
+X ABORT
+
+
+2; Alább látható egy napló, melyet az UNDO/REDO protokoll szerint képeztünk.
+Állítsuk vissza a konzisztens helyzetet.
+……………………………
+<T1, BEGIN>
+<T2, BEGIN>
+<T1; A; 4; 5>
+<T2; B; 9; 10>
+<T1, COMMIT>
+<T3, BEGIN>
+<T3; A; 5; 6>
+<START CHECKPOINT (T2,T3)>
+<T3; D; 19; 20>
+<T4, BEGIN>
+<T2; C; 14; 15>
+<T4; F; 15; 16>
+<T3; E; 10; 15>
+<T3, COMMIT>
+<END CHECKPOINT>
+<T2, COMMIT>
+
+Megoldás:
+T1 kész
+T2 redo
+T3 redo
+T4 undo
+
+T3 D 20
+T2 C 15
+T4 F 15
+T3 E 15
+T3 END
+T2 END
+T4 ABORT
+
+
+3; Adjuk meg az alábbi ütemezések megelőzési gráfját.
+r1(A);r4(A);r2(A);r3(B);r4(C);w1(B);w2(A);r3(C);w2(C);w1(A)
+1 -> 2
+2 -> 1
+2 -> 3
+3 -> 1
+4 -> 1
+4 -> 2
+
+A GRÁF KÖRT TARTALMAZ EZÉRT NEM JÓ
+
+4; Tegyük fel, hogy a memóriánk 11 blokk, és van egy 80000 soros T1 táblánk,
+amelynek 8 sora fér el egy blokkban, valamint egy 600000 soros T2 táblánk,
+amelynek 3 sora fér el egy blokkban. 
+Mennyi a műveletigénye (I/O költsége) egy sort-merge alapú algoritmusnak,
+ami egyenlőséges összekapcsolást (equijoin-t) végez a két táblán?
+
+M = 11
+T(T1) = 80000
+bf(T1) = 8
+T(T2) = 600000
+bf(T2) = 3
+B(T1) = 10000
+B(T2) = 200000
+
+(Menetek száma(T1)) * 2 * B(T1) + (Menetek száma(T2)) * 2 * B(T2) + B(T1) + B(T2) = 3 * 2 * 10000 + 5 * 2 * 200000 + 10000 + 200000 = 60000 + 2000000 + 10000 + 200000 = 2270000
+
+
+Menetek száma(T1) = log10(10000/11) = 3
+Menetek száma(T2) = log10(200000/11) = 5
+
+
+
+

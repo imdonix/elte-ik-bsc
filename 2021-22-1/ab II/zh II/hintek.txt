@@ -1,0 +1,220 @@
+Az eddigi pédákban szereplõ mûveletek (operation és option együtt)
+
+Részletesebb információk az alábbi dokumentációkban találhatók:
+
+Oracle Documentation 12c
+book -> Oracle Database SQL Tuning Guide
+Hintekrõl: 
+book -> SQL Language Reference -> 2. Basic Elements of Oracle SQL -> Comments -> Hints
+
+
+TABLE ACCESS FULL
+             HASH          -- hash clusteren levõ táblák elérése a hash függvény alapján
+             CLUSTER       -- index clusteren levõ táblák elérése
+             BY INDEX ROWID
+             BY USER ROWID
+             BY GLOBAL INDEX ROWID
+             BY LOCAL INDEX ROWID
+
+PARTITION RANGE ALL        -- összes partíció olvasása
+PARTITION RANGE SINGLE     -- egyetlen partíció olvasása
+PARTITION RANGE ITERATOR   -- több partíció olvasása
+INLIST ITERATOR            -- mûveletek ismétlése
+
+SORT AGGREGATE             -- ha csak egy sor lesz a csoportosítás végén
+     UNIQUE                -- ismétlõdések megszüntetése, rendezés alapú algoritmussal
+     GROUP BY              -- ha több csoport lesz
+     JOIN                  -- elõrendezés a join-hoz
+     ORDER BY
+
+HASH UNIQUE                -- ismétlõdések megszüntetése, hash alapú algoritmus
+HASH GROUP BY
+
+UNION-ALL
+MINUS
+INTERSECTION
+CONCATENATION              -- unió képzése két sorhalmazból
+VIEW
+FILTER                     -- egy sorhalmaz szûrése
+
+NESTED LOOPS               -- join mûvelet
+MERGE JOIN                 -- rendezett részek összefuttatása
+HASH JOIN
+HASH JOIN OUTER
+HASH JOIN ANTI             -- not exist-hez lehet jó
+HASH JOIN ANTI NA          -- NULL aware, vagyis NULL is elõfordulhat
+HASH JOIN SEMI             -- ha a join után csak az egyik tábla adatai kellenek
+
+INDEX FULL SCAN            -- teljes index végigolvasása növekvõ sorrendben
+INDEX FULL SCAN DESCENDING -- teljes index végigolvasása csökkenõ sorrendben
+INDEX FAST FULL SCAN       -- teljes index végigolvasása, egyszerre több blokkot olvasva
+INDEX RANGE SCAN           -- intervallum keresés növekvõ sorrendben (DESCENDING -> csökkenõ)
+INDEX UNIQUE SCAN          -- egyedi érték keresés
+INDEX SKIP SCAN            -- több oszlopos index olvasása, az elsõ oszlopok ismerete nélkül
+
+AND-EQUAL                  -- sorazonosító halmazok metszetét képezi
+
+BITMAP INDEX SINGLE VALUE      -- egyetlen bitvektor visszaadása
+BITMAP AND                     -- bitmapek közötti logikai mûvelet
+BITMAP OR                      -- bitmapek közötti logikai mûvelet
+BITMAP CONVERSION TO ROWIDS    -- bitmap átalakítása sorazonosítóvá
+BITMAP CONVERSION FROM ROWIDS  -- sorazonosító átalakítása bitmappé
+BITMAP CONVERSION COUNT        -- ha csak a sorazonosítók számára van szükség
+
+INLIST ITERATOR            -- mûveletek ciklusban
+
+
+Tippek (hint) adása az optimalizálónak
+
+Mindig csak arra az utasitás blokkra vonatkoznak, amiben szerepelnek. 
+Az utasitás blokk a következõk egyike lehet:
+- Egyszerû SELECT, UPDATE, DELETE INSERT utasitas
+- Komplex utasitásban a subquery, vagy a kulsõ utasitás (pl. INSERT ... SELECT ...)
+- Összetett utasitás egyik része (pl. SELECT ... UNION SELECT ... esetén)
+A tipp csak közvetlenül az utasitás kulcsszava után jöhet megjegyzésben.
+[SELECT|DELETE|UPDATE|INSERT]   /*+  tipp lista  */    (a '+' elõtt nincs szoköz !!! )
+Ha hiba van a hint-ben az oracle figyelmen kívül hagyja de nem jelez hibát.
+
+Példák:
+SELECT /*+ tipp lista */  * FROM emp WHERE ...
+SELECT /*+ tipp lista */  * FROM emp WHERE deptno IN ( SELECT /*+ tipp lista */  deptno FROM ...)
+INSERT /*+ tipp lista */  ... SELECT /*+ tipp lista */  ...
+SELECT /*+ tipp lista */  ...  UNION  SELECT /*+ tipp lista */  ...
+
+Fontos! Ha minõsített tábla szerepel a lekérdezésben akkor használjunk aliast, pl.
+  SELECT /*+ full(c) */ ... FROM nikovits.cikk c ...
+
+
+
+A legfontosabb tippek: (a teljes lista -> SQL Reference) 
+
+ALL_ROWS
+Költseg alapú optimalizalast valaszt es azon belul is a teljes lekerdezesre optimalizal.
+
+FIRST_ROWS(n)  
+A legjobb valaszidõre optimalizál. Az lekérdezés elsõ n sorát a lehetõ leggyorsabban
+próbálja meg visszaadni. Ha nem adjuk meg n-et, akkor n=1-et tekinti.
+
+FULL(tabla)   vagy  FULL(aliasnev)
+Nem hasznal indexet, hanem full table scant.
+
+CLUSTER(tabla)
+Csak index clusteren lévõ tábláknál van értelme. 
+
+HASH(tabla)
+Csak hash clusteren lévõ táblánál van értelme.
+
+
+INDEX(tabla  [indexlista])
+A tablat index alapjan eri el. Ha nem adunk meg index nevet (vagy többet adunk meg) 
+akkor a legolcsóbb költségû indexet (a felsoroltakbol) használja.
+
+INDEX_ASC(tabla  [indexlista])
+Növekvõ sorrendben eri el az index bejegyzeseket.
+
+INDEX_DESC(tabla  [indexlista])
+Megfordítja az alapértelmezett index bejárási sorrendet. Csökkenõ sorrendben éri el 
+az index bejegyzéseket. (Illetve csökkenõ indexnél növekvõben.)
+
+INDEX_COMBINE(tabla  [indexlista])
+Bitmap indexek segítségével próbálja meg elérni az adatokat.
+
+INDEX_FFS(tabla  [indexlista])
+Fast full index scan-re utasítja az optimalizálót a teljes tábla olvasás helyett.
+
+INDEX_JOIN(tabla  [indexlista])
+Több index használatával és a sorazonosítók join-olásával érje el a táblát.
+
+AND_EQUAL(tabla  [indexlista])
+Több index egyidejû használatával éri el a táblát. A sorazonosítók metszetét képezi.
+
+NO_INDEX(tabla  [indexlista])
+A megadott indexek használatáról lebeszéli az optimalizálót.
+
+NO_INDEX_FFS(tabla  [indexlista])
+A megadott indexek használatáról lebeszéli az optimalizálót.
+
+NO_EXPAND
+Ha a lekérdezésben OR vagy IN szerepel, akkor az optimalizáló hajlamos az egyes
+esetek szerint külön-külön keresni (pl. index használatával). Ez a hint errõl 
+beszéli le az optimalizálót.
+
+USE_CONCAT
+Az OR feltételekbõl uniót hoz létre, és így hajtja végre a lekérdezést.
+
+LEADING(táblalista)
+A megadott táblákkal kezdi a lekérdezés végrehajtását. (Hasonló az ORDERED-hez)
+
+ORDERED
+A táblákat abban a sorrendben fogja join-olni, ahogy azok a FROM után megjelennek.
+
+USE_HASH(táblalista)
+A megadott tablakat hash join-nal join-olja a többi adatforrashoz. 
+NO_USE_HASH(táblalista)
+Az elõzõ ellentéte.
+
+USE_NL(táblalista)
+A megadott tablakat nested looppal join-olja a többi adatforrashoz. A megadott tabla 
+lesz a belsõ ciklus tablaja.
+NO_USE_NL(táblalista)
+Az elõzõ ellentéte
+
+USE_MERGE(táblalista)
+A megadott tablakat sort-merge-el join-olja a többi adatforrashoz.
+NO_USE_MERGE(tablalista) 
+Az elõzõ ellentéte.
+
+NL_SJ, HASH_SJ, MERGE_SJ
+NL_AJ, HASH_AJ, MERGE_AJ
+A fentieket az alkérdésben lehet hintként megadni, és ekkor (ha lehetséges)
+az oracle a megfelelõ algoritmussal fogja a semi-joint, illetve anti-joint
+elvégezni.
+
+CURSOR_SHARING_EXACT
+Arra utasítja az oracle-t, hogy semmiképpen ne cserélje le az utasítás elemzése 
+közben a literálokat bind változóra. Amúgy ezt lehet, hogy megtenné mivel ezzel
+csökkenne az újraelemzések esélye. (lásd -> CURSOR_SHARING init paraméter)
+
+DRIVING_SITE(tabla)
+Elosztott lekérdezésnél van értelme. Arra utasítja az optimalizálót, hogy a megadott 
+tábla adatbázisában hajtsa végre a mûveletet. (pl. join esetén távoli táblák között)
+
+DYNAMIC_SAMPLING(tabla n) ahol 0 <= n <= 10
+Menet közben próbál meg minta alapján döntéseket hozni a szelektivitásra vonatkozóan.
+Minél nagyobb az n értéke, annál nagyobb mintát használ.
+
+CACHE(tabla)
+Hatasara a tabla blokkjai a buffer cache LRU listajanak "friss" vegere kerulnek. 
+Kis tablaknal hasznos, hogy sokaig csücsülhessenek a bufferben.
+
+NOCACHE(tabla)
+Hatasara a tabla blokkjai a buffer cache LRU listajanak "régi" vegere kerulnek. 
+Alapertelmezes szerint is ide kerulnenek.
+
+APPEND
+INSERT utasításban az utolsó blokk utáni területre teszi be az adatokat, és nem a blokkokban
+meglévõ szabad helyekre. Ezáltal gyorsabb lesz, de pazarlóbb.
+
+NOAPPEND
+A blokkok meglévõ üres helyeit is kihasználja. (Illetve letiltja a párhuzamos insert-et)
+
+MERGE(V)
+V egy nézet neve. A nézet kiértékelésének egyik módja a nézet merge-elése a 
+fõ lekérdezésbe. Erre utasítja az optimalizálót. Inline nézet esetén a hintet
+beírhatjuk a nézet blokkjába (paraméter nélkül), vagy a fõ lekérdezésbe (paraméterrel).
+
+NO_MERGE(V)
+Az elõzõ ellentétére veszi rá az optimalizálót.
+
+NO_QUERY_TRANSFORMATION
+Az optimalizáló képes arra, hogy a lekérdezést valamilyen módon átalakítsa, és azt
+hajtsa végre. Ilyen átalakítás például az OR-expansion, View-merging, Subquery-unnest,
+Star-transformation, Materialized view-rewrite. A hint ezekrõl beszéli le az optimalizálót.
+A fenti átalakítások mindegyike külön-külön is kérhetõ illetve letiltható egy hinttel.
+USE_CONCAT - NO_EXPAND, MERGE - NO_MERGE, UNNEST - NO_UNNEST, 
+STAR_TRANSFORMATION - NO_STAR_TRANSFORMATION, REWRITE - NO_REWRITE
+
+RULE
+Szabály alapú optimalizálást használ, de ez a hint már nem javasolt.
+
+

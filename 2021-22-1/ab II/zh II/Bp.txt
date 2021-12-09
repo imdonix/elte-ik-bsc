@@ -1,0 +1,130 @@
+Adatbázis-tervezés	ZH L. csoport
+Név:_____________________	NEPTUN-kód:_____________________
+A megoldásokat egyetlen szöveges (txt) állományba gyűjtsétek össze melynek neve NEPTUN-kód.txt,
+és a branyi@inf.elte.hu címre küldjétek el levélben!
+
+1; Alább látható egy napló, melyet az 
+	a; UNDO protokoll szerint képeztünk.
+	b; REDO protokoll szerint képeztünk.
+Állítsuk vissza a konzisztens helyzetet.
+……………………………
+<T START>
+<T,A,10>
+<U START>
+<U,B,20>
+<T,C,30>
+<V START>
+<V,D,40>
+<W START>
+<U,C,70>
+<W,E,50>
+<V,B,60>
+<V COMMIT>
+<START CHECKPOINT (T,U,W)>
+<U COMMIT>
+<W,A,80>
+<T,D,90>
+
+a,
+Megoldás:
+... kész
+U kész
+V kész
+T undo
+W undo
+
+T D 90
+W A 80
+W E 50
+W ABORT
+T C 30
+T A 10
+T ABORT
+
+b,
+Megoldás:
+U redo
+V redo
+T abort
+W abort
+
+U B 20
+V D 40
+U C 70
+U END
+V B 60
+V END
+T ABORT
+W ABORT
+
+
+2; Alább látható egy napló, melyet az UNDO/REDO protokoll szerint képeztünk.
+Állítsuk vissza a konzisztens helyzetet.
+……………………………………
+<T1, BEGIN>
+<T1; A; 4; 5>
+<T2, BEGIN>
+<T2; C; 14; 15>
+<T1, COMMIT>
+<T3, BEGIN>
+<START CHECKPOINT (T2,T3)>
+<T3; D; 19; 20>
+<T4, BEGIN>
+<T2; B; 9; 10>
+<END CHECKPOINT>
+<T4; F; 15; 16>
+<T2, COMMIT>
+<T3; A; 5; 6>
+
+Megoldás:
+T1 kész
+T2 redo
+T3 undo
+T4 undo
+
+T3 D 19
+T2 B 10
+T2 END
+T4 F 15
+T4 ABORT
+T3 A 5
+T3 ABORT
+
+3; Adjuk meg az alábbi ütemezések megelőzési gráfját.
+r1(A);r2(A);r4(A);r2(C);r3(A);r4(B);w1(A);w2(B);w3(c)
+
+2 -> 1
+2 -> 3
+3 -> 1
+4 -> 1
+4 -> 2
+
+A gráf nem tartalmaz kört
+Sorrendek:
+4,2,3,1
+4,3,2,1
+
+4; Tegyük fel, hogy a memóriánk 5 blokk, és van egy 100000 soros T1 táblánk,
+amelynek 10 sora fér el egy blokkban, valamint egy 6000 soros T2 táblánk,
+amelynek 12 sora fér el egy blokkban. 
+Mennyi a műveletigénye (I/O költsége) egy RENDEZÉS alapú algoritmusnak,
+ami egyenlőséges összekapcsolást (equijoin-t) végez a két táblán?
+
+M = 5
+T(T1) = 100000
+bf(T1) = 10
+T(T2) = 6000
+bf(T2) = 12
+B(T1) = 10000
+B(T2) = 500
+
+(Ms(T1)) * 2 * B(T1) + (Ms(T2)) * 2 * B(T2) + B(T1) + B(T2) = 6 * 2 * 10000 + 4 * 2 * 500 + 10000 + 500 = 120000 + 4000 + 10000 + 500 = 134500
+
+Ms(T1) = log4(10000/5) = 6
+Ms(T2) = log4(500/5) = 4
+
+
+
+
+
+

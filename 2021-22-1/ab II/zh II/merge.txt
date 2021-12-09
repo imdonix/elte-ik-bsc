@@ -1,0 +1,655 @@
+Az alábbi feladatokban kiszámoljuk, illetve sok helyen csak megbecsüljük egy tábla sorainak
+vagy adatblokkjainak a számát, egy index méretét, vagy egy lekérdezés végrehajtása során 
+előálló köztes részeredmény méretét (sorainak vagy blokkjainak számát).
+Vannak olyan feladatok is, ahol azt számoljuk ki (becsüljük meg), hogy milyen költséggel
+lehet egy lekérdezést, vagy annak egy lépését végrehajtani.
+Mindezeknek az a jelentősége, hogy megértjük, milyen nagy különbséget jelenhet futásidőben, 
+ha egy lekérdezéshez például van megfelelő index létrehozva, vagy ha egy bonyolult lekérdezés
+egyik lépését egy jobb algoritmussal, és így kisebb költséggel lehet végrehajtani.
+A költségek tekintetében többnyire a szükséges adatblokk olvasások/írások száma a legjelentősebb.
+------------------------------------------------------------------------------------------------
+
+1. Feladat
+----------
+Van egy R táblánk, egy I1 sűrű és egy I2 ritka (egy szintű) indexünk az alábbi paraméterekkel:
+T(R) = 10000, bf(R) = 20, bf(I1) = 100, bf(I2) = 100
+Számoljuk ki a következőket:
+B(R)  = ?   ->  B(R) = T(R)/bf(R) = 500
+                A tábla sorainak száma osztva a blokkolási faktorral
+B(I1) = ?   ->  B(I1) = T(I1)/bf(I1) = 100
+                I1 sűrű index, így T(I1)=T(R), mert a tábla minden sorához tartozik egy (kulcs, mutató)
+                pár az indexben.
+B(I2) = ?   ->  B(I2) = T(I2)/bf(I2) = 5
+                I2 ritka, így T(I2)=B(R), mert csak a tábla blokkjaihoz tartozik egy (kulcs, mutató) pár.
+
+Megjegyzés: Látható, hogy a ritka index sokkal kevesebb helyet foglal, mint a sűrű. Persze a ritka indexhez
+            szükséges, hogy az indexelt adatok rendezetten legyenek tárolva.
+
+
+2. feladat
+----------
+Számoljuk ki az előző feladatbeli értékeket, ha a blokkok csak 80%-ban lehetnek tele.
+-> bf(R) = 0.8 * 20; bf(I1) = 0.8 * 100, a számolás egyebekben hasonló az előzőhöz.
+
+
+3. Feladat
+----------
+T(R) = 1000000, bf(R) = 20, egy kulcs oszlopra készítünk B+ fa indexet, amelyre bf(I) = 50. 
+Számoljuk ki a következőket:
+B(I) = ?    (segítség: számítsuk ki szintenként az indexblokkok számát, a levél szinttel kezdve)
+
+Megoldás:
+A legalsó (levél) szint egy sűrű index, annyi (kulcs, mutató) párt tartalmaz, ahány sora van a táblának.
+-> itt a blokkok száma tehát: T(R)/bf(I) = 20000.
+A második (és további szintek) ritka indexek az alattuk levő szintekre, vagyis annyi (kulcs, mutató)
+párt tartalmaznak, ahány blokk az alattuk levő szinten van.
+-> 2. szint: 20000/bf(I) = 400
+-> 3. szint: 400/bf(I) = 8
+-> 4. szint: 8/bf(I) = 1 blokk (ez a gyökér blokk, ami nincs tele)
+-> összesen 20409 blokkja lesz az indexnek, vagyis B(I) = 20409
+
+Mennyi a műveletigénye blokkolvasásokban egy A = c típusú keresésnek (legrosszabb esetben) ha
+a) a tábla sorai rendezetlenül vannak tárolva és nem használunk indexet  
+-> B(R) = T(R)/bf(R)-rel = 50000
+   vagyis a táblának mind az 50000 blokkját be kell olvasni legrosszabb esetben.
+
+b) a tábla sorai rendezetten vannak tárolva és nem használunk indexet    
+-> log2(B(R)) =~ 16
+   rendezett esetben bináris keresést alkalmazhatunk, ami jelen esetben ~16 blokk olvasást jelent.
+
+c) a fenti B+ fa indexet használjuk.
+-> ht(I) + 1 = 5 
+   (ht(I) a fa magassága, jelen esetben 4, plusz még be kell olvasnunk a megtalált blokkot.
+
+Megjegyzés: A fenti eredmények megmutatják, hogy miért nem érdemes egyszintű indexet létrehozni, hanem helyette
+            B+ fát. A B+ fa nem foglal sokkal több helyet, mint egy egyszintű sűrű index, de sokkal gyorsabban 
+            lehet a segítségével keresni.
+
+
+4. Feladat (optimization.pptx, 11. old.)
+-----------
+Tekintsük a következő paraméterekkel rendelkező R relációt:
+T(R)=1000000, blokkméret = 4096 byte, L(R)=128 byte, V(R,A)=500, és legyen W a következő
+lekérdezés eredménye:
+W <-- SELECT c1,c2,c3 FROM R WHERE A=x;
+Számoljuk ki B(R)-t és B(W)-t ha L(W)=64 byte.  
+
+Megoldás:
+-> B = T/bf, de most előzőleg ki kell számolnunk T-t és bf-et. 
+bf(R) = blokkméret/L(R) = 4096/128 = 32, bf(W) = blokkméret/L(W) = 64, T(W) = T(R)/V(R,A) = 2000
+B(R) = T(R)/bf(R) = 1000000/32 =~ 31250
+B(W) = T(W)/bf(W) = 2000/64    =~ 32
+
+Megjegyzés: Egy lekérdezés során a köztes eredményeket sokszor lemezen kell tárolnia az ABKR-nek,
+            ezért fontos kiszámolni (megbecsülni) a méretüket.
+
+
+5. Feladat  (optimization.pptx, 21. old.)
+-----------  
+Tegyük fel, hogy a memória mérete 101 blokk (M=101), és van egy R relációnk, amelyre B(R)=1000000.
+Mennyi a költsége (I/O műveletekben kifejezve) a fenti reláció külső összefuttatásos rendezésének?
+
+Megoldás:
+-> 2*B(R) + 2*B(R)*log[B(R)/M] - B(R)  (a logaritmus alapja M-1)
+-> Költség =~ 2000000 + 4000000 - 1000000 = 5000000
+
+
+6. Feladat  (output_estimate.pptx 17. old.)
+----------
+T(R) = 1000000, V(R,A) = 500, V(R,B) = 1000
+Számoljuk ki T(W)-t az egyenletességi feltételezéssel élve, ha W a következő lekérdezés eredménye:
+a) W <-- SELECT * FROM R WHERE A=x;           -> T(W) = T(R)/V(R,A) = 2000
+b) W <-- SELECT * FROM R WHERE A=x AND B=y;   -> T(W) = T(R)*(1/V(R,A))*(1/V(R,B)) = 2
+c) W <-- SELECT * FROM R WHERE A=x OR B=y;    -> T(W) = T(R)*(1-[1-1/V(R,A)]*[1-1/V(R,B)]) = ... lásd lejjebb
+
+c) részhez egy kis átalakítás:  V(R,A) -> v1, V(R,B) -> v2 
+T*[1-(1-1/v1)*(1-1/v2)] = T*[(v1*v2)/(v1*v2) - (v1-1)*(v2-1)/(v1*v2)] =
+= T*[(v1 + v2 -1)/(v1*v2)] = T/v2 + T/v1 - T/(v1*v2)
+
+A fenti átalakítást felhasználva c) feladat eredménye könnyen kiszámolható:
+T(W) = T(R)/V(R,A) + T(R)/V(R,B) - T(R)/[V(R,A)*V(R,B)] = 2000+1000-2 = 2998
+
+
+7. Feladat  (output_estimate.pptx 13-16. old.)
+----------
+T(R) = 10000, T(S) = 4000, a két tábla közös oszlopa: A, ahol ugyanazok az értékek fordulnak elő.
+V(R,A) = 500, V(S,A) = 500.
+Számoljuk ki T(W)-t ha W a következő lekérdezés eredménye:
+a) W <-- SELECT * FROM R CROSS JOIN S;    -> T(W) = T(R)*T(S) = 40000000
+b) W <-- SELECT * FROM R NATURAL JOIN S;  -> T(W) = T(R)*T(S)/V(R,A) = 80000
+
+Megjegyzés: A fenti feladat azt illusztrálja, hogy mennyire költséges lehet egy lekérdezés végrehajtása,
+            ha köztes eredményként direkt szorzatot kell létrehozni, és esetleg temporálisan tárolni.
+
+
+8. Feladat  (optimization.pptx a) 28-29., b) 32., c) 21. és 31. old., operation_cost_examples.pptx)
+----------  
+Tegyük fel, hogy a memóriánk 101 blokknyi (M=101), és van egy 1000000 soros R táblánk
+T(R) = 1000000, amelynek 10 sora fér el egy blokkban bf(R) = 10, valamint egy 60000 soros S táblánk, 
+T(S) = 60000, amelynek 12 sora fér el egy blokkban bf(S) = 12. 
+Mennyi a blokkolvasási és írási költsége (I/O költsége) egy egyenlőséges összekapcsolás műveletnek 
+(WHERE R.A = S.A) az alábbi algoritmusok esetén:
+a) beágyazott ciklusú algoritmus (block-nested loop)  
+-> B(S)/(M-1)*B(R) + B(S)   =~ (5000/100)*100000 + 5000 = 5005000
+-> B(R)/(M-1)*B(S) + B(R)   =~ 5100000 (ha felcseréljük a táblák sorrendjét a join műveletben)
+b) HASH alapú algoritmus (hash-join)                  
+-> 3*[B(S)+B(R)]    =~ 315000  
+c) RENDEZÉS alapú algoritmus (sort-merge join)        
+-> (Menetek száma)*[2*B(S)+2*B(R)] + B(S)+B(R) =~ 5*105000 = 525000
+   ahol a Menetek száma különböző lehet a két relációra, és a következő képlettel becsülhető:
+   log[B(R)/M] felső egészrésze (a logaritmus alapja M-1)
+
+Megjegyzés: hatalmas futásidő különbség lehet egy HASH-JOIN és egy NESTED-LOOP join között, és 
+            sok esetben a lekérdezés szintaxisa dönti, el, hogy melyik használható.
+
+
+9. Feladat  (optimization.pptx 30. old., operation_cost_examples.pptx 19-21. old.)
+----------  
+Mennyi az I/O költsége az előző feladatbeli két tábla index alapú összekapcsolásának (index-join), 
+ha R-re van indexünk (amit végig a memóriában tartunk, tehát az index olvasás költségét most nem vesszük figyelembe), 
+R nem nyaláboltan (nem klaszterezetten) van tárolva és
+a) V(R,A) = 1000000    -> B(S) + T(S) * T(R)/V(R,A)   ~ 65000
+b) V,R,A) = 10000      -> B(S) + T(S) * T(R)/V(R,A)   ~ 6000500
+
+Megjegyzés: A fenti eredmények azt illusztrálják, hogy az indexek használata akkor hatékony,
+            ha kevés sor felel meg a feltételeknek, vagyis a tábla méretéhez képest kevés sort
+            kell beolvasnunk az index segítségével.
+
+
+------------
+
+Végrehajtási tervek megváltoztatása tippek (hint) segítségével
+--------------------------------------------------------------
+
+3. Feladat
+----------
+Adjuk meg a piros cikkekre vonatkozó szállitások összmennyiségét.
+(vagyis a szallit táblabeli mennyiségek összegét adjuk meg)
+
+a) Adjuk meg úgy a lekérdezést, hogy egyik táblára se használjon indexet az oracle. 
+SELECT /*+ full(c) full(s) */ SUM(mennyiseg) FROM nikovits.cikk c, nikovits.szallit s
+WHERE c.ckod=s.ckod and szin='piros';
+
+SELECT STATEMENT +  + 
+  SORT + AGGREGATE + 
+    HASH JOIN +  + 
+      TABLE ACCESS + FULL + NIKOVITS.CIKK
+      TABLE ACCESS + FULL + NIKOVITS.SZALLIT
+--------------------------------------------------------------
+b) Adjuk meg úgy a lekérdezést, hogy csak az egyik táblára használjon indexet az oracle. 
+SELECT /*+ index(c) full(s) */ SUM(mennyiseg) FROM nikovits.cikk c, nikovits.szallit s
+WHERE c.ckod=s.ckod and szin='piros';
+
+SELECT STATEMENT +  + 
+  SORT + AGGREGATE + 
+    HASH JOIN +  + 
+      TABLE ACCESS + BY INDEX ROWID BATCHED + NIKOVITS.CIKK
+        INDEX + RANGE SCAN + NIKOVITS.C_SZIN
+      TABLE ACCESS + FULL + NIKOVITS.SZALLIT
+--------------------------------------------------------------
+c) Adjuk meg úgy a lekérdezést, hogy mindkét táblára használjon indexet az oracle. 
+SELECT /*+ index(c) index(s) */ SUM(mennyiseg) FROM nikovits.cikk c, nikovits.szallit s
+WHERE c.ckod=s.ckod and szin='piros';
+
+SELECT STATEMENT +  + 
+  SORT + AGGREGATE + 
+    NESTED LOOPS +  + 
+      NESTED LOOPS +  + 
+        TABLE ACCESS + BY INDEX ROWID BATCHED + NIKOVITS.CIKK
+          INDEX + RANGE SCAN + NIKOVITS.C_SZIN
+        INDEX + RANGE SCAN + NIKOVITS.SZT_CKOD
+      TABLE ACCESS + BY INDEX ROWID + NIKOVITS.SZALLIT
+--------------------------------------------------------------
+d) Adjuk meg úgy a lekérdezést, hogy a két táblát SORT-MERGE módszerrel kapcsolja össze. 
+SELECT /*+ use_merge(c s) */ SUM(mennyiseg) FROM nikovits.cikk c, nikovits.szallit s
+WHERE c.ckod=s.ckod and szin='piros';
+
+SELECT STATEMENT +  + 
+  SORT + AGGREGATE + 
+    MERGE JOIN +  + 
+      SORT + JOIN + 
+        TABLE ACCESS + FULL + NIKOVITS.CIKK
+      SORT + JOIN + 
+        TABLE ACCESS + FULL + NIKOVITS.SZALLIT
+--------------------------------------------------------------
+e) Adjuk meg úgy a lekérdezést, hogy a két táblát NESTED-LOOPS módszerrel kapcsolja össze. 
+SELECT /*+ use_nl(c, s) */ SUM(mennyiseg) FROM nikovits.cikk c, nikovits.szallit s
+WHERE c.ckod=s.ckod and szin='piros';
+
+SELECT STATEMENT +  + 
+  SORT + AGGREGATE + 
+    NESTED LOOPS +  + 
+      NESTED LOOPS +  + 
+        TABLE ACCESS + FULL + NIKOVITS.CIKK
+        INDEX + RANGE SCAN + NIKOVITS.SZT_CKOD
+      TABLE ACCESS + BY INDEX ROWID + NIKOVITS.SZALLIT
+--------------------------------------------------------------
+f) Adjuk meg úgy a lekérdezést, hogy a két táblát HASH-JOIN módszerrel kapcsolja össze. 
+SELECT /*+ use_hash(c, s) */ SUM(mennyiseg) FROM nikovits.cikk c, nikovits.szallit s
+WHERE c.ckod=s.ckod and szin='piros';
+
+SELECT STATEMENT +  + 
+  SORT + AGGREGATE + 
+    HASH JOIN +  + 
+      TABLE ACCESS + FULL + NIKOVITS.CIKK
+      TABLE ACCESS + FULL + NIKOVITS.SZALLIT
+--------------------------------------------------------------
+g) Adjuk meg úgy a lekérdezést, hogy a két táblát NESTED-LOOPS módszerrel kapcsolja össze,
+   és ne használjon indexet. 
+SELECT /*+ use_nl(c, s) no_index(s) no_index(c) */ SUM(mennyiseg) 
+FROM nikovits.cikk c, nikovits.szallit s
+WHERE c.ckod=s.ckod and szin='piros';
+
+SELECT STATEMENT +  + 
+  SORT + AGGREGATE + 
+    NESTED LOOPS +  + 
+      TABLE ACCESS + FULL + NIKOVITS.CIKK
+      TABLE ACCESS + FULL + NIKOVITS.SZALLIT
+
+-----------
+
+A 8. feladatsor két feladatának megoldását feltettem ide.
+A végrehajtási terv szerkezetének elemzésével, a benne szereplő táblák és indexek
+ismeterében nem lehetetlen visszakövetkeztetni a lekérdezésre.
+A többi feladat ennél egyszerűbb, így azokat próbálják meg önállóan megoldani.
+
+Adjunk meg egy olyan lekérdezést a fenti táblákra (hintekkel együtt ha szükséges), aminek az alábbi
+lesz a végrehajtási terve:
+
+TERV (OPERATION + OPTIONS + OBJECT_NAME)
+-------------------------------------------------------------
+SELECT STATEMENT +  + 
+  FILTER +  + 
+    HASH + GROUP BY + 
+      HASH JOIN +  + 
+        NESTED LOOPS +  + 
+          TABLE ACCESS + BY INDEX ROWID + NIKOVITS.SZALLITO
+            INDEX + UNIQUE SCAN + NIKOVITS.SZO_SZKOD
+          TABLE ACCESS + FULL + NIKOVITS.PROJEKT
+        TABLE ACCESS + FULL + NIKOVITS.SZALLIT
+
+select /*+ full(sz) */ sum(mennyiseg), ckod
+from nikovits.szallit sz, nikovits.szallito szto, nikovits.projekt p
+where sz.pkod=p.pkod and sz.szkod=szto.szkod and szto.szkod=15
+and helyszin='Szeged' and telephely='Pecs'
+group by ckod having ckod>100;
+
+
+
+SELECT STATEMENT +  + 
+  SORT + AGGREGATE + 
+    HASH JOIN + SEMI + 
+      TABLE ACCESS + FULL + NIKOVITS.SZALLIT
+      TABLE ACCESS + FULL + NIKOVITS.CIKK
+
+select /*+ leading(sz) */ sum(mennyiseg)
+from nikovits.szallit sz
+where exists
+  (select /*+ hash_sj */ ckod from nikovits.cikk c where c.ckod=sz.ckod and szin='piros');
+  
+
+------
+
+Elméleti kérdések:
+------------------
+Írja le az UNDO naplózás szabályait és a lemezre írások sorrendjét.
+Adja meg a helyreállítás lépéseit UNDO napló esetén.
+Adja meg az egyszerű ellenőrzőpont képzés lépéseit.
+Adja meg a működés közbeni ellenőrzőpont képzés lépéseit UNDO napló esetén.
+Írja le a REDO naplózás szabályait és a lemezre írások sorrendjét.
+Adja meg a helyreállítás lépéseit REDO napló esetén.
+Adja meg a működés közbeni ellenőrzőpont képzés lépéseit REDO napló esetén.
+Adja meg a működés közbeni ellenőrzőpont képzés lépéseit UNDO/REDO napló esetén.
+--------------------------------------------------------------------------------
+
+Állapítsuk meg néhány, konkrét művelettel megadott tranzakcióról, hogy megőrzik-e az adatbázis
+konzisztenciáját. A konzisztencia megadott feltétellel van definiálva. (lásd naplo.ppt 22. old.)
+
+8.1.1 Feladat (könyv 463. old.)
+Tegyük fel, hogy az adatbázisra vonatkozó konzisztenciamegszorítás: 0 <= A <= B.
+Állapítsuk meg, hogy a következő tranzakciók megőrzik-e az adatbázis konzisztenciáját.
+A tranzakciók műveletei egymás után (nem párhuzamosan) hajtódnak végre.
+T1: A := A + B; B := A + B; -> megőrzi: a tranzakció után A-ból -> A+B, B-ből -> A+2B 
+T2: B := A + B; A := A + B; -> nem őrzi meg: A -> 2A+B, B -> A+B
+T3: A := B + 1; B := A + 1; -> megőrzi: A -> B+1, B -> B+2
+--------------------------------------------------------------------------------
+
+Adjuk meg néhány, konkrét művelettel megadott tranzakció esetén az adatbáziselemek memóriabeli
+és lemezen levő értékét az egyes műveletek után. (lásd naplo.ppt 43. old.)
+
+A tranzakció által elvégzett egyes műveletek:
+INPUT(X):   X adatbáziselem (az őt tartalmazó adatblokk) beolvasása lemezről a közös memóriapufferbe.
+READ(X,t):  X adatbáziselem beolvasása a tranzakció t lokális változójába.
+t:= ...     Értékadás a lokális változónak.
+WRITE(X,t): t érték beírása X adatbáziselembe a memóriapufferben.
+OUTPUT(X):  X adatbáziselem (az őt tartalmazó adatblokk) kiírása lemezre a közös memóriapufferből.
+
+8.1.2 Feladat (könyv 463. old.)
+A 8.1.1 feladat mindegyik tranzakciójához a számításokon kívül tegyük hozzá a READ, WRITE műveleteket,
+és a lokális változók műveleteit, és mutassuk be a tranzakciók lépésenkénti hatását a memóriában 
+és a lemezen tárolt adatokra. Tegyük fel, hogy kezdetben A = 5 és B = 10.
+
+              t   s   M-A   M-B   D-A   D-B
+---------------------------------------------
+READ(A,t)     5        5           5     10
+READ(B,s)     5   10   5     10    5     10
+t:=t+s       15   10   5     10    5     10
+WRITE(A,t)   15   10  15     10    5     10
+s:=t+s       15   25  15     10    5     10
+WRITE(B,s)   15   25  15     25    5     10
+OUTPUT(A)    15   25  15     25   15     10
+OUTPUT(B)    15   25  15     25   15     25
+--------------------------------------------------------------------------------
+
+Adjuk meg néhány tranzakció semmisségi naplóbejegyzéseit.
+
+UNDO naplózás szabályai és lemezre írások sorrendje:
+1. <T,X,régi_érték> naplóbejegyzések kiírása lemezre
+2. Output(X) módosított adatelemek kiírása lemezre       (-> a gond, hogy túl sokszor kell lemezre írni)
+3. <T,COMMIT> naplóbejegyzés kiírása lemezre
+
+8.2.1 Feladat (könyv 476. old.)
+Adjuk meg a 8.1.1 feladatban szereplő tranzakciók semmisségi (undo) naplóbejegyzéseit.
+Tegyük fel, hogy kezdetben A = 5 és B = 10.
+-> Naplóbejegyzések: <START, T>, <T,A,5>, <T,B,10>, <T,COMMIT>
+--------------------------------------------------------------------------------
+
+Adjuk meg egy UNDO napló alapján a helyreállításhoz szükséges műveleteket a megfelelő sorrendben.
+A műveletek, amiket megfelelő sorrendben el kell végezni: 
+WRITE(), OUTPUT(), <T,...> (naplóbejegyzés írása memóriába), FLUSH LOG (napló lemezre írása)
+
+Helyreállítás:
+A COMMIT-tal nem rendelkező (és ABORT-tal nem rendelkező) tranzakciók műveleteit fordított 
+sorrendben (hátulról előre) megsemmisítjük, vagyis visszaírjuk a régi értéket az elembe (WRITE) 
+majd a lemezre (OUTPUT). 
+A végén <ABORT, T>-t írunk a naplóba és kiírjuk lemezre a naplót (FLUSH LOG).
+
+8.2.4 Feladat (könyv 476. old.)
+A következő naplóbejegyzés-sorozat a T és U két tranzakcióra vonatkozik:
+<start, T> 
+<T, A, 10> 
+<start, U> 
+<U, B, 20> 
+<T, C, 30> 
+<U, D, 40>
+<T, A, 11>
+<U, B, 21>  
+<COMMIT, U>
+<T, E, 50> 
+<COMMIT, T>
+Adjuk meg a helyreállítás-kezelő tevékenységeit, ha az utolsó lemezre került naplóbejegyzés:
+a) <start, U>  -> WRITE(A,10), OUTPUT(A), <ABORT,T>, <ABORT,U>, FLUSH LOG
+b) <COMMIT, U> -> WRITW(A,11), OUTPUT(A), WRITE(C,30), OUTPUT(C), WRITE(A,10) OUTPUT(A), <ABORT,T>, FLUSH LOG
+c) <T, E, 50>  -> WRITE(E,50), OUTPUT(E), WRITE(A,11), OUTPUT(A), WRITE(C,30), OUTPUT(C), 
+                  WRITE(A,10) OUTPUT(A), <ABORT,T>, FLUSH LOG
+d) <COMMIT, T> -> nincs teendő 
+--------------------------------------------------------------------------------
+
+Ellenőrzőpont képzés
+Egyszerű: 
+  megvárni az aktív tranzakciók befejeződését, addig újat nem engedni, 
+  majd <CKPT> írása a naplóba + FLUSH LOG
+
+Működés közbeni:
+  <START CKPT(T1, T2 ... Tk)> a naplóba majd FLUSH LOG
+  megvárni az aktív tranzakciók befejeződését, közben indulhatnak újak
+  majd <END CKPT> a naplóba + FLUSH LOG
+
+A helyreállításhoz elég visszafelé a legutóbbi <END CKPT> előtti <START CKPT>-ig visszamenni. 
+Ha visszafelé haladva <START CKPT(Ti)> -vel találkozunk előbb, akkor elég a legkorábbi <Start Ti>-ig 
+visszamenni. (Vagy egy olyan <START CKPT>-ig, amelyhez tartozó <END CKPT> is a naplóban van,
+mivel ez biztosan megelőzi a legkorábbi <Start Ti>-t.)
+--------------------------------------------------------------------------------
+
+8.2.7 Feladat (könyv 477. old.)
+<START S>; <S,A,60>; <COMMIT S>; <START T>; <T,A,10>; <START U>; <U,B,20>; <T,C,30>; <START V>;
+<U,D,40>; <V,F,70>; <COMMIT U>; <T,E,50>; <COMMIT T>; <V,B,80>; <COMMIT V>
+
+Tegyük fel, hogy működés közbeni ellenőrzőpontot képzünk a következő naplóbejegyzések után:
+<S,A,60>
+<T,A,10>
+<U,B,20>
+<U,D,40>
+<T,E,50>
+Mikor íródik fel az <END CKPT> ?
+Meddig kell a naplóban visszafelé mennünk ha hiba lép fel? különböző helyekre adjuk meg.
+--------------------------------------------------------------------------------
+
+8.3.1 Feladat (könyv 483. old.)
+Adjuk meg a 8.1.1 feladatban szereplő tranzakciók helyreállítási (REDO) típusú naplóbejegyzéseit.
+Tegyük fel, hogy kezdetben A = 5 és B = 10.
+
+-> Naplóbejegyzések: <START, T>, <T,A,15>, <T,B,25>, <T,COMMIT>, <T,END>
+--------------------------------------------------------------------------------
+
+REDO naplózás szabályai és a lemezre írások sorrendje:
+1. <T,X,új_érték> naplóbejegyzések kiírása lemezre
+2. <T,COMMIT> naplóbejegyzés kiírása lemezre  
+3. Output(X) módosított elemek kiírása lemezre      (-> a gond, hogy túl sokáig nem szabad lemezre írni) 
+4. <T, END>  naplóbejegyzés kiírása a lemezre
+
+Adjuk meg egy REDO napló alapján a helyreállításhoz szükséges műveleteket a megfelelő sorrendben.
+
+Helyreállítás:
+A COMMIT-tal rendelkező (de END-del nem rendelkező) tranzakciók műveleteit újból végrehajtani 
+majd <END, T>-t írni a naplóba.
+A be nem fejezett tranzakciókra <ABORT, T>-t írni a naplóba + FLUSH LOG
+
+8.3.3 Feladat (könyv 483. old.)
+Ismételjük meg a 8.2.4 feladatot helyreállítási (REDO) típusú naplózást használva.
+<start, T>
+<T, A, 10> 
+<start, U> 
+<U, B, 20> 
+<T, C, 30> 
+<U, D, 40>
+<T, A, 11>
+<U, B, 21>  
+<COMMIT, U>
+<T, E, 50> 
+<COMMIT, T>
+<END, U>
+<END, T>
+Adjuk meg a helyreállítás-kezelő tevékenységeit, ha az utolsó lemezre került naplóbejegyzés:
+a) <START, U>   -> nincs teendő
+b) <C0MMIT, U>  -> WRITE(B,20), OUTPUT(B), WRITE(D,40) OUTPUT(D), WRITE(B,21) OUTPUT(D), <END,U>, FLUSH LOG
+c) <T, E, 50>   -> ugyanaz, mint b)esetében
+d) <C0MMIT, T>  -> WRITE(B,20), OUTPUT(B), WRITE(D,40) OUTPUT(D), WRITE(B,21) OUTPUT(D), <END,U>, FLUSH LOG,
+                   WRITE(A,10), OUTPUT(A), WRITE(C,30) OUTPUT(C), WRITE(A,11), OUTPUT(A), 
+                   WRITE(E,50), OUTPUT(E), <END,T>, FLUSH LOG
+e) <END, U>     -> WRITE(A,10), OUTPUT(A), WRITE(C,30) OUTPUT(C), WRITE(A,11), OUTPUT(A), 
+                   WRITE(E,50), OUTPUT(E), <END,T>, FLUSH LOG
+--------------------------------------------------------------------------------
+
+Ellenőrzőpont képzés (működés közbeni)
+  <START CKPT(T1, T2, ... Tk)> + FLUSH LOG
+  A START CKPT előtt befejeződött tranzakciók még lemezre nem írt módosításainak kiírása
+  <END CKPT> + FLUSH LOG
+
+A helyreállításhoz elég a legutóbbi <END CKPT> előtti <START CKPT(Ti)> tranzakciói közül
+a legkorábbinak a kezdetéig -> <START Ti>-ig visszamenni
+
+
+8.4.1 Feladat (könyv 489. old.)
+Adjuk meg a 8.1.1 feladatban szereplő tranzakciók undo/redo típusú naplóbejegyzéseit.
+Tegyük fel, hogy kezdetben A = 5 és B = 10.
+-> Naplóbejegyzések: <START, T>, <T,A,5,15>, <T,B,10,25>, <T,COMMIT>, <T,END>
+
+UNDO/REDO naplózás szabályai és a lemezre írások sorrendje:
+1. először a naplózást írjuk ki (<T,X,régi,új>), csak utána magát a módosítást (Output(X))
+   (a COMMIT-ot naplózhatjuk a módosítások kiírása előtt is vagy utána is) 
+--------------------------------------------------------------------------------
+
+8.4.3 Feladat (könyv 489. old.)
+A következő undo/redo naplóbejegyzés-sorozat a T és U két tranzakcióra vonatkozik:
+<start T> 
+<T, A, 10, 11> 
+<start U> 
+<U, B, 20, 21> 
+<T, C, 30, 31> 
+<U, D, 40, 41>
+<COMMIT U>
+<T, E, 50, 51> 
+<COMMIT T>
+<END, U>
+<END, T>
+Adjuk meg a helyreállítás-kezelő tevékenységeit, ha az utolsó lemezre került naplóbejegyzés:
+(a) <START U>       -> undo helyreállítás T-re és U-ra
+(b) <C0MMIT U>      -> undo helyreállítás T-re és redo helyreállítás U-ra
+(c) <T, E, 50, 51>  -> undo helyreállítás T-re és redo helyreállítás U-ra
+(d) <C0MMIT T >     -> redo helyreállítás T-re és U-ra
+(e) <END, U>        -> redo helyreállítás T-re
+
+Helyreállítás:
+A COMMIT-tal nem rendelkező tranzakciókat UNDO-zzuk, majd a naplóba <ABORT, T>-t írunk + FLUSH LOG.
+A COMMIT-tal rendelkező tranzakciókat REDO-zzuk, majd a naplóba <END, T>-t írunk + FLUSH LOG.
+--------------------------------------------------------------------------------
+
+Ellenőrzőpont képzés
+  <START CKPT(T1, T2, ... Tk)> + FLUSH LOG
+  Az összes piszkos puffer lemezre írása
+  <END CKPT> + FLUSH LOG
+
+A helyreállításhoz elég a legutóbbi <END CKPT> előtti <START CKPT(Ti)> tranzakciói közül
+a legkorábbinak a kezdetéig -> <START Ti>-ig visszamenni. Az UNDO műveleteket az iménti
+bejegyzésig visszamenve kell végrehajtani, a REDO műveleteket azonban elég a 
+<START CKPT(Ti)>-től előrefelé haladva (lásd naplo.ppt 104-106 old.)
+
+Ha visszafelé haladva <START CKPT(Ti)> -vel találkozunk előbb azt figyelmen kívül hagyjuk,
+és keressük visszafelé a legutóbbi <END CKPT>-t.
+
+----
+
+
+Elméleti kérdések:
+------------------
+Mit jelent az, hogy két ütemezés konfliktus-ekvivalens?
+Mit jelent az, hogy egy ütemezés konfliktus-sorbarendezhető?
+Mi az a megelőzési gráf és hogyan épül fel?
+Mit állíthatunk konzisztens, kétfázisú tranzakciók jogszerű ütemezéséről?
+Igaz-e, hogy konzisztens tranzakciók jogszerű ütemezése konfliktus-sorbarendezhető? (ellenpélda)
+Igaz-e, hogy konzisztens, kétfázisú tranzakciók esetén nem alakulhat ki holtpont? (ellenpélda)
+Mi az a várakozási gráf és hogyan épül fel?
+--------------------------------------------------------------------------------
+
+Adott az alábbi három tranzakció. Adjuk meg az X adatbáziselem lehetséges
+értékeit a trazakciók lefutása után, feltéve, hogy a tranzakciók ütemezése
+soros, és X kezdeti értéke 100.
+T1: READ(X,t); t:=t+100; WRITE(X,t);
+T2: READ(X,t); t:=t*2; WRITE(X,t);
+T3: READ(X,t); t:=t+10; WRITE(X,t);
+
+T1,T2,T3 -> 410, T1,T3,T2 -> 420
+T2,T1,T3 -> 310, T2,T3,T1 -> 310
+T3,T1,T2 -> 420, T3,T2,T1 -> 320
+--------------------------------------------------------------------------------
+
+9.1.2 Feladat (ehhez hasonló)
+Hányféle különböző ütemezése van a fenti 3 tranzakciónak?  -> 9! / (3!*3!*3!)
+Hányféle soros ütemezése van a fenti 3 tranzakciónak?      -> 3! = 6 féle
+--------------------------------------------------------------------------------
+
+9.2.1 Feladat
+Adott az alábbi két tranzakció. Igazoljuk, hogy a (T1,T2) és (T2,T1) soros 
+ütemezések ekvivalensek, vagyis az adatbázison való hatásuk azonos.
+T1: READ(A,t); t:=t+2; WRITE(A,t); READ(B,t); t:=t*3; WRITE(B,t);
+T2: READ(B,s); s:=s*2; WRITE(B,s); READ(A,s); s:=s+3; WRITE(A,s); (-> A és B értéke ugyanaz lesz)
+
+-> A tranzakciók lefutása után A-ból -> A+5, B-ből -> 6*B lesz mindkét esetben.
+--------------------------------------------------------------------------------
+
+Adjunk példát a fenti 12 művelet sorba rendezhető és nem sorba rendezhető ütemezésére is.
+(-> R1(A), t:=t+2, W1(A), R2(B), s:=s*2, W2(B), R1(B), t:=t*3, W1(B), R2(A), s:=s+3, W2(A) ) sorbarendezhető
+(-> R1(A), t:=t+2, W1(A), R2(B), s:=s*2, R1(B), W2(B), t:=t*3, W1(B), R2(A), s:=s+3, W2(A) )
+--------------------------------------------------------------------------------
+
+A tranzakciók lokális értékadási műveleteinek sorrendje (pl. t:=t+2) nem igazán
+számít, valójában az írási és olvasási műveletek sorrendje a fontos. Ezért 
+a továbbiakban csak ezeket fogjuk felírni.         
+
+9.2.2 Feladat
+Az előző feladat tranzakcióiban csak az írási és olvasási műveleteket jelölve a 
+következő két tranzakciót kapjuk:
+T1: R1(A); W1(A); R1(B); W1(B);
+T2: R2(B); W2(B); R2(A); W2(A);
+A fenti 8 művelet ütemezései közül hány darab konfliktusekvivalens a 
+(T1,T2) soros sorrenddel? 
+-> csupán egyetlen egy, maga a soros ütemezés
+   R1(A); W1(A); R1(B); W1(B); R2(B); W2(B); R2(A); W2(A);
+                        ------------ konfliktus
+
+A fenti 8 művelet ütemezései közül hány darab konfliktus sorbarendezhető?
+-> 2, (T1,T2) és (T2,T1) soros ütemezések
+--------------------------------------------------------------------------------
+
+9.2.3 Feladat
+Adjuk meg a konfliktus-sorbarendezhető ütemezések számát az alábbi két tranzakcióra.
+T1: r1(A); w1(A); r1(B); w1(B);
+T2: r2(A); w2(A); r2(B); w2(B);
+
+r1(A); w1(A); r1(B); w1(B);r2(A); w2(A); r2(B); w2(B);
+              --------------------------
+(T1,T2) soros sorrenddel konfliktus ekvivalens:
+A középső 4 művelet lehet teszőlegesen ütemezni, ezek száma: 4! / (2! * 2!) = 6
+
+Ugyanez igaz (T2,T1) soros sorrendre is, így összesen 12 a végeredmény.
+--------------------------------------------------------------------------------
+
+9.2.4 Feladat
+Adjuk meg az alábbi ütemezések megelőzési gráfját.
+R1(A); R2(A); R3(B); W1(A); R2(C); R2(B); W2(B); W1(C);
+R1(A); R2(A); W1(B); W2(B); R1(B); R2(B); W2(C); W1(D);
+R1(A); R2(A); R1(B); R2(B); R3(A); R4(B); W1(A); W2(B);
+R1(A); R2(A); R1(C); R2(B); R3(A); R4(B); W1(A); W2(B);    
+--------------------------------------------------------------------------------
+
+9.3.2 Feladat
+T1: l1(A); R1(A); W1(A); l1(B); R1(B); W1(B); u1(A); u1(B);
+T2: l2(B); R2(B); W2(B); l2(A); R2(A); W2(A); u2(B); u2(A);
+Kétfázisú-e a fenti két tranzakció?
+Adjunk példát egy olyan tranzakcióra, amely nem kétfázisú.
+Hány jogszerű ütemezést tudunk készíteni a fenti tranzakciók műveleteiből? 
+ -> 2-t, a két sorosat
+ Indoklás: a tranzakciók konzisztensek, kétfázisúak, tehát jogszerű ütemezésük 
+ konfliktus-sorbarendezhető lesz. A fenti két tranzakció esetén azonban csak a két
+ soros ütemezés konfliktus-sorbarendezhető, lásd a 9.2.2 feladatot.
+--------------------------------------------------------------------------------
+
+Adjuk meg az alábbi ütemezésekre, hogy jogszerűek-e, valamint a bennük szereplő tranzakciókról,
+hogy melyek konzisztensek illetve kétfázisúak.
+l1(A); W1(A); l1(B); u1(A); l2(A); W2(A); u2(A); R1(B); l2(C); W2(C); u2(C); u1(B)
+jogszerű, T1 kétfázisú
+
+l1(A); W1(A); u1(A); l2(A); W2(A); l1(B); u2(A); R1(B); l2(C); W2(C); u2(C); u1(B)
+jogszerű, egyik sem kétfázisú
+
+l1(A); W1(A); l2(A); W2(A); l1(B); u1(a); u2(A); R1(B); l2(C); W2(C); u2(C); u1(B)
+nem jogszerű, T1 kétfázisú
+--------------------------------------------------------------------------------
+
+9.3.4 Feladat
+Tekintsük a következő, két műveletet: r1(A), w1(B), valamint a szükséges 
+l1(A), u1(A), l1(B), u1(B) zárkezelő műveleteket. 
+Adjuk meg, hogy a műveleteknek hányféle lehetséges sorrendje lehet úgy, hogy az
+előálló tranzakció
+a) konzisztens legyen 
+   (-> 2 db hármas részsorozat <l,r,u> <l,w,u> tetszőleges ütemezései lesznek jók: 6!/(3!*3!) = 20)
+b) konzisztens de nem kétfázisú legyen 
+   (csak 2 nem kétfázisú konzisztens eset van, ha a részsorozatok egymás után állnak -> 2)
+c) konzisztens és kétfázisú legyen 
+   (-> 20-2=18)
+d) kétfázisú legyen
+   (A lock és unlock 2*2=4 lehetséges sorrendben lehet, először a l, majd az u műveletek.
+    Ezután az r az 5 hely bármelyikén lehet, majd a w a most már 6 hely bármelyikén: 4*5*6=120)
+e) se nem konzisztens, se nem kétfázisú legyen
+   (az összes lehetőség 6!=720, ebből kell levonni 120-at + 2-t -> 598)
+--------------------------------------------------------------------------------
+
+9.4.7 Feladat
+Az alábbi ütemezésből egy művelet hiányzik a kérdőjelek helyén:
+R1(A); R2(B); ???; W1(C); W2(A);
+Adjunk meg egy olyan olvasási műveletet ide, amely esetén az ütemezés nem konfliktus-sorbarendezhető.
+Adjunk meg egy olyan írási műveletet ide, amely esetén az ütemezés nem konfliktus-sorbarendezhető.
+
+megoldás: olyan műveletet kell keresni, amely esetén a megelőzési gráf kört fog tartalmazni
+--------------------------------------------------------------------------------
