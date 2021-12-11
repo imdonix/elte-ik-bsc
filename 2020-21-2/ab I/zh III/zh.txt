@@ -1,0 +1,150 @@
+-- Előkészítés, a táblák létrehozása script: https://sila.hajas.elte.hu/ABGY/cr_dolg_stb_elad.txt
+link egy külső oldalra
+
+feladatokban szereplő táblák DOLGOZO, OSZTALY
+
+1. Írjon PL/SQL tárolt függvényt, mely a paraméterben megadott szóban megszámolja a számjegyeket (0-9), és ezzel tér vissza! Tesztelje le az eredményt!
+
+(Mellékelje a tesztelés eredményét ezekre „a1b2c3”, „1234567890”, „1alma1”)
+
+CREATE OR REPLACE FUNCTION countnums(s VARCHAR2) RETURN INT IS
+ db INT := 0;
+BEGIN
+    FOR i IN 1..LENGTH(s) LOOP
+        IF trim(TRANSLATE(SUBSTR(s,i,1), '0123456789', ' ')) IS null THEN
+            db := db+1;
+        END IF;
+    END LOOP;
+    return db;
+END;
+/
+
+SELECT countnums('a1b2c3'), countnums('1234567890'), countnums('1alma1') from dual;
+
+-- countnums('a1b2c3') -> 3
+-- countnums('1234567890') -> 10
+-- countnums('1alma1') -> 2
+
+
+2. Írjon PL/SQL tárolt függvényt, amely a felhasználó által megadott telephelyen kiszámítja az ott dolgozókra a legnagyobb fizetési különbséget. Tesztelje le az eredményt!
+
+CREATE OR REPLACE FUNCTION countnums(th VARCHAR2) RETURN INT IS
+    m INT := 0;
+    CURSOR dc1 IS SELECT FIZETES FROM DOLGOZO, OSZTALY WHERE dolgozo.OAZON = osztaly.oazon AND telephely = th;
+    CURSOR dc2 IS SELECT FIZETES FROM DOLGOZO, OSZTALY WHERE dolgozo.OAZON = osztaly.oazon AND telephely = th;
+BEGIN
+    FOR d1 IN dc1 LOOP
+        FOR d2 IN dc2 LOOP
+            IF ABS(d1.fizetes - d2.fizetes) > m THEN
+                m := ABS(d1.fizetes - d2.fizetes);
+            END IF;
+        END LOOP;
+    END LOOP;
+    return m;
+END;
+/
+
+SELECT countnums('DALLAS') from dual;
+
+-- countnums('DALLAS') -> 2200
+
+3. Írjon PL/SQL tárolt függvényt, mely egy bemenő paramétert kap és visszaadja, hogy a szó palindrom-e. Ugyanaz-e visszafelé leírva!
+
+pl.: ZH2(’ dagad’) => 1
+     ZH2(’alma’) => 0
+
+CREATE OR REPLACE FUNCTION palindrom(str VARCHAR2) RETURN INT IS
+    m INT := 0;
+BEGIN 
+    FOR i IN 1..LENGTH(str)/2 LOOP
+        IF NOT(SUBSTR(str,i,1) LIKE SUBSTR(str,LENGTH(str)-i+1,1)) THEN
+            m := m + 1;
+        END IF;    
+    END LOOP;
+    return m;
+END;
+/
+
+SELECT palindrom(' dagad'), palindrom('alma')from dual;
+
+-- 0-t ad ha palindrom és mást ha nem.
+
+Tesztelje le az eredményt a tanult mindkét módszerrel! (Mellékelje a tesztelés eredményét 'kalap', 'teret', 'dagado'  paraméterekre)
+
+SELECT palindrom('kalap'), palindrom('teret'), palindrom('dagado') from dual;
+
+-- palindrom('kalap') -> 1
+-- palindrom('teret') -> 0 
+-- palindrom('dagado') -> 3
+
+
+4. Írjon egy PL/SQL tárolt eljárást, amelyik veszi a DOLGOZO táblából a dolgozókat NEV szerint rendezve, és minden páratlan sorszámú dolgozó nevét és fizetését kiírja.
+
+Tesztelje le!
+
+CREATE OR REPLACE PROCEDURE printout IS
+    CURSOR curr IS SELECT dkod, dnev, fizetes FROM DOLGOZO ORDER BY dnev;
+BEGIN
+    FOR rec IN curr LOOP
+        IF MOD(rec.dkod,2) = 0 THEN
+            dbms_output.put_line(rec.dnev || ' -> ' || rec.fizetes);
+        END IF;
+    END LOOP;
+END;
+/
+
+CALL printout();
+
+--ADAMS -> 1100
+--BLACK -> 1800
+--BLAKE -> 2850
+--CLARK -> 2450
+--FORD -> 3000
+--JAMES -> 950
+--JONES -> 2975
+--MARTIN -> 1250
+--MILLER -> 1300
+--SCOTT -> 3000
+--TURNER -> 1500
+
+
+5. Kurzort használva írjon PL/SQL tárolt függvényt f_ellenorzes névvel, ami paraméterként átvesz egy felhasználónevet, egy azonosítót és egy jelszót. 
+Akkor tér vissza 1-el, ha a felhasználónév egy létező dolgozó neve, és az azonosító a dolgozó főnökének azonosítója, a jelszó pedig a főnöke neve visszafelé írva. Utóbbi ellenőrzéséhez (1. paraméter egyenlő-e 2. paraméter visszafelé) írjon  külön egy tárolt függvényt (f_ellenorzes_resz névvel)! Egyébként 0-val tér vissza.
+
+Tesztelése:
+
+f_ellenorzes('BLAKE',7839,'GNIK')               => 1
+f_ellenorzes('TURNER',7698,'EKALB')         =>1
+f_ellenorzes('BLAKE',7839,'KING')               =>0
+f_ellenorzes('BLAKA',7839,'GNIK')              =>0
+
+
+CREATE OR REPLACE FUNCTION revstr(inp VARCHAR2) RETURN VARCHAR2 IS
+        re VARCHAR2(128) := '';
+BEGIN
+        FOR i in REVERSE 1..LENGTH(inp) LOOP
+                re := re || substr(inp, i, 1);
+        END LOOP;
+        return re;
+END;
+/
+
+CREATE OR REPLACE FUNCTION f_ellenorzes(fh VARCHAR2, id INT, pass VARCHAR2) RETURN INT IS
+   CURSOR se IS SELECT d2.dnev FROM DOLGOZO d1, DOLGOZO d2 WHERE d1.dnev = fh AND d1.fonoke = d2.dkod;
+BEGIN 
+    FOR nev IN se LOOP
+        IF revstr(nev.dnev) LIKE pass THEN
+            return 1;
+        END IF;   
+    END LOOP;
+    return 0;
+END;
+/
+
+SELECT f_ellenorzes('BLAKE',7839,'GNIK'), f_ellenorzes('TURNER',7698,'EKALB'), f_ellenorzes('BLAKE',7839,'KING'), f_ellenorzes('BLAKA',7839,'GNIK');
+
+--f_ellenorzes('BLAKE',7839,'GNIK') -> 1
+--f_ellenorzes('TURNER',7698,'EKALB') -> 1
+--f_ellenorzes('BLAKE',7839,'KING') -> 0
+-f_ellenorzes('BLAKA',7839,'GNIK') -> 0
+
