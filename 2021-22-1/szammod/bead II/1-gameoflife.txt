@@ -1,0 +1,5 @@
+a: 32 generáció után csendéleté válik
+b: oszcillátor 9-es periódussal
+c: űrhajó 12-es periódussal
+d: csendélet
+e: oszcillátor 4-es periódussal
