@@ -51,3 +51,9 @@ Alapok
 
 # GY10
 ? hiányzik ?
+
+# GY11
+#TODO
+
+# GY12
+#TODO
