@@ -1,4 +1,4 @@
 # Követelmények
 
 - Heti videó + canvas kvízek (75%)
-- Írásbeli vizsga
+- Írásbeli vizsga (Canvas)
