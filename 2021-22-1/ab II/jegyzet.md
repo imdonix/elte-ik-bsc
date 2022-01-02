@@ -8,3 +8,9 @@
 # Előadás
 
 - Keddi napokon vizsga irásbeli (ONLINE)
+
+Osztályzat:
+- (2) - 40%
+- (3) - 55%
+- (4) - 70%
+- (5) - 85%
