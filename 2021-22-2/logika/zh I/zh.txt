@@ -1,0 +1,173 @@
+# Logika ZH I
+### Magyar Tamás
+
+## 1.1/A
+
+- Ha szeretek álmodozni, vagy ha érdekel a fizika, akkor tanulok csillagászatot.
+- Szeretek álmodozni, de nem érdekel a fizika.
+- Csak akkor tanulok csillagászatot, ha érdekel a fizika.
+
+- K: Nem szeretek álmodozni.
+
+S -> szeretek álmodozni
+F -> érdekel a fizika
+C -> tanulok csillagászat
+
+(S v F) ⊃ C = 1
+S ᴧ ¬F = 2
+F ⊃ C = 3
+
+K: ¬S
+
+## 1.1/B
+
+S | F | C || 1 | 2 | 3 || K
+-------------------------
+I | I | I || I | H | I || H
+I | I | H || H | H | H || H
+I | H | I || I | I | I || H
+I | H | H || H | I | I || H
+
+H | I | I || I | H | I || I
+H | I | H || H | H | H || I
+H | H | I || I | H | I || I
+H | H | H || I | H | I || I
+
+Mivel van olyan interpretáció, ahol a formulahalmaz igaz viszont a következmény nem.
+Ezért nem következménye.
+
+## 1.2/a
+
+            φ((A ⊃ C ⊃ B) v (¬C ᴧ B))i
+
+        φ((A ⊃ (C ⊃ B)))i    |      φ(¬C ᴧ B)i
+
+    φ(A)h       |    φ(C ⊃ B)i         φ(¬C)i
+                                        φ(B)i
+                                        φ(C)h
+                    φ(C)h | φ(B)i
+
+1. ág
+A | B | C
+---------
+h | * | *
+---------
+h | i | i
+h | i | h
+h | h | i
+h | h | h
+
+2. ág
+A | B | C
+---------
+* | * | h
+---------
+i | i | h
+i | h | h
+h | i | h
+h | h | h
+
+3. ág
+A | B | C
+---------
+* | i | *
+---------
+i | i | i
+i | i | h
+h | i | i
+h | i | h
+
+4. ág
+A | B | C
+---------
+* | i | h
+---------
+i | i | h
+h | i | h
+
+Igazhalmaz:
+A | B | C
+---------
+h | i | i
+h | i | h
+h | h | i
+h | h | h
+i | i | h
+i | h | h
+i | i | i
+
+## 1.2/B
+
+{A v C ⊃ ¬B, A ᴧ ¬C, ¬B ⊃ A} ⊨0 ¬B
+(A v C ⊃ ¬B) ⊃ (A ᴧ ¬C) ⊃ (¬B ⊃ A) ⊃ ¬B
+
+φ((A v C ⊃ ¬B) ⊃ (A ᴧ ¬C) ⊃ (¬B ⊃ A) ⊃ ¬B)h
+
+φ((A v C) ⊃ ¬B)i
+φ(A ᴧ ¬C)i
+φ(¬B ⊃ A)i
+φ(¬B)h
+**φ(B)i**
+**φ(A)i**
+φ(¬C)i
+**φ(C)h**
+
+φ(¬B)h      |  **φ(A)i**
+**φ(B)i**
+
+φ(A v C)h   | φ(¬B)i
+**φ(A)h**     **φ(B)h**
+**φ(C)h**       e.m.
+  e.m.
+
+Minden ágon ellentmondásba ütköztünk, tehát az implikáció lánc hamishalmaza üres. Ebből következik hogy az összes interpretáció az igaz halmazban van, tehát ez egy tautológia, és így teljesül a következmény.
+
+## 2.1/a
+
+1. Nem létezik olyan ember, aki varázsló.
+2. Ha Merlin elsajátította a tűzgolyó varázslatot, csak akkor igazi tűzvarázsló.
+3. Minden varázslóra igaz, hogy az első mesterük nem igazi tűzvarázsló, valamint, hogy elsajátították a tűzgolyó varázslatot.
+
+U: {ember}
+Predikátumok:
+|V(x)|  - x varázsló
+|T(x)|  - x tudja a tűzgolyó varázslatot
+|TV(x)| - x tűzvarázsló
+Függvények:
+|m(x,y)| y x-nak első mestere
+Konstansok:
+ā = Merlin
+
+## 2.1/b
+1. ¬∃x(V(x))
+2. TV(ā) ⊃ T(ā)
+3. ∀x(V(x) ᴧ ∃y(m(x,y) ᴧ ¬TV(y)) ᴧ T(x))
+
+## 2.2/a
+
+∀x∃y(P(x) ⊃ Q(x, y)) v ¬P(v) ᴧ Q(z, ā) ⊃ ∃wQ(f(ā),w)
+
+U: {1,2,4}
+Predikátumok:
+P(x) – x prím
+Q(x, y) – x ≠ y
+Fügvény:
+f(x) – x fele egészekre kerekítve az univerzumon belül
+Konstansok:
+ā – 2
+
+Prímkomponensei:
+- ∀x∃y(P(x) ⊃ Q(x, y)) = 1
+- ¬P(v) = 2
+- Q(z, ā) = 3
+- ∃w(Q(f(ā),w)) = 4
+
+v | z || 1 | 2 | 3 | 4 || (1 v 2) ᴧ 3 ⊃ 4
+1 | 1 || I | H | I | I || I
+2 | 2 || I | H | H | I || I
+4 | 4 || I | I | I | I || I
+
+
+## 2.2/b 
+Szemantikus tulajdonságai:
+Kielégíthető és Logikai törvény

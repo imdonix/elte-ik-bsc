@@ -31,6 +31,5 @@ formulahalmazt (I |=0 {F1, F2, ...Fn}), az kielégíti a G következményformul�
     3. Kiértékel hamishalmazra
     4. Ha mindenhol ellentmondást kapsz akkor teljesül.
 
-## 
-
-
+## Elsőrendű formalizálás
+## Elsőrendű értéktábla
