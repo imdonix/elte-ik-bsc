@@ -1,0 +1,53 @@
+## 1. Elsőrendű formalizálás
+ - Létezik olyan állat amelyik húsevő.
+ - Minden állatra igaz: ha növényevő, akkor szeret fészket rakni.
+ - Alex az oroszlán, és Bob a baromfi között fennáll a predátor - préda viszony
+ - Van olyan állat, amelynek az édesapja szeret fészket rakni.
+
+Interpretáció:
+U = { állatok }
+Predikátumok:
+|H(x)|  - x húsevő
+|N(x)|  - x növényevő
+|F(x)|  - x szeret fészket rakni
+|V(x,y)|- x és y között fennáll a predátor-préda viszony
+|A(x,y)|- x-nek édesapja y
+
+Konstans:
+a - Alex az oroszlán
+b - Bob a baromfi
+
+Formalizálás:
+
+- ∃x(H(x))
+- ∀x(F(x) ⊃ N(x))
+- V(a,b)
+- ∃x(∃y(A(x,y) ᴧ F(y)))
+
+## 2. Elsőrendű értéktábla
+U = { aa, ab, ba, bb }
+Predikátum:
+|P(x)| - x első karaktere 'a'
+|Q(x, y)| - x-ben és y-ban ugyanannyi 'b' szerepel
+Fügvény:
+|f(x)|- 'aa', ha x-ben van 'a', egyébként 'bb'
+Konstans:
+a - ba
+
+P(f(v)) ⊃ ∃xQ(x, a) ∧ ∀y∃z(Q(f(y), z))
+
+Prímkomponensei:
+- P(f(v)) = 1
+- ∃xQ(x, a) = 2
+- ∀y∃z(Q(f(y), z)) = 3
+
+v  || 1 | 2 | 3 || 1 ⊃ (2 ∧ 3)
+aa || I | H | I || H
+ab || I | H | I || H
+ba || I | H | I || H
+bb || H | H | I || I
+
+Szemantikus tulajdonságai:
+Kielégithető de nem Logikai törvény
+
+## 3. TODO
