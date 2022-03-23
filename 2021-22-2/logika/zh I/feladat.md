@@ -56,4 +56,4 @@ Q(x, y) – x ≠ y
 f(x) – x fele egészekre kerekítve az univerzumon belül
 
 ## 2.2. b)
- Mit tudunk mondani a formula szemantikus tulajdonságairól az értéktábla alapján! (3 pont)
+Mit tudunk mondani a formula szemantikus tulajdonságairól az értéktábla alapján! (3 pont)
