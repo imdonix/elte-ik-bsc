@@ -1,4 +1,4 @@
-## 1. Elsőrendű formalizálás
+## 1. Elsőrendű formalizálás (1.5/3p)
  - Létezik olyan állat amelyik húsevő.
  - Minden állatra igaz: ha növényevő, akkor szeret fészket rakni.
  - Alex az oroszlán, és Bob a baromfi között fennáll a predátor - préda viszony
@@ -24,7 +24,7 @@ Formalizálás:
 - V(a,b)
 - ∃x(∃y(A(x,y) ᴧ F(y)))
 
-## 2. Elsőrendű értéktábla
+## 2. Elsőrendű értéktábla (2/3p)
 U = { aa, ab, ba, bb }
 Predikátum:
 |P(x)| - x első karaktere 'a'
@@ -50,4 +50,4 @@ bb || H | H | I || I
 Szemantikus tulajdonságai:
 Kielégithető de nem Logikai törvény
 
-## 3. TODO
+## 3. TODO (?/0p)
