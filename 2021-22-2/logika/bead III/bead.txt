@@ -1,0 +1,35 @@
+# 1. Klasszikus ítéletkalkulusbeli címkézés 
+
+{C, A, B, ¬¬C ⊃ ¬A} |- ¬B ∨ ¬C
+
+1. (¬¬B ⊃ A) ⊃ ((¬B ⊃ ¬A) ⊃ ¬B  [A1, ahol A||¬¬B ⊃ A, B||¬B]
+2. C    [hip]
+3. C ⊃ ¬¬C  [B3, ahol A||C]
+4. ¬¬C  [MP(2,3)]
+5. ¬¬C ⊃ ¬A [hip]
+6. ¬A   [MP(4,5)]
+7. A    [hip]
+8. A ⊃ (¬¬B ⊃ A)    [A1, ahol B||¬¬B]
+9. ¬¬B ⊃ A  [MP(7,8)]
+10. ¬A ⊃ (¬B ⊃ ¬A)  [A1, ahol A||¬A, B||¬B]
+11. ¬B ⊃ ¬A [MP(6,10)]
+12. (¬B ⊃ ¬A) ⊃ ¬B [MP(1,9)]
+13. ¬B  [MP(11,12)]
+14. ¬B ⊃ ¬B ∨ ¬C [D2, ahol A||¬B, B||¬C]
+15. ¬B ∨ ¬C [MP(13,14)]
+
+# 2. Klasszikus ítéletkalkulusbeli levezetéás
+
+{P ∧ ¬Q)} |- ¬R ∧ Q ⊃ R ∧ ¬P 
+// feltételezem hogy a ')' csak véletlen
+
+Dedukciós tétel alapján: {P ∧ ¬Q, ¬R ∧ Q} |- R ∧ ¬P
+
+1. R ⊃ (¬P ⊃ R ∧ ¬P) [C1, ahol A||R, B||¬P]
+2. ¬R ∧ Q [hip]
+3. ¬R ∧ Q ⊃ ¬R [C2, ahol A||R, B||Q]
+4. ¬R [MP(2,3)]
+
+5. P ∧ ¬Q [hip]
+6. P ∧ ¬Q ⊃ P [C2, ahol A||P, B||Q]
+7. P [MP(5,6)]
