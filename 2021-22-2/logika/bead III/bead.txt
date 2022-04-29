@@ -1,4 +1,4 @@
-# 1. Klasszikus ítéletkalkulusbeli címkézés [2/2] -> Same
+# 1. Klasszikus ítéletkalkulusbeli címkézés [2/2]
 
 {C, A, B, ¬¬C ⊃ ¬A} |- ¬B ∨ ¬C
 
@@ -18,7 +18,7 @@
 14. ¬B ⊃ ¬B ∨ ¬C [D2, ahol A||¬B, B||¬C]
 15. ¬B ∨ ¬C [MP(13,14)]
 
-# 2. Klasszikus ítéletkalkulusbeli levezetéás [3/2.5] -> Fix step 10
+# 2. Klasszikus ítéletkalkulusbeli levezetéás [3/3]
 
 {P ∧ ¬Q)} |- ¬R ∧ Q ⊃ R ∧ ¬P 
 // feltételezem hogy a ')' csak véletlen
@@ -50,7 +50,7 @@ Dedukciós tétel alapján: {P ∧ ¬Q, ¬R ∧ Q} |- R ∧ ¬P
 22. ¬P ⊃ R ∧ ¬P [MP(1,14)]
 23. R ∧ ¬P [MP(21,22)]
 
-#3. Természetes levezetés (3 pont) [3/0] -> New
+#3. Természetes levezetés (3 pont) [3/3]
 ¬¬A  ⊃  B,  A  ∨  ¬(B ⊃ ¬C)  |-  B ∨ C
                                                                                     ok                              ok
                                                                            ------------------------     --------------------- 
@@ -76,7 +76,7 @@ Dedukciós tétel alapján: {P ∧ ¬Q, ¬R ∧ Q} |- R ∧ ¬P
 ¬¬A  ⊃  B,  ¬(B ⊃ ¬C)  |-  B
 
 
-#4. Bizonyításelmélet (3 pont) [3/0] -> New
+#4. Bizonyításelmélet (3 pont) [3/0.5] -> Fix?
 
 
 ⊃, ∨:
