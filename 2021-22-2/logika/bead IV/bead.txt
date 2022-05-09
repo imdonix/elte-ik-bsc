@@ -1,4 +1,4 @@
-# 1. Itéletlogikai rezolúciós levezetés (4 pont)
+# 1. Itéletlogikai rezolúciós levezetés [4/4]
 
 S = {(A ∨ ¬B) ∧ B, ¬C ⊃ ¬A} |= C ∧ B
 {(A ∨ ¬B) ∧ B, ¬C ⊃ ¬A, ¬(C ∧ B)} ->
