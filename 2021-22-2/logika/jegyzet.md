@@ -12,7 +12,7 @@ A félév során a tárgyból összesen 140 pont szerezhető, 35 pont beadandób
 ## ZH:
 - Összesen 105 pont szerezhető
 - Az első ZH-n 50 pont szerezhető ebből minimum 20 pontot kell elérni
-- A második ZH-n 55 pont szerezhető ebből minimum 22 pontot kell elérni
+- A második ZH-n 55 pont szerezhető ebből minimum 22 pontot kell elérni `(7 + 9 + 9 + 5 + 10 + 5 + 10)` + seq, első klózh
 
 ## Százalékos jegyhatárok:
 | Jegy | Pont  |
@@ -21,3 +21,4 @@ A félév során a tárgyból összesen 140 pont szerezhető, 35 pont beadandób
 | 3 | 50%  |
 | 4 | 70%  |
 | 5 | 85%  |
+
